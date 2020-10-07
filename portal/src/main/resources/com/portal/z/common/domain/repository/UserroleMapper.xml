@@ -12,17 +12,19 @@
     
     <!-- １件insert -->
     <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Userrole">
-        INSERT INTO zm003_userrole(
+        insert into
+          zm003_userrole (
            user_id
-          ,role_id)
-        VALUES (
+          ,role_id
+          )
+        values (
            #{user_id}
-          ,#{role_id})
+          ,#{role_id}
+        )
     </insert>
 
     <!-- １件削除 -->
     <delete id="deleteOne" parameterType="string">
-        DELETE FROM zm003_userrole
-        WHERE user_id = #{user_id}
+        delete from zm003_userrole where user_id = #{user_id}
     </delete>
 </mapper>

@@ -25,14 +25,17 @@ public class HomeController {
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/home :: home_contents");
         
+        //ToDo　確認用のため、そのうち消します
         log.info("HOME画面の処理");
         
+        //ToDo　確認用のため、そのうち消します
         //ログインユーザー情報の取得(その2)
         AppUserDetails user2 = (AppUserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-
+        
+        //ToDo　確認用のため、そのうち消します
         log.info("user2: " + user2.toString());
                   
         return "z/homeLayout";

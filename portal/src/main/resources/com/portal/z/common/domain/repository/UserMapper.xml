@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-
 <mapper namespace="com.portal.z.common.domain.repository.UserMapper">
     <!-- マッピング定義 -->
     <resultMap type="com.portal.z.common.domain.model.User" id="user">
@@ -17,14 +16,13 @@
     
     <!-- カウント -->
     <select id="count" resultType="_int">
-        SELECT
-            COUNT(*)
-        FROM zm001_user
+        select count(*) from zm001_user
     </select>
 
     <!-- １件insert -->
     <insert id="insertOne" parameterType="com.portal.z.common.domain.model.User">
-        INSERT INTO zm001_user(
+        insert into
+          zm001_user (
            user_id
           ,user_due_date
           ,password
@@ -35,8 +33,9 @@
           ,insert_user
           ,insert_date
           ,update_user
-          ,update_date)
-        VALUES (
+          ,update_date
+          )
+        values (
            #{user_id}
           ,#{user_due_date}
           ,#{password}
@@ -47,12 +46,13 @@
           ,'insert_user'   <!-- セッション情報からuseridを取りたい -->
           ,NOW()
           ,NULL
-          ,NULL)
+          ,NULL
+          )
     </insert>
 
     <!-- １件検索 -->
     <select id="selectOne" parameterType="string" resultType="com.portal.z.common.domain.model.User">
-        SELECT
+        select
            user_id
           ,user_due_date
           ,password
@@ -60,15 +60,15 @@
           ,login_miss_times
           ,lock_flg
           ,enabled_flg
-        FROM
+        from
           zm001_user
-        WHERE
+        where
           user_id = #{user_id}
     </select>
 
     <!-- 全件検索 -->
     <select id="selectMany" resultMap="user">
-        SELECT
+        select
            user_id
           ,user_due_date
           ,password
@@ -76,16 +76,17 @@
           ,login_miss_times
           ,lock_flg
           ,enabled_flg
-        FROM
-            zm001_user
-        ORDER BY
-            user_id
+        from
+          zm001_user
+        order by
+          user_id
     </select>
 
     <!-- １件更新 -->
     <update id="updateOne" parameterType="com.portal.z.common.domain.model.User">
-        UPDATE zm001_user
-        SET
+        update
+          zm001_user
+        set
            user_due_date    = #{user_due_date}
           ,password         = #{password}
           ,pass_update      = #{pass_update}
@@ -94,11 +95,12 @@
           ,enabled_flg      = #{enabled_flg}
           ,update_user      = 'update_user'   <!-- セッション情報からuseridを取りたい -->
           ,update_date      = NOW()
-        WHERE user_id       = #{user_id}
+        where
+          user_id           = #{user_id}
     </update>
 
     <!-- １件削除 -->
     <delete id="deleteOne" parameterType="string">
-        DELETE FROM zm001_user WHERE user_id = #{user_id}
+        delete from zm001_user where user_id = #{user_id}
     </delete>
 </mapper>

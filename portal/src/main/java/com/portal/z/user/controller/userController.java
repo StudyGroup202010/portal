@@ -314,7 +314,6 @@ public class userController {
         boolean result_1 = userroleService.deleteOne(form.getUser_id());
         boolean result_2 = userService.deleteOne(form.getUser_id());
 
-
         if (result_1 == true && result_2 == true) {
 
             model.addAttribute("result", "削除成功");
