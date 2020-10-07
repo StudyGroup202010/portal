@@ -16,7 +16,7 @@ Note
 * JDK
   * Adopt Open JDK 11  (https://adoptopenjdk.net/) 
 * RDB  
-　*PostgreSQL 12.4 (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+  * PostgreSQL 12.4 (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 * IDE
   * Spring Tool Suite 4.4.6.2 (https://spring.io/tools) 
 * FrameWork
