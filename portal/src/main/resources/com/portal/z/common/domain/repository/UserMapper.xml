@@ -43,7 +43,7 @@
           <!-- login_miss_times　は　初期値を使う -->
           ,#{lock_flg}
           ,#{enabled_flg}
-          ,'insert_user'   <!-- セッション情報からuseridを取りたい -->
+          ,#{insert_user}
           ,NOW()
           ,NULL
           ,NULL
@@ -93,7 +93,7 @@
           ,login_miss_times = #{login_miss_times}
           ,lock_flg         = #{lock_flg}
           ,enabled_flg      = #{enabled_flg}
-          ,update_user      = 'update_user'   <!-- セッション情報からuseridを取りたい -->
+          ,update_user      = #{update_user}
           ,update_date      = NOW()
         where
           user_id           = #{user_id}

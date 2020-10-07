@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +29,7 @@ import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
+import com.portal.z.login.domain.model.AppUserDetails;
 
 
 @Controller
@@ -174,6 +175,14 @@ public class userController {
         user.setLock_flg(form.isLock_flg());                  //ロック状態
         user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
         
+        //ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        
+        user.setInsert_user(user_auth.getUsername());         //作成者
+        
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
         
@@ -278,6 +287,14 @@ public class userController {
         user.setLogin_miss_times(form.getLogin_miss_times()); //ログイン失敗回数
         user.setLock_flg(form.isLock_flg());                  //ロック状態
         user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
+        
+        //ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        
+        user.setUpdate_user(user_auth.getUsername());         //更新者
 
         try {
 
