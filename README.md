@@ -32,7 +32,7 @@ Note
 
 References
 -------
-
+こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>
 
 Contributing
 -------
