@@ -32,7 +32,9 @@ Note
 
 References
 -------
-こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>
+* こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
+* 【後悔しないための入門書】Spring解体新書　⇒　https://amzn.to/3jDEaQy  
+
 
 Contributing
 -------
