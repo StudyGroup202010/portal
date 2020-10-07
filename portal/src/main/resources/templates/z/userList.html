@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrapの設定 -->
+    
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    
+</head>
+<body>
+    <!-- コンテンツ部分 -->
+    <div th:fragment="userList_contents">
+        <div class="page-header">
+            <h3>ユーザー一覧</h3>
+        </div>
+        <table class="table table-bordered table-hover table-striped table-sm">
+          <thead>
+             <tr class="table-info">
+                <th scope="col">ユーザID</th>
+                <th scope="col">ユーザ有効期限</th>
+                <th scope="col">パスワード有効期限</th>
+                <th scope="col">ログイン失敗回数</th>
+                <th scope="col">ロック状態</th>
+                <th scope="col">有効無効</th>
+                <th scope="col"></th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr th:each="user : ${userList}">
+                <td th:text="${user.user_id}"></td>
+                <td th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>       
+                <td th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}"></td>  
+                <td th:text="${user.login_miss_times}"></td>
+                <td th:text="${user.lock_flg} ? 'ロック' : 'アンロック'"></td>   
+                <td th:text="${user.enabled_flg} ? '有効' : '無効'"></td>   
+                <td>
+                    <!-- ユーザー詳細画面へのリンク -->
+                    <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.user_id}}">詳細</a>
+                </td>
+             </tr>
+          </tbody>
+        </table>
+        <!-- ユーザー一覧の件数 -->
+        <label th:text=" '合計：' + ${userListCount} + '件' "></label><br/>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-info" th:text="${result}">結果表示</label><br/>
+        <!-- CSV出力用のリンク -->
+        <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
+        <!-- ユーザー登録画面へのリンク -->
+        <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}">ユーザー登録</a>
+    </div>
+</body>
+</html>

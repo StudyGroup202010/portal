@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrapの設定 -->
+    
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- CSSの読込 -->
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
+
+    <title>Home</title>
+</head>
+<body>
+    <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
+    <nav class="navbar navbar-dark bg-primary sticky-top">
+      <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/home">ポータルサイト</a>
+            </div>
+            
+            <p>ユーザーID：<span sec:authentication="name"></span></p>
+            <p>ロール:<span sec:authentication="principal.authorities"></span></p>
+            
+            <form method="post" th:action="@{/logout}">
+                <button class="btn btn-link pull-right navbar-brand" type="submit">
+                    ログアウト
+                </button>
+            </form>
+      </div>
+    </nav>
+    
+    <!-- ===== サイドバー ===== -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 sidebar">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">ホーム</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/userList'}">ユーザ管理</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{'/admin'}">アドミン用画面</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- ===== コンテンツ ===== -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10 offset-sm-2 main">
+                <div th:include="__${contents}__"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
