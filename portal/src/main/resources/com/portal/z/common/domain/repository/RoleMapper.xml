@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.portal.z.common.domain.repository.RoleMapper">
+    <!-- マッピング定義 -->
+    <resultMap type="com.portal.z.common.domain.model.Role" id="role">
+        <id     column="role_id"      property="role_id" />
+        <result column="role_name"    property="role_name" />
+        <result column="biko"         property="biko" />
+    </resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Role">
+        insert into
+          zm002_role (
+           role_id
+          ,role_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{role_id}
+          ,#{role_name}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.z.common.domain.model.Role">
+        select
+           role_id
+          ,role_name
+          ,biko
+        from
+          zm002_role
+        where
+          role_id = #{role_id}
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="role">
+        select
+           role_id
+          ,role_name
+          ,biko
+        from
+          zm002_role
+        order by
+          role_id
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.z.common.domain.model.Role">
+        update
+          zm002_role
+        set
+           role_name   = #{role_name}
+          ,biko        = #{biko}
+          ,update_user = #{update_user}
+          ,update_date = NOW()
+        where
+          role_id      = #{role_id}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from zm002_role where role_id = #{role_id}
+    </delete>
+    
+    <!-- ロールＩＤ検索 -->
+    <select id="selectRoleid" parameterType="string" resultType="com.portal.z.common.domain.model.Role">        
+        select
+          a.role_id
+        from
+          zm002_role as a
+          inner join zm999_env as b
+            on a.role_name = b.env_txt
+            and b.env_id = #{env_id}
+    </select>
+</mapper>
