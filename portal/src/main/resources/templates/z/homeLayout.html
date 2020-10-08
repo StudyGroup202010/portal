@@ -25,9 +25,6 @@
                 <a class="navbar-brand" href="/home">ポータルサイト</a>
             </div>
             
-            <p>ユーザーID：<span sec:authentication="name"></span></p>
-            <p>ロール:<span sec:authentication="principal.authorities"></span></p>
-            
             <form method="post" th:action="@{/logout}">
                 <button class="btn btn-link pull-right navbar-brand" type="submit">
                     ログアウト

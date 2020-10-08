@@ -27,8 +27,10 @@ import com.portal.z.user.domain.model.GroupOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
+import com.portal.z.common.domain.service.EnvService;
 import com.portal.z.login.domain.model.AppUserDetails;
 
 
@@ -40,6 +42,9 @@ public class userController {
     
     @Autowired
     private UserroleService userroleService;
+    
+    @Autowired
+    private EnvService envService;
     
     //パスワード暗号化
     @Autowired
@@ -186,8 +191,11 @@ public class userController {
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
         
+        // 一般ユーザ権限情報を取得
+        Env env = envService.selectOne("ROLE_G");
+        
         userrole.setUser_id(form.getUser_id());               //ユーザーID
-        userrole.setRole_id("general");                       //ロールID
+        userrole.setRole_id(env.getEnv_txt());                //ロールID
         
         // ユーザー登録処理
         boolean result_1 = userService.insert(user);
