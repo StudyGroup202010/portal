@@ -18,15 +18,18 @@ public class UserDaoJdbcImpl implements UserDao {
     public void userCsvOut() throws DataAccessException {
 
         // M_USERテーブルのデータを全件取得するSQL
-        String sql  = "SELECT"
-        		    + "  user_id"
-        		    + " ,user_due_date"
-        		    + " ,pass_update"
-        		    + " ,login_miss_times"
-        		    + " ,lock_flg"
-        		    + " ,enabled_flg"
-        		    + " FROM zm001_user"
-                    + " ORDER BY user_id";
+        String sql  = " select"
+        		    + "    user_id"
+        		    + "   ,user_due_date"
+        		    + "   ,pass_update"
+        		    + "   ,login_miss_times"
+        		    + "   ,lock_flg"
+        		    + "   ,enabled_flg"
+        		    + " from"
+        		    + "   zm001_user"
+                    + " order by"
+                    + "   user_id"
+        		    ;
      
         // ResultSetExtractorの生成
         UserRowCallbackHandler handler = new UserRowCallbackHandler();

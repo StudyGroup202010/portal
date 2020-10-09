@@ -48,15 +48,8 @@ public class InputForm {
     private boolean enabled_flg;      //有効フラグ
     
     
-//    //必須入力
-//    @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
-//    private String user_name; // ユーザー名
-//
-//    //必須入力
-//    @NotNull(groups = ValidGroup1.class, message = "{require_check}")
-//    @DateTimeFormat(pattern = "yyyy/MM/dd")
-//    private Date birthday; // 誕生日
-//
+
+//　以下、チェック実装の参考
 //    //値が20から100まで
 //    @Min(value = 20, groups = ValidGroup2.class, message = "{min_check}")
 //    @Max(value = 150, groups = ValidGroup2.class, message = "{max_check}")
