@@ -42,6 +42,37 @@ Note
 　　⇒DatabaseとTable、テストデータがあります。   
 ８．IDEにリポジトリを取り込んでコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
 
+アプリケーション構成
+-------
+com   
+ └ portal  
+　　├ z  ・・・　全体の共通機能  
+　　│　├ common  ・・・zの共通機能  
+　　│　│　├ aspect  
+　　│　│　├ config  
+　　│　│　├ controller  
+　　│　│　└ domain  
+　　│　│　　├ model  
+　　│　│　　├ repository  
+　　│　│　　└ service  
+　　│　└ 〇〇〇  ・・・zの個別機能（〇〇画面など）  
+　　│　　　├ controller  
+　　│　　　└ domain  
+　　│　　　　　├ model  
+　　│　　　　　├ repository  
+　　│　　　　　└ service  
+　　│  
+　　├ a  ・・・アプリケーションＡ  
+　　│　├ common  ・・・Ａの共通機能  
+　　│　│　├ config  
+　　│　│　├ controller  
+　　│　│　└ domain  
+　　│　└ 〇〇〇  ・・・Ａの個別機能  
+　　│　　├ controller  
+　　│　　└ domain  
+　　│  
+　　└ b  ・・・アプリケーションＢ     
+ 
 References
 -------
 * こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
