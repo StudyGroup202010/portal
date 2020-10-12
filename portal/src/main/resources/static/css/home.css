@@ -12,3 +12,26 @@
   padding-top: 　0px;
   padding-left: 20px;
 }
+
+
+.table-list thead {
+            width: 98.5%;     /* スクロールバーの幅があるので若干少なめにしています（100%だとズレる） */
+            text-align: center
+}
+
+.table-list tbody {
+            height: 350px;
+            width:  100%;
+            overflow-y: auto;  /* テーブルに縦スクロールを入れる */
+}
+
+.table-list thead, .table-list tbody, .table-list tr, .table-list td, .table-list th {
+            display: block;
+}
+
+.table-list tbody td, .table-list thead > tr > th {
+		    height: 40px;
+            float:  left;
+}
+
+

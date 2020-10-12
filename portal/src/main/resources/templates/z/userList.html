@@ -12,8 +12,8 @@
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   
-  
-  
+      <!-- CSSの読込 -->
+    <link th:href="@{/css/userList.css}" rel="stylesheet"></link>
   
     <title>UserList</title>  
 </head>
@@ -22,29 +22,34 @@
         <div class="page-header">
             <h3>ユーザー一覧</h3>
         </div>
-        <table class="table table-bordered table-hover table-striped table-sm">
+        
+        <!-- CSV出力用のリンク -->
+        <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
+        <!-- ユーザー登録画面へのリンク -->
+        <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}">新規登録</a>
+        <table class="table table-list table-bordered table-hover table-striped table-sm">
           <thead>
              <tr class="table-info">
-                <th scope="col">ユーザID</th>
-                <th scope="col">ユーザ有効期限</th>
-                <th scope="col">パスワード有効期限</th>
-                <th scope="col">ログイン失敗回数</th>
-                <th scope="col">ロック状態</th>
-                <th scope="col">有効無効</th>
-                <th scope="col"></th>
+                <th scope="col" style="width:27%;">ユーザID</th>
+                <th scope="col" style="width:15%;">ユーザ有効期限</th>
+                <th scope="col" style="width:15%;">パスワード有効期限</th>
+                <th scope="col" style="width:15%;">ログイン失敗回数</th>
+                <th scope="col" style="width:10%;">ロック状態</th>
+                <th scope="col" style="width:8%;">有効無効</th>
+                <th scope="col" style="width:10%;">　</th>
              </tr>
           </thead>
           <tbody>
              <tr th:each="user : ${userList}">
-                <td th:text="${user.user_id}"></td>
-                <td th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>       
-                <td th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}"></td>  
-                <td th:text="${user.login_miss_times}"></td>
-                <td th:text="${user.lock_flg} ? 'ロック' : 'アンロック'"></td>   
-                <td th:text="${user.enabled_flg} ? '有効' : '無効'"></td>   
-                <td>
+                <td th:text="${user.user_id}" style="width:27%;"></td>
+                <td th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}" style="width:15%;" align="center"></td>       
+                <td th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}" style="width:15%;" align="center"></td>  
+                <td th:text="${user.login_miss_times}" style="width:15%;" align="right"></td>
+                <td th:text="${user.lock_flg} ? 'ロック' : 'アンロック'" style="width:10%;" align="center"></td>   
+                <td th:text="${user.enabled_flg} ? '有効' : '無効'" style="width:8%;" align="center"></td>   
+                <td style="width:10%;" align="center">
                     <!-- ユーザー詳細画面へのリンク -->
-                    <a class="btn btn-primary" th:href="@{'/userDetail/' + ${user.user_id}}">詳細</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{'/userDetail/' + ${user.user_id}}" >詳細</a>
                 </td>
              </tr>
           </tbody>
@@ -53,10 +58,7 @@
         <label th:text=" '合計：' + ${userListCount} + '件' "></label><br/>
         <!-- 更新・削除処理の結果表示用 -->
         <label class="text-info" th:text="${result}">結果表示</label><br/>
-        <!-- CSV出力用のリンク -->
-        <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
-        <!-- ユーザー登録画面へのリンク -->
-        <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}">新規登録</a>
+
     </div>
 </body>
 </html>
