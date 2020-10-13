@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- Bootstrapの設定 -->
+    
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    
+    
+    
     
     <title>UserDetail</title>
 </head>
@@ -22,7 +27,7 @@
                     <table class="table table-bordered table-hover table-sm">
                         <!-- ユーザーID（入力不可） -->
                         <tr>
-                            <th class="active">ユーザID</th>
+                            <th class="active table-info">ユーザID</th>
                             <td>
                                 <div class="form-group">
                                     <input type="text" class="form-control"
@@ -33,7 +38,7 @@
                         </tr>
                        　　　　　　　　　　　　<!-- ユーザ有効期限 -->
                         <tr>
-                            <th class="active">ユーザ有効期限</th>
+                            <th class="active table-info">ユーザ有効期限</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">
@@ -49,7 +54,7 @@
                         </tr>
                         <!-- パスワード -->
                         <tr>
-                            <th class="active">パスワード</th>
+                            <th class="active table-info">パスワード</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
@@ -65,7 +70,7 @@
                         </tr>
                                                　　　<!-- パスワード有効期限 -->
                         <tr>
-                            <th class="active">パスワード有効期限</th>
+                            <th class="active table-info">パスワード有効期限</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('pass_update')} ? 'has-error'">
@@ -81,7 +86,7 @@
                         </tr>
                          <!-- ログイン失敗回数 -->
                         <tr>
-                            <th class="active">ログイン失敗回数</th>
+                            <th class="active table-info">ログイン失敗回数</th>
                             <td>
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('login_miss_times')} ? 'has-error'">
@@ -97,7 +102,7 @@
                         </tr>
                         <!-- ロックフラグ -->
                         <tr>
-                            <th class="active">ロックフラグ</th>
+                            <th class="active table-info">ロックフラグ</th>
                             <td>
                                 <div class="form-group">
                                     <div th:each="item : ${radioLock}">
@@ -116,7 +121,7 @@
                         </tr>
                         <!-- 有効フラグ -->
                         <tr>
-                            <th class="active">有効フラグ</th>
+                            <th class="active table-info">有効フラグ</th>
                             <td>
                                 <div class="form-group">
                                     <div th:each="item : ${radioEnabled}">

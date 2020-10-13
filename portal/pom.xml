@@ -17,7 +17,20 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-
+	
+	<!-- spring-cloud-sleuth -->
+	<dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	            <groupId>org.springframework.cloud</groupId>
+	            <artifactId>spring-cloud-sleuth</artifactId>
+	            <version>2.2.2.RELEASE</version>
+	            <type>pom</type>
+	            <scope>import</scope>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -76,6 +89,11 @@
 		</dependency>
 		
 		<!-- 以下追加 -->
+        <!-- spring-cloud-sleuth -->
+		<dependency>
+	        <groupId>org.springframework.cloud</groupId>
+	        <artifactId>spring-cloud-starter-sleuth</artifactId>
+	    </dependency>
 		<!-- Thyemeleaf拡張（セキュリティ） -->
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>

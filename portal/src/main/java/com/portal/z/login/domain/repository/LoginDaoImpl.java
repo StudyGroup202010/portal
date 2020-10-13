@@ -84,8 +84,6 @@ public class LoginDaoImpl implements LoginDao {
         boolean lock_flg     = (Boolean) user_i.isLock_flg();
         boolean enabled_flg  = (Boolean) user_i.isEnabled_flg();
         
-        //System.out.println("lock_flg" + lock_flg);
-
         // 結果返却用のUserDetailsを生成
         //AppUserDetails user = new AppUserDetails().builder()
         new AppUserDetails();

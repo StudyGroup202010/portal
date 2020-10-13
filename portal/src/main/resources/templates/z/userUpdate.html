@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrapの設定 -->
+    
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+
 
     <title>UserUpdate</title>
 </head>
@@ -21,7 +27,7 @@
             <table class="table table-bordered table-hover table-sm">
                 <!-- ユーザーIDの入力エリア -->
                 <tr>
-                    <th class="active">ユーザID</th>
+                    <th class="active table-info">ユーザID</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
@@ -37,7 +43,7 @@
                 </tr>      
                 <!-- ユーザ有効期限の入力エリア -->
                 <tr>
-                    <th class="active">ユーザ有効期限</th>
+                    <th class="active table-info">ユーザ有効期限</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">
@@ -53,7 +59,7 @@
                 </tr>
                 <!-- パスワードの入力エリア -->
                 <tr>
-                    <th class="active">パスワード</th>
+                    <th class="active table-info">パスワード</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
@@ -69,7 +75,7 @@
                 </tr>
                 <!-- パスワード有効期限の入力エリア -->
                 <tr>
-                    <th class="active">パスワード有効期限</th>
+                    <th class="active table-info">パスワード有効期限</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('pass_update')} ? 'has-error'">
@@ -85,7 +91,7 @@
                 </tr>
                 <!-- ロックの入力エリア -->
                 <tr>
-                    <th class="active">ロック</th>
+                    <th class="active table-info">ロック</th>
                     <td>
                         <div class="form-group">
                             <div th:each="item : ${radioLock}">
@@ -104,7 +110,7 @@
                 </tr>
                　　　　　　　　<!-- 有効フラグの入力エリア -->
                 <tr>
-                    <th class="active">有効フラグ</th>
+                    <th class="active table-info">有効フラグ</th>
                     <td>
                         <div class="form-group">
                             <div th:each="item : ${radioEnabled}">
@@ -131,7 +137,7 @@
             <!-- 戻るボタン -->
             <button class="btn btn-primary" type="submit" name="back">戻る</button>
             <!-- ユーザー登録ボタン -->
-            <button class="btn btn-danger float-right" type="button" data-toggle="modal" data-target="#Modalinsert">ユーザー登録</button>
+            <button class="btn btn-danger float-right" type="button" data-toggle="modal" data-target="#Modalinsert">登録</button>
             
      <!-- 登録Modal -->
      <div class="modal" data-backdrop="static" data-keyboard="false" id="Modalinsert" tabindex="-1" role="dialog" aria-labelledby="ModalInsertTitle" aria-hidden="true">

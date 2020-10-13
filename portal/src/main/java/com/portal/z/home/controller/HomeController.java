@@ -2,18 +2,12 @@ package com.portal.z.home.controller;
 
 import java.security.Principal;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.portal.z.login.domain.model.AppUserDetails;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 public class HomeController {
 
     /**
@@ -24,16 +18,6 @@ public class HomeController {
 
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/home :: home_contents");
-        
-        log.info("HOME画面の処理");
-        
-        //ログインユーザー情報の取得(その2)
-        AppUserDetails user2 = (AppUserDetails) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
-
-        log.info("user2: " + user2.toString());
                   
         return "z/homeLayout";
     }

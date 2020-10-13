@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.portal.z.common.domain.repository.EnvMapper">
+    <!-- マッピング定義 -->
+    <resultMap type="com.portal.z.common.domain.model.Env" id="env">
+        <id     column="env_id"          property="env_id" />
+        <result column="env_kbn"         property="env_kbn" />
+        <result column="env_num"         property="env_num" />
+        <result column="env_txt"         property="env_txt" />
+        <result column="biko"            property="biko" />
+    </resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Env">
+        insert into
+          zm999_env (
+           env_id
+          ,env_kbn
+          ,env_num
+          ,env_txt
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{env_id}
+          ,#{env_kbn}
+          ,#{env_num}
+          ,#{env_txt}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.z.common.domain.model.Env">
+        select
+           env_id
+          ,env_kbn
+          ,env_num
+          ,env_txt
+          ,biko
+        from
+          zm999_env
+        where
+          env_id = #{env_id}
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="env">
+        select
+           env_id
+          ,env_kbn
+          ,env_num
+          ,env_txt
+          ,biko
+        from
+          zm999_env
+        order by
+          env_id
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.z.common.domain.model.Env">
+        update
+          zm999_env
+        set
+           env_kbn     = #{env_kbn}
+          ,env_num     = #{env_num}
+          ,env_txt     = #{env_txt}
+          ,biko        = #{biko}
+          ,update_user = #{update_user}
+          ,update_date = NOW()
+        where
+          env_id      = #{env_id}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from zm999_env where env_id = #{env_id}
+    </delete>
+</mapper>

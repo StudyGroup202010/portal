@@ -11,9 +11,10 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -27,10 +28,13 @@ import com.portal.z.user.domain.model.GroupOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
+import com.portal.z.common.domain.service.RoleService;
+import com.portal.z.login.domain.model.AppUserDetails;
 
-
+@Transactional
 @Controller
 public class userController {
 
@@ -39,6 +43,9 @@ public class userController {
     
     @Autowired
     private UserroleService userroleService;
+    
+    @Autowired
+    private RoleService roleService;
     
     //パスワード暗号化
     @Autowired
@@ -174,16 +181,32 @@ public class userController {
         user.setLock_flg(form.isLock_flg());                  //ロック状態
         user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
         
+        //ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        
+        user.setInsert_user(user_auth.getUsername());         //作成者
+        
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
         
+        // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得
+        Role role = roleService.selectRoleid("ROLE_NAME_G");
+        //
+        //ToDo
+        //ここでrole取得結果を評価しないといけない
+        //環境マスタに未登録の時やrole_idが取れなかったときは以降の処理を中止するなど
+        //
+
         userrole.setUser_id(form.getUser_id());               //ユーザーID
-        userrole.setRole_id("general");                       //ロールID
+        userrole.setRole_id(role.getRole_id());               //ロールID
         
         // ユーザー登録処理
         boolean result_1 = userService.insert(user);
         boolean result_2 = userroleService.insert(userrole);
-
+        		
         // ユーザー登録結果の判定
         if (result_1 == true && result_2 == true ) {
         	model.addAttribute("result", "登録成功");
@@ -278,25 +301,24 @@ public class userController {
         user.setLogin_miss_times(form.getLogin_miss_times()); //ログイン失敗回数
         user.setLock_flg(form.isLock_flg());                  //ロック状態
         user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
+        
+        //ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        
+        user.setUpdate_user(user_auth.getUsername());         //更新者
 
-        try {
+        //更新実行
+        boolean result = userService.updateOne(user);
 
-            //更新実行
-            boolean result = userService.updateOne(user);
-
-            if (result == true) {
-                model.addAttribute("result", "更新成功");
-                System.out.println("更新成功");
-            } else {
-                model.addAttribute("result", "更新失敗");
-                System.out.println("更新失敗");
-            }
-
-        } catch(DataAccessException e) {
-
+        if (result == true) {
+            model.addAttribute("result", "更新成功");
+            System.out.println("更新成功");
+        } else {
             model.addAttribute("result", "更新失敗");
             System.out.println("更新失敗");
-
         }
 
         //ユーザー一覧画面を表示
@@ -313,7 +335,6 @@ public class userController {
         //削除実行
         boolean result_1 = userroleService.deleteOne(form.getUser_id());
         boolean result_2 = userService.deleteOne(form.getUser_id());
-
 
         if (result_1 == true && result_2 == true) {
 
@@ -341,7 +362,6 @@ public class userController {
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
-
 
     /**
      * DataAccessException発生時の処理メソッド.

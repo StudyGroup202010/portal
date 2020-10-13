@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
-
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,7 +15,7 @@
     <!-- CSSの読込 -->
     <link th:href="@{/css/home.css}" rel="stylesheet"></link>
 
-    <title>Home</title>
+    <title>HomeLayout</title>
 </head>
 <body>
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
@@ -25,9 +24,6 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="/home">ポータルサイト</a>
             </div>
-            
-            <p>ユーザーID：<span sec:authentication="name"></span></p>
-            <p>ロール:<span sec:authentication="principal.authorities"></span></p>
             
             <form method="post" th:action="@{/logout}">
                 <button class="btn btn-link pull-right navbar-brand" type="submit">
