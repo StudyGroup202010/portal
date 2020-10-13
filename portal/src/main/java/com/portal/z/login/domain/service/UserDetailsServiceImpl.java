@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-
+//
+//SecurityConfigから呼ばれる
+//
 @Component("UserDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -17,11 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-
-        //リポジトリー(DAO)からUserDetailsを取得
-    	UserDetails user = loginService.selectOne(username);
     	
+        //ユーザ情報を取得
+    	UserDetails user = loginService.selectOne(username);
+    	    	
         return user;
     }
-
 }

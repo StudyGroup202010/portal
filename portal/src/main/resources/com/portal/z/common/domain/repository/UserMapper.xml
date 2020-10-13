@@ -103,4 +103,17 @@
     <delete id="deleteOne" parameterType="string">
         delete from zm001_user where user_id = #{user_id}
     </delete>
+    
+    <!-- １件更新 -->
+    <update id="updateLockflg" parameterType="com.portal.z.common.domain.model.User">
+        update
+          zm001_user
+        set
+           login_miss_times = #{login_miss_times}
+          ,lock_flg         = #{lock_flg}
+          ,update_user      = #{update_user}
+          ,update_date      = NOW()
+        where
+          user_id           = #{user_id}
+    </update>
 </mapper>

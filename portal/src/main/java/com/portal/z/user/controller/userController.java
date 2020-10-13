@@ -187,6 +187,7 @@ public class userController {
                 .getAuthentication()
                 .getPrincipal();
         
+       
         user.setInsert_user(user_auth.getUsername());         //作成者
         
         // ユーザロールマスタinsert用変数

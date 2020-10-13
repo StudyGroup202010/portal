@@ -26,4 +26,7 @@ public interface UserMapper {
 
     // １件削除用メソッド
     public boolean deleteOne(String user_id);
+    
+    // ロックフラグ更新用メソッド
+    public boolean updateLockflg(User user);
 }

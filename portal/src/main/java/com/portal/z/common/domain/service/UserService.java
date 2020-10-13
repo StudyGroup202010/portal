@@ -94,4 +94,12 @@ public class UserService {
 
         return bytes;
     }
+    
+    /**
+     * ロックフラグ更新用メソッド.
+     */
+    public boolean updateLockflg(User user) {
+    	return userMapper.updateLockflg(user);
+    }
+    
 }
