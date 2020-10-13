@@ -32,7 +32,7 @@ Note
   
 【環境構築手順】  
 １．GitHubアカウントを作成し、ＰＣにgitツールをインストールします。  
-　　⇒参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2）  
+　　⇒参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )
 ２．JDKをインストールします。  
 ３．RDBをインストールします。  
 ４．IDEをインストールします。  
