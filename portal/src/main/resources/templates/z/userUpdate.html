@@ -128,12 +128,6 @@
                     </td>
                 </tr>
             </table>
-            <!-- エラーメッセージの一覧表示 -->
-            <ul>
-                <li th:each="error : ${#fields.detailedErrors()}">
-                    <span th:text="${error.message}">Error message</span>
-                </li>
-            </ul>
             <!-- 戻るボタン -->
             <button class="btn btn-primary" type="submit" name="back">戻る</button>
             <!-- ユーザー登録ボタン -->
