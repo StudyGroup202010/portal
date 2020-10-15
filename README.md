@@ -45,7 +45,7 @@ Note
 ６．自PCに作業用フォルダを作り、自GitHubアカウントにforkしたリポジトリをクローン（複製）してください。  
 　　⇒参考（https://pasomaki.com/tortoisegit-clone/ ）  
 　　【注意】クローンするのはmasterブランチではなくtopicブランチを使ってください。  
-７．自PCにクローンしたリポジトリのenvironmentフォルダにあるSQLを使って、RDBにDBとTableを作成してください。  
+７．自PCにクローンしたリポジトリのenvironmentフォルダのSQLを使ってRDBにDBとTableを作成してください。  
 　　※テストデータも追加してください。  
 ８．IDEにリポジトリをインポートしてコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
 　　⇒参考（https://bit.ly/3iTNHSk ）  
