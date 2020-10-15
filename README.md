@@ -18,7 +18,7 @@ Note
 * RDB  
   * PostgreSQL 12.4 (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 * IDE
-  * Spring Tool Suite 4.4.6.2 (https://spring.io/tools) 
+  * Spring Tool Suite 4.4.6.2 (https://spring.io/tools) ※Spring Tools 4 for Eclipseがお勧めです。  
 * FrameWork
   * Spring
 * RDBアクセス
@@ -31,17 +31,25 @@ Note
   * Lombok (https://projectlombok.org/download)
   
 【環境構築手順】  
-１．GitHubアカウントを作成し、ＰＣにgitツールをインストールします。  
+１．GitHubアカウントを作成し、自PCにgitツールをインストールします。  
 　　⇒参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )  
+　　※作業手順は公開鍵の登録まででOKです。  
 ２．JDKをインストールします。  
+　　⇒参考（https://www.javadrive.jp/start/install/index6.html ）  
 ３．RDBをインストールします。  
+　　⇒参考（https://eng-entrance.com/postgresql-download-install ）  
 ４．IDEをインストールします。  
-５．自分のGitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
-６．ＰＣに作業用フォルダを作り、自アカウントにforkしたリポジトリをクローン（複製）してください。  
-　　⇒masterではなくブランチを使ってください。  
-７．クローンしたリポジトリのenvironmentフォルダにあるSQLで、DBを作成してください。  
-　　⇒DatabaseとTable、テストデータがあります。   
-８．IDEにリポジトリを取り込んでコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
+　　⇒参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )  
+５．自GitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
+　　⇒参考（https://denno-sekai.com/github-fork/ ）  
+６．自PCに作業用フォルダを作り、自GitHubアカウントにforkしたリポジトリをクローン（複製）してください。  
+　　⇒参考（https://pasomaki.com/tortoisegit-clone/ ）  
+　　【注意】クローンするのはmasterブランチではなくtopicブランチを使ってください。  
+７．自PCにクローンしたリポジトリのenvironmentフォルダにあるSQLを使って、RDBにDBとTableを作成してください。  
+　　※テストデータも追加してください。  
+８．IDEにリポジトリをインポートしてコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
+　　⇒参考（https://bit.ly/3iTNHSk ）  
+　　※インポートするときの「ルートディレクトリ」は、クローンした「portal」フォルダを指定してください。  
 
 アプリケーション構成
 -------
@@ -78,14 +86,14 @@ References
 -------
 * こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
 * 書籍はこちら⇒【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
+* ブランチ運用ルールはGitHubFlowにします。（https://engineer-life.dev/git-operation-rule/　）  
 
 
 Contributing
 -------
 １．システムを動かしてみて、不具合を見つけたり、追加したい機能が浮かんだら、イシューを追加してください。  
-２．イシューの中から、自分ができそうなものを選んで、実装してみてください。  
-　　⇒実装するときは自分のGithubアカウントにリポジトリをforkして、masterではなくブランチを使ってください。  
-３．実装してテストをしたら、プルリクエストを送ってください。レビューしてmasterにマージします。  
+２．イシューの中から自分ができそうなものを選んで、自PCにクローンしたリポジトリに実装してみてください。   
+３．実装してテストをしたら、プルリクエストを送ってください。レビューしてmasterブランチにマージします。  
 
 
 Authors
