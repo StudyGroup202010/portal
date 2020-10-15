@@ -86,7 +86,7 @@ References
 -------
 * こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
 * 書籍はこちら⇒【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
-* ブランチ運用ルールはGitHubFlowにします。（https://engineer-life.dev/git-operation-rule/　）  
+* ブランチ運用ルールはGitHubFlowにします。（https://engineer-life.dev/git-operation-rule/)  
 
 
 Contributing
