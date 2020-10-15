@@ -116,4 +116,16 @@
         where
           user_id           = #{user_id}
     </update>
+    
+        <!-- １件更新 -->
+    <update id="updatePassupdate" parameterType="com.portal.z.common.domain.model.User">
+        update
+          zm001_user
+        set
+           pass_update = #{pass_update}
+          ,update_user = #{update_user}
+          ,update_date = NOW()
+        where
+          user_id      = #{user_id}
+    </update>
 </mapper>

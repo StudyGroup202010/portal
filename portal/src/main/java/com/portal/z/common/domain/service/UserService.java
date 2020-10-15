@@ -102,4 +102,11 @@ public class UserService {
     	return userMapper.updateLockflg(user);
     }
     
+    /**
+     * パスワード有効期限更新用メソッド.
+     */
+    public boolean updatePassupdate(User user) {
+    	return userMapper.updatePassupdate(user);
+    }
+    
 }

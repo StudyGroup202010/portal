@@ -29,4 +29,7 @@ public interface UserMapper {
     
     // ロックフラグ更新用メソッド
     public boolean updateLockflg(User user);
+    
+    // パスワード有効期限更新用メソッド
+    public boolean updatePassupdate(User user);
 }
