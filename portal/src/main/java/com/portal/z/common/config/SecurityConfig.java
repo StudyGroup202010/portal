@@ -19,10 +19,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	//ログインに成功したとき
     @Autowired
     @Qualifier("SuccessHandler")
-    AuthenticationSuccessHandler successHandler; //ログインに成功したとき
+    AuthenticationSuccessHandler successHandler;
 	
+    //ログイン処理時のユーザ情報を取得する
     @Autowired
     @Qualifier("UserDetailsServiceImpl")
     private UserDetailsService userDetailsService;
@@ -36,32 +38,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
 
-        //静的リソースへのアクセスには、セキュリティを適用しない
+        //静的リソースへのアクセスには、誰でもアクセスできても良いので、セキュリティを適用しない。
         web.ignoring().antMatchers("/webjars/∗∗", "/css/∗∗");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // ログイン不要ページの設定
+        // 直リンク（ログイン無しのアクセス）禁止の設定
         http
             .authorizeRequests()
                 .antMatchers("/webjars/**").permitAll() //webjarsへアクセス許可
                 .antMatchers("/css/**").permitAll() //cssへアクセス許可
                 .antMatchers("/login").permitAll() //ログインページは直リンクOK
-                .antMatchers("/admin").hasAuthority("ROLE_ADMIN") //アドミンユーザーに許可
+                .antMatchers("/admin").hasAuthority("ROLE_ADMIN") //指定ロール名に許可(ロールマスタのロール名）
                 .anyRequest().authenticated(); //それ以外は直リンク禁止
 
         //ログイン処理
         http
             .formLogin()
-                .loginProcessingUrl("/login") //ログイン処理のパス
-                .loginPage("/login") //ログインページの指定
+                .loginProcessingUrl("/login") //ログイン処理のパス（login.htmlの（action="/login"）と一致させること      
+                .loginPage("/login") //ログインページの指定（ログインページを自作した場合は必ず設定すること）
+                                     //loginコントローラの「@GetMapping("/login")」と合わせること
                 .failureUrl("/login") //ログイン失敗時の遷移先
                 .usernameParameter("user_id") //ログインページのユーザーID
                 .passwordParameter("password") //ログインページのパスワード
                 .defaultSuccessUrl("/home", true) //ログイン成功後の遷移先
-                .successHandler(successHandler); //successHandlerを使うように設定
+                .successHandler(successHandler); //ログイン成功時にsuccessHandlerを使うように設定
 
         //ログアウト処理
         http
@@ -70,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout") //ログアウトのURL
                 .logoutSuccessUrl("/login"); //ログアウト成功後のURL
 
+        // CSRF対策はデフォルトで有効
     }
     
     @Override
@@ -77,6 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // ログイン処理時のユーザー情報を、DBから取得する
         auth.userDetailsService(userDetailsService)
-        .passwordEncoder(passwordEncoder());
+        .passwordEncoder(passwordEncoder()); //ログイン時のパスワードの復号
     }
 }

@@ -1,5 +1,8 @@
 package com.portal.z.login.domain.service;
 
+// ログイン失敗時の処理
+// ApplicationEventの処理なので遷移先の変更はできない
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
@@ -29,6 +32,7 @@ public class BadCredentialsEventListener {
     @Autowired
     private UserService userService;
 
+    // 引数にセットしたイベントが発生したときにメソッドが呼ばれる
     @EventListener
     public void onBadCredentialsEvent(AuthenticationFailureBadCredentialsEvent event) {
 

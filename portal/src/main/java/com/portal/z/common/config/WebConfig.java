@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 	
+	// ユーザＩＤをログに出力する
     @Autowired
     @Qualifier("LoggingIntercepter")
     HandlerInterceptor loggingInterceptor;
@@ -21,11 +22,13 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * Integercepterを追加.
      */
+    // ユーザＩＤをログに出力する
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loggingInterceptor);
     }
 
+    // フォームとメッセージの紐付け
     @Bean
     public MessageSource messageSource() {
 
@@ -41,6 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
         return bean;
     }
 
+    //　フォームとメッセージの紐付け
     @Bean
     public LocalValidatorFactoryBean localValidatorFactoryBean() {
 
