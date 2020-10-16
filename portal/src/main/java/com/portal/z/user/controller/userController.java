@@ -192,7 +192,7 @@ public class userController {
         Userrole userrole = new Userrole();
         
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得
-        Role role = roleService.selectRoleid("ROLE_NAME_G1");
+        Role role = roleService.selectRoleid("ROLE_NAME_G");
         //
         //ToDo
         //ここでrole取得結果を評価しないといけない
