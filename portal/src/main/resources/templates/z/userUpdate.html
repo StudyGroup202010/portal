@@ -29,10 +29,12 @@
                 <tr>
                     <th class="active table-info">ユーザID</th>
                     <td>
+　　　　　　　　　　　　　　　　　　　　　<!-- エラーになったときのみBootstrapの"has-error"を追加 -->
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
                             <input type="text" class="form-control"
                                 th:field="*{user_id}" />
+                            <!-- エラーになったときのみエラーメッセージを表示する -->
                             <span class="text-danger"
                                 th:if="${#fields.hasErrors('user_id')}"
                                 th:errors="*{user_id}">
@@ -128,12 +130,6 @@
                     </td>
                 </tr>
             </table>
-            <!-- エラーメッセージの一覧表示 -->
-            <ul>
-                <li th:each="error : ${#fields.detailedErrors()}">
-                    <span th:text="${error.message}">Error message</span>
-                </li>
-            </ul>
             <!-- 戻るボタン -->
             <button class="btn btn-primary" type="submit" name="back">戻る</button>
             <!-- ユーザー登録ボタン -->
