@@ -32,6 +32,7 @@ public class UserDaoJdbcImpl implements UserDao {
         		    ;
      
         // ResultSetExtractorの生成
+        //　時間がかかるような処理を実行して、処理が終わったら結果を受け取るという方式
         UserRowCallbackHandler handler = new UserRowCallbackHandler();
 
         //SQL実行＆CSV出力

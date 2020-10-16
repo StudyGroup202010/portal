@@ -15,10 +15,12 @@ public class LogAspct {
     /**
      * コントローラークラスのログ出力用アスペクト.
      */
+	// JointPoint（実行タイミング）はAround（メソッド実行の前後）
+	//　実行場所はwithin(Controllerアノテーションがついている全ての場所）
     @Around("@within(org.springframework.stereotype.Controller)")
     public Object startLog(ProceedingJoinPoint jp) throws Throwable {
 
-//        System.out.println("メソッド開始： " + jp.getSignature());
+        //System.out.println("メソッド開始： " + jp.getSignature());
         log.info("メソッド開始：" + jp.getSignature());
 
         try {
