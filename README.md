@@ -41,14 +41,16 @@ Note
 ４．IDEをインストールします。  
 　　⇒参考（https://techfun.cc/spring/windows-spring-install.html  )  
   　　日本語化（https://nobuzii.hatenablog.com/entry/2020/03/17/002607 )  
-５．自GitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
+５．Lombokをインストールします。  
+　　⇒参考（ https://qiita.com/r_saiki/items/82231ded1450f5ed5671 )  
+６．自GitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
 　　⇒参考（https://denno-sekai.com/github-fork/ ）  
-６．自PCに作業用フォルダを作り、自GitHubアカウントにforkしたリポジトリをクローン（複製）してください。  
+７．自PCに作業用フォルダを作り、自GitHubアカウントにforkしたリポジトリをクローン（複製）してください。  
 　　⇒参考（https://pasomaki.com/tortoisegit-clone/ ）  
 　　【注意】クローンするのはmasterブランチではなくtopicブランチを使ってください。  
-７．自PCにクローンしたリポジトリのenvironmentフォルダのSQLを使ってRDBにDBとTableを作成してください。  
+８．自PCにクローンしたリポジトリのenvironmentフォルダのSQLを使ってRDBにDBとTableを作成してください。  
 　　※テストデータも追加してください。  
-８．IDEにリポジトリをインポートしてコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
+９．IDEにリポジトリをインポートしてコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
 　　⇒参考（https://bit.ly/3iTNHSk ）  
 　　※インポートするときの「ルートディレクトリ」は、クローンした「portal」フォルダを指定してください。  
 
