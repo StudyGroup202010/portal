@@ -39,7 +39,7 @@ Note
 ３．RDBをインストールします。  
 　　⇒参考（https://eng-entrance.com/postgresql-download-install ）  
 ４．IDEをインストールします。  
-　　⇒参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )  
+　　⇒参考（https://qiita.com/andna0410/items/e9cc07c9e2e34a542245  )  
 ５．自GitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
 　　⇒参考（https://denno-sekai.com/github-fork/ ）  
 ６．自PCに作業用フォルダを作り、自GitHubアカウントにforkしたリポジトリをクローン（複製）してください。  
