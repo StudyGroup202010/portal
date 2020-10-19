@@ -32,7 +32,8 @@ Note
   
 【環境構築手順】  
 １．GitHubアカウントを作成し、自PCにgitツールをインストールします。  
-　　⇒参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )  
+　　⇒アカウント参考（https://shimapuku.com/development/github-account )  
+　　⇒ツール参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )  
 　　※作業手順は公開鍵の登録まででOKです。  
 ２．JDKをインストールします。  
 　　⇒参考（https://www.javadrive.jp/start/install/index6.html ）  
