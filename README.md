@@ -92,6 +92,25 @@ References
 * 書籍はこちら⇒【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
 * ブランチ運用ルールはGitHubFlowにします。（https://engineer-life.dev/git-operation-rule/)  
 
+（イメージ）   
+　◆StudyGroup202010  
+ 　　└ portal  
+　　　　├ masterブランチ  
+　　　　└ Topicブランチ   
+    
+ 　    ↓(Fork)  　 ↑（PullRequest)  
+     
+　◆開発者アカウント  
+ 　　└ portal  
+　　　　├ masterブランチ  
+　　　　└ Topicブランチ   
+    
+　     ↓(Clone) 　  ↑（Push)  
+    
+　◆開発者ローカルＰＣ  
+ 　　└ portal  
+　　　　└ Topicブランチ   
+
 
 Contributing
 -------
