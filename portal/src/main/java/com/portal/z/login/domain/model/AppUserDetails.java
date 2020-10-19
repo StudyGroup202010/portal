@@ -90,16 +90,20 @@ public class AppUserDetails implements UserDetails {
      * true:有効
      * false:無効
      */
+//
+//　パスワードの有効期限が切れていたら再設定をするので、この部分はコメント化    
+//
     @Override
     public boolean isCredentialsNonExpired() {
-        //パスワード有効期限が、現在日付よりも後かどうかをチェック
-        if(this.pass_update.after(new Date())) {
-            //現在日付よりも後なら有効
-            return true;
-        } else {
-            //現在日付よりも前なら無効
-            return false;
-        }
+    	return true;
+//        //パスワード有効期限が、現在日付よりも後かどうかをチェック
+//        if(this.pass_update.after(new Date())) {
+//            //現在日付よりも後なら有効
+//            return true;
+//        } else {
+//            //現在日付よりも前なら無効
+//            return false;
+//        }
     }
 
     /** アカウントの有効・無効チェック

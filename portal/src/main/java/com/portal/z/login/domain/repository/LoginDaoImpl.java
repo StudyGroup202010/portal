@@ -29,13 +29,13 @@ public class LoginDaoImpl implements LoginDao {
      * ユーザー情報を取得して、UserDetailsを生成するメソッド.
      */
     public UserDetails selectOne(String user_id) {
-
+    	
         //権限リストの取得（メソッド）
         List<GrantedAuthority> grantedAuthorityList = getRoleList(user_id);
-
+        
         // 結果返却用のUserDetailsを生成
         AppUserDetails user = buildUserDetails(user_id, grantedAuthorityList);
-
+        
         return user;
     }
 
@@ -45,8 +45,9 @@ public class LoginDaoImpl implements LoginDao {
     private List<GrantedAuthority> getRoleList(String user_id) {
     	
         //select実行(ユーザー権限の取得)
-        List<Role> authorityList = loginService.selectMany(user_id);
-        
+    	//ToDoここでuser_idが拾えなかったときに
+    	List<Role> authorityList = loginService.selectMany(user_id);
+
         //結果返却用のList生成
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         
@@ -63,7 +64,7 @@ public class LoginDaoImpl implements LoginDao {
             //結果返却用のListにインスタンスを追加
             grantedAuthorityList.add(authority);
         }
-
+        
         return grantedAuthorityList;
     }
 

@@ -33,7 +33,7 @@ public class LoginService {
     }
     
     /**
-     * 権限取得用メソッド.
+     * ユーザに紐つく権限取得用メソッド.
      */
     public List<Role> selectMany(String user_id) {
         // 権限取得
