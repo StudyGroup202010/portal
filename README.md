@@ -116,6 +116,15 @@ com
 ２．開発者が、開発者ローカルＰＣにそれをCloneして実装します。  
 ３．テストまで済んだら開発者アカウントにPushし、StudyGroup202010にPullRequestを投げます。  
 ４．管理者のレビューが済んだら、管理者がmasterブランチにマージします。  
+
+デプロイ
+-------
+Heroku（https://jp.heroku.com/home ）にデプロイします。    
+　⇒参考（https://qiita.com/sho7650/items/ebd87c5dc2c4c7abb8f0　)  
+　　※準備２からが該当します。  
+　　※Herokuに作成したアプリケーションにBuildpacks(java)を追加する必要があります。  
+
+　デプロイ後のURL　⇒　https://portalemd.herokuapp.com/　  
  
 
 開発の進め方  
