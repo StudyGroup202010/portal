@@ -34,4 +34,7 @@
             float:  left;
 }
 
+.btn-danger {
+			margin-right: 5px;    /* 詳細画面での削除ボタンと更新ボタンの間の間隔 */
+}
 
