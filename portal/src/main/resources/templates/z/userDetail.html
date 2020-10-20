@@ -12,7 +12,8 @@
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     
-    
+    <!-- CSSの読込 -->
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
     
     
     <title>UserDetail</title>
@@ -84,7 +85,7 @@
                                 </div>
                             </td>
                         </tr>
-                         <!-- ログイン失敗回数 -->
+                        <!-- ログイン失敗回数 -->
                         <tr>
                             <th class="active table-info">ログイン失敗回数</th>
                             <td>
@@ -141,10 +142,10 @@
                     </table>
                     <!-- 戻るボタン -->
                     <button class="btn btn-primary" type="submit" name="back">戻る</button>
-                    <!-- 削除ボタン -->
-                    <button class="btn btn-danger float-right" type="button" data-toggle="modal" data-target="#Modaldelete">削除</button>
                     <!-- 更新ボタン -->
                     <button class="btn btn-danger float-right" type="button" data-toggle="modal" data-target="#Modalupdate">更新</button>
+                     <!-- 削除ボタン -->
+                    <button class="btn btn-danger float-right" type="button" data-toggle="modal" data-target="#Modaldelete">削除</button>
   
      <!-- 更新Modal -->
      <div class="modal" data-backdrop="static" data-keyboard="false" id="Modalupdate" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateTitle" aria-hidden="true">

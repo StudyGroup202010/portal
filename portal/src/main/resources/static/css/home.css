@@ -15,23 +15,27 @@
 
 
 .table-list thead {
-            width: 98.5%;     /* スクロールバーの幅があるので若干少なめにしています（100%だとズレる） */
-            text-align: center
+  width: 98.5%;     /* スクロールバーの幅があるので若干少なめにしています（100%だとズレる） */
+  text-align: center
 }
 
 .table-list tbody {
-            height: 350px;
-            width:  100%;
-            overflow-y: auto;  /* テーブルに縦スクロールを入れる */
+  height: 350px;
+  width:  100%;
+  overflow-y: auto;  /* テーブルに縦スクロールを入れる */
 }
 
 .table-list thead, .table-list tbody, .table-list tr, .table-list td, .table-list th {
-            display: block;
+  display: block;
 }
 
 .table-list tbody td, .table-list thead > tr > th {
-		    height: 40px;
-            float:  left;
+  height: 40px;
+  float:  left;
 }
 
+.btn-danger {
+  margin-left: 2px;
+  margin-right: 2px;    /* 詳細画面での削除ボタンと更新ボタンの間の間隔 */
+}
 
