@@ -124,7 +124,7 @@ Heroku（https://jp.heroku.com/home ）にデプロイします。
 　　※準備２以降が該当します。  
 　　※Herokuに作成したアプリケーションにBuildpacks(java)を追加する必要があります。  
 
-　デプロイ後のURL　⇒　https://portalemd.herokuapp.com/　  
+　デプロイ後のURL　⇒　https://portalemd.herokuapp.com/  
  
 
 開発の進め方  
