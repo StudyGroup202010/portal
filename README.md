@@ -121,7 +121,7 @@ com
 -------
 Heroku（https://jp.heroku.com/home ）にデプロイします。    
 　⇒参考（https://qiita.com/sho7650/items/ebd87c5dc2c4c7abb8f0　)  
-　　※準備２からが該当します。  
+　　※準備２以降が該当します。  
 　　※Herokuに作成したアプリケーションにBuildpacks(java)を追加する必要があります。  
 
 　デプロイ後のURL　⇒　https://portalemd.herokuapp.com/　  
