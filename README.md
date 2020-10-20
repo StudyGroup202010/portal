@@ -6,7 +6,7 @@
 
 Note
 -------
-社内勉強会用に使います。
+社内勉強会用に使います:sunglasses:
 
 環境
 -------
@@ -96,19 +96,26 @@ com
 　　　　├ masterブランチ  
 　　　　└ Topicブランチ   
     
- 　    ↓(Fork)  　 ↑（PullRequest)  
+　　:arrow_down:(Fork)　　:arrow_up:（PullRequest)  
      
 　◆開発者アカウント  
  　　└ portal  
 　　　　├ masterブランチ  
 　　　　└ Topicブランチ   
     
-　     ↓(Clone) 　  ↑（Push)  
+　　:arrow_down:(Clone)　　:arrow_up:（Push)  
     
 　◆開発者ローカルＰＣ  
  　　└ portal  
 　　　　└ Topicブランチ   
  
+
+開発の進め方  
+-------  
+１．開発基盤の整理（共通部品やひな形など開発に必要なものを揃えます）:point_left:イマココ  
+２．業務機能開発（業務で使う画面などを開発します）  
+
+
 References
 -------
 * こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
@@ -117,9 +124,9 @@ References
 
 Contributing
 -------
-１．システムを動かしてみて、不具合を見つけたり、追加したい機能が浮かんだら、イシューを追加してください。  
-２．イシューの中から自分ができそうなものを選んで、自PCにクローンしたリポジトリに実装してみてください。   
-３．実装してテストをしたら、プルリクエストを送ってください。レビューしてmasterブランチにマージします。  
+１．システムを動かしてみて、不具合を見つけたり、追加したい機能が浮かんだら、イシューを追加してください:hand:  
+２．イシューの中から自分ができそうなものを選んで、自PCにクローンしたリポジトリに実装してみてください:computer:   
+３．実装してテストをしたら、プルリクエストを送ってください。レビューしてmasterブランチにマージします:thumbsup:  
 
 
 Authors
