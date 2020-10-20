@@ -94,20 +94,22 @@ com
 　◆StudyGroup202010  
  　　└ portal  
 　　　　├ masterブランチ  
-　　　　└ Topicブランチ   
+　　　　├ TopicブランチＡ   
+　　　　└ TopicブランチＢ 
     
 　　:arrow_down:(Fork)　　:arrow_up:（PullRequest)  
      
 　◆開発者アカウント  
  　　└ portal  
 　　　　├ masterブランチ  
-　　　　└ Topicブランチ   
+　　　　├ TopicブランチＡ   
+　　　　└ TopicブランチＢ 
     
 　　:arrow_down:(Clone)　　:arrow_up:（Push)  
     
 　◆開発者ローカルＰＣ  
  　　└ portal  
-　　　　└ Topicブランチ   
+　　　　└ TopicブランチＢ   
  
 
 開発の進め方  
