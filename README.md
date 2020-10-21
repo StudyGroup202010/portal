@@ -31,32 +31,8 @@ Note
   * Lombok (https://projectlombok.org/download)
   
 【環境構築手順】  
-１．GitHubアカウントを作成し、自PCにgitツールをインストールします。  
-　　⇒アカウント参考（https://shimapuku.com/development/github-account )  
-　　⇒ツール参考（https://qiita.com/SkyLaptor/items/6347f38c8c010f4d5bd2  )  
-　　※作業手順は公開鍵の登録まででOKです。  
-２．JDKをインストールします。  
-　　⇒参考（https://www.javadrive.jp/start/install/index6.html ）  
-３．RDBをインストールします。  
-　　⇒参考（https://eng-entrance.com/postgresql-download-install ）  
-４．IDEをインストールします。  
-　　⇒参考（https://techfun.cc/spring/windows-spring-install.html  )  
-  　　日本語化（https://nobuzii.hatenablog.com/entry/2020/03/17/002607 )  
-  　　propertiesファイル文字化け対策（https://dolphinpg.net/program/java-spring-propertiesmojibake/ ）  
-５．Lombokをインストールします。  
-　　⇒参考（ https://qiita.com/r_saiki/items/82231ded1450f5ed5671 )  
-６．自GitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
-　　⇒参考（https://denno-sekai.com/github-fork/ ）  
-７．自PCに作業用フォルダを作り、自GitHubアカウントにforkしたリポジトリをクローン（複製）してください。  
-　　⇒参考（https://pasomaki.com/tortoisegit-clone/ ）  
-　　【注意】クローンするのはmasterブランチではなくtopicブランチを使ってください。  
-８．自PCにクローンしたリポジトリのenvironmentフォルダのSQLを使ってRDBにDBとTableを作成してください。  
-　　※テストデータも追加してください。  
-９．IDEにリポジトリをインポートしてコンパイルし、ブラウザから「http://localhost:8080/login」 を起動してください。  
-　　起動できたら「administrator」でログインしてみてください。  
-　　⇒参考（https://bit.ly/3iTNHSk ）  
-　　※インポートするときの「ルートディレクトリ」は、クローンした「portal」フォルダを指定してください。  
-　　※初期パスワードは「admin」です。  
+
+　[「環境構築補足」の資料に移動しました](環境構築補足.md)
 
 アプリケーション構成
 -------
