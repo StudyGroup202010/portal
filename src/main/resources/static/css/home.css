@@ -1,16 +1,9 @@
 .sidebar {
-  top:    60px;
-  bottom: 0;
-  background-color: #F4F5F7;
-  position: fixed;
-  display: block;
+    background-color: #F4F5F7;
 }
 
 .main {
-  top:    0px;
-  bottom: 0;
-  padding-top: 　0px;
-  padding-left: 20px;
+	/* 必要に応じて追記 */
 }
 
 

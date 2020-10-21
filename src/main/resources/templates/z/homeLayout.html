@@ -11,6 +11,7 @@
     
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
     <!-- CSSの読込 -->
@@ -20,23 +21,19 @@
 </head>
 <body>
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
-    <nav class="navbar navbar-dark bg-primary sticky-top">
-      <div class="container-fluid">
+    <nav class="navbar navbar-dark bg-primary">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/home">ポータルサイト</a>
             </div>
-            
+ 
             <form method="post" th:action="@{/logout}">
-                <button class="btn btn-link pull-right navbar-brand" type="submit">
-                    ログアウト
-                </button>
+                <button class="btn btn-link navbar-brand" type="submit">ログアウト</button>
             </form>
-      </div>
     </nav>
     
-    <!-- ===== サイドバー ===== -->
     <div class="container-fluid">
         <div class="row">
+            <!-- ===== サイドバー（２グリッド分） ===== -->
             <div class="col-sm-2 sidebar">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
@@ -51,12 +48,9 @@
                     </li>
                 </ul>
             </div>
-        </div>
-    </div>
-    <!-- ===== コンテンツ ===== -->
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-10 offset-sm-2 main">
+            
+            <!-- ===== コンテンツ（１０グリッド分） ===== -->
+            <div class="col-sm-10 main">
                 <!-- 表示するhtmlに記載した値（th:fragment="home_contents"など）を参照します -->
                 <div th:include="__${contents}__"></div>
             </div>
