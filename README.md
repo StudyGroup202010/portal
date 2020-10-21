@@ -42,6 +42,7 @@ Note
 ４．IDEをインストールします。  
 　　⇒参考（https://techfun.cc/spring/windows-spring-install.html  )  
   　　日本語化（https://nobuzii.hatenablog.com/entry/2020/03/17/002607 )  
+  　　propertiesファイル文字化け対策（https://dolphinpg.net/program/java-spring-propertiesmojibake/ ）  
 ５．Lombokをインストールします。  
 　　⇒参考（ https://qiita.com/r_saiki/items/82231ded1450f5ed5671 )  
 ６．自GitHubアカウントにStudyGroup202010アカウントのportalリポジトリをforkしてください。  
