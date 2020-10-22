@@ -52,7 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll() //cssへアクセス許可
                 .antMatchers("/login").permitAll() //ログインページは直リンクOK
                 .antMatchers("/admin").hasAuthority("ROLE_ADMIN") //指定ロール名に許可(ロールマスタのロール名）
+                .antMatchers("/error/session").permitAll() // セッションエラー
                 .anyRequest().authenticated(); //それ以外は直リンク禁止
+        
+        // レスポンスヘッダーの設定
+        //　セキュリティを高めるために自分自身のサーバのスクリプトだけが実行できるように制限する
+        http
+            .headers()
+            .contentSecurityPolicy("default-src 'self'");
 
         //ログイン処理
         http
@@ -66,12 +73,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home", true) //ログイン成功後の遷移先
                 .successHandler(successHandler); //ログイン成功時にsuccessHandlerを使うように設定
 
+        // セッション管理
+        http.sessionManagement()
+            .invalidSessionUrl("/error/session"); // セッションエラー後の遷移先
+        
         //ログアウト処理
         http
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //
-                .logoutUrl("/logout") //ログアウトのURL
-                .logoutSuccessUrl("/login"); //ログアウト成功後のURL
+                .logoutUrl("/logout")        //ログアウトのURL
+                .logoutSuccessUrl("/login")  //ログアウト成功後のURL
+                .deleteCookies("JSESSIONID");//ログアウト時にクッキーを消す（これをしないとログアウト時にエラーとなる
 
         // CSRF対策はデフォルトで有効
     }
