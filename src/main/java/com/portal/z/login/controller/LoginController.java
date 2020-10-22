@@ -27,4 +27,12 @@ public class LoginController {
         //ホーム画面に遷移
         return "redirect:/home";
     }
+    
+    /**
+     * セッションタイムアウトになった時のGETメソッド用処理.
+     */
+    @GetMapping("/error/session")
+    public String getSessionError(Model model) {
+        return "z/invalidSession";
+    }
 }
