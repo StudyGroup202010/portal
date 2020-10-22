@@ -20,11 +20,11 @@ Note
 * IDE
   * Spring Tool Suite 4.4.6.2 (https://spring.io/tools) ※Spring Tools 4 for Eclipseがお勧めです。  
 * FrameWork
-  * Spring
+  * Spring（https://spring.pleiades.io/ ）  
 * RDBアクセス
-  * JDBC、MyBatis 
+  * JDBC、MyBatis （https://mybatis.org/mybatis-3/ja/ ）  
 * CSS
-  * Bootstrap
+  * Bootstrap（https://getbootstrap.jp/docs/4.2/getting-started/introduction/ ）  
 * Build
   * Maven
 * その他
@@ -114,8 +114,8 @@ Heroku（https://jp.heroku.com/home ）にデプロイします。
 
 References
 -------
-* こちらのサイトが参考になります。⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
-* 書籍はこちら⇒【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
+* 開発のコツなど　⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
+* 書籍はこちら　⇒　【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
 
 
 Contributing
