@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BadCredentialsEventListener {
 
     @Autowired
-    private UserDetailsServiceImpl service;
+    private UserDetailsServiceImpl userdetailsService;
     
     @Autowired
     private EnvService envService;
@@ -48,7 +48,7 @@ public class BadCredentialsEventListener {
         String userId = event.getAuthentication().getName();
 
         // ユーザー情報の取得
-        AppUserDetails user = (AppUserDetails) service.loadUserByUsername(userId);
+        AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
 
         // ログイン失敗回数を1増やす
         int loginMissTime = user.getLogin_miss_times() + 1;

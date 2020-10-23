@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import com.portal.z.common.domain.model.User;
@@ -52,7 +53,8 @@ public class UserDetailsDaoImpl implements UserDetailsDao {
 			//
 			//
 			System.out.println("user_idが拾えなかった ：" + authorityList);
-			return null;
+			throw new UsernameNotFoundException("user_idが拾えなかった ：");
+			//return null;
 		}
 
 		System.out.println("user_id:" + authorityList);
