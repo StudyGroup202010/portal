@@ -16,8 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.portal.z.login.domain.model.AppUserDetails;
-import com.portal.z.login.domain.service.UserDetailsServiceImpl;
+import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.service.UserDetailsServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 

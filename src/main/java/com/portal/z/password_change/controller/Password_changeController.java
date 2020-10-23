@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.portal.z.login.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.password_change.domain.model.PasswordForm;
 import com.portal.z.password_change.domain.service.Password_changeService;
 

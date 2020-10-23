@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.service.EnvService;
-
+import com.portal.z.common.domain.service.UserDetailsServiceImpl;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserService;
 
-import com.portal.z.login.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.AppUserDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BadCredentialsEventListener {
 
     @Autowired
-    private UserDetailsServiceImpl service;
+    private UserDetailsServiceImpl userdetailsService;
     
     @Autowired
     private EnvService envService;
@@ -36,7 +36,7 @@ public class BadCredentialsEventListener {
     @EventListener
     public void onBadCredentialsEvent(AuthenticationFailureBadCredentialsEvent event) {
 
-    	log.info("メソッド開始：" );
+    	log.info("メソッド開始：onBadCredentialsEvent" );
     	
         // 存在しないユーザ名の場合はユーザマスタを更新できないので無視
         if (event.getException().getClass().equals(UsernameNotFoundException.class)) {
@@ -48,7 +48,7 @@ public class BadCredentialsEventListener {
         String userId = event.getAuthentication().getName();
 
         // ユーザー情報の取得
-        AppUserDetails user = (AppUserDetails) service.loadUserByUsername(userId);
+        AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
 
         // ログイン失敗回数を1増やす
         int loginMissTime = user.getLogin_miss_times() + 1;
@@ -56,7 +56,7 @@ public class BadCredentialsEventListener {
         // 失敗回数を更新する
         updateUnlock(userId,loginMissTime);
         
-        log.info("メソッド終了：" );
+        log.info("メソッド終了：onBadCredentialsEvent" );
     }
 
     //
@@ -64,13 +64,14 @@ public class BadCredentialsEventListener {
     //
     private boolean updateUnlock(String userId, int loginMissTime) {
     	
-    	log.info("メソッド開始：" );
+    	log.info("メソッド開始：updateUnlock" );
 
         // ロックフラグ(無効)
         boolean lock = false;
     
         // 環境マスタに登録したログイン失敗の上限回数を取得
         //　ToDo 取得出来なかったときの処理を追加
+        //
         Env env = envService.selectOne("LOGIN_MISS_TIMES_MAX");
         final int LOGIN_MISS_LIMIT = Integer.parseInt(env.getEnv_txt());
    
@@ -91,8 +92,9 @@ public class BadCredentialsEventListener {
         // パスワード更新
         //更新実行
         boolean result = userService.updateLockflg(user);
+        //ToDo 空振りしたときの処理
         
-        log.info("メソッド終了：" );
+        log.info("メソッド終了：updateUnlock" );
         
         return result;
     }

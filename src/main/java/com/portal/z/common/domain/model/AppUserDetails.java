@@ -1,4 +1,4 @@
-package com.portal.z.login.domain.model;
+package com.portal.z.common.domain.model;
 
 import java.util.Collection;
 import java.util.Date;
