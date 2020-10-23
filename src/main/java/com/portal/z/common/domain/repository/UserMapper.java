@@ -32,4 +32,5 @@ public interface UserMapper {
     
     // パスワード有効期限更新用メソッド
     public boolean updatePassupdate(User user);
+
 }
