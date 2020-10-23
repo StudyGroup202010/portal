@@ -60,7 +60,14 @@ public class RoleService {
      * ※ROLE_NAME_AとROLE_NAME_Gを想定
      */
     public Role selectRoleid(String env_id) {
-        // selectOne実行
         return roleMapper.selectRoleid(env_id);
+    }
+
+    /**
+     * ユーザに紐つく権限取得用メソッド.
+     */
+    public List<Role> selectManyRole(String user_id) {
+        // 権限取得
+        return roleMapper.selectManyRole(user_id);
     }
 }

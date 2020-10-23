@@ -85,4 +85,19 @@
             on a.role_name = b.env_txt
             and b.env_id = #{env_id}
     </select>
+    
+    <!-- 権限検索 -->
+    <select id="selectManyRole" parameterType="string" resultType="com.portal.z.common.domain.model.Role">
+        select
+           C.role_id
+          ,COALESCE(C.role_name,'NOTHING') as role_name
+        from
+          zm001_user as A
+          left join zm003_userrole as B
+            on A.USER_ID = B.USER_ID
+          left join zm002_role as C
+            on B.ROLE_ID = C.ROLE_ID
+        where
+          A.user_id = #{user_id}
+    </select>
 </mapper>

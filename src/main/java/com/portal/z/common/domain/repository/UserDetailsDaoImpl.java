@@ -1,4 +1,4 @@
-package com.portal.z.login.domain.repository;
+package com.portal.z.common.domain.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,22 +13,22 @@ import org.springframework.stereotype.Repository;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.service.UserService;
-import com.portal.z.login.domain.model.AppUserDetails;
-import com.portal.z.login.domain.service.LoginService;
+import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.service.RoleService;
 
 @Repository("LoginDaoImpl")
-public class LoginDaoImpl implements LoginDao {
+public class UserDetailsDaoImpl implements UserDetailsDao {
 
     @Autowired
     private UserService userService;
     
     @Autowired
-    private LoginService loginService;
+    private RoleService roleService;
     
     /**
      * ユーザー情報を取得して、UserDetailsを生成するメソッド.
      */
-    public UserDetails selectOne(String user_id) {
+    public UserDetails selectUserDetails(String user_id) {
     	
         //権限リストの取得（メソッド）
         List<GrantedAuthority> grantedAuthorityList = getRoleList(user_id);
@@ -45,9 +45,18 @@ public class LoginDaoImpl implements LoginDao {
     private List<GrantedAuthority> getRoleList(String user_id) {
     	
         //select実行(ユーザー権限の取得)
-    	//ToDoここでuser_idが拾えなかったときに
-    	List<Role> authorityList = loginService.selectMany(user_id);
+    	List<Role> authorityList = roleService.selectManyRole(user_id);
+    	
+		if (authorityList.isEmpty() == true ) {
+	    	//ToDoここでuser_idが拾えなかったときの処理
+			//
+			//
+			System.out.println("user_idが拾えなかった ：" + authorityList);
+			return null;
+		}
 
+		System.out.println("user_id:" + authorityList);
+		
         //結果返却用のList生成
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
         
@@ -75,6 +84,17 @@ public class LoginDaoImpl implements LoginDao {
                    List<GrantedAuthority> grantedAuthorityList) {
 	  
 	    User user_i = userService.selectOne(user_id_i);
+	    
+		if (user_i == null ) {
+	    	//ToDoここでuser_idが拾えなかったときの処理
+			//
+			//
+			
+			System.out.println("user_id_idが拾えなかった ：" + user_i);
+			return null;
+		}
+		
+		System.out.println("user_id_id：" + user_i);
 
         // Mapから値を取得
         String user_id       = (String) user_i.getUser_id();

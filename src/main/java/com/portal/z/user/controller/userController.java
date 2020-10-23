@@ -30,7 +30,7 @@ import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
 import com.portal.z.common.domain.service.RoleService;
-import com.portal.z.login.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.AppUserDetails;
 
 @Transactional
 @Controller
@@ -255,6 +255,9 @@ public class userController {
 
             // ユーザー情報を取得
             User user = userService.selectOne(user_id);
+            //ToDo ユーザ情報が取得できなかったときの処理
+            //
+            //
 
             // Userクラスをフォームクラスに変換
             form.setUser_id(user.getUser_id());                   //ユーザーID
@@ -285,6 +288,8 @@ public class userController {
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
 
+            System.out.println("入力エラー");
+            
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
         	return getUserDetail(form, model,"");
         }
