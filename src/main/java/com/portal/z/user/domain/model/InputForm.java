@@ -4,7 +4,7 @@ import java.util.Date;
 
 //import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
+//import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -40,9 +41,8 @@ public class InputForm {
     
     private String  role;             //権限
     
-    //0から100の整数のみ
+    //0以上の整数のみ
     @Min(value = 0, groups = ValidGroup1.class, message = "{min_check}")
-    @Max(value = 100, groups = ValidGroup1.class, message = "{max_check}")
     private int     login_miss_times; //ログイン失敗回数
     
     private boolean lock_flg;         //ロック状態
