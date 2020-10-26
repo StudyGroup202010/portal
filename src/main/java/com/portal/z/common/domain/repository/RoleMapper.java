@@ -27,6 +27,4 @@ public interface RoleMapper {
     //　ロールＩＤ検索用メソッド
     public Role selectRoleid(String env_id);
     
-    // ユーザ権限検索用メソッド
-    public List<Role> selectManyRole(String user_id);   
 }

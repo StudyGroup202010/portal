@@ -63,11 +63,4 @@ public class RoleService {
         return roleMapper.selectRoleid(env_id);
     }
 
-    /**
-     * ユーザに紐つく権限取得用メソッド.
-     */
-    public List<Role> selectManyRole(String user_id) {
-        // 権限取得
-        return roleMapper.selectManyRole(user_id);
-    }
 }

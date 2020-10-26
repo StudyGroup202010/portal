@@ -15,10 +15,9 @@ import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.UserMapper;
 //JDBC用
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.portal.z.common.domain.repository.UserDao;
-import com.portal.z.common.domain.repository.UserDetailsDao;
+//import com.portal.z.common.domain.repository.UserDetailsDao;
 
 @Transactional
 @Service
@@ -29,9 +28,6 @@ public class UserService {
 
     @Autowired
     UserDao dao;
-    
-    @Autowired
-    UserDetailsDao dao_ud;
 
     /**
      * insert用メソッド.
@@ -115,10 +111,4 @@ public class UserService {
     	return userMapper.updatePassupdate(user);
     }
     
-    /**
-     * ユーザ権限情報取得用メソッド.
-     */
-    public UserDetails selectUserDetails(String user_id) throws DataAccessException {
-        return dao_ud.selectUserDetails(user_id);
-    }    
 }
