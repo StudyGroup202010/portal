@@ -1,4 +1,4 @@
-package com.portal.z.login.domain.service;
+package com.portal.z.common.config;
 
 // ログイン失敗時の処理
 // ApplicationEventの処理なので遷移先の変更はできない
