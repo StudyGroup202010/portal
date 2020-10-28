@@ -21,9 +21,19 @@
 <body>
     <!-- ポイント：th:fragment -->
     <div th:fragment="home_contents">
+    
         <div class="page-header">
-            <h3>ホーム</h3>
+            <h3>ホーム画面</h3>
         </div>
+        
+        <div class="page-body">
+            <h5>ここには以下のような情報を載せます</h5>
+            <h6>・会社からのお知らせ</h6>
+            <h6>・就業規則など</h6>
+            <h6>・社員教育の資料など</h6>
+        </div>
+        
+        <div th:insert="z/footer :: footer"></div>
     </div>
 </body>
 </html>

@@ -28,40 +28,46 @@
         <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
         <!-- ユーザー登録画面へのリンク -->
         <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}">新規登録</a>
+        
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped table-sm">
+          
            <thead>
              <tr class="table-info">
-                <th scope="col" >ユーザID</th>
-                <th scope="col" >ユーザ有効期限</th>
-                <th scope="col" >パスワード有効期限</th>
-                <th scope="col" >ログイン失敗回数</th>
-                <th scope="col" >ロック状態</th>
-                <th scope="col" >有効無効</th>
+                <th scope="col" ><p class="text-nowrap text-center">ユーザID</p></th>
+                <th scope="col" ><p class="text-nowrap text-center">ユーザ有効期限</p></th>
+                <th scope="col" ><p class="text-nowrap text-center">パスワード有効期限</p></th>
+                <th scope="col" ><p class="text-nowrap text-center">ログイン失敗回数</p></th>
+                <th scope="col" ><p class="text-nowrap text-center">ロック状態</p></th>
+                <th scope="col" ><p class="text-nowrap text-center">有効無効</p></th>
                 <th scope="col" ></th>
              </tr>
            </thead>
+           
            <tbody>
              <tr th:each="user : ${userList}">
-                <th scope="row" th:text="${user.user_id}"></th>
-                <td th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>       
-                <td th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}"></td>  
-                <td th:text="${user.login_miss_times}"></td>
-                <td th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>   
-                <td th:text="${user.enabled_flg} ? '有効' : '無効'"></td>   
+                <th scope="row"    th:text="${user.user_id}"></th>
+                <td align="center" th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>       
+                <td align="center" th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}"></td>  
+                <td align="Right"  th:text="${user.login_miss_times}"></td>
+                <td align="center" th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>   
+                <td align="center" th:text="${user.enabled_flg} ? '有効' : '無効'"></td>   
                 <td >
                     <!-- ユーザー詳細画面へのリンク -->
                     <a class="btn btn-primary btn-sm" th:href="@{'/userDetail/' + ${user.user_id}}" >詳細</a>
                 </td>
              </tr>
            </tbody>
+           
           </table>
         </div>
+        
         <!-- ユーザー一覧の件数 -->
         <label th:text=" '合計：' + ${userListCount} + '件' "></label><br/>
         <!-- 更新・削除処理の結果表示用 -->
         <label class="text-info" th:text="${result}">結果表示</label><br/>
-
+        
+      <div th:insert="z/footer :: footer"></div>
     </div>
 </body>
 </html>
