@@ -25,6 +25,7 @@
                 <div class="page-header">
                     <h3>ユーザー詳細</h3>
                 </div>
+                
                 <form method="post" th:action="@{/userDetail}" th:object="${inputForm}">
                     <table class="table table-bordered table-hover table-sm">
                         <!-- ユーザーID（入力不可） -->
@@ -141,6 +142,7 @@
                             </td>
                         </tr>
                     </table>
+                    
                     <!-- 戻るボタン -->
                     <button class="btn btn-primary" type="submit" name="back">戻る</button>
                     <!-- 更新ボタン -->
@@ -191,7 +193,10 @@
     </div>
 
 　　　　　　　　　　　　　　　　</form>
+
             </div>
-        </div>
+            
+      <div th:insert="z/footer :: footer"></div>
+    </div>
 </body>
 </html>

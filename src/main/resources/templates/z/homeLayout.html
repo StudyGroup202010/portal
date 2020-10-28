@@ -31,22 +31,36 @@
             </form>
     </nav>
     
+    <!-- ===== ボディー  =====  -->
     <div class="container-fluid">
         <div class="row">
+        
             <!-- ===== サイドバー（２グリッド分） ===== -->
             <div class="col-sm-2 sidebar">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{'/userList'}">ユーザ管理</a>
-                    </li>
-                    <!-- ADMIN権限を持っているユーザのみ表示 -->
-                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link" th:href="@{'/admin'}">アドミン用画面</a>
-                    </li>
-                </ul>
+              <nav class="nav　flex-column">
+              
+                <a class="nav-link border border-dark text-center" th:href="@{'/home'}">ホーム</a>
+                
+                <a class="nav-link border border-dark text-center" th:href="@{'/userList'}">ユーザ管理</a>
+                
+                <!-- ADMIN権限を持っているユーザのみ表示 -->
+                <a class="nav-link border border-dark text-center dropdown-toggle"
+                     sec:authorize="hasRole('ADMIN')" data-toggle="dropdown"
+                     href="#" role="button" aria-haspopup="true" aria-expanded="false">アドミン用選択</a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">要素１</a>
+                    <a class="dropdown-item" href="#">要素２</a>
+                    <a class="dropdown-item" href="#">要素３</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">要素４</a>
+                    <a class="dropdown-item" href="#">要素５</a>
+                  </div>
+                  
+                <!-- ADMIN権限を持っているユーザのみ表示 -->
+                <a class="nav-link border border-dark text-center"
+                     sec:authorize="hasRole('ADMIN')" th:href="@{'/admin'}">アドミン用画面</a>
+                     
+              </nav>
             </div>
             
             <!-- ===== コンテンツ（１０グリッド分） ===== -->
@@ -54,6 +68,7 @@
                 <!-- 表示するhtmlに記載した値（th:fragment="home_contents"など）を参照します -->
                 <div th:include="__${contents}__"></div>
             </div>
+            
         </div>
     </div>
 </body>
