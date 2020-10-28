@@ -1,21 +1,18 @@
 package com.portal.z.common.config;
 
 // ログイン失敗時の処理
-// ApplicationEventの処理なので遷移先の変更はできない
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.service.EnvService;
 import com.portal.z.common.domain.service.UserDetailsServiceImpl;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserService;
-
-import com.portal.z.common.domain.model.AppUserDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,17 +33,21 @@ public class BadCredentialsEventListener {
     @EventListener
     public void onBadCredentialsEvent(AuthenticationFailureBadCredentialsEvent event) {
 
-    	log.info("メソッド開始：onBadCredentialsEvent" );
-    	
-        // 存在しないユーザ名の場合はユーザマスタを更新できないので無視
-        if (event.getException().getClass().equals(UsernameNotFoundException.class)) {
-            log.info("ユーザーが存在しません。");
-            return;
-        }
-
     	// ユーザーIDの取得
         String userId = event.getAuthentication().getName();
 
+        //ユーザー情報の取得
+    	// 本来であればLoginUserRepositoryの例外（UsernameNotFoundException）を受け取って判断したいところ。
+    	// しかし、Springの標準でBadCredentialsExceptionに変換されてしまう。
+    	// 設定で変換させない方法もあるようだが、あまり資料無いし内部をいじりたくないので、再検索して判断することにした。
+        User user_i = userService.selectOne(userId);
+        
+        // ユーザＩＤが存在しない場合はユーザマスタを更新できないので終了
+        if (user_i == null ) {
+        	log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）" );
+        	return;
+        }
+        
         // ユーザー情報の取得
         AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
 
@@ -56,7 +57,6 @@ public class BadCredentialsEventListener {
         // 失敗回数を更新する
         updateUnlock(userId,loginMissTime);
         
-        log.info("メソッド終了：onBadCredentialsEvent" );
     }
 
     //
@@ -64,20 +64,23 @@ public class BadCredentialsEventListener {
     //
     private boolean updateUnlock(String userId, int loginMissTime) {
     	
-    	log.info("メソッド開始：updateUnlock" );
+        boolean lock = false;      // ロックフラグ(無効)
+        int LOGIN_MISS_LIMIT = 0;  // ログイン失敗回数の最大値
 
-        // ロックフラグ(無効)
-        boolean lock = false;
-    
-        // 環境マスタに登録したログイン失敗の上限回数を取得
-        //　ToDo 取得出来なかったときの処理を追加
-        //
+        // 環境マスタに登録したログイン失敗回数の最大値を取得
         Env env = envService.selectOne("LOGIN_MISS_TIMES_MAX");
-        final int LOGIN_MISS_LIMIT = Integer.parseInt(env.getEnv_txt());
-   
+
+        if (env != null ) {
+        	  LOGIN_MISS_LIMIT = Integer.parseInt(env.getEnv_txt());
+        }else {
+        	log.info("環境マスタの「LOGIN_MISS_TIMES_MAX」が登録されていません。" );
+        	log.info("初期値を登録します。" );
+        	  LOGIN_MISS_LIMIT = 3;
+        }
+
         if(loginMissTime >= LOGIN_MISS_LIMIT) {
+            log.info("ログイン失敗回数の最大値に達したので " + userId + " をロックします");
             lock = true;
-            log.info(userId + "をロックします");
         }
     
         //Userインスタンスの生成
@@ -92,10 +95,8 @@ public class BadCredentialsEventListener {
         // パスワード更新
         //更新実行
         boolean result = userService.updateLockflg(user);
-        //ToDo 空振りしたときの処理
-        
-        log.info("メソッド終了：updateUnlock" );
-        
+
         return result;
+
     }
 }

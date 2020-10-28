@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.authentication.AuthenticationProvider;
+//import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -23,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("SuccessHandler")
     AuthenticationSuccessHandler successHandler;
-	
+    
     //ログイン処理時のユーザ情報を取得する
     @Autowired
     @Qualifier("UserDetailsServiceImpl")
@@ -73,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home", true) //ログイン成功後の遷移先
                 .successHandler(successHandler); //ログイン成功時にsuccessHandlerを使うように設定
 
+
         // セッション管理
         http.sessionManagement()
             .invalidSessionUrl("/error/session"); // セッションエラー後の遷移先
@@ -87,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // CSRF対策はデフォルトで有効
     }
+    
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

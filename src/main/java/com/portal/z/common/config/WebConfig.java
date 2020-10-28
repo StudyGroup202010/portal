@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     @Qualifier("LoggingIntercepter")
     HandlerInterceptor loggingInterceptor;
-
+    
     /**
      * Integercepterを追加.
      */
