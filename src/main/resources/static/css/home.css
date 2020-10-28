@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: #F4F5F7;
+  /*  background-color: #F4F5F7; */
 }
 
 .main {
@@ -9,4 +9,10 @@
 .btn {
   margin-left:  2px;
   margin-right: 2px;    /* 詳細画面での削除ボタンと更新ボタンの間の間隔 */
+}
+
+.nav-link
+{
+  margin-top:    2px;
+  margin-bottom: 2px;    /* 詳細画面での削除ボタンと更新ボタンの間の間隔 */
 }
