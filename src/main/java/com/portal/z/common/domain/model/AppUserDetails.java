@@ -34,12 +34,6 @@ public class AppUserDetails implements UserDetails {
     //権限のCollection
     private Collection<? extends GrantedAuthority> authority;
 
-    // =========================
-    // 独自のフィールド
-    // =========================
-    //private String tenant_id;     //テナントＩＤ
-    //private String user_name;     //ユーザー名
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authority;
@@ -91,19 +85,11 @@ public class AppUserDetails implements UserDetails {
      * false:無効
      */
 //
-//　パスワードの有効期限が切れていたら再設定をするので、この部分はコメント化    
+//　パスワードの有効期限が切れていたら再設定をするので、この部分trueを返すだけとする    
 //
     @Override
     public boolean isCredentialsNonExpired() {
     	return true;
-//        //パスワード有効期限が、現在日付よりも後かどうかをチェック
-//        if(this.pass_update.after(new Date())) {
-//            //現在日付よりも後なら有効
-//            return true;
-//        } else {
-//            //現在日付よりも前なら無効
-//            return false;
-//        }
     }
 
     /** アカウントの有効・無効チェック
