@@ -25,6 +25,8 @@ Note
   * JDBC、MyBatis （https://mybatis.org/mybatis-3/ja/ ）  
 * CSS
   * Bootstrap（https://getbootstrap.jp/docs/4.2/getting-started/introduction/ ）  
+* HTML
+  * Thymeleaf（https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html ）  
 * Build
   * Maven
 * その他
