@@ -65,18 +65,25 @@ public class BadCredentialsEventListener {
     private boolean updateUnlock(String userId, int loginMissTime) {
     	
         boolean lock = false;      // ロックフラグ(無効)
-        int LOGIN_MISS_LIMIT = 0;  // ログイン失敗回数の最大値
+        int LOGIN_MISS_LIMIT = 0;  // ログイン失敗回数の最大値の初期値
 
         // 環境マスタに登録したログイン失敗回数の最大値を取得
+        // 本来ならここでselectIntOneを使いたいところだが、例外がキャッチできない。（何か制約がある？）
+        // なのでselectOneを使い、ここで値の評価もする事にした。
         Env env = envService.selectOne("LOGIN_MISS_TIMES_MAX");
-
+ 
         if (env != null ) {
+        	try {
+              //取得した値をセットする。
         	  LOGIN_MISS_LIMIT = Integer.parseInt(env.getEnv_txt());
-        }else {
-        	log.info("環境マスタの「LOGIN_MISS_TIMES_MAX」が登録されていません。" );
-        	log.info("初期値を登録します。" );
-        	  LOGIN_MISS_LIMIT = 3;
+        	  
+            } catch (NumberFormatException e) {
+                log.info("環境マスタの「LOGIN_MISS_TIMES_MAX」に数字以外が登録されています" );
+                LOGIN_MISS_LIMIT = 0;
+            }
         }
+        
+        log.info("LOGIN_MISS_LIMIT：" + LOGIN_MISS_LIMIT );
 
         if(loginMissTime >= LOGIN_MISS_LIMIT) {
             log.info("ログイン失敗回数の最大値に達したので " + userId + " をロックします");

@@ -5,6 +5,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.portal.z.common.domain.logic.UserRowCallbackHandler;
 import com.portal.z.common.domain.repository.UserDao;
 
 @Repository("UserDaoJdbcImpl")
