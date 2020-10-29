@@ -52,5 +52,26 @@ public class EnvService {
     public boolean deleteOne(String env_id) {
     	return envMapper.deleteOne(env_id);
     }
+    
+    /**
+     * 数値項目１件取得用メソッド.
+     * 環境ＩＤが数値項目の場合に使います
+     */
+    public Env selectIntOne(String env_id) {
+    	try {
+        	Env env = envMapper.selectOne(env_id);
+        	
+            if (env != null ) {
+                // 取得した値が数値かどうかを確認する
+            	Integer.parseInt(env.getEnv_txt());
+            }
+            
+            return env;
+
+        } catch (NumberFormatException e) {
+        	//数値以外の値が登録されていたらnullを返す。
+        	return null;
+        }
+    }
  
 }
