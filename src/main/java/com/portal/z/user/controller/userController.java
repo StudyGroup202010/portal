@@ -22,8 +22,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.portal.z.user.domain.model.GroupOrder;
+import com.portal.z.user.domain.model.CreateOrder;
+//import com.portal.z.user.domain.model.GroupOrder;
 import com.portal.z.user.domain.model.InputForm;
+//import com.portal.z.user.domain.model.ValidCreate;
+//import com.portal.z.user.domain.model.ValidUpdate;
+import com.portal.z.user.domain.model.UpdateOrder;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.model.Role;
@@ -34,6 +41,7 @@ import com.portal.z.common.domain.model.AppUserDetails;
 
 @Transactional
 @Controller
+@Slf4j
 public class userController {
 
     @Autowired
@@ -155,7 +163,7 @@ public class userController {
      * ユーザー登録画面のPOSTメソッド用処理.
      */
     @PostMapping("/userUpdate")
-    public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) InputForm form,
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form,
             BindingResult bindingResult,
             Model model) {
     	
@@ -209,10 +217,10 @@ public class userController {
         // ユーザー登録結果の判定
         if (result_1 == true && result_2 == true ) {
         	model.addAttribute("result", "登録成功");
-            System.out.println("登録成功");
+        	log.info("登録成功");
         } else {
         	model.addAttribute("result", "登録失敗");
-            System.out.println("登録失敗");
+        	log.info("登録失敗");
         }
 
       //ユーザー一覧画面を表示
@@ -281,14 +289,14 @@ public class userController {
     //ユーザ詳細画面は更新も削除も/userDetailにPOSTするため、どちらが押されたかを判断するために、
     //name属性の値をパラメータとして使っています
     @PostMapping(value = "/userDetail", params = "update")
-    public String postUserDetailUpdate(@ModelAttribute @Validated(GroupOrder.class) InputForm form,
+    public String postUserDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputForm form,
     		BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
 
-            System.out.println("入力エラー");
+        	log.info("入力エラー");
             
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
         	return getUserDetail(form, model,"");
@@ -322,10 +330,10 @@ public class userController {
 
         if (result == true) {
             model.addAttribute("result", "更新成功");
-            System.out.println("更新成功");
+            log.info("更新成功");
         } else {
             model.addAttribute("result", "更新失敗");
-            System.out.println("更新失敗");
+            log.info("更新失敗");
         }
 
         //ユーザー一覧画面を表示
@@ -346,13 +354,11 @@ public class userController {
         if (result_1 == true && result_2 == true) {
 
             model.addAttribute("result", "削除成功");
-            System.out.println("削除成功");
-
+            log.info("削除成功");
         } else {
 
             model.addAttribute("result", "削除失敗");
-            System.out.println("削除失敗");
-
+            log.info("削除失敗");
         }
 
         //ユーザー一覧画面を表示

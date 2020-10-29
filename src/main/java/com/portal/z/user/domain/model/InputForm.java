@@ -2,9 +2,7 @@ package com.portal.z.user.domain.model;
 
 import java.util.Date;
 
-//import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Email;
-//import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,30 +17,29 @@ import lombok.Data;
 public class InputForm {
 
     //必須入力、メールアドレス形式
-    @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
-    @Email(groups = ValidGroup2.class, message = "{email_check}")
+    @NotBlank(groups = {ValidCreate1.class}, message = "{require_check}")
+    @Email(groups = {ValidCreate2.class}, message = "{email_check}")
     private String user_id; // ユーザーID
     
     //必須入力
-    @NotNull(groups = ValidGroup1.class, message = "{require_check}")
+    @NotNull(groups = {ValidCreate1.class,ValidUpdate1.class}, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date    user_due_date;    //ユーザ有効期限
     
     //必須入力、長さ4から100桁まで、半角英数字のみ
-    @NotBlank(groups = ValidGroup1.class, message = "{require_check}")
-    @Length(min=4,max=100,groups = ValidGroup2.class, message = "{length_check}")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", groups = ValidGroup3.class, message = "{pattern_check}")
+    @NotBlank(groups = {ValidCreate1.class,ValidUpdate1.class}, message = "{require_check}")
+    @Length(min=4,max=100,groups = {ValidCreate2.class,ValidUpdate2.class},message = "{length_check}")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$",groups = {ValidCreate2.class,ValidUpdate2.class},message = "{pattern_check}")
     private String password; // パスワード
     
     //必須入力
-    @NotNull(groups = ValidGroup1.class, message = "{require_check}")
+    @NotNull(groups = {ValidCreate1.class,ValidUpdate1.class}, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date    pass_update;      //パスワード有効期限
     
-    private String  role;             //権限
-    
     //0以上の整数のみ
-    @Min(value = 0, groups = ValidGroup1.class, message = "{min_check}")
+    //必須入力チェックを記述しなくても、未入力の時はintのチェックがかかるのでＯＫ
+    @Min(value = 0, groups = ValidUpdate1.class, message = "{min_check}")
     private int     login_miss_times; //ログイン失敗回数
     
     private boolean lock_flg;         //ロック状態
