@@ -9,11 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//import com.portal.z.common.aspect.LogAspct;
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.EnvService;
+import com.portal.z.common.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Password_changeService {
 
     @Autowired
-    UserMapper userMapper;
+    private UserService userService;
     
     @Autowired
     private EnvService envService;
@@ -69,7 +68,7 @@ public class Password_changeService {
         user.setUpdate_user(userId);             //更新者はログインしようとしているユーザ
     	
         // パスワード更新
-        userMapper.updatePassupdate(user);
+        userService.updatePassupdate(user);
 
     }
 }
