@@ -139,6 +139,9 @@ public class userController {
      * ユーザー登録画面のGETメソッド用処理.
      */
     @GetMapping("/userUpdate")
+    //このメソッドを使える権限を付与する場合は以下のようにPreAuthorizeをつける
+    //ただし、権限が無い場合はVIEWで非表示にした方が綺麗なので、実際はそちらで行う
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')") // ROLE_ADMIN権限のみ
     public String getSignUp(@ModelAttribute InputForm form, Model model) {
     	
         // コンテンツ部分にユーザー登録を表示するための文字列を登録
