@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
       
 <head>
     <meta charset="UTF-8"></meta>
@@ -27,7 +28,7 @@
         <!-- CSV出力用のリンク -->
         <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
         <!-- ユーザー登録画面へのリンク -->
-        <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}">新規登録</a>
+        <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}" sec:authorize="hasRole('ADMIN')" >新規登録</a>
         
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped table-sm">
