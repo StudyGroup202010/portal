@@ -5,35 +5,38 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.portal.z.user.domain.model.GroupOrder;
-import com.portal.z.user.domain.model.InputForm;
+import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
-import com.portal.z.common.domain.model.Role;
+import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
-import com.portal.z.common.domain.service.RoleService;
-import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.user.domain.model.CreateOrder;
+import com.portal.z.user.domain.model.InputForm;
+import com.portal.z.user.domain.model.UpdateOrder;
 
-@Transactional
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class userController {
 
     @Autowired
@@ -134,6 +137,9 @@ public class userController {
      * ユーザー登録画面のGETメソッド用処理.
      */
     @GetMapping("/userUpdate")
+    //このメソッドを使える権限を付与する場合は以下のようにPreAuthorizeをつける
+    //ただし、権限が無い場合はVIEWで非表示にした方が綺麗なので、実際はそちらで行う
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')") // ROLE_ADMIN権限のみ
     public String getSignUp(@ModelAttribute InputForm form, Model model) {
     	
         // コンテンツ部分にユーザー登録を表示するための文字列を登録
@@ -153,9 +159,14 @@ public class userController {
 
     /**
      * ユーザー登録画面のPOSTメソッド用処理.
+     * 
+     * @param form フォーム
+     * @param bindingResult 処理結果
+     * @param model モデル
+     * @return 遷移先の情報(String)
      */
     @PostMapping("/userUpdate")
-    public String postSignUp(@ModelAttribute @Validated(GroupOrder.class) InputForm form,
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form,
             BindingResult bindingResult,
             Model model) {
     	
@@ -202,17 +213,29 @@ public class userController {
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
         
-        // ユーザー登録処理
-        boolean result_1 = userService.insert(user);
+		// ユーザー登録処理1(user)
+		boolean result_1 = false;
+		try {
+			result_1 = userService.insert(user);
+		} catch (DuplicateKeyException ｄe) {
+			// 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
+			FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
+					null, null, "存在するユーザーIDなので登録できません。");
+			bindingResult.addError(fieldError);
+			// GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+			return getSignUp(form, model);
+		}
+
+        // ユーザー登録処理2(userRole)
         boolean result_2 = userroleService.insert(userrole);
         		
         // ユーザー登録結果の判定
         if (result_1 == true && result_2 == true ) {
         	model.addAttribute("result", "登録成功");
-            System.out.println("登録成功");
+        	log.info("登録成功");
         } else {
         	model.addAttribute("result", "登録失敗");
-            System.out.println("登録失敗");
+        	log.info("登録失敗");
         }
 
       //ユーザー一覧画面を表示
@@ -281,14 +304,14 @@ public class userController {
     //ユーザ詳細画面は更新も削除も/userDetailにPOSTするため、どちらが押されたかを判断するために、
     //name属性の値をパラメータとして使っています
     @PostMapping(value = "/userDetail", params = "update")
-    public String postUserDetailUpdate(@ModelAttribute @Validated(GroupOrder.class) InputForm form,
+    public String postUserDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputForm form,
     		BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
 
-            System.out.println("入力エラー");
+        	log.info("入力エラー");
             
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
         	return getUserDetail(form, model,"");
@@ -322,10 +345,10 @@ public class userController {
 
         if (result == true) {
             model.addAttribute("result", "更新成功");
-            System.out.println("更新成功");
+            log.info("更新成功");
         } else {
             model.addAttribute("result", "更新失敗");
-            System.out.println("更新失敗");
+            log.info("更新失敗");
         }
 
         //ユーザー一覧画面を表示
@@ -346,13 +369,11 @@ public class userController {
         if (result_1 == true && result_2 == true) {
 
             model.addAttribute("result", "削除成功");
-            System.out.println("削除成功");
-
+            log.info("削除成功");
         } else {
 
             model.addAttribute("result", "削除失敗");
-            System.out.println("削除失敗");
-
+            log.info("削除失敗");
         }
 
         //ユーザー一覧画面を表示

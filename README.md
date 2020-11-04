@@ -46,15 +46,18 @@ com
 　　│　│　├ config  
 　　│　│　├ controller  
 　　│　│　└ domain  
+　　│　│　　├ util  ・・・共通処理（文字列分割や日付加算など、ＤＢアクセスなし）  
 　　│　│　　├ model  
-　　│　│　　├ repository  
-　　│　│　　└ service  
+　　│　│　　├ service  
+　　│　│　　├ logic  ・・・ serviceで使う共通処理（ＤＢアクセスあり）  
+　　│　│　　└ repository  
 　　│　└ 〇〇〇  ・・・zの個別機能（〇〇画面など）  
 　　│　　　├ controller  
 　　│　　　└ domain  
 　　│　　　　　├ model  
-　　│　　　　　├ repository  
-　　│　　　　　└ service  
+　　│　　　　　├ service  
+　　│　　　　　├ logic  
+　　│　　　　　└ repository  
 　　│  
 　　├ a  ・・・アプリケーションＡ  
 　　│　├ common  ・・・Ａの共通機能  

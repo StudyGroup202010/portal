@@ -1,4 +1,4 @@
-package com.portal.z.common.domain.repository;
+package com.portal.z.common.domain.logic;
 
 import java.io.BufferedWriter;
 import java.io.File;

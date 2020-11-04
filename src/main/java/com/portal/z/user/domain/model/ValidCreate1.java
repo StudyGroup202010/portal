@@ -1,5 +1,5 @@
 package com.portal.z.user.domain.model;
 
-public interface ValidGroup2 {
+public interface ValidCreate1 {
 
 }
