@@ -33,6 +33,7 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
+import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.model.AppUserDetails;
 
@@ -49,6 +50,9 @@ public class userController {
     
     @Autowired
     private RoleService roleService;
+    
+    @Autowired
+    private Utility utility;
     
     //パスワード暗号化
     @Autowired
@@ -117,9 +121,8 @@ public class userController {
         byte[] bytes = null;
 
         try {
-
             //サーバーに保存されているcsvファイルをbyteで取得する
-            bytes = userService.getFile("userlist.csv");
+            bytes = utility.getFile("userlist.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
