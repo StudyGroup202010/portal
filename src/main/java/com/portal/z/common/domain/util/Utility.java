@@ -5,7 +5,6 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import org.springframework.stereotype.Component;
 
 @Component("Utility")
@@ -27,5 +26,5 @@ public class Utility {
 
         return bytes;
     }
-	
+
 }
