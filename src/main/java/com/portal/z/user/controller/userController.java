@@ -145,9 +145,6 @@ public class userController {
 	@RequestMapping("/userList/excel")
 	public UserListXlsxView excel(UserListXlsxView model) {
 		
-//		//コンテンツ部分にユーザー一覧を表示するための文字列を登録
-//        model.addStaticAttribute("contents", "z/userList :: userList_contents");
-		
         //ユーザー一覧の生成
         List<User> userList = userService.selectMany();
 

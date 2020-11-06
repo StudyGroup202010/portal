@@ -60,6 +60,10 @@
           ,login_miss_times
           ,lock_flg
           ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm001_user
         where
@@ -76,6 +80,10 @@
           ,login_miss_times
           ,lock_flg
           ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm001_user
         order by

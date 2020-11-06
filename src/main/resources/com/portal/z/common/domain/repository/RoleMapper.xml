@@ -39,6 +39,10 @@
            role_id
           ,role_name
           ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm002_role
         where
@@ -51,6 +55,10 @@
            role_id
           ,role_name
           ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm002_role
         order by

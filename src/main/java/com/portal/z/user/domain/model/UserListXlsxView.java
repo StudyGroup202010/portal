@@ -1,12 +1,12 @@
 package com.portal.z.user.domain.model;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -15,84 +15,73 @@ import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
 import com.portal.z.common.domain.model.User;
 
-
 /**
  * ＥＸＣＥＬ出力用.
  */
 @Component
+@SuppressWarnings("unchecked")  // このアノテーションつけないと「型の安全性: Object から ～ への未検査キャスト」が出る
 public class UserListXlsxView extends AbstractXlsxView {
-
-    	@Override
+	
+        @Override
     	protected void buildExcelDocument(Map<String, Object> model
     			, Workbook workbook, HttpServletRequest request,
     			HttpServletResponse response) throws Exception {
     		
-    		System.out.println("１１１" + model.keySet());
-    		System.out.println("１１１１" + model.values());
-    		
+    		// Controllerから受け取った値をセット
     		List<User> userList = (List<User>) model.get("userList");
-    		//List<User> userList = (List<User>) model.keySet();
     		int userListCount = (int)model.get("userListCount");
-    		
-    		System.out.println("１１２");
     		
     		Sheet sheet = workbook.createSheet("Sheet1");
     		
-    	    // create header
+    	    // 列名をセット
             Row row = sheet.createRow(0);
-            row.createCell(0).setCellValue("user_id");
-            row.createCell(1).setCellValue("user_due_date");
-            row.createCell(2).setCellValue("password");
-            row.createCell(3).setCellValue("pass_update");
-            row.createCell(4).setCellValue("login_miss_times");
-            row.createCell(5).setCellValue("lock_flg");
-            row.createCell(6).setCellValue("enabled_flg");
-            row.createCell(7).setCellValue("insert_user");
-            row.createCell(8).setCellValue("insert_date");
-            row.createCell(9).setCellValue("update_user");
-            row.createCell(10).setCellValue("update_date");
+            row.createCell(0).setCellValue("ユーザID");
+            row.createCell(1).setCellValue("ユーザ有効期限");
+            row.createCell(2).setCellValue("パスワード有効期限");
+            row.createCell(3).setCellValue("ログイン失敗回数");
+            row.createCell(4).setCellValue("ロック状態");
+            row.createCell(5).setCellValue("有効フラグ");
+            row.createCell(6).setCellValue("作成者");
+            row.createCell(7).setCellValue("作成日時");
+            row.createCell(8).setCellValue("更新者");
+            row.createCell(9).setCellValue("更新日時");
             
-            System.out.println("１１３" + userList.toString()  );
-            System.out.println("１１４" + userList.get(1) );
-           // System.out.println("１１４" + userList. );
-            
-
-            // create body
-            //
-            //　ここで、modelの値をうまく渡せない。。。
-            //
+            // データをセット
+            //ここはもう少し共通化したいな。日付変換とか。
             for (int i=0; i<userListCount ; i++) {
                 row = sheet.createRow(i+1);
-                  row.createCell(0).setCellValue((RichTextString) userList.get(i));
-//                row.createCell(0).setCellValue(((User) userList).getUser_id() );
-//                row.createCell(1).setCellValue(((User) userList).getUser_due_date() );
-//                row.createCell(2).setCellValue(((User) userList).getPassword());
-//                row.createCell(3).setCellValue(((User) userList).getPass_update() );
-//                row.createCell(4).setCellValue(userList.getLogin_miss_times());
-//                row.createCell(5).setCellValue(userList.isLock_flg() );
-//                row.createCell(6).setCellValue(userList.isEnabled_flg());
-//                row.createCell(7).setCellValue(userList.getInsert_user());
-//                row.createCell(8).setCellValue(userList.getInsert_date());
-//                row.createCell(9).setCellValue(userList.getUpdate_user());
-//                row.createCell(10).setCellValue(userList.getUpdate_date());
+                //ユーザID
+                row.createCell(0).setCellValue(userList.get(i).getUser_id() );
+                //ユーザ有効期限
+                String User_due_date  = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getUser_due_date());
+                row.createCell(1).setCellValue(User_due_date);
+                //パスワード有効期限
+                String Pass_update    = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getPass_update());
+                row.createCell(2).setCellValue(Pass_update );
+                //ログイン失敗回数
+                row.createCell(3).setCellValue(userList.get(i).getLogin_miss_times());
+                //ロック状態
+                row.createCell(4).setCellValue(userList.get(i).isLock_flg() );
+                //有効フラグ
+                row.createCell(5).setCellValue(userList.get(i).isEnabled_flg());
+                //作成者
+                row.createCell(6).setCellValue(userList.get(i).getInsert_user());
+                //作成日時
+                String Insert_date    = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getInsert_date());
+                row.createCell(7).setCellValue(Insert_date);
+                //更新者
+                row.createCell(8).setCellValue(userList.get(i).getUpdate_user());
+                //更新日時
+                if (userList.get(i).getUpdate_date() != null) {
+                    String Update_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getUpdate_date());
+                    row.createCell(9).setCellValue(Update_date);
+                }
             }
             
-            // enable auto filter
-//            sheet.setAutoFilter(new CellRangeAddress(0, 0, 0, 4));
-            
-            // adjust column width
-//            for (int i=0; i<5; i++) {
-//                sheet.autoSizeColumn(i);
-//            }
-    		
-    		
-    		
-    		
-    		
-    		//受け取ったデータをエクセルシートに置いていく処理
-//    		Row row = sheet.createRow(0);
-//    		Cell cell = row.createCell(0);
-//    		cell.setCellValue((String)model.toString());
+            // カラム幅を自動調整
+            for (int i=0; i<9; i++) {
+                sheet.autoSizeColumn(i);
+            }
     	}
 
 	
