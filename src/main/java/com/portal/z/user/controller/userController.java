@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +20,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.UpdateOrder;
+import com.portal.z.user.domain.model.UserListXlsxView;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -138,6 +139,26 @@ public class userController {
         return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
     
+    /**
+     * ユーザー一覧のExcel出力用処理.
+     */
+	@RequestMapping("/userList/excel")
+	public UserListXlsxView excel(UserListXlsxView model) {
+		
+        //ユーザー一覧の生成
+        List<User> userList = userService.selectMany();
+
+        //Modelにユーザーリストを登録
+		model.addStaticAttribute("userList", userList);
+		
+        //データ件数を取得
+        int count = userService.count();
+        model.addStaticAttribute("userListCount", count);
+		
+		return model;
+	}
+    
+   
     /**
      * ユーザー登録画面のGETメソッド用処理.
      */

@@ -64,25 +64,25 @@ public class LogAspct {
     
 	// JointPoint（実行タイミング）はAround（メソッド実行の前後）
 	//　実行場所はwithin(Componentアノテーションがついている全ての場所）
-    @Around("@within(org.springframework.stereotype.Component)")
-    public Object startLog_component(ProceedingJoinPoint jp) throws Throwable {
-
-        log.info("Cメソッド開始：" + jp.getSignature());
-
-        try {
-            //メソッド実行
-            Object result = jp.proceed();
-
-            log.info("Cメソッド終了：" + jp.getSignature());
-
-            return result;
-
-        } catch (Exception e) {
-        	log.error("Cメソッド異常終了：" + jp.getSignature());
-            e.printStackTrace();
-            throw e;
-        }
-    }
+//    @Around("@within(org.springframework.stereotype.Component)")
+//    public Object startLog_component(ProceedingJoinPoint jp) throws Throwable {
+//
+//        log.info("Cメソッド開始：" + jp.getSignature());
+//
+//        try {
+//            //メソッド実行
+//            Object result = jp.proceed();
+//
+//            log.info("Cメソッド終了：" + jp.getSignature());
+//
+//            return result;
+//
+//        } catch (Exception e) {
+//        	log.error("Cメソッド異常終了：" + jp.getSignature());
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
     
 	// JointPoint（実行タイミング）はAround（メソッド実行の前後）
 	//　実行場所はwithin(Repositoryアノテーションがついている全ての場所）

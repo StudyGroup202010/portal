@@ -47,6 +47,10 @@
           ,env_num
           ,env_txt
           ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm999_env
         where
@@ -61,6 +65,10 @@
           ,env_num
           ,env_txt
           ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm999_env
         order by
