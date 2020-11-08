@@ -27,7 +27,7 @@ public class UserService {
      * insert用メソッド.
      */
     public boolean insert(User user) {
-    	return userMapper.insertOne(user);
+        return userMapper.insertOne(user);
     }
 
     /**
@@ -57,35 +57,35 @@ public class UserService {
      * １件更新用メソッド.
      */
     public boolean updateOne(User user) {
-    	return userMapper.updateOne(user);
+        return userMapper.updateOne(user);
     }
 
     /**
      * １件削除用メソッド.
      */
     public boolean deleteOne(String user_id) {
-    	return userMapper.deleteOne(user_id);
+        return userMapper.deleteOne(user_id);
     }
 
     /**
      * CSV出力用メソッド.
      */
     public void userCsvOut() throws DataAccessException{
-    	dao.userCsvOut();
+        dao.userCsvOut();
     }
 
     /**
      * ロックフラグ更新用メソッド.
      */
     public boolean updateLockflg(User user) {
-    	return userMapper.updateLockflg(user);
+        return userMapper.updateLockflg(user);
     }
-    
+
     /**
      * パスワード有効期限更新用メソッド.
      */
     public boolean updatePassupdate(User user) {
-    	return userMapper.updatePassupdate(user);
+        return userMapper.updatePassupdate(user);
     }
-    
+
 }

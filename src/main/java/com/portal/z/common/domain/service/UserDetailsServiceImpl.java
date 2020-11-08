@@ -15,15 +15,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private LoginUserRepository repository;
-    
+
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-    	
+
         //ユーザ情報を取得
-    	//ここで検索結果を評価したいところですが、Springの認証機能に任せることにします。
-    	UserDetails user = repository.selectOne(username);
-    	  
+        //ここで検索結果を評価したいところですが、Springの認証機能に任せることにします。
+        UserDetails user = repository.selectOne(username);
+
         return user;
     }
 }

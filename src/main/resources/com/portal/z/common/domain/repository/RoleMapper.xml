@@ -2,13 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<mapper namespace="com.portal.z.common.domain.repository.RoleMapper">
-    <!-- マッピング定義 -->
-    <resultMap type="com.portal.z.common.domain.model.Role" id="role">
-        <id     column="role_id"      property="role_id" />
-        <result column="role_name"    property="role_name" />
-        <result column="biko"         property="biko" />
-    </resultMap>
+<mapper
+	namespace="com.portal.z.common.domain.repository.RoleMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.Role"
+		id="role">
+		<id column="role_id" property="role_id" />
+		<result column="role_name" property="role_name" />
+		<result column="biko" property="biko" />
+	</resultMap>
     
     <!-- １件insert -->
     <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Role">

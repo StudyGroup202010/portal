@@ -18,10 +18,10 @@ public class HomeController {
 
         //コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/home :: home_contents");
-                  
+
         return "z/homeLayout";
     }
-    
+
     /**
      * ホーム画面のログアウト用処理.
      */
@@ -31,10 +31,10 @@ public class HomeController {
         //ログイン画面にリダイレクト
         return "redirect:/login";
     }
-    
-//
-// 以下は本来は別のコントローラーに書くべきですが、参考としてここに書いています。
-//    
+
+    //
+    // 以下は本来は別のコントローラーに書くべきですが、参考としてここに書いています。
+    //    
     /**
      * アドミン権限専用画面のGET用メソッド.
      * @param model Modelクラス
