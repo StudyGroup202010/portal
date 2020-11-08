@@ -26,11 +26,11 @@ public class UserRowCallbackHandler implements RowCallbackHandler {
 
                 //ResultSetから値を取得してStringにセット
                 String str = rs.getString("user_id")       + ","
-                		   + rs.getDate("user_due_date")   + ","
-                		   + rs.getDate("pass_update")     + ","
-                		   + rs.getInt("login_miss_times") + ","
-                           + rs.getBoolean("lock_flg")     + ","
-                           + rs.getBoolean("enabled_flg");
+                        + rs.getDate("user_due_date")   + ","
+                        + rs.getDate("pass_update")     + ","
+                        + rs.getInt("login_miss_times") + ","
+                        + rs.getBoolean("lock_flg")     + ","
+                        + rs.getBoolean("enabled_flg");
 
                 //ファイルに書き込み＆改行
                 bw.write(str);

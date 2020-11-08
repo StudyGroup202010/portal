@@ -2,15 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<mapper namespace="com.portal.z.common.domain.repository.EnvMapper">
-    <!-- マッピング定義 -->
-    <resultMap type="com.portal.z.common.domain.model.Env" id="env">
-        <id     column="env_id"          property="env_id" />
-        <result column="env_kbn"         property="env_kbn" />
-        <result column="env_num"         property="env_num" />
-        <result column="env_txt"         property="env_txt" />
-        <result column="biko"            property="biko" />
-    </resultMap>
+<mapper
+	namespace="com.portal.z.common.domain.repository.EnvMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.Env"
+		id="env">
+		<id column="env_id" property="env_id" />
+		<result column="env_kbn" property="env_kbn" />
+		<result column="env_num" property="env_num" />
+		<result column="env_txt" property="env_txt" />
+		<result column="biko" property="biko" />
+	</resultMap>
     
     <!-- １件insert -->
     <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Env">
