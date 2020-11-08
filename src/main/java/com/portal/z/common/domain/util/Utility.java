@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component("Utility")
 public class Utility {
-	
+
     /**
      * サーバーに保存されているファイルを取得して、byte配列に変換する.
      */

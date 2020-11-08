@@ -26,7 +26,7 @@ public class GlobalControllAdvice {
 
         return "error";
     }
-    
+
     @ExceptionHandler(Exception.class)
     public String exceptionHandler(Exception e, Model model) {
 
