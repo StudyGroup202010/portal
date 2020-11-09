@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -185,6 +187,11 @@ public class userController {
 
     /**
      * ユーザー登録画面のPOSTメソッド用処理.
+     * 
+     * @param form フォーム
+     * @param bindingResult 処理結果
+     * @param model モデル
+     * @return 遷移先の情報(String)
      */
     @PostMapping("/userUpdate")
     public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form,
@@ -234,8 +241,20 @@ public class userController {
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
 
-        // ユーザー登録処理
-        boolean result_1 = userService.insert(user);
+        // ユーザー登録処理1(user)
+        boolean result_1 = false;
+        try {
+            result_1 = userService.insert(user);
+        } catch (DuplicateKeyException de) {
+            // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
+            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
+                    null, null, "存在するユーザーIDなので登録できません。");
+            bindingResult.addError(fieldError);
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            return getSignUp(form, model);
+        }
+
+        // ユーザー登録処理2(userRole)
         boolean result_2 = userroleService.insert(userrole);
 
         // ユーザー登録結果の判定
