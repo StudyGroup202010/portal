@@ -217,7 +217,7 @@ public class userController {
 		boolean result_1 = false;
 		try {
 			result_1 = userService.insert(user);
-		} catch (DuplicateKeyException ｄe) {
+		} catch (DuplicateKeyException de) {
 			// 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
 			FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
 					null, null, "存在するユーザーIDなので登録できません。");
