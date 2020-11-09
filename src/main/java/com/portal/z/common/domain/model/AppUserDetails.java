@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AppUserDetails implements UserDetails {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	// =========================
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    // =========================
     // Springで必要なフィールド
     // =========================
     private String user_id;       //ユーザーID
@@ -71,25 +71,25 @@ public class AppUserDetails implements UserDetails {
      */
     @Override
     public boolean isAccountNonLocked() {
-    	if (this.isLock_flg()) {
-    		//ロックされている
-    		return false;
-    	} else {
-    		//ロックされていない
+        if (this.isLock_flg()) {
+            //ロックされている
+            return false;
+        } else {
+            //ロックされていない
             return true;
-    	}
+        }
     }
 
     /** パスワードの有効期限チェック
      * true:有効
      * false:無効
      */
-//
-//　パスワードの有効期限が切れていたら再設定をするので、この部分trueを返すだけとする    
-//
+    //
+    //　パスワードの有効期限が切れていたら再設定をするので、この部分trueを返すだけとする    
+    //
     @Override
     public boolean isCredentialsNonExpired() {
-    	return true;
+        return true;
     }
 
     /** アカウントの有効・無効チェック

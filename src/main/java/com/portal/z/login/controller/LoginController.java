@@ -27,7 +27,7 @@ public class LoginController {
         //ホーム画面に遷移
         return "redirect:/home";
     }
-    
+
     /**
      * セッションタイムアウトになった時のGETメソッド用処理.
      */

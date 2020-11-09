@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.portal.z.common.domain.logic.UserRowCallbackHandler;
-import com.portal.z.common.domain.repository.UserDao;
 
 @Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
@@ -20,18 +19,18 @@ public class UserDaoJdbcImpl implements UserDao {
 
         // M_USERテーブルのデータを全件取得するSQL
         String sql  = " select"
-        		    + "    user_id"
-        		    + "   ,user_due_date"
-        		    + "   ,pass_update"
-        		    + "   ,login_miss_times"
-        		    + "   ,lock_flg"
-        		    + "   ,enabled_flg"
-        		    + " from"
-        		    + "   zm001_user"
-                    + " order by"
-                    + "   user_id"
-        		    ;
-     
+                + "    user_id"
+                + "   ,user_due_date"
+                + "   ,pass_update"
+                + "   ,login_miss_times"
+                + "   ,lock_flg"
+                + "   ,enabled_flg"
+                + " from"
+                + "   zm001_user"
+                + " order by"
+                + "   user_id"
+                ;
+
         // ResultSetExtractorの生成
         //　時間がかかるような処理を実行して、処理が終わったら結果を受け取るという方式
         UserRowCallbackHandler handler = new UserRowCallbackHandler();

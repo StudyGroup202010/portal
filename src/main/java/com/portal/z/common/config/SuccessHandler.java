@@ -38,7 +38,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         AppUserDetails user = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String redirectPath = request.getContextPath();
-        
+
         // パスワード更新日付のチェック
         if(user.getPass_update().after(new Date())) {
             // パスワード期限が切れてない

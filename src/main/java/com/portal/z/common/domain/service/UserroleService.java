@@ -18,13 +18,13 @@ public class UserroleService {
      * insert用メソッド.
      */
     public boolean insert(Userrole userrole) {
-    	return userroleMapper.insertOne(userrole);
+        return userroleMapper.insertOne(userrole);
     }
 
     /**
      * １件削除用メソッド.
      */
     public boolean deleteOne(String user_id) {
-    	return userroleMapper.deleteOne(user_id);
+        return userroleMapper.deleteOne(user_id);
     }
 }

@@ -21,7 +21,7 @@ public class RoleService {
      * insert用メソッド.
      */
     public boolean insert(Role role) {
-    	return roleMapper.insertOne(role);
+        return roleMapper.insertOne(role);
     }
 
     /**
@@ -44,16 +44,16 @@ public class RoleService {
      * １件更新用メソッド.
      */
     public boolean updateOne(Role role) {
-    	return roleMapper.updateOne(role);
+        return roleMapper.updateOne(role);
     }
 
     /**
      * １件削除用メソッド.
      */
     public boolean deleteOne(String role_id) {
-    	return roleMapper.deleteOne(role_id);
+        return roleMapper.deleteOne(role_id);
     }
-    
+
     /**
      * ロールＩＤ取得用メソッド.
      * 環境マスタの環境ＩＤからロールＩＤを取得する

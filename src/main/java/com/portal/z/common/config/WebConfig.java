@@ -13,12 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-	
-	// ユーザＩＤをログに出力する
+
+    // ユーザＩＤをログに出力する
     @Autowired
     @Qualifier("LoggingIntercepter")
     HandlerInterceptor loggingInterceptor;
-    
+
     /**
      * Integercepterを追加.
      */
