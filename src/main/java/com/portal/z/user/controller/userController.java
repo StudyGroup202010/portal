@@ -227,13 +227,17 @@ public class userController {
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
 
-        // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得
+        // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
+        // 取得できない(取得結果がnull)の場合、処理を中止する
         Role role = roleService.selectRoleid("ROLE_NAME_G");
-        //
-        //ToDo
-        //ここでrole取得結果を評価しないといけない
-        //環境マスタに未登録の時やrole_idが取れなかったときは以降の処理を中止するなど
-        //
+        if (role == null) {
+            // エラーメッセージを暫定でユーザーIDのフィールドエラーとして表示する
+            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
+                    null, null, utility.getMsg("RoleNameNotFoundAtEnvTable"));
+            bindingResult.addError(fieldError);
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            return getSignUp(form, model);
+        }
 
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
