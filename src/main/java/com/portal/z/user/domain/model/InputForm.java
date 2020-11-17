@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -37,9 +38,10 @@ public class InputForm {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date    pass_update;      //パスワード有効期限
     
-    //0以上の整数のみ
+    //値が0から10までの整数のみ
     //必須入力チェックを記述しなくても、未入力の時はintのチェックがかかるのでＯＫ
     @Min(value = 0, groups = ValidUpdate1.class, message = "{min_check}")
+    @Max(value = 10, groups = ValidUpdate1.class, message = "{max_check}")
     private int     login_miss_times; //ログイン失敗回数
     
     private boolean lock_flg;         //ロック状態
