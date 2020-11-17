@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +16,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.UpdateOrder;
+import com.portal.z.user.domain.model.UserListXlsxView;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +36,7 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
+import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.model.AppUserDetails;
 
@@ -43,13 +47,16 @@ public class userController {
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private UserroleService userroleService;
-    
+
     @Autowired
     private RoleService roleService;
-    
+
+    @Autowired
+    private Utility utility;
+
     //パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -71,7 +78,7 @@ public class userController {
 
         return radio;
     }
-    
+
     private Map<String, String> initRadioLock() {
 
         Map<String, String> radio = new LinkedHashMap<>();
@@ -82,7 +89,7 @@ public class userController {
 
         return radio;
     }
-    
+
     /**
      * ユーザー一覧画面のGETメソッド用処理.
      */
@@ -104,22 +111,21 @@ public class userController {
 
         return "z/homeLayout";
     }
-    
+
     /**
      * ユーザー一覧のCSV出力用処理.
      */
     @GetMapping("/userList/csv")
     public ResponseEntity<byte[]> getUserListCsv(Model model) {
-    	
+
         //ユーザーを全件取得して、CSVをサーバーに保存する
         userService.userCsvOut();
-        
+
         byte[] bytes = null;
 
         try {
-
             //サーバーに保存されているcsvファイルをbyteで取得する
-            bytes = userService.getFile("userlist.csv");
+            bytes = utility.getFile("userlist.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -134,7 +140,27 @@ public class userController {
         // ResponseEntity型を使うとファイル（bytes型の配列）を呼び出し元に返せる
         return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
-    
+
+    /**
+     * ユーザー一覧のExcel出力用処理.
+     */
+    @RequestMapping("/userList/excel")
+    public UserListXlsxView excel(UserListXlsxView model) {
+
+        //ユーザー一覧の生成
+        List<User> userList = userService.selectMany();
+
+        //Modelにユーザーリストを登録
+        model.addStaticAttribute("userList", userList);
+
+        //データ件数を取得
+        int count = userService.count();
+        model.addStaticAttribute("userListCount", count);
+
+        return model;
+    }
+
+
     /**
      * ユーザー登録画面のGETメソッド用処理.
      */
@@ -143,30 +169,35 @@ public class userController {
     //ただし、権限が無い場合はVIEWで非表示にした方が綺麗なので、実際はそちらで行う
     //@PreAuthorize("hasAuthority('ROLE_ADMIN')") // ROLE_ADMIN権限のみ
     public String getSignUp(@ModelAttribute InputForm form, Model model) {
-    	
+
         // コンテンツ部分にユーザー登録を表示するための文字列を登録
         model.addAttribute("contents", "z/userUpdate :: userUpdate_contents");
 
         // ラジオボタンの初期化メソッド呼び出し
         radioEnabled = initRadioEnabled();
         radioLock    = initRadioLock();
-        
+
         // ラジオボタン用のMapをModelに登録
         model.addAttribute("radioEnabled", radioEnabled);
         model.addAttribute("radioLock", radioLock);
-        
+
         // userUpdate.htmlに画面遷移
         return "z/homeLayout";
     }
 
     /**
      * ユーザー登録画面のPOSTメソッド用処理.
+     * 
+     * @param form フォーム
+     * @param bindingResult 処理結果
+     * @param model モデル
+     * @return 遷移先の情報(String)
      */
     @PostMapping("/userUpdate")
     public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form,
             BindingResult bindingResult,
             Model model) {
-    	
+
         // 入力チェックに引っかかった場合、ユーザー登録画面に戻る
         if (bindingResult.hasErrors()) {
 
@@ -174,7 +205,7 @@ public class userController {
             return getSignUp(form, model);
 
         }
-        
+
         // ユーザマスタinsert用変数
         User user = new User();
 
@@ -187,18 +218,18 @@ public class userController {
         //ロールとログイン失敗回数はテーブルの初期値にて設定される
         user.setLock_flg(form.isLock_flg());                  //ロック状態
         user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
-        
+
         //ログインユーザー情報の取得
         AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        
+
         user.setInsert_user(user_auth.getUsername());         //作成者
-        
+
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
-        
+
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得
         Role role = roleService.selectRoleid("ROLE_NAME_G");
         //
@@ -209,24 +240,36 @@ public class userController {
 
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
-        
-        // ユーザー登録処理
-        boolean result_1 = userService.insert(user);
-        boolean result_2 = userroleService.insert(userrole);
-        		
-        // ユーザー登録結果の判定
-        if (result_1 == true && result_2 == true ) {
-        	model.addAttribute("result", "登録成功");
-        	log.info("登録成功");
-        } else {
-        	model.addAttribute("result", "登録失敗");
-        	log.info("登録失敗");
+
+        // ユーザー登録処理1(user)
+        boolean result_1 = false;
+        try {
+            result_1 = userService.insert(user);
+        } catch (DuplicateKeyException de) {
+            // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
+            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
+                    null, null, "存在するユーザーIDなので登録できません。");
+            bindingResult.addError(fieldError);
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            return getSignUp(form, model);
         }
 
-      //ユーザー一覧画面を表示
+        // ユーザー登録処理2(userRole)
+        boolean result_2 = userroleService.insert(userrole);
+
+        // ユーザー登録結果の判定
+        if (result_1 == true && result_2 == true ) {
+            model.addAttribute("result", "登録成功");
+            log.info("登録成功");
+        } else {
+            model.addAttribute("result", "登録失敗");
+            log.info("登録失敗");
+        }
+
+        //ユーザー一覧画面を表示
         return getUserList(model);
     }
-    
+
     /**
      * ユーザー登録画面の戻る処理.
      */
@@ -237,7 +280,7 @@ public class userController {
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
-    
+
     /**
      * ユーザー詳細画面のGETメソッド用処理.
      */
@@ -280,7 +323,7 @@ public class userController {
         }
 
         return "z/homeLayout";
-        
+
     }
 
     /**
@@ -290,16 +333,16 @@ public class userController {
     //name属性の値をパラメータとして使っています
     @PostMapping(value = "/userDetail", params = "update")
     public String postUserDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputForm form,
-    		BindingResult bindingResult,
+            BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
 
-        	log.info("入力エラー");
-            
+            log.info("入力エラー");
+
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
-        	return getUserDetail(form, model,"");
+            return getUserDetail(form, model,"");
         }
 
         //Userインスタンスの生成
@@ -316,13 +359,13 @@ public class userController {
         user.setLogin_miss_times(form.getLogin_miss_times()); //ログイン失敗回数
         user.setLock_flg(form.isLock_flg());                  //ロック状態
         user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
-        
+
         //ログインユーザー情報の取得
         AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        
+
         user.setUpdate_user(user_auth.getUsername());         //更新者
 
         //更新実行
@@ -364,7 +407,7 @@ public class userController {
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
-    
+
     /**
      * ユーザー詳細画面の戻る処理.
      */

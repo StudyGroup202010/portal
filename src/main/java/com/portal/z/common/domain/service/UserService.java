@@ -1,10 +1,5 @@
 package com.portal.z.common.domain.service;
 
-import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +12,6 @@ import com.portal.z.common.domain.repository.UserMapper;
 import org.springframework.dao.DataAccessException;
 
 import com.portal.z.common.domain.repository.UserDao;
-//import com.portal.z.common.domain.repository.UserDetailsDao;
 
 @Transactional
 @Service
@@ -33,7 +27,7 @@ public class UserService {
      * insert用メソッド.
      */
     public boolean insert(User user) {
-    	return userMapper.insertOne(user);
+        return userMapper.insertOne(user);
     }
 
     /**
@@ -63,52 +57,35 @@ public class UserService {
      * １件更新用メソッド.
      */
     public boolean updateOne(User user) {
-    	return userMapper.updateOne(user);
+        return userMapper.updateOne(user);
     }
 
     /**
      * １件削除用メソッド.
      */
     public boolean deleteOne(String user_id) {
-    	return userMapper.deleteOne(user_id);
+        return userMapper.deleteOne(user_id);
     }
 
     /**
      * CSV出力用メソッド.
      */
     public void userCsvOut() throws DataAccessException{
-    	dao.userCsvOut();
+        dao.userCsvOut();
     }
 
-    /**
-     * サーバーに保存されているファイルを取得して、byte配列に変換する.
-     */
-    public byte[] getFile(String fileName) throws IOException {
-
-        // ファイルシステム（デフォルト）の取得
-        FileSystem fs = FileSystems.getDefault();
-
-        // ファイル取得
-        Path p = fs.getPath(fileName);
-
-        // ファイルをbyte配列に変換
-        byte[] bytes = Files.readAllBytes(p);
-
-        return bytes;
-    }
-    
     /**
      * ロックフラグ更新用メソッド.
      */
     public boolean updateLockflg(User user) {
-    	return userMapper.updateLockflg(user);
+        return userMapper.updateLockflg(user);
     }
-    
+
     /**
      * パスワード有効期限更新用メソッド.
      */
     public boolean updatePassupdate(User user) {
-    	return userMapper.updatePassupdate(user);
+        return userMapper.updatePassupdate(user);
     }
-    
+
 }

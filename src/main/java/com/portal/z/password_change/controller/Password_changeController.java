@@ -16,10 +16,10 @@ import com.portal.z.password_change.domain.service.Password_changeService;
 
 @Controller
 public class Password_changeController {
-  
+
     @Autowired
     private Password_changeService password_changeService;
-    
+
     /**
      * 画面表示.
      */
@@ -37,7 +37,7 @@ public class Password_changeController {
     public String postPasswordChange(Model model,
             @ModelAttribute PasswordForm form,
             @AuthenticationPrincipal AppUserDetails user) throws ParseException {
-    	
+
         password_changeService.updatePasswordDate(user.getUser_id(), form.getPassword());
 
         return "redirect:/home";

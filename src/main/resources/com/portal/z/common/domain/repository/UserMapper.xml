@@ -2,22 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<mapper namespace="com.portal.z.common.domain.repository.UserMapper">
-    <!-- マッピング定義 -->
-    <resultMap type="com.portal.z.common.domain.model.User" id="user">
-        <id     column="user_id"          property="user_id" />
-        <result column="user_due_date"    property="user_due_date" />    
-        <result column="password"         property="password" />
-        <result column="pass_update"      property="pass_update" />    
-        <result column="login_miss_times" property="login_miss_times" />            
-        <result column="lock_flg"         property="lock_flg" />  
-        <result column="enabled_flg"      property="enabled_flg" />  
-    </resultMap>
-    
-    <!-- カウント -->
-    <select id="count" resultType="_int">
-        select count(*) from zm001_user
-    </select>
+<mapper
+	namespace="com.portal.z.common.domain.repository.UserMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.User"
+		id="user">
+		<id column="user_id" property="user_id" />
+		<result column="user_due_date" property="user_due_date" />
+		<result column="password" property="password" />
+		<result column="pass_update" property="pass_update" />
+		<result column="login_miss_times" property="login_miss_times" />
+		<result column="lock_flg" property="lock_flg" />
+		<result column="enabled_flg" property="enabled_flg" />
+	</resultMap>
+
+	<!-- カウント -->
+	<select id="count" resultType="_int">
+		select count(*) from zm001_user
+	</select>
 
     <!-- １件insert -->
     <insert id="insertOne" parameterType="com.portal.z.common.domain.model.User">
@@ -60,6 +62,10 @@
           ,login_miss_times
           ,lock_flg
           ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm001_user
         where
@@ -76,6 +82,10 @@
           ,login_miss_times
           ,lock_flg
           ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
         from
           zm001_user
         order by
