@@ -38,7 +38,7 @@ public class InputForm {
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date    pass_update;      //パスワード有効期限
     
-    //0以上から10までのの整数のみ
+    //0以上から10までの整数のみ
     //必須入力チェックを記述しなくても、未入力の時はintのチェックがかかるのでＯＫ
     @Min(value = 0, groups = ValidUpdate1.class, message = "{min_check}")
     @Max(value = 10, groups = ValidUpdate1.class, message = "{max_check}")
