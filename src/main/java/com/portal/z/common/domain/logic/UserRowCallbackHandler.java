@@ -21,7 +21,7 @@ public class UserRowCallbackHandler implements RowCallbackHandler {
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             
-            //カラム名をヘッダとして出力するために、一旦Stringに書き込み＆改行し、flush()で強制的に書き込み
+            //カラム名をヘッダとして出力するために、一旦Stringにセットし仮書き込み＆改行、flush()で強制的に書き込み
             String col = "user_id,user_due_date,pass_update,login_miss_times,lock_flg,enabled_flg";
             bw.write(col);
             bw.newLine();
@@ -38,7 +38,7 @@ public class UserRowCallbackHandler implements RowCallbackHandler {
                            + rs.getBoolean("lock_flg")     + ","
                            + rs.getBoolean("enabled_flg");
 
-                //ファイルに書き込み＆改行
+                //ファイルに仮書き込み＆改行
                 bw.write(str);
                 bw.newLine();
 
