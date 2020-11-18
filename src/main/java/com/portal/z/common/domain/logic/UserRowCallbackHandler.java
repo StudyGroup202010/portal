@@ -20,17 +20,23 @@ public class UserRowCallbackHandler implements RowCallbackHandler {
             File file = new File("userlist.csv");
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
+            
+            //カラム名をヘッダとして出力するために、一旦Stringに書き込み＆改行し、flush()で強制的に書き込み
+            String col = "user_id,user_due_date,pass_update,login_miss_times,lock_flg,enabled_flg";
+            bw.write(col);
+            bw.newLine();
+            bw.flush();
 
             //取得件数分loop
             do {
 
                 //ResultSetから値を取得してStringにセット
                 String str = rs.getString("user_id")       + ","
-                        + rs.getDate("user_due_date")   + ","
-                        + rs.getDate("pass_update")     + ","
-                        + rs.getInt("login_miss_times") + ","
-                        + rs.getBoolean("lock_flg")     + ","
-                        + rs.getBoolean("enabled_flg");
+                           + rs.getDate("user_due_date")   + ","
+                           + rs.getDate("pass_update")     + ","
+                           + rs.getInt("login_miss_times") + ","
+                           + rs.getBoolean("lock_flg")     + ","
+                           + rs.getBoolean("enabled_flg");
 
                 //ファイルに書き込み＆改行
                 bw.write(str);
