@@ -224,9 +224,6 @@ public class userController {
 
         user.setInsert_user(user_auth.getUsername());         //作成者
 
-        // ユーザロールマスタinsert用変数
-        Userrole userrole = new Userrole();
-
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Role role = roleService.selectRoleid("ROLE_NAME_G");
@@ -238,6 +235,9 @@ public class userController {
             // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
         }
+        
+        // ユーザロールマスタinsert用変数
+        Userrole userrole = new Userrole();
 
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
