@@ -20,6 +20,9 @@ public interface UserMapper {
 
     // 全件検索用メソッド
     public List<User> selectMany();
+    
+    // 全件検索用メソッド
+    public List<User> selectCsv();
 
     // １件更新用メソッド
     public boolean updateOne(User user);

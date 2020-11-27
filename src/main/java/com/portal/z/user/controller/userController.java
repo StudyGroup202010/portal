@@ -1,10 +1,14 @@
 package com.portal.z.user.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
@@ -25,9 +29,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.user.domain.model.CreateOrder;
+import com.portal.z.user.domain.model.DownloadHelper;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.UpdateOrder;
 import com.portal.z.user.domain.model.UserListXlsxView;
+import com.portal.z.user.domain.model.UserListCsvView.userList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,6 +45,14 @@ import com.portal.z.common.domain.service.UserroleService;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.model.AppUserDetails;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.dataformat.csv.CsvGenerator;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+
+
+import java.nio.charset.StandardCharsets;
 
 @Transactional
 @Controller
@@ -112,33 +126,60 @@ public class userController {
         return "z/homeLayout";
     }
 
+    
     /**
-     * ユーザー一覧のCSV出力用処理.
+     * ユーザー一覧のCsv出力用処理.
      */
-    @GetMapping("/userList/csv")
-    public ResponseEntity<byte[]> getUserListCsv(Model model) {
+    public class UserListCsvView {
+    	
+//    	//ユーザー一覧の生成
+//        List<User> userList = userService.selectCsv();
+//
+//        //Modelにユーザーリストを登録
+//        model.addStaticAttribute("userList", userList);
+//
+//        //データ件数を取得
+//        int count = userService.count();
+//        model.addStaticAttribute("userListCount", count);
+//
+//        return model;
+//
+//    	}
 
-        //ユーザーを全件取得して、CSVをサーバーに保存する
-        userService.userCsvOut();
-
-        byte[] bytes = null;
-
-        try {
-            //サーバーに保存されているcsvファイルをbyteで取得する
-            bytes = utility.getFile("userlist.csv");
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    	@Autowired
+        DownloadHelper downloadHelper;
+    	
+    	/**
+         * CsvMapperで、csvを作成する。
+         * @return csv(String)
+         * @throws JsonProcessingException
+         */
+    	public String getCsvText() throws JsonProcessingException {
+    	 	CsvMapper mapper = new CsvMapper();
+    	   	//文字列にダブルクオートをつける
+    	   	mapper.configure(CsvGenerator.Feature.ALWAYS_QUOTE_STRINGS, true);
+    	   	//ヘッダをつける
+    	   	CsvSchema schema = mapper.schemaFor(userList.class).withHeader();
+    	   	//DBからユーザー一覧の生成
+    	   	List<User> userList = userService.selectCsv();
+//    	   	model.addStaticAttribute(new userList(1L, "user01", "プロフィール１", new Date()));
+//    	   	model.addStaticAttribute(new userList(2L, "user02", "プロフィール２", new Date()));
+//    	   	model.addStaticAttribute(new userList(3L, "user03", "プロフィール３", new Date()));
+    	   	return mapper.writer(schema).writeValueAsString(userList);
+    	}
+    	
+        /**
+         * csvをダウンロードする。
+         * @param response
+         * @return
+         * @throws IOException
+         */
+        @RequestMapping("/userList/csv")
+        public ResponseEntity<byte[]> download() throws IOException {
+            HttpHeaders headers = new HttpHeaders();
+            downloadHelper.addContentDisposition(headers, "ユーザー一覧.csv");
+            return new ResponseEntity<>(getCsvText().getBytes("MS932"), headers, HttpStatus.OK);
         }
-
-        //HTTPヘッダーの設定
-        HttpHeaders header = new HttpHeaders();
-        header.add("Content-Type", "text/csv; charset=UTF-8");
-        header.setContentDispositionFormData("filename", "userlist.csv");
-
-        //csvを戻す
-        // ResponseEntity型を使うとファイル（bytes型の配列）を呼び出し元に返せる
-        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
 
     /**

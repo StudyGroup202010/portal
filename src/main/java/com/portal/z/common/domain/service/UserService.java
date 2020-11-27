@@ -52,6 +52,14 @@ public class UserService {
         // selectOne実行
         return userMapper.selectOne(user_id);
     }
+    
+    /**
+     * ｃｓｖ取得用メソッド.
+     */
+    public List<User> selectCsv() {
+        // csv用に取得
+        return userMapper.selectCsv();
+    }
 
     /**
      * １件更新用メソッド.

@@ -31,7 +31,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 + "   user_id"
                 ;
 
-        // ResultSetExtractorの生成
+        // ResultSetExtractorの生成　→使ってないと思う。このコメント削除？
         //　時間がかかるような処理を実行して、処理が終わったら結果を受け取るという方式
         UserRowCallbackHandler handler = new UserRowCallbackHandler();
 

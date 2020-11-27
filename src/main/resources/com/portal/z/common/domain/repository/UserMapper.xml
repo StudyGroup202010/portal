@@ -91,6 +91,21 @@
         order by
           user_id
     </select>
+    
+    <!-- csv用検索 -->
+    <select id="selectCsv" resultMap="user">
+        select
+           user_id
+          ,user_due_date
+          ,pass_update
+          ,login_miss_times
+          ,lock_flg
+          ,enabled_flg
+        from
+          zm001_user
+        order by
+          user_id
+    </select>
 
     <!-- １件更新 -->
     <update id="updateOne" parameterType="com.portal.z.common.domain.model.User">
