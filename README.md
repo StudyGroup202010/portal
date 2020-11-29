@@ -29,6 +29,8 @@ Note
   * Thymeleaf（https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html ）  
 * Build
   * Maven
+* データベース設計
+  * X-TEAモデラー（ http://dbc.in.coocan.jp/xead.html )  
 * その他
   * Lombok (https://projectlombok.org/download)
   
