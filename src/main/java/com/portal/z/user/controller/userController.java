@@ -27,6 +27,7 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.service.UserroleService;
@@ -50,6 +51,9 @@ public class userController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private RegistuserService registuserService;
 
     @Autowired
     private Utility utility;
@@ -235,7 +239,7 @@ public class userController {
             // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
         }
-        
+
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
 
@@ -392,19 +396,15 @@ public class userController {
             Model model) {
 
         //削除実行
-        boolean result_1 = userroleService.deleteOne(form.getUser_id());
-        boolean result_2 = userService.deleteOne(form.getUser_id());
+        boolean result = registuserService.deleteOne(form.getUser_id());
 
-        if (result_1 == true && result_2 == true) {
-
+        if (result == true) {
             model.addAttribute("result", "削除成功");
             log.info("削除成功");
         } else {
-
             model.addAttribute("result", "削除失敗");
             log.info("削除失敗");
         }
-
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
