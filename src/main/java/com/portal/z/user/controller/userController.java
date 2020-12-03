@@ -30,7 +30,7 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
-import com.portal.z.common.domain.service.UserroleService;
+//import com.portal.z.common.domain.service.UserroleService;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
@@ -46,8 +46,8 @@ public class userController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserroleService userroleService;
+//    @Autowired
+//    private UserroleService userroleService;
 
     @Autowired
     private RoleService roleService;
@@ -246,31 +246,27 @@ public class userController {
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
 
-        // ユーザー登録処理1(user)
-        boolean result_1 = false;
+        // ユーザー登録処理(user,userrole)
         try {
-            result_1 = userService.insert(user);
+            boolean result = registuserService.insertOne(user,userrole);
+
+            // ユーザー登録結果の判定
+            if (result == true ) {
+                model.addAttribute("result", "登録成功");
+                log.info("登録成功");
+            } else {
+                model.addAttribute("result", "登録失敗");
+                log.info("登録失敗");
+            }
         } catch (DuplicateKeyException de) {
             // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
                     null, null, utility.getMsg("DuplicatedUserId"));
             bindingResult.addError(fieldError);
             // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+
             return getSignUp(form, model);
         }
-
-        // ユーザー登録処理2(userRole)
-        boolean result_2 = userroleService.insert(userrole);
-
-        // ユーザー登録結果の判定
-        if (result_1 == true && result_2 == true ) {
-            model.addAttribute("result", "登録成功");
-            log.info("登録成功");
-        } else {
-            model.addAttribute("result", "登録失敗");
-            log.info("登録失敗");
-        }
-
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
