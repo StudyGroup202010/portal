@@ -30,7 +30,6 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
-//import com.portal.z.common.domain.service.UserroleService;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
@@ -45,9 +44,6 @@ public class userController {
 
     @Autowired
     private UserService userService;
-
-//    @Autowired
-//    private UserroleService userroleService;
 
     @Autowired
     private RoleService roleService;
