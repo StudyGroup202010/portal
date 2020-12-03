@@ -10,9 +10,9 @@ Note
 
 環境
 -------
-* git
+* git (ギット)
   * Git for Windows (https://gitforwindows.org/)
-  * TortoiseGit (https://tortoisegit.org/) (Language Packsも必要です）
+  * TortoiseGit (トータスギット) (https://tortoisegit.org/) (Language Packsも必要です）
 * JDK
   * Adopt Open JDK 11  (https://adoptopenjdk.net/) 
 * RDB  
@@ -22,15 +22,17 @@ Note
 * FrameWork
   * Spring（https://spring.pleiades.io/ ）  
 * RDBアクセス
-  * JDBC、MyBatis （https://mybatis.org/mybatis-3/ja/ ）  
+  * JDBC、MyBatis (マイバティス) （https://mybatis.org/mybatis-3/ja/ ）  
 * CSS
-  * Bootstrap（https://getbootstrap.jp/docs/4.2/getting-started/introduction/ ）  
-* HTML
-  * Thymeleaf（https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html ）  
+  * Bootstrap (ブートストラップ) （https://getbootstrap.jp/docs/4.2/getting-started/introduction/ ）  
+* HTML テンプレートエンジン
+  * Thymeleaf (タイムリーフ) （https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html ）  
 * Build
-  * Maven
+  * Maven (メイベン)
+* データベース設計
+  * X-TEAモデラー（ http://dbc.in.coocan.jp/xead.html )  
 * その他
-  * Lombok (https://projectlombok.org/download)
+  * Lombok (ロンボック/ロンボク) (https://projectlombok.org/download)
   
 【環境構築手順】  
 
