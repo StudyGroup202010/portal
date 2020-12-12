@@ -1,19 +1,16 @@
 package com.portal.z.common.controller;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.common.exception.Errors;
 import com.portal.z.common.exception.HttpErrors;
-import com.portal.z.common.exception.RestError;
+
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
@@ -22,6 +19,7 @@ import java.text.MessageFormat;
  * 例外共通ハンドラ。
  */
 @ControllerAdvice
+@Slf4j
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * AppExceptionのハンドリングを行ないます。
@@ -31,9 +29,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
      * @return 例外レスポンス
      */
     @ExceptionHandler(ApplicationException.class)
-    @ResponseBody
-    public ResponseEntity<RestError> handleAppException(HttpServletRequest request, ApplicationException ex) {
-        return handleError(request, ex.getError(), ex, ex.getArgs());
+    public String handleAppException(HttpServletRequest request, ApplicationException ex, Model model) {
+        return handleError(request, ex.getError(), ex, model, ex.getArgs());
     }
 
     /**
@@ -44,9 +41,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
      * @return 例外レスポンス
      */
     @ExceptionHandler(RuntimeException.class)
-    @ResponseBody
-    public ResponseEntity<RestError> handleException(HttpServletRequest request, RuntimeException ex) {
-        return handleError(request, Errors.UNEXPECTED, ex, ex.toString());
+    public String handleException(HttpServletRequest request, RuntimeException ex, Model model) {
+        return handleError(request, Errors.UNEXPECTED, ex, model, ex.toString());
     }
 
     /**
@@ -58,50 +54,55 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
      * @param args    メッセージにバインドするパラメータ
      * @return 例外レスポンス
      */
-    protected ResponseEntity<RestError> handleError(HttpServletRequest request, HttpErrors error, Exception ex,
+    protected String handleError(HttpServletRequest request, HttpErrors error, Exception ex, Model model,
             Object... args) {
 
         String message = MessageFormat.format(error.getMessage(), args);
+
         if (error.getStatus() == HttpStatus.INTERNAL_SERVER_ERROR) {
-            logger.error(message, ex);
+            log.error(message, ex);
         } else {
-            logger.debug(message, ex);
+            log.debug(message, ex);
         }
 
-        if (error.getStatus() == HttpStatus.UNAUTHORIZED) {
-            return new ResponseEntity<>(error.getStatus());
-        }
+        // HTTPの情報ををModelに登録
+        model.addAttribute("path", request.getRequestURI());
 
-        RestError restError = new RestError();
-        restError.path = request.getRequestURI();
-        restError.error = error.name();
-        restError.status = error.getStatus().value();
-        restError.message = message;
-        restError.exception = ex.getClass().getName();
+        // エラー名をModelに登録
+        model.addAttribute("error", error.name());
 
-        return new ResponseEntity<>(restError, error.getStatus());
+        // HTTPステータスをModelに登録
+        model.addAttribute("status", error.getStatus().value());
+
+        // メッセージをModelに登録
+        model.addAttribute("message", message);
+
+        // 例外をModelに登録
+        model.addAttribute("exception", ex.getClass().getName());
+
+        return "error";
     }
 
-    /**
-     * {@inheritDoc} <br>
-     * Spring MVCが返す例外をハンドルして例外レスポンスを作成します。
-     */
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
-            HttpStatus status, WebRequest request) {
-
-        RestError restError = new RestError();
-        if (request instanceof ServletWebRequest) {
-            restError.path = ((ServletWebRequest) request).getRequest().getRequestURI();
-        } else {
-            restError.path = request.getContextPath();
-        }
-
-        restError.error = status.getReasonPhrase();
-        restError.status = status.value();
-        restError.message = ex.getMessage();
-        restError.exception = ex.getClass().getName();
-
-        return new ResponseEntity<>(restError, status);
-    }
+//    /**
+//     * {@inheritDoc} <br>
+//     * Spring MVCが返す例外をハンドルして例外レスポンスを作成します。
+//     */
+//    @Override
+//    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
+//            HttpStatus status, WebRequest request) {
+//
+//        RestError restError = new RestError();
+//        if (request instanceof ServletWebRequest) {
+//            restError.path = ((ServletWebRequest) request).getRequest().getRequestURI();
+//        } else {
+//            restError.path = request.getContextPath();
+//        }
+//
+//        restError.error = status.getReasonPhrase();
+//        restError.status = status.value();
+//        restError.message = ex.getMessage();
+//        restError.exception = ex.getClass().getName();
+//
+//        return new ResponseEntity<>(restError, status);
+//    }
 }

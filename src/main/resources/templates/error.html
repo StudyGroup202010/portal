@@ -9,7 +9,9 @@
 <body>
 	<!-- ポイント：各種エラー内容の表示 -->
 	<h1 th:text="${status} + ' ' + ${error}"></h1>
+	<p th:text="${path}"></p>
 	<p th:text="${message}"></p>
+	<p th:text="${exception}"></p>
 	<p>ログイン画面に戻ってください</p>
 	<form method="post" th:action="@{/logout}">
 		<button class="btn btn-link" type="submit">ログイン画面に戻る</button>

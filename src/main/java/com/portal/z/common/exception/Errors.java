@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
  * フレームワークのエラー一覧。
  */
 public enum Errors implements HttpErrors {
-    /** UNEXPECTED */
+    /** エラーを列挙する*/
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "入力したＩＤに対するユーザが存在しません。 : userid={0}"),
     UNEXPECTED(HttpStatus.INTERNAL_SERVER_ERROR, "想定外のエラーが発生しました。 : {0}");
 
     /** HTTPステータス */
