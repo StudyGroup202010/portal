@@ -27,9 +27,9 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
-import com.portal.z.common.domain.service.UserroleService;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
@@ -46,10 +46,10 @@ public class userController {
     private UserService userService;
 
     @Autowired
-    private UserroleService userroleService;
+    private RoleService roleService;
 
     @Autowired
-    private RoleService roleService;
+    private RegistuserService registuserService;
 
     @Autowired
     private Utility utility;
@@ -224,9 +224,6 @@ public class userController {
 
         user.setInsert_user(user_auth.getUsername());         //作成者
 
-        // ユーザロールマスタinsert用変数
-        Userrole userrole = new Userrole();
-
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Role role = roleService.selectRoleid("ROLE_NAME_G");
@@ -239,34 +236,33 @@ public class userController {
             return getSignUp(form, model);
         }
 
+        // ユーザロールマスタinsert用変数
+        Userrole userrole = new Userrole();
+
         userrole.setUser_id(form.getUser_id());               //ユーザーID
         userrole.setRole_id(role.getRole_id());               //ロールID
 
-        // ユーザー登録処理1(user)
-        boolean result_1 = false;
+        // ユーザー登録処理(user,userrole)
         try {
-            result_1 = userService.insert(user);
+            boolean result = registuserService.insertOne(user,userrole);
+
+            // ユーザー登録結果の判定
+            if (result == true ) {
+                model.addAttribute("result", "登録成功");
+                log.info("登録成功");
+            } else {
+                model.addAttribute("result", "登録失敗");
+                log.info("登録失敗");
+            }
         } catch (DuplicateKeyException de) {
             // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
                     null, null, utility.getMsg("DuplicatedUserId"));
             bindingResult.addError(fieldError);
             // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+
             return getSignUp(form, model);
         }
-
-        // ユーザー登録処理2(userRole)
-        boolean result_2 = userroleService.insert(userrole);
-
-        // ユーザー登録結果の判定
-        if (result_1 == true && result_2 == true ) {
-            model.addAttribute("result", "登録成功");
-            log.info("登録成功");
-        } else {
-            model.addAttribute("result", "登録失敗");
-            log.info("登録失敗");
-        }
-
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
@@ -392,19 +388,15 @@ public class userController {
             Model model) {
 
         //削除実行
-        boolean result_1 = userroleService.deleteOne(form.getUser_id());
-        boolean result_2 = userService.deleteOne(form.getUser_id());
+        boolean result = registuserService.deleteOne(form.getUser_id());
 
-        if (result_1 == true && result_2 == true) {
-
+        if (result == true) {
             model.addAttribute("result", "削除成功");
             log.info("削除成功");
         } else {
-
             model.addAttribute("result", "削除失敗");
             log.info("削除失敗");
         }
-
         //ユーザー一覧画面を表示
         return getUserList(model);
     }
