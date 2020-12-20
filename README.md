@@ -13,6 +13,7 @@ Note
 * git (ギット)
   * Git for Windows (https://gitforwindows.org/)
   * TortoiseGit (トータスギット) (https://tortoisegit.org/) (Language Packsも必要です）
+  * MAC用はこちら　⇒　github desktop(https://ferret-plus.com/8498?page=3 ) 
 * JDK
   * Adopt Open JDK 11  (https://adoptopenjdk.net/) 
 * RDB  
