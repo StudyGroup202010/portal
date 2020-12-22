@@ -11,6 +11,7 @@ Note
 
 References
 -------
+* 開発環境について　⇒　https://github.com/StudyGroup202010/portal/wiki/環境について
 * 開発のコツなど　⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
 * 書籍はこちら　⇒　【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
 
