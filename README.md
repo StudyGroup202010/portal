@@ -8,38 +8,6 @@ Note
 -------
 社内勉強会用に使います:sunglasses:
 
-環境
--------
-* git (ギット)
-  * Git for Windows (https://gitforwindows.org/)
-  * TortoiseGit (トータスギット) (https://tortoisegit.org/) (Language Packsも必要です）
-  * MAC用はこちら　⇒　github desktop(https://ferret-plus.com/8498?page=3 ) 
-* JDK
-  * Adopt Open JDK 11  (https://adoptopenjdk.net/) 
-* RDB  
-  * PostgreSQL 12.4 (https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
-* IDE
-  * Spring Tool Suite 4.4.6.2 (https://spring.io/tools) ※Spring Tools 4 for Eclipseがお勧めです。  
-* FrameWork
-  * Spring（https://spring.pleiades.io/ ）  
-* RDBアクセス
-  * JDBC、MyBatis (マイバティス) （https://mybatis.org/mybatis-3/ja/ ）  
-* CSS
-  * Bootstrap (ブートストラップ) （https://getbootstrap.jp/docs/4.2/getting-started/introduction/ ）  
-* HTML テンプレートエンジン
-  * Thymeleaf (タイムリーフ) （https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html ）  
-* Build
-  * Maven (メイベン)
-* データベース設計
-  * X-TEAモデラー（ http://dbc.in.coocan.jp/xead.html )  
-* その他
-  * Lombok (ロンボック/ロンボク) (https://projectlombok.org/download)
-  
-【環境構築手順】  
-
-　[「環境構築補足」の資料に移動しました](https://github.com/StudyGroup202010/portal/wiki#環境構築手順)
-
-
 References
 -------
 * 開発のコツなど　⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
