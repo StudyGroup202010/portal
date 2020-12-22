@@ -6,14 +6,13 @@
 
 Note
 -------
-社内勉強会用に使います:sunglasses:
+- 社内勉強会用に使います:sunglasses:  
+- 主な内容は[WIKI](https://github.com/StudyGroup202010/portal/wiki ) に移動しました。
 
 References
 -------
 * 開発のコツなど　⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
 * 書籍はこちら　⇒　【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
-* [「開発規約」](https://github.com/StudyGroup202010/portal/blob/main/開発規約.md) も参照してください。  
-
 
 Contributing
 -------
