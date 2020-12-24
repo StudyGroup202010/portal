@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 //import org.springframework.security.authentication.AuthenticationProvider;
 //import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -95,8 +97,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // ログイン処理時のユーザー情報を、DBから取得する
-        auth.userDetailsService(userDetailsService)
-        .passwordEncoder(passwordEncoder()); //ログイン時のパスワードの復号
+        // ログイン処理時のユーザー情報を、DBから取得する→daoAuthenticationProvider()で実施
+        auth.authenticationProvider(daoAuthenticationProvider());  //  認証ロジックを実装する
+    }
+    
+    /**
+     * 認証プロバイダの追加
+     * 
+     * @return 認証プロバイダ
+     */
+    @Bean
+    public AuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
+        impl.setPasswordEncoder(new BCryptPasswordEncoder()); // ログイン時のパスワードの復号
+        impl.setUserDetailsService(userDetailsService);
+        impl.setHideUserNotFoundExceptions(false);
+        return impl;
     }
 }

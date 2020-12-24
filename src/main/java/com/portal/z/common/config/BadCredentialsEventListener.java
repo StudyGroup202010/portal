@@ -5,6 +5,7 @@ package com.portal.z.common.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.portal.z.common.domain.model.AppUserDetails;
@@ -36,26 +37,23 @@ public class BadCredentialsEventListener {
         // ユーザーIDの取得
         String userId = event.getAuthentication().getName();
 
-        //ユーザー情報の取得
-        // 本来であればLoginUserRepositoryの例外（UsernameNotFoundException）を受け取って判断したいところ。
-        // しかし、Springの標準でBadCredentialsExceptionに変換されてしまう。
-        // 設定で変換させない方法もあるようだが、あまり資料無いし内部をいじりたくないので、再検索して判断することにした。
-        User user_i = userService.selectOne(userId);
-
-        // ユーザＩＤが存在しない場合はユーザマスタを更新できないので終了
-        if (user_i == null ) {
-            log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）" );
+        if (event.getException().getClass().equals(UsernameNotFoundException.class)) {
+            // 存在しないユーザ名でのログイン失敗
+            // ユーザＩＤが存在しない場合はユーザマスタを更新できないので終了
+            log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）");
             return;
+        } else {
+            // 存在するユーザ名でのログイン失敗
+
+            // ユーザー情報の取得
+            AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
+
+            // ログイン失敗回数を1増やす
+            int loginMissTime = user.getLogin_miss_times() + 1;
+
+            // 失敗回数を更新する
+            updateUnlock(userId, loginMissTime);
         }
-
-        // ユーザー情報の取得
-        AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
-
-        // ログイン失敗回数を1増やす
-        int loginMissTime = user.getLogin_miss_times() + 1;
-
-        // 失敗回数を更新する
-        updateUnlock(userId,loginMissTime);
 
     }
 

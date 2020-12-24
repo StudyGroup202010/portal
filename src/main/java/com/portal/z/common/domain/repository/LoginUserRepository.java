@@ -138,14 +138,15 @@ public class LoginUserRepository {
                     .build();
 
             return user;
-
         } catch (EmptyResultDataAccessException e) {
             //検索結果が０件の時はUsernameNotFoundExceptionを返す。
             log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
             // エラーメッセージ取得
             String message = messageSource.getMessage(BAD_CREDENTIALS,null,Locale.getDefault());
-            //Spring Securityのデフォルトの動作では、
-            //結局はUsernameNotFoundExceptionはBadCredentialsExceptionに変換されてしまう。
+            // TODO AOYAGI 設定を変更して、 UsernameNotFoundExceptionを
+            // 指定できるようにしました。あとでエラーの出し方を再確認します。
+            // Spring Securityのデフォルトの動作では、UsernameNotFoundException
+            // 結局はUsernameNotFoundExceptionはBadCredentialsExceptionに変換されてしまう。
             throw new UsernameNotFoundException(message,e);
         }
     }
