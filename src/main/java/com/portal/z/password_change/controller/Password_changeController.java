@@ -24,18 +24,17 @@ public class Password_changeController {
      * 画面表示.
      */
     @GetMapping("/password/change")
-    public String getPasswordChange(Model model,
-            @ModelAttribute PasswordForm form) {
+    public String getPasswordChange(Model model, @ModelAttribute PasswordForm form) {
         return "z/password_change";
     }
 
     /**
      * パスワード変更.
+     * 
      * @throws ParseException
      */
     @PostMapping("/password/change")
-    public String postPasswordChange(Model model,
-            @ModelAttribute PasswordForm form,
+    public String postPasswordChange(Model model, @ModelAttribute PasswordForm form,
             @AuthenticationPrincipal AppUserDetails user) throws ParseException {
 
         password_changeService.updatePasswordDate(user.getUser_id(), form.getPassword());

@@ -54,11 +54,11 @@ public class userController {
     @Autowired
     private Utility utility;
 
-    //パスワード暗号化
+    // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    //ラジオボタン用変数
+    // ラジオボタン用変数
     private Map<String, String> radioEnabled;
     private Map<String, String> radioLock;
 
@@ -93,16 +93,16 @@ public class userController {
     @GetMapping("/userList")
     public String getUserList(Model model) {
 
-        //コンテンツ部分にユーザー一覧を表示するための文字列を登録
+        // コンテンツ部分にユーザー一覧を表示するための文字列を登録
         model.addAttribute("contents", "z/userList :: userList_contents");
 
-        //ユーザー一覧の生成
+        // ユーザー一覧の生成
         List<User> userList = userService.selectMany();
 
-        //Modelにユーザーリストを登録
+        // Modelにユーザーリストを登録
         model.addAttribute("userList", userList);
 
-        //データ件数を取得
+        // データ件数を取得
         int count = userService.count();
         model.addAttribute("userListCount", count);
 
@@ -115,25 +115,25 @@ public class userController {
     @GetMapping("/userList/csv")
     public ResponseEntity<byte[]> getUserListCsv(Model model) {
 
-        //ユーザーを全件取得して、CSVをサーバーに保存する
+        // ユーザーを全件取得して、CSVをサーバーに保存する
         userService.userCsvOut();
 
         byte[] bytes = null;
 
         try {
-            //サーバーに保存されているcsvファイルをbyteで取得する
+            // サーバーに保存されているcsvファイルをbyteで取得する
             bytes = utility.getFile("userlist.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //HTTPヘッダーの設定
+        // HTTPヘッダーの設定
         HttpHeaders header = new HttpHeaders();
         header.add("Content-Type", "text/csv; charset=UTF-8");
         header.setContentDispositionFormData("filename", "userlist.csv");
 
-        //csvを戻す
+        // csvを戻す
         // ResponseEntity型を使うとファイル（bytes型の配列）を呼び出し元に返せる
         return new ResponseEntity<>(bytes, header, HttpStatus.OK);
     }
@@ -144,27 +144,26 @@ public class userController {
     @RequestMapping("/userList/excel")
     public UserListXlsxView excel(UserListXlsxView model) {
 
-        //ユーザー一覧の生成
+        // ユーザー一覧の生成
         List<User> userList = userService.selectMany();
 
-        //Modelにユーザーリストを登録
+        // Modelにユーザーリストを登録
         model.addStaticAttribute("userList", userList);
 
-        //データ件数を取得
+        // データ件数を取得
         int count = userService.count();
         model.addStaticAttribute("userListCount", count);
 
         return model;
     }
 
-
     /**
      * ユーザー登録画面のGETメソッド用処理.
      */
     @GetMapping("/userUpdate")
-    //このメソッドを使える権限を付与する場合は以下のようにPreAuthorizeをつける
-    //ただし、権限が無い場合はVIEWで非表示にした方が綺麗なので、実際はそちらで行う
-    //@PreAuthorize("hasAuthority('ROLE_ADMIN')") // ROLE_ADMIN権限のみ
+    // このメソッドを使える権限を付与する場合は以下のようにPreAuthorizeをつける
+    // ただし、権限が無い場合はVIEWで非表示にした方が綺麗なので、実際はそちらで行う
+    // @PreAuthorize("hasAuthority('ROLE_ADMIN')") // ROLE_ADMIN権限のみ
     public String getSignUp(@ModelAttribute InputForm form, Model model) {
 
         // コンテンツ部分にユーザー登録を表示するための文字列を登録
@@ -172,7 +171,7 @@ public class userController {
 
         // ラジオボタンの初期化メソッド呼び出し
         radioEnabled = initRadioEnabled();
-        radioLock    = initRadioLock();
+        radioLock = initRadioLock();
 
         // ラジオボタン用のMapをModelに登録
         model.addAttribute("radioEnabled", radioEnabled);
@@ -185,14 +184,13 @@ public class userController {
     /**
      * ユーザー登録画面のPOSTメソッド用処理.
      * 
-     * @param form フォーム
+     * @param form          フォーム
      * @param bindingResult 処理結果
-     * @param model モデル
+     * @param model         モデル
      * @return 遷移先の情報(String)
      */
     @PostMapping("/userUpdate")
-    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form,
-            BindingResult bindingResult,
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form, BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、ユーザー登録画面に戻る
@@ -206,23 +204,21 @@ public class userController {
         // ユーザマスタinsert用変数
         User user = new User();
 
-        user.setUser_id(form.getUser_id());                   //ユーザーID
-        user.setUser_due_date(form.getUser_due_date());       //ユーザ有効期限
-        //パスワードは暗号化する
+        user.setUser_id(form.getUser_id()); // ユーザーID
+        user.setUser_due_date(form.getUser_due_date()); // ユーザ有効期限
+        // パスワードは暗号化する
         String password = passwordEncoder.encode(form.getPassword());
-        user.setPassword(password);                           //パスワード
-        user.setPass_update(form.getPass_update());           //パスワード有効期限
-        //ロールとログイン失敗回数はテーブルの初期値にて設定される
-        user.setLock_flg(form.isLock_flg());                  //ロック状態
-        user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
+        user.setPassword(password); // パスワード
+        user.setPass_update(form.getPass_update()); // パスワード有効期限
+        // ロールとログイン失敗回数はテーブルの初期値にて設定される
+        user.setLock_flg(form.isLock_flg()); // ロック状態
+        user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
-        //ログインユーザー情報の取得
-        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        user.setInsert_user(user_auth.getUsername());         //作成者
+        user.setInsert_user(user_auth.getUsername()); // 作成者
 
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
@@ -239,15 +235,15 @@ public class userController {
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
 
-        userrole.setUser_id(form.getUser_id());               //ユーザーID
-        userrole.setRole_id(role.getRole_id());               //ロールID
+        userrole.setUser_id(form.getUser_id()); // ユーザーID
+        userrole.setRole_id(role.getRole_id()); // ロールID
 
         // ユーザー登録処理(user,userrole)
         try {
-            boolean result = registuserService.insertOne(user,userrole);
+            boolean result = registuserService.insertOne(user, userrole);
 
             // ユーザー登録結果の判定
-            if (result == true ) {
+            if (result == true) {
                 model.addAttribute("result", "登録成功");
                 log.info("登録成功");
             } else {
@@ -263,7 +259,7 @@ public class userController {
 
             return getSignUp(form, model);
         }
-        //ユーザー一覧画面を表示
+        // ユーザー一覧画面を表示
         return getUserList(model);
     }
 
@@ -271,21 +267,18 @@ public class userController {
      * ユーザー登録画面の戻る処理.
      */
     @PostMapping(value = "/userUpdate", params = "back")
-    public String postUserUpdateback(@ModelAttribute InputForm form,
-            Model model) {
+    public String postUserUpdateback(@ModelAttribute InputForm form, Model model) {
 
-        //ユーザー一覧画面を表示
+        // ユーザー一覧画面を表示
         return getUserList(model);
     }
 
     /**
      * ユーザー詳細画面のGETメソッド用処理.
      */
-    // user_idがメールアドレスなので正規表現（{id:.+}）で記述します。 
+    // user_idがメールアドレスなので正規表現（{id:.+}）で記述します。
     @GetMapping("/userDetail/{id:.+}")
-    public String getUserDetail(@ModelAttribute InputForm form,
-            Model model,
-            @PathVariable("id") String user_id) {
+    public String getUserDetail(@ModelAttribute InputForm form, Model model, @PathVariable("id") String user_id) {
 
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/userDetail :: userDetail_contents");
@@ -303,17 +296,17 @@ public class userController {
 
             // ユーザー情報を取得
             User user = userService.selectOne(user_id);
-            //ToDo ユーザ情報が取得できなかったときの処理
+            // ToDo ユーザ情報が取得できなかったときの処理
             //
             //
 
             // Userクラスをフォームクラスに変換
-            form.setUser_id(user.getUser_id());                   //ユーザーID
-            form.setUser_due_date(user.getUser_due_date());       //ユーザ有効期限
-            form.setPass_update(user.getPass_update());           //パスワード有効期限
-            form.setLogin_miss_times(user.getLogin_miss_times()); //ログイン失敗回数
-            form.setLock_flg(user.isLock_flg());                  //ロック状態
-            form.setEnabled_flg(user.isEnabled_flg());            //有効フラグ
+            form.setUser_id(user.getUser_id()); // ユーザーID
+            form.setUser_due_date(user.getUser_due_date()); // ユーザ有効期限
+            form.setPass_update(user.getPass_update()); // パスワード有効期限
+            form.setLogin_miss_times(user.getLogin_miss_times()); // ログイン失敗回数
+            form.setLock_flg(user.isLock_flg()); // ロック状態
+            form.setEnabled_flg(user.isEnabled_flg()); // 有効フラグ
 
             // Modelに登録
             model.addAttribute("inputForm", form);
@@ -326,12 +319,11 @@ public class userController {
     /**
      * ユーザー詳細画面のユーザー更新用処理.
      */
-    //ユーザ詳細画面は更新も削除も/userDetailにPOSTするため、どちらが押されたかを判断するために、
-    //name属性の値をパラメータとして使っています
+    // ユーザ詳細画面は更新も削除も/userDetailにPOSTするため、どちらが押されたかを判断するために、
+    // name属性の値をパラメータとして使っています
     @PostMapping(value = "/userDetail", params = "update")
     public String postUserDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputForm form,
-            BindingResult bindingResult,
-            Model model) {
+            BindingResult bindingResult, Model model) {
 
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
@@ -339,33 +331,31 @@ public class userController {
             log.info("入力エラー");
 
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
-            return getUserDetail(form, model,"");
+            return getUserDetail(form, model, "");
         }
 
-        //Userインスタンスの生成
+        // Userインスタンスの生成
         User user = new User();
 
-        //フォームクラスをUserクラスに変換
-        user.setUser_id(form.getUser_id());                   //ユーザーID
-        user.setUser_due_date(form.getUser_due_date());       //ユーザ有効期限
-        //パスワードは暗号化する
+        // フォームクラスをUserクラスに変換
+        user.setUser_id(form.getUser_id()); // ユーザーID
+        user.setUser_due_date(form.getUser_due_date()); // ユーザ有効期限
+        // パスワードは暗号化する
         String password = passwordEncoder.encode(form.getPassword());
-        user.setPassword(password);                           //パスワード
-        user.setPass_update(form.getPass_update());           //パスワード有効期限
-        //権限は変更できない
-        user.setLogin_miss_times(form.getLogin_miss_times()); //ログイン失敗回数
-        user.setLock_flg(form.isLock_flg());                  //ロック状態
-        user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
+        user.setPassword(password); // パスワード
+        user.setPass_update(form.getPass_update()); // パスワード有効期限
+        // 権限は変更できない
+        user.setLogin_miss_times(form.getLogin_miss_times()); // ログイン失敗回数
+        user.setLock_flg(form.isLock_flg()); // ロック状態
+        user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
-        //ログインユーザー情報の取得
-        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        user.setUpdate_user(user_auth.getUsername());         //更新者
+        user.setUpdate_user(user_auth.getUsername()); // 更新者
 
-        //更新実行
+        // 更新実行
         boolean result = userService.updateOne(user);
 
         if (result == true) {
@@ -376,7 +366,7 @@ public class userController {
             log.info("更新失敗");
         }
 
-        //ユーザー一覧画面を表示
+        // ユーザー一覧画面を表示
         return getUserList(model);
     }
 
@@ -384,10 +374,9 @@ public class userController {
      * ユーザー詳細画面のユーザー削除用処理.
      */
     @PostMapping(value = "/userDetail", params = "delete")
-    public String postUserDetailDelete(@ModelAttribute InputForm form,
-            Model model) {
+    public String postUserDetailDelete(@ModelAttribute InputForm form, Model model) {
 
-        //削除実行
+        // 削除実行
         boolean result = registuserService.deleteOne(form.getUser_id());
 
         if (result == true) {
@@ -397,7 +386,7 @@ public class userController {
             model.addAttribute("result", "削除失敗");
             log.info("削除失敗");
         }
-        //ユーザー一覧画面を表示
+        // ユーザー一覧画面を表示
         return getUserList(model);
     }
 
@@ -405,10 +394,9 @@ public class userController {
      * ユーザー詳細画面の戻る処理.
      */
     @PostMapping(value = "/userDetail", params = "back")
-    public String postUserDetailback(@ModelAttribute InputForm form,
-            Model model) {
+    public String postUserDetailback(@ModelAttribute InputForm form, Model model) {
 
-        //ユーザー一覧画面を表示
+        // ユーザー一覧画面を表示
         return getUserList(model);
     }
 }

@@ -40,7 +40,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         String redirectPath = request.getContextPath();
 
         // パスワード更新日付のチェック
-        if(user.getPass_update().after(new Date())) {
+        if (user.getPass_update().after(new Date())) {
             // パスワード期限が切れてない
             redirectPath += "/home";
 
