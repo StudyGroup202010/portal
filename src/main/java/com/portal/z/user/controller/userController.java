@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +30,7 @@ import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.util.Utility;
+import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.UpdateOrder;
@@ -191,8 +191,7 @@ public class userController {
      * @return 遷移先の情報(String)
      */
     @PostMapping("/userUpdate")
-    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form,
-            BindingResult bindingResult,
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputForm form, BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、ユーザー登録画面に戻る
@@ -206,23 +205,21 @@ public class userController {
         // ユーザマスタinsert用変数
         User user = new User();
 
-        user.setUser_id(form.getUser_id());                   //ユーザーID
-        user.setUser_due_date(form.getUser_due_date());       //ユーザ有効期限
-        //パスワードは暗号化する
+        user.setUser_id(form.getUser_id()); // ユーザーID
+        user.setUser_due_date(form.getUser_due_date()); // ユーザ有効期限
+        // パスワードは暗号化する
         String password = passwordEncoder.encode(form.getPassword());
-        user.setPassword(password);                           //パスワード
-        user.setPass_update(form.getPass_update());           //パスワード有効期限
-        //ロールとログイン失敗回数はテーブルの初期値にて設定される
-        user.setLock_flg(form.isLock_flg());                  //ロック状態
-        user.setEnabled_flg(form.isEnabled_flg());            //有効フラグ
+        user.setPassword(password); // パスワード
+        user.setPass_update(form.getPass_update()); // パスワード有効期限
+        // ロールとログイン失敗回数はテーブルの初期値にて設定される
+        user.setLock_flg(form.isLock_flg()); // ロック状態
+        user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
-        //ログインユーザー情報の取得
-        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
 
-        user.setInsert_user(user_auth.getUsername());         //作成者
+        user.setInsert_user(user_auth.getUsername()); // 作成者
 
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
@@ -239,31 +236,30 @@ public class userController {
         // ユーザロールマスタinsert用変数
         Userrole userrole = new Userrole();
 
-        userrole.setUser_id(form.getUser_id());               //ユーザーID
-        userrole.setRole_id(role.getRole_id());               //ロールID
+        userrole.setUser_id(form.getUser_id()); // ユーザーID
+        userrole.setRole_id(role.getRole_id()); // ロールID
 
         // ユーザー登録処理(user,userrole)
         try {
-            boolean result = registuserService.insertOne(user,userrole);
-
+            boolean result = registuserService.insertOne(user, userrole);
             // ユーザー登録結果の判定
-            if (result == true ) {
+            if (result == true) {
                 model.addAttribute("result", "登録成功");
                 log.info("登録成功");
             } else {
                 model.addAttribute("result", "登録失敗");
                 log.info("登録失敗");
             }
-        } catch (DuplicateKeyException de) {
+        } catch (ApplicationException e) {
             // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
-                    null, null, utility.getMsg("DuplicatedUserId"));
+                    null, null, e.getMessage());
             bindingResult.addError(fieldError);
-            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
 
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
         }
-        //ユーザー一覧画面を表示
+        // ユーザー一覧画面を表示
         return getUserList(model);
     }
 

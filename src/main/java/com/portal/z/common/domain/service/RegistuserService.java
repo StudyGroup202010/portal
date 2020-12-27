@@ -1,11 +1,13 @@
 package com.portal.z.common.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
-
+import com.portal.z.common.exception.ApplicationException;
+import com.portal.z.common.exception.Errors;
 
 @Transactional
 @Service
@@ -20,18 +22,25 @@ public class RegistuserService {
     /**
      * insert用メソッド.
      */
-    public boolean insertOne(User user,Userrole userrole) {
-        
-        //登録実行
-        boolean result_1 = userService.insert(user);
-        boolean result_2 = userroleService.insert(userrole);
+    public boolean insertOne(User user, Userrole userrole) {
 
-        // ユーザー登録結果の判定
-        if (result_1 == true && result_2 == true ) {
-            return true;
-        } else {
-            return false;
+        // 登録実行
+        try {
+            boolean result_1 = userService.insert(user);
+            boolean result_2 = userroleService.insert(userrole);
+
+            // ユーザー登録結果の判定
+            if (result_1 == true && result_2 == true) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (DuplicateKeyException e) {
+            // 一意制約エラーが発生した時はビジネス例外として返す。
+            throw new ApplicationException(Errors.DUPLICATED, e, user.getUser_id());
         }
+
     }
 
     /**
@@ -39,7 +48,7 @@ public class RegistuserService {
      */
     public boolean deleteOne(String user_id) {
 
-        //削除実行
+        // 削除実行
         boolean result_1 = userroleService.deleteOne(user_id);
         boolean result_2 = userService.deleteOne(user_id);
 
@@ -47,6 +56,6 @@ public class RegistuserService {
             return true;
         } else {
             return false;
-        } 
+        }
     }
 }
