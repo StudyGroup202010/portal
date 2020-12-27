@@ -34,17 +34,17 @@ public class WebConfig implements WebMvcConfigurer {
 
         ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
 
-        //メッセージのプロパティファイル名（デフォルト）を指定します
-        //下記ではmessages.propertiesファイルがセットされます
+        // メッセージのプロパティファイル名（デフォルト）を指定します
+        // 下記ではmessages.propertiesファイルがセットされます
         bean.setBasename("classpath:messages");
 
-        //メッセージプロパティの文字コードを指定します
+        // メッセージプロパティの文字コードを指定します
         bean.setDefaultEncoding("UTF-8");
 
         return bean;
     }
 
-    //　フォームとメッセージの紐付け
+    // フォームとメッセージの紐付け
     @Bean
     public LocalValidatorFactoryBean localValidatorFactoryBean() {
 

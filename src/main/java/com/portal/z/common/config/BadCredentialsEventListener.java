@@ -36,15 +36,15 @@ public class BadCredentialsEventListener {
         // ユーザーIDの取得
         String userId = event.getAuthentication().getName();
 
-        //ユーザー情報の取得
+        // ユーザー情報の取得
         // 本来であればLoginUserRepositoryの例外（UsernameNotFoundException）を受け取って判断したいところ。
         // しかし、Springの標準でBadCredentialsExceptionに変換されてしまう。
         // 設定で変換させない方法もあるようだが、あまり資料無いし内部をいじりたくないので、再検索して判断することにした。
         User user_i = userService.selectOne(userId);
 
         // ユーザＩＤが存在しない場合はユーザマスタを更新できないので終了
-        if (user_i == null ) {
-            log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）" );
+        if (user_i == null) {
+            log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）");
             return;
         }
 
@@ -55,52 +55,52 @@ public class BadCredentialsEventListener {
         int loginMissTime = user.getLogin_miss_times() + 1;
 
         // 失敗回数を更新する
-        updateUnlock(userId,loginMissTime);
+        updateUnlock(userId, loginMissTime);
 
     }
 
     //
-    //失敗回数と有効/無効フラグを更新する.
+    // 失敗回数と有効/無効フラグを更新する.
     //
     private boolean updateUnlock(String userId, int loginMissTime) {
 
-        boolean lock = false;      // ロックフラグ(無効)
-        int LOGIN_MISS_LIMIT = 0;  // ログイン失敗回数の最大値の初期値
+        boolean lock = false; // ロックフラグ(無効)
+        int LOGIN_MISS_LIMIT = 0; // ログイン失敗回数の最大値の初期値
 
         // 環境マスタに登録したログイン失敗回数の最大値を取得
         // 本来ならここでselectIntOneを使いたいところだが、例外がキャッチできない。（何か制約がある？）
         // なのでselectOneを使い、ここで値の評価もする事にした。
         Env env = envService.selectOne("LOGIN_MISS_TIMES_MAX");
 
-        if (env != null ) {
+        if (env != null) {
             try {
-                //取得した値をセットする。
+                // 取得した値をセットする。
                 LOGIN_MISS_LIMIT = Integer.parseInt(env.getEnv_txt());
 
             } catch (NumberFormatException e) {
-                log.info("環境マスタの「LOGIN_MISS_TIMES_MAX」に数字以外が登録されています" );
+                log.info("環境マスタの「LOGIN_MISS_TIMES_MAX」に数字以外が登録されています");
                 LOGIN_MISS_LIMIT = 0;
             }
         }
 
-        log.info("LOGIN_MISS_LIMIT：" + LOGIN_MISS_LIMIT );
+        log.info("LOGIN_MISS_LIMIT：" + LOGIN_MISS_LIMIT);
 
-        if(loginMissTime >= LOGIN_MISS_LIMIT) {
+        if (loginMissTime >= LOGIN_MISS_LIMIT) {
             log.info("ログイン失敗回数の最大値に達したので " + userId + " をロックします");
             lock = true;
         }
 
-        //Userインスタンスの生成
+        // Userインスタンスの生成
         User user = new User();
 
-        //フォームクラスをUserクラスに変換
-        user.setUser_id(userId);                 //ユーザーID
-        user.setLogin_miss_times(loginMissTime); //ログイン失敗回数
-        user.setLock_flg(lock);                  //ロック状態
-        user.setUpdate_user(userId);             //更新者はログインしようとしているユーザ
+        // フォームクラスをUserクラスに変換
+        user.setUser_id(userId); // ユーザーID
+        user.setLogin_miss_times(loginMissTime); // ログイン失敗回数
+        user.setLock_flg(lock); // ロック状態
+        user.setUpdate_user(userId); // 更新者はログインしようとしているユーザ
 
         // パスワード更新
-        //更新実行
+        // 更新実行
         boolean result = userService.updateLockflg(user);
 
         return result;

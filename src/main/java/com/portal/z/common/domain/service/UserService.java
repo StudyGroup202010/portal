@@ -70,7 +70,7 @@ public class UserService {
     /**
      * CSV出力用メソッド.
      */
-    public void userCsvOut() throws DataAccessException{
+    public void userCsvOut() throws DataAccessException {
         dao.userCsvOut();
     }
 
