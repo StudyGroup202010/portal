@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.repository.RoleMapper;
 
-
 @Transactional
 @Service
 public class RoleService {
@@ -55,9 +54,7 @@ public class RoleService {
     }
 
     /**
-     * ロールＩＤ取得用メソッド.
-     * 環境マスタの環境ＩＤからロールＩＤを取得する
-     * ※ROLE_NAME_AとROLE_NAME_Gを想定
+     * ロールＩＤ取得用メソッド. 環境マスタの環境ＩＤからロールＩＤを取得する ※ROLE_NAME_AとROLE_NAME_Gを想定
      */
     public Role selectRoleid(String env_id) {
         return roleMapper.selectRoleid(env_id);

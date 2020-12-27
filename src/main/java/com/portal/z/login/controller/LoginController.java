@@ -14,7 +14,7 @@ public class LoginController {
     @GetMapping("/login")
     public String getLogin(Model model) {
 
-        //login.htmlに画面遷移
+        // login.htmlに画面遷移
         return "z/login";
     }
 
@@ -24,7 +24,7 @@ public class LoginController {
     @PostMapping("/login")
     public String postLogin(Model model) {
 
-        //ホーム画面に遷移
+        // ホーム画面に遷移
         return "redirect:/home";
     }
 

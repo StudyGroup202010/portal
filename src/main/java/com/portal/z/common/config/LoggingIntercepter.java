@@ -23,16 +23,14 @@ public class LoggingIntercepter extends HandlerInterceptorAdapter {
 
     // コントローラ実行前の処理
     @Override
-    public boolean preHandle(HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         // ユーザー情報の取得
         Principal user = request.getUserPrincipal();
 
         // ユーザーIDの設定
         String userId = null;
-        if(user != null) {
+        if (user != null) {
             userId = user.getName();
         }
 
@@ -54,9 +52,7 @@ public class LoggingIntercepter extends HandlerInterceptorAdapter {
 
     // リクエスト処理が完了した後の処理
     @Override
-    public void afterCompletion(HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler,
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception ex) {
 
         MDC.remove(SESSION_ID);

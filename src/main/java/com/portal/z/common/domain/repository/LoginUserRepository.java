@@ -30,7 +30,7 @@ public class LoginUserRepository {
     @Autowired
     private MessageSource messageSource;
 
-    ///** メッセージのキー(認証失敗) */
+    /// ** メッセージのキー(認証失敗) */
     private static final String BAD_CREDENTIALS = "AbstractUserDetailsAuthenticationProvider.badCredentials";
 
     /** ユーザー情報を取得するSQL */
@@ -66,11 +66,11 @@ public class LoginUserRepository {
      */
     public UserDetails selectOne(String userId) {
 
-        //権限リストの取得
+        // 権限リストの取得
         List<GrantedAuthority> grantedAuthorityList = getRoleList(userId);
 
         // 結果返却用のUserDetailsを生成
-        AppUserDetails user = buildUserDetails(userId,grantedAuthorityList);
+        AppUserDetails user = buildUserDetails(userId, grantedAuthorityList);
 
         return user;
     }
@@ -80,24 +80,22 @@ public class LoginUserRepository {
      */
     private List<GrantedAuthority> getRoleList(String userId) {
 
-        //権限情報の取得
-        //権限が与えられていない場合は、検索結果が０件になりうる
-        List<Map<String, Object>> authorityList =
-                jdbc.queryForList(SELECT_USER_ROLE_SQL, userId);
+        // 権限情報の取得
+        // 権限が与えられていない場合は、検索結果が０件になりうる
+        List<Map<String, Object>> authorityList = jdbc.queryForList(SELECT_USER_ROLE_SQL, userId);
 
-        //結果返却用のList生成
+        // 結果返却用のList生成
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
-        for(Map<String, Object> map: authorityList) {
+        for (Map<String, Object> map : authorityList) {
 
-            //ロール名を取得
-            String roleName = (String)map.get("role_name");
+            // ロール名を取得
+            String roleName = (String) map.get("role_name");
 
-            //SimpleGrantedAuthorityインスタンスの生成
-            GrantedAuthority authority =
-                    new SimpleGrantedAuthority(roleName);
+            // SimpleGrantedAuthorityインスタンスの生成
+            GrantedAuthority authority = new SimpleGrantedAuthority(roleName);
 
-            //結果返却用のListにインスタンスを追加
+            // 結果返却用のListにインスタンスを追加
             grantedAuthorityList.add(authority);
         }
 
@@ -107,21 +105,21 @@ public class LoginUserRepository {
     /**
      * ユーザークラスの作成.
      */
-    private AppUserDetails buildUserDetails(String userId,List<GrantedAuthority> grantedAuthorityList) {
+    private AppUserDetails buildUserDetails(String userId, List<GrantedAuthority> grantedAuthorityList) {
 
         try {
-            //ユーザ情報を取得
-            //ユーザ情報が取得できないときは例外を起こす。
+            // ユーザ情報を取得
+            // ユーザ情報が取得できないときは例外を起こす。
             Map<String, Object> userMap = jdbc.queryForMap(SELECT_USER_SQL, userId);
 
             // Mapから値を取得
-            String user_id       = (String) userMap.get("user_id");
-            Date user_due_date   = (Date) userMap.get("user_due_date");
-            String password      = (String) userMap.get("password");
-            Date pass_update     = (Date) userMap.get("pass_update");
+            String user_id = (String) userMap.get("user_id");
+            Date user_due_date = (Date) userMap.get("user_due_date");
+            String password = (String) userMap.get("password");
+            Date pass_update = (Date) userMap.get("pass_update");
             int login_miss_times = (Integer) userMap.get("login_miss_times");
-            boolean lock_flg     = (Boolean) userMap.get("lock_flg");
-            boolean enabled_flg  = (Boolean) userMap.get("enabled_flg");
+            boolean lock_flg = (Boolean) userMap.get("lock_flg");
+            boolean enabled_flg = (Boolean) userMap.get("enabled_flg");
 
             // 結果返却用のUserDetailsを生成
             //AppUserDetails user = new AppUserDetails().builder()
@@ -140,13 +138,13 @@ public class LoginUserRepository {
             return user;
 
         } catch (EmptyResultDataAccessException e) {
-            //検索結果が０件の時はUsernameNotFoundExceptionを返す。
+            // 検索結果が０件の時はUsernameNotFoundExceptionを返す。
             log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
             // エラーメッセージ取得
-            String message = messageSource.getMessage(BAD_CREDENTIALS,null,Locale.getDefault());
-            //Spring Securityのデフォルトの動作では、
-            //結局はUsernameNotFoundExceptionはBadCredentialsExceptionに変換されてしまう。
-            throw new UsernameNotFoundException(message,e);
+            String message = messageSource.getMessage(BAD_CREDENTIALS, null, Locale.getDefault());
+            // Spring Securityのデフォルトの動作では、
+            // 結局はUsernameNotFoundExceptionはBadCredentialsExceptionに変換されてしまう。
+            throw new UsernameNotFoundException(message, e);
         }
     }
 }
