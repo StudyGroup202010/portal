@@ -11,6 +11,7 @@ Note
 
 References
 -------
+* 設計書はこちら　⇒　https://github.com/StudyGroup202010/portal_docs/tree/main/Docs
 * デプロイ先はこちら　⇒　https://portalemd.herokuapp.com/
 * 開発環境について　⇒　https://github.com/StudyGroup202010/portal/wiki/環境について
 * 開発のコツなど　⇒　<https://terasolunaorg.github.io/guideline/5.6.0.RELEASE/ja/>  
