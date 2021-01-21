@@ -29,14 +29,20 @@ class UtilityTest {
     @Autowired
     private Utility utility;
 
+    //
+    // getFile
+    //
     @Test
     final void testGetFile() {
         // fail("未作成。必ずエラーになります。"); // TODO あとでつくる。(Javaビギナー用の課題)
     }
 
+    //
+    // getMsg
+    //
     @Test
     final void utility_getMsg_メッセージID無し() {
-        assertThat(utility.getMsg("")).isEqualTo("【(要対応)メッセージが存在しません！】");
+        assertThat(utility.getMsg("999")).isEqualTo("【(要対応)メッセージが存在しません！】");
     }
 
     @Test
@@ -44,5 +50,4 @@ class UtilityTest {
         assertThat(utility.getMsg("RoleNameNotFoundAtEnvTable"))
                 .isEqualTo("【管理者に連絡してください】環境マスタ「ROLE_NAME_G」に登録した値がロールマスタに存在しません。");
     }
-
 }
