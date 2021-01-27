@@ -139,11 +139,9 @@ public class LoginUserRepository {
 
         } catch (EmptyResultDataAccessException e) {
             // 検索結果が０件の時はUsernameNotFoundExceptionを返す。
-            log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
+            log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）"); 
             // エラーメッセージ取得
             String message = messageSource.getMessage(BAD_CREDENTIALS, null, Locale.getDefault());
-            // Spring Securityのデフォルトの動作では、
-            // 結局はUsernameNotFoundExceptionはBadCredentialsExceptionに変換されてしまう。
             throw new UsernameNotFoundException(message, e);
         }
     }
