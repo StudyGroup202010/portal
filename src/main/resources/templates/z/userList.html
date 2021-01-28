@@ -15,62 +15,87 @@
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   
       <!-- CSSの読込 -->
-    <link th:href="@{/css/userList.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
   
     <title>UserList</title>  
 </head>
 <body>
-    <div th:fragment="userList_contents">
-        <div class="page-header">
-            <h3>ユーザー一覧</h3>
-        </div>
-        
-        <!-- CSV出力用のリンク -->
-        <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
-        <!-- EXCEL出力用のリンク -->
-        <a class="btn btn-primary" th:href="@{'/userList/excel'}">EXCEL出力</a>
-        <!-- ユーザー登録画面へのリンク -->
-        <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}" sec:authorize="hasRole('ADMIN')" >新規登録</a>
-        
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped table-sm">
-          
-           <thead>
-             <tr class="table-info">
-                <th scope="col" ><p class="text-nowrap text-center">ユーザID</p></th>
-                <th scope="col" ><p class="text-nowrap text-center">ユーザ有効期限</p></th>
-                <th scope="col" ><p class="text-nowrap text-center">パスワード有効期限</p></th>
-                <th scope="col" ><p class="text-nowrap text-center">ログイン失敗回数</p></th>
-                <th scope="col" ><p class="text-nowrap text-center">ロック状態</p></th>
-                <th scope="col" ><p class="text-nowrap text-center">有効無効</p></th>
-                <th scope="col" ></th>
-             </tr>
-           </thead>
-           
-           <tbody>
-             <tr th:each="user : ${userList}">
-                <th scope="row"    th:text="${user.user_id}"></th>
-                <td align="center" th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>       
-                <td align="center" th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}"></td>  
-                <td align="Right"  th:text="${user.login_miss_times}"></td>
-                <td align="center" th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>   
-                <td align="center" th:text="${user.enabled_flg} ? '有効' : '無効'"></td>   
-                <td >
-                    <!-- ユーザー詳細画面へのリンク -->
-                    <a class="btn btn-primary btn-sm" th:href="@{'/userDetail/' + ${user.user_id}}" >詳細</a>
-                </td>
-             </tr>
-           </tbody>
-           
-          </table>
-        </div>
-        
-        <!-- ユーザー一覧の件数 -->
-        <label th:text=" '合計：' + ${userListCount} + '件' "></label><br/>
-        <!-- 更新・削除処理の結果表示用 -->
-        <label class="text-info" th:text="${result}">結果表示</label><br/>
-        
-      <div th:insert="z/footer :: footer"></div>
-    </div>
+	<div th:fragment="userList_contents">
+		<div class="page-header">
+			<h3>ユーザー一覧</h3>
+		</div>
+		<div class="container-fluid">
+			<form method="post" th:action="@{/userList}"
+				th:object="${selectForm}">
+				<div class="row">
+					<div class="col-sm-2 text-nowrap">
+						ユーザID<input type="text" class="form-control" th:field="*{user_id}" />
+					</div>
+					<div class="col-sm-2 text-nowrap">
+						ユーザ有効期限FROM<input type="text" class="form-control"
+							th:field="*{user_due_date_from}" />
+					</div>
+					<div class="col-sm-2 text-nowrap">
+						ユーザ有効期限TO<input type="text" class="form-control"
+							th:field="*{user_due_date_to}" />
+					</div>
+					<!-- 検索実行 -->
+					<button type="submit" name="selectby"
+						class="col-sm-1 btn btn-primary">検索</button>
+				</div>
+			</form>
+		</div>
+		<div class="table-responsive">
+			<div class="col">
+				<!-- CSV出力用のリンク -->
+				<a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
+				<!-- EXCEL出力用のリンク -->
+				<a class="btn btn-primary" th:href="@{'/userList/excel'}">EXCEL出力</a>
+				<!-- ユーザー登録画面へのリンク -->
+				<a class="btn btn-danger" th:href="@{'/userUpdate'}"
+					sec:authorize="hasRole('ADMIN')">新規登録</a>
+			</div>
+			<table
+				class="table table-bordered table-hover table-striped table-sm">
+
+				<thead>
+					<tr class="table-info">
+						<th scope="col"><p class="text-nowrap text-center">ユーザID</p></th>
+						<th scope="col"><p class="text-nowrap text-center">ユーザ有効期限</p></th>
+						<th scope="col"><p class="text-nowrap text-center">パスワード有効期限</p></th>
+						<th scope="col"><p class="text-nowrap text-center">ログイン失敗回数</p></th>
+						<th scope="col"><p class="text-nowrap text-center">ロック状態</p></th>
+						<th scope="col"><p class="text-nowrap text-center">有効無効</p></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="user : ${userList}">
+						<th scope="row" th:text="${user.user_id}"></th>
+						<td align="center"
+							th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>
+						<td align="center"
+							th:text="${#dates.format(user.pass_update, 'YYYY/MM/dd')}"></td>
+						<td align="Right" th:text="${user.login_miss_times}"></td>
+						<td align="center" th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>
+						<td align="center" th:text="${user.enabled_flg} ? '有効' : '無効'"></td>
+						<td>
+							<!-- ユーザー詳細画面へのリンク --> <a class="btn btn-primary btn-sm"
+							th:href="@{'/userDetail/' + ${user.user_id}}">詳細</a>
+						</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+
+		<!-- ユーザー一覧の件数 -->
+		<label th:text=" '合計：' + ${userListCount} + '件' "></label><br />
+		<!-- 更新・削除処理の結果表示用 -->
+		<label class="text-info" th:text="${result}">結果表示</label><br />
+
+		<div th:insert="z/footer :: footer"></div>
+	</div>
 </body>
 </html>

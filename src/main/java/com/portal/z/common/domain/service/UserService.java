@@ -88,4 +88,11 @@ public class UserService {
         return userMapper.updatePassupdate(user);
     }
 
+    /**
+     * 条件検索用メソッド.
+     */
+    public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to) {
+        // selectBy実行
+        return userMapper.selectBy(user_id, user_due_date_from, user_due_date_to);
+    }
 }
