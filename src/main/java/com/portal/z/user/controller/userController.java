@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -33,6 +34,7 @@ import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
+import com.portal.z.user.domain.model.SelectForm;
 import com.portal.z.user.domain.model.UpdateOrder;
 import com.portal.z.user.domain.model.UserListXlsxView;
 
@@ -93,6 +95,10 @@ public class userController {
     @GetMapping("/userList")
     public String getUserList(Model model) {
 
+        // 検索条件のformを登録
+        SelectForm form = new SelectForm();
+        model.addAttribute("selectForm", form);
+
         // コンテンツ部分にユーザー一覧を表示するための文字列を登録
         model.addAttribute("contents", "z/userList :: userList_contents");
 
@@ -103,7 +109,42 @@ public class userController {
         model.addAttribute("userList", userList);
 
         // データ件数を取得
-        int count = userService.count();
+        int count = userList.size();
+        model.addAttribute("userListCount", count);
+
+        return "z/homeLayout";
+    }
+    
+    /**
+     * ユーザー一覧画面のユーザー検索用処理.
+     */
+    @RequestMapping(value = "/userList", params = "selectby")
+    public String getUserListByUserid(@ModelAttribute SelectForm form, BindingResult bindingResult, Model model) {
+
+        // コンテンツ部分にユーザー一覧を表示するための文字列を登録
+        model.addAttribute("contents", "z/userList :: userList_contents");
+
+        //検索条件未入力の時の対応
+        String user_due_date_from = form.getUser_due_date_from();
+        String user_due_date_to = form.getUser_due_date_to();
+        
+        if (user_due_date_from == null || StringUtils.isEmpty(user_due_date_from)) {
+            user_due_date_from = "00000000";
+        }
+        ;
+        if (user_due_date_to == null || StringUtils.isEmpty(user_due_date_to)) {
+            user_due_date_to = "99999999";
+        }
+        ;
+        
+        // ユーザー情報を取得
+        List<User> userList = userService.selectBy(form.getUser_id(), user_due_date_from, user_due_date_to);
+
+        // Modelにユーザーリストを登録
+        model.addAttribute("userList", userList);
+
+        // データ件数を登録
+        int count = userList.size();
         model.addAttribute("userListCount", count);
 
         return "z/homeLayout";
@@ -210,7 +251,7 @@ public class userController {
         String password = passwordEncoder.encode(form.getPassword());
         user.setPassword(password); // パスワード
         user.setPass_update(form.getPass_update()); // パスワード有効期限
-        // ロールとログイン失敗回数はテーブルの初期値にて設定される
+        // ロック状態と有効フラグはテーブルの初期値にて設定される
         user.setLock_flg(form.isLock_flg()); // ロック状態
         user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
@@ -268,7 +309,6 @@ public class userController {
      */
     @PostMapping(value = "/userUpdate", params = "back")
     public String postUserUpdateback(@ModelAttribute InputForm form, Model model) {
-
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
@@ -283,7 +323,7 @@ public class userController {
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/userDetail :: userDetail_contents");
 
-        // 結婚ステータス用ラジオボタンの初期化
+        // ラジオボタンの初期化メソッド呼び出し
         radioEnabled = initRadioEnabled();
         radioLock = initRadioLock();
 
@@ -313,7 +353,6 @@ public class userController {
         }
 
         return "z/homeLayout";
-
     }
 
     /**
@@ -395,7 +434,6 @@ public class userController {
      */
     @PostMapping(value = "/userDetail", params = "back")
     public String postUserDetailback(@ModelAttribute InputForm form, Model model) {
-
         // ユーザー一覧画面を表示
         return getUserList(model);
     }

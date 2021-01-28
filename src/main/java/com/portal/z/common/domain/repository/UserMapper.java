@@ -33,4 +33,6 @@ public interface UserMapper {
     // パスワード有効期限更新用メソッド
     public boolean updatePassupdate(User user);
 
+    // 条件検索用メソッド
+    public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
 }

@@ -1,9 +1,21 @@
+/* ボタンの間隔 */
 .btn {
 	margin-left: 2px;
-	margin-right: 2px; /* 詳細画面での削除ボタンと更新ボタンの間の間隔 */
+	margin-right: 2px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
+/* 入力フォームの間隔 */
+.form-control {
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+/* サードバーのリンク枠線の表示間隔 */
 .nav-link {
 	margin-top: 2px;
-	margin-bottom: 2px; /* サードバーのリンク枠線の表示間隔 */
+	margin-bottom: 2px;
 }
