@@ -138,4 +138,30 @@
         where
           user_id      = #{user_id}
     </update>
+    
+        <!-- 条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="user">
+    <![CDATA[
+        select
+           user_id
+          ,user_due_date
+          ,password
+          ,pass_update
+          ,login_miss_times
+          ,lock_flg
+          ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          zm001_user
+        where user_id like CONCAT(#{user_id} , '%')
+        and TO_CHAR(user_due_date,'YYYYMMDD') >= #{user_due_date_from}
+        and TO_CHAR(user_due_date,'YYYYMMDD') <= #{user_due_date_to}
+        order by
+          user_id
+    ]]>
+    </select>
+    
 </mapper>
