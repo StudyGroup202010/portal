@@ -24,24 +24,26 @@
 		<div class="page-header">
 			<h3>ユーザー一覧</h3>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid border bg-light">
 			<form method="post" th:action="@{/userList}"
 				th:object="${selectForm}">
 				<div class="row">
-					<div class="col-sm-2 text-nowrap">
+					<div class="col-sm-2">
 						ユーザID<input type="text" class="form-control" th:field="*{user_id}" />
 					</div>
-					<div class="col-sm-2 text-nowrap">
-						ユーザ有効期限FROM<input type="text" class="form-control"
+					<div class="col-sm-2">
+						ユーザ有効期限FROM<input type="date" class="form-control"
 							th:field="*{user_due_date_from}" />
 					</div>
-					<div class="col-sm-2 text-nowrap">
-						ユーザ有効期限TO<input type="text" class="form-control"
+					<div class="col-sm-2">
+						ユーザ有効期限TO<input type="date" class="form-control"
 							th:field="*{user_due_date_to}" />
 					</div>
-					<!-- 検索実行 -->
-					<button type="submit" name="selectby"
-						class="col-sm-1 btn btn-primary">検索</button>
+					<div class="col-sm-6">
+						<!-- 検索実行 -->
+						<button type="submit" name="selectby"
+							class="btn btn-primary btn-lg float-right">検索</button>
+					</div>
 				</div>
 			</form>
 		</div>
