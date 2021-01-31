@@ -1,9 +1,7 @@
 package com.portal.z.user.domain.model;
 
 import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Data

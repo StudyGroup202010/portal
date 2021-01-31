@@ -132,8 +132,6 @@ public class userController {
         log.info("検索条件：" + form.getUser_id());
         log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())));
         log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
-        log.info("検索条件：" + dateUtils.setStartDate(null));
-        log.info("検索条件：" + dateUtils.setEndDate(null));
 
         // ユーザー情報を取得
         // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
