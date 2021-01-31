@@ -246,6 +246,9 @@ public class userController {
 
         user.setUser_id(form.getUser_id()); // ユーザーID
         user.setUser_due_date(form.getUser_due_date()); // ユーザ有効期限
+        
+        log.info("ユーザ有効期限：" + form.getUser_due_date());
+        
         // パスワードは暗号化する
         String password = passwordEncoder.encode(form.getPassword());
         user.setPassword(password); // パスワード
