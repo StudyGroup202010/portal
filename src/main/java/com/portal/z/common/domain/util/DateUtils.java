@@ -13,8 +13,9 @@ public class DateUtils {
 	
     /*
      * 日付の初期値
+     * 実際には0001年１月１日にはならず、0001年1月2日23:41:01になります。
      */
-    private static final String DEFAULT_START_DATE = "00000101";
+    private static final String DEFAULT_START_DATE = "00010101";
 
     /*
      * 日付の永遠値
@@ -32,7 +33,7 @@ public class DateUtils {
      * @return 文字型に変換したdate
      * 
      */
-    public static String getStringFromDate(Date date) {
+    public String getStringFromDate(Date date) {
         if (date == null) {
             return null;
         }
@@ -54,7 +55,7 @@ public class DateUtils {
      * @return Date型に変換したdate
      * 
      */
-    public static Date getDateFromString(String date) {
+    public Date getDateFromString(String date) {
         if (date == null) {
             return null;
         }
@@ -75,7 +76,7 @@ public class DateUtils {
      * @return 初期値に変換したdate
      * 
      */
-    public static Date setStartDate(Date date) {
+    public Date setStartDate(Date date) {
         if (date != null) {
             return date;
         }
@@ -92,7 +93,7 @@ public class DateUtils {
      * @return 永遠値に変換したdate
      * 
      */
-    public static Date setEndDate(Date date) {
+    public Date setEndDate(Date date) {
         if (date != null) {
             return date;
         }

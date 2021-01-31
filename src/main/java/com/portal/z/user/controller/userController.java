@@ -58,6 +58,9 @@ public class userController {
     @Autowired
     private Utility utility;
 
+    @Autowired
+    private DateUtils dateUtils;
+
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -127,14 +130,16 @@ public class userController {
         model.addAttribute("contents", "z/userList :: userList_contents");
 
         log.info("検索条件：" + form.getUser_id());
-        log.info("検索条件：" + DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())));
-        log.info("検索条件：" + DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
+        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())));
+        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
+        log.info("検索条件：" + dateUtils.setStartDate(null));
+        log.info("検索条件：" + dateUtils.setEndDate(null));
 
         // ユーザー情報を取得
         // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
         List<User> userList = userService.selectBy(form.getUser_id(),
-                DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())),
-                DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
+                dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())),
+                dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
 
         // Modelにユーザーリストを登録
         model.addAttribute("userList", userList);
