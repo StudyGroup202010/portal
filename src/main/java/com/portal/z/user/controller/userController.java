@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+//import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+//import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +32,7 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
+import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
@@ -55,6 +57,9 @@ public class userController {
 
     @Autowired
     private Utility utility;
+
+    @Autowired
+    private DateUtils dateUtils;
 
     // パスワード暗号化
     @Autowired
@@ -124,21 +129,17 @@ public class userController {
         // コンテンツ部分にユーザー一覧を表示するための文字列を登録
         model.addAttribute("contents", "z/userList :: userList_contents");
 
-        //検索条件未入力の時の対応
-        String user_due_date_from = form.getUser_due_date_from();
-        String user_due_date_to = form.getUser_due_date_to();
-        
-        if (user_due_date_from == null || StringUtils.isEmpty(user_due_date_from)) {
-            user_due_date_from = "00000000";
-        }
-        ;
-        if (user_due_date_to == null || StringUtils.isEmpty(user_due_date_to)) {
-            user_due_date_to = "99999999";
-        }
-        ;
-        
+        log.info("検索条件：" + form.getUser_id());
+        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())));
+        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
+        log.info("検索条件：" + dateUtils.setStartDate(null));
+        log.info("検索条件：" + dateUtils.setEndDate(null));
+
         // ユーザー情報を取得
-        List<User> userList = userService.selectBy(form.getUser_id(), user_due_date_from, user_due_date_to);
+        // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
+        List<User> userList = userService.selectBy(form.getUser_id(),
+                dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())),
+                dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
 
         // Modelにユーザーリストを登録
         model.addAttribute("userList", userList);

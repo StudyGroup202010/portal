@@ -20,7 +20,7 @@
     <title>UserList</title>  
 </head>
 <body>
- 	<div th:fragment="userList_contents">
+	<div th:fragment="userList_contents">
 		<div class="page-header">
 			<h3>ユーザー一覧</h3>
 		</div>
@@ -33,7 +33,7 @@
 					</div>
 					<div class="col-sm-2">
 						ユーザ有効期限FROM<input type="date" class="form-control"
-							th:field="*{user_due_date_from}" />
+							th:field="*{user_due_date_from}" placeholder="YYYY/MM/DD" />
 					</div>
 					<div class="col-sm-2">
 						ユーザ有効期限TO<input type="date" class="form-control"
@@ -62,18 +62,20 @@
 
 				<thead>
 					<tr class="table-info">
+						<th scope="col"></th>
 						<th scope="col"><p class="text-nowrap text-center">ユーザID</p></th>
 						<th scope="col"><p class="text-nowrap text-center">ユーザ有効期限</p></th>
 						<th scope="col"><p class="text-nowrap text-center">パスワード有効期限</p></th>
 						<th scope="col"><p class="text-nowrap text-center">ログイン失敗回数</p></th>
 						<th scope="col"><p class="text-nowrap text-center">ロック状態</p></th>
 						<th scope="col"><p class="text-nowrap text-center">有効無効</p></th>
-						<th scope="col"></th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr th:each="user : ${userList}">
+						<td align="center"><a class="btn btn-primary"
+							th:href="@{'/userDetail/' + ${user.user_id}}">詳細</a></td>
 						<th scope="row" th:text="${user.user_id}"></th>
 						<td align="center"
 							th:text="${#dates.format(user.user_due_date, 'YYYY/MM/dd')}"></td>
@@ -82,10 +84,6 @@
 						<td align="Right" th:text="${user.login_miss_times}"></td>
 						<td align="center" th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>
 						<td align="center" th:text="${user.enabled_flg} ? '有効' : '無効'"></td>
-						<td>
-							<!-- ユーザー詳細画面へのリンク --> <a class="btn btn-primary btn-sm"
-							th:href="@{'/userDetail/' + ${user.user_id}}">詳細</a>
-						</td>
 					</tr>
 				</tbody>
 
