@@ -16,24 +16,24 @@ public class LogAspct {
      * ログ出力用アスペクト.
      */
     // JointPoint（実行タイミング）はAround（メソッド実行の前後）
-    //　実行場所はwithin(Controllerアノテーションがついている全ての場所）
+    // 実行場所はwithin(Controllerアノテーションがついている全ての場所）
     @Around("@within(org.springframework.stereotype.Controller)")
     public Object startLog_controller(ProceedingJoinPoint jp) throws Throwable {
 
-        //System.out.println("メソッド開始： " + jp.getSignature());
+        // System.out.println("メソッド開始： " + jp.getSignature());
         log.info("メソッド開始：" + jp.getSignature());
 
         try {
-            //メソッド実行
+            // メソッド実行
             Object result = jp.proceed();
 
-            //System.out.println("メソッド終了： " + jp.getSignature());
+            // System.out.println("メソッド終了： " + jp.getSignature());
             log.info("メソッド終了：" + jp.getSignature());
 
             return result;
 
         } catch (Exception e) {
-            //System.out.println("メソッド異常終了： " + jp.getSignature());
+            // System.out.println("メソッド異常終了： " + jp.getSignature());
             log.error("メソッド異常終了：" + jp.getSignature());
             e.printStackTrace();
             throw e;
@@ -41,14 +41,14 @@ public class LogAspct {
     }
 
     // JointPoint（実行タイミング）はAround（メソッド実行の前後）
-    //　実行場所はwithin(Serviceアノテーションがついている全ての場所）
+    // 実行場所はwithin(Serviceアノテーションがついている全ての場所）
     @Around("@within(org.springframework.stereotype.Service)")
     public Object startLog_service(ProceedingJoinPoint jp) throws Throwable {
 
         log.info("Sメソッド開始：" + jp.getSignature());
 
         try {
-            //メソッド実行
+            // メソッド実行
             Object result = jp.proceed();
 
             log.info("Sメソッド終了：" + jp.getSignature());
@@ -85,14 +85,14 @@ public class LogAspct {
     //    }
 
     // JointPoint（実行タイミング）はAround（メソッド実行の前後）
-    //　実行場所はwithin(Repositoryアノテーションがついている全ての場所）
+    // 実行場所はwithin(Repositoryアノテーションがついている全ての場所）
     @Around("@within(org.springframework.stereotype.Repository)")
     public Object startLog_repository(ProceedingJoinPoint jp) throws Throwable {
 
         log.info("Rメソッド開始：" + jp.getSignature());
 
         try {
-            //メソッド実行
+            // メソッド実行
             Object result = jp.proceed();
 
             log.info("Rメソッド終了：" + jp.getSignature());

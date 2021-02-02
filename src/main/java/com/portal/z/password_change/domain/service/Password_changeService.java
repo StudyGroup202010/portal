@@ -27,45 +27,45 @@ public class Password_changeService {
     @Autowired
     private EnvService envService;
 
-    //パスワード暗号化
+    // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
 
     /**
      * パスワードを更新する.
+     * 
      * @throws ParseException
      */
     public void updatePasswordDate(String userId, String password) throws ParseException {
         // パスワード暗号化
         String encryptPass = passwordEncoder.encode(password);
 
-        int PASS_UPDATE_NXT = 0;   //パスワード有効期限月数
-
+        int PASS_UPDATE_NXT = 0; // パスワード有効期限月数
 
         // パスワード有効期限
         // 環境マスタに登録したパスワード有効期限月数を取得
         Env env = envService.selectIntOne("PASS_UPDATE_NXT");
 
-        if (env != null ) {
+        if (env != null) {
             PASS_UPDATE_NXT = Integer.parseInt(env.getEnv_txt());
         }
 
         log.info("PASS_UPDATE_NXT：" + PASS_UPDATE_NXT);
 
-        //　パスワード有効期限を計算
+        // パスワード有効期限を計算
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        cal.add(Calendar.MONTH, PASS_UPDATE_NXT);  //月加算
+        cal.add(Calendar.MONTH, PASS_UPDATE_NXT); // 月加算
         Date passwordUpdateDate = cal.getTime();
 
-        //Userインスタンスの生成
+        // Userインスタンスの生成
         User user = new User();
 
-        //フォームクラスをUserクラスに変換
-        user.setUser_id(userId);                 //ユーザーID
-        user.setPassword(encryptPass);           //パスワード
-        user.setPass_update(passwordUpdateDate); //パスワード有効期限
-        user.setUpdate_user(userId);             //更新者はログインしようとしているユーザ
+        // フォームクラスをUserクラスに変換
+        user.setUser_id(userId); // ユーザーID
+        user.setPassword(encryptPass); // パスワード
+        user.setPass_update(passwordUpdateDate); // パスワード有効期限
+        user.setUpdate_user(userId); // 更新者はログインしようとしているユーザ
 
         // パスワード更新
         userService.updatePassupdate(user);

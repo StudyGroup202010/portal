@@ -24,7 +24,7 @@ public interface RoleMapper {
     // １件削除用メソッド
     public boolean deleteOne(String role_id);
 
-    //　ロールＩＤ検索用メソッド
+    // ロールＩＤ検索用メソッド
     public Role selectRoleid(String env_id);
 
 }

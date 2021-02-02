@@ -40,7 +40,6 @@ public class RegistuserService {
             // 一意制約エラーが発生した時はビジネス例外として返す。
             throw new ApplicationException(Errors.DUPLICATED, e, user.getUser_id());
         }
-
     }
 
     /**

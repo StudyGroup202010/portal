@@ -10,58 +10,60 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class HomeController {
 
-	/**
-	 * ホーム画面のGET用メソッド
-	 */
-	@GetMapping("/home")
-	public String getHome(Model model,Principal principal) {
+    /**
+     * ホーム画面のGET用メソッド
+     */
+    @GetMapping("/home")
+    public String getHome(Model model, Principal principal) {
 
-		//コンテンツ部分にユーザー詳細を表示するための文字列を登録
-		model.addAttribute("contents", "z/home :: home_contents");
+        // コンテンツ部分にユーザー詳細を表示するための文字列を登録
+        model.addAttribute("contents", "z/home :: home_contents");
 
-		return "z/homeLayout";
-	}
+        return "z/homeLayout";
+    }
 
-	/**
-	 * ホーム画面のログアウト用処理.
-	 */
-	@PostMapping("/logout")
-	public String postLogout() {
+    /**
+     * ホーム画面のログアウト用処理.
+     */
+    @PostMapping("/logout")
+    public String postLogout() {
 
-		//ログイン画面にリダイレクト
-		return "redirect:/login";
-	}
+        // ログイン画面にリダイレクト
+        return "redirect:/login";
+    }
 
-	//
-	// 以下は本来は別のコントローラーに書くべきですが、参考としてここに書いています。
-	//    
-	/**
-	 * 一般権限専用画面のGET用メソッド.
-	 * @param model Modelクラス
-	 * @return 画面のテンプレート名
-	 */
-	@GetMapping("/general")
-	public String getGeneral(Model model) {
+    //
+    // 以下は本来は別のコントローラーに書くべきですが、参考としてここに書いています。
+    //
+    /**
+     * 一般権限専用画面のGET用メソッド.
+     * 
+     * @param model Modelクラス
+     * @return 画面のテンプレート名
+     */
+    @GetMapping("/general")
+    public String getGeneral(Model model) {
 
-		//コンテンツ部分にユーザー詳細を表示するための文字列を登録
-		model.addAttribute("contents", "z/general :: general_contents");
+        // コンテンツ部分にユーザー詳細を表示するための文字列を登録
+        model.addAttribute("contents", "z/general :: general_contents");
 
-		//レイアウト用テンプレート
-		return "z/homeLayout";
-	}
+        // レイアウト用テンプレート
+        return "z/homeLayout";
+    }
 
-	/**
-	 * アドミン権限専用画面のGET用メソッド.
-	 * @param model Modelクラス
-	 * @return 画面のテンプレート名
-	 */
-	@GetMapping("/admin")
-	public String getAdmin(Model model) {
+    /**
+     * アドミン権限専用画面のGET用メソッド.
+     * 
+     * @param model Modelクラス
+     * @return 画面のテンプレート名
+     */
+    @GetMapping("/admin")
+    public String getAdmin(Model model) {
 
-		//コンテンツ部分にユーザー詳細を表示するための文字列を登録
-		model.addAttribute("contents", "z/admin :: admin_contents");
+        // コンテンツ部分にユーザー詳細を表示するための文字列を登録
+        model.addAttribute("contents", "z/admin :: admin_contents");
 
-		//レイアウト用テンプレート
-		return "z/homeLayout";
-	}
+        // レイアウト用テンプレート
+        return "z/homeLayout";
+    }
 }
