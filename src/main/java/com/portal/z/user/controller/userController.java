@@ -7,7 +7,6 @@ import java.util.Map;
 
 //import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +33,7 @@ import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
+import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.SelectForm;
@@ -290,13 +290,13 @@ public class userController {
                 model.addAttribute("result", "登録失敗");
                 log.info("登録失敗");
             }
-        } catch (DuplicateKeyException de) {
+        } catch (ApplicationException e) {
             // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
-                    null, null, utility.getMsg("DuplicatedUserId"));
+                    null, null, e.getMessage());
             bindingResult.addError(fieldError);
-            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
 
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
         }
         // ユーザー一覧画面を表示

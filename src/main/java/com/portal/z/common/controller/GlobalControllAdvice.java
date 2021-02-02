@@ -6,10 +6,26 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import com.portal.z.common.exception.ApplicationException;
 
 @ControllerAdvice
 @Component
 public class GlobalControllAdvice {
+    
+    @ExceptionHandler(ApplicationException.class)
+    public String dataAccessExceptionHandler(ApplicationException e, Model model) {
+
+        // 例外クラスのメッセージをModelに登録
+        model.addAttribute("error", "内部サーバーエラー（DB）：GlobalControllAdvice");
+
+        // 例外クラスのメッセージをModelに登録
+        model.addAttribute("message", "ApplicationExceptionが発生しました。詳しくはログを参照してください");
+
+        // HTTPのエラーコード（500）をModelに登録
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return "error";
+    }
 
     @ExceptionHandler(DataAccessException.class)
     public String dataAccessExceptionHandler(DataAccessException e, Model model) {
