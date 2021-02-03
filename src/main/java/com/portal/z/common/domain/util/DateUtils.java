@@ -8,30 +8,33 @@ import java.util.Date;
 import java.util.Locale;
 import org.springframework.stereotype.Component;
 
+/**
+ * Date関係のユーティリティ
+ *
+ */
 @Component("DateUtils")
 public class DateUtils {
-	
-    /*
-     * 日付の初期値
-     * 実際には0001年１月１日にはならず、0001年1月2日23:41:01になります。
-     */
-    private static final String DEFAULT_START_DATE = "00010101";
 
-    /*
-     * 日付の永遠値
+    /**
+     * 日付の初期値（"00010101"）。<BR>
+     * これを使って初期値を設定しても、実際には0001年１月１日にはならず、0001年1月2日23:41:01になります。
      */
-    private static final String DEFAULT_END_DATE = "99991231";
+    public final String DEFAULT_START_DATE = "00010101";
 
-    /*
-     * 日付文字列変換処理
+    /**
+     * 日付の永遠値（"99991231"）
+     */
+    public final String DEFAULT_END_DATE = "99991231";
+
+    /**
+     * 日付⇒文字列変換処理<BR>
      * 
-     * dateに該当する文字列を取得します。（様式はYYYYMMDD） 
-     * dateがブランクの場合、nullを返します。
-     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。
+     * 入力したdateに該当する文字列を取得します。（様式はYYYYMMDD） <BR>
+     * dateがブランクの場合、nullを返します。<BR>
+     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
      * 
      * @param date 変換元の日付
-     * @return 文字型に変換したdate
-     * 
+     * @return String型に変換したdate
      */
     public String getStringFromDate(Date date) {
         if (date == null) {
@@ -43,17 +46,15 @@ public class DateUtils {
         // Date型をLocalDate型に変換して使います。
         return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
-	
-    /*
-     * 文字列日付変換処理
+
+    /**
+     * 文字列⇒日付変換処理<BR>
      * 
-     * dateに該当する日付取得します。 
-     * dateがブランクの場合、nullを返します。
-     * 日付変換にはjava.time.fomat.DateTimeFormatterを使っています。
+     * dateに該当する日付を取得します。 dateがブランクの場合、nullを返します。<BR>
+     * 日付変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
      * 
      * @param date 変換元の文字列（様式はYYYYMMDD）
      * @return Date型に変換したdate
-     * 
      */
     public Date getDateFromString(String date) {
         if (date == null) {
@@ -66,15 +67,13 @@ public class DateUtils {
         return Date.from(LocalDate.parse(date, formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
-    /*
-     * 日付初期値設定処理
+    /**
+     * 日付初期値設定処理<BR>
      * 
      * dateがnullの場合に日付の初期値を設定します。 dateがnullではない場合、そのまま返します。
      * 
      * @param date 変換元の日付
-     * 
      * @return 初期値に変換したdate
-     * 
      */
     public Date setStartDate(Date date) {
         if (date != null) {
@@ -83,15 +82,13 @@ public class DateUtils {
         return getDateFromString(DEFAULT_START_DATE);
     }
 
-    /*
-     * 日付永遠設定処理
+    /**
+     * 日付永遠設定処理<BR>
      * 
      * dateがnullの場合に日付の永遠値を設定します。 dateがnullではない場合、そのまま返します。
      * 
      * @param date 変換元の日付
-     * 
      * @return 永遠値に変換したdate
-     * 
      */
     public Date setEndDate(Date date) {
         if (date != null) {

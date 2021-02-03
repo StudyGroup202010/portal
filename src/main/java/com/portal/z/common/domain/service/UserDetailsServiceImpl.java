@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.z.common.domain.repository.LoginUserRepository;
 
-//
-//SecurityConfigから呼ばれる
-//
+/**
+ * UserDetailsService<BR>
+ * 
+ * SecurityConfigから呼ばれる
+ *
+ */
 @Transactional
 @Component("UserDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {

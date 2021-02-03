@@ -14,6 +14,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
+/**
+ * ユーザ情報の入力用Form
+ */
 @Data
 public class InputForm {
 

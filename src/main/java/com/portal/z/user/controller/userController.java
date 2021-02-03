@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-//import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-//import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -42,6 +40,10 @@ import com.portal.z.user.domain.model.UserListXlsxView;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * userマスタ用のController
+ * 
+ */
 @Controller
 @Slf4j
 public class userController {
@@ -95,7 +97,12 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧画面のGETメソッド用処理.
+     * ユーザー一覧画面のGETメソッド用処理.<BR>
+     * 
+     * ユーザ一覧画面を表示する。
+     * 
+     * @param model モデル
+     * @return "z/homeLayout"
      */
     @GetMapping("/userList")
     public String getUserList(Model model) {
@@ -119,9 +126,16 @@ public class userController {
 
         return "z/homeLayout";
     }
-    
+
     /**
-     * ユーザー一覧画面のユーザー検索用処理.
+     * ユーザー一覧画面のユーザー検索用処理.<br>
+     * 
+     * 画面から入力した検索条件でユーザ情報を検索する。
+     * 
+     * @param form          検索条件のform
+     * @param bindingResult 検索条件の入力値
+     * @param model         モデル
+     * @return z/homeLayout
      */
     @RequestMapping(value = "/userList", params = "selectby")
     public String getUserListByUserid(@ModelAttribute SelectForm form, BindingResult bindingResult, Model model) {
@@ -150,7 +164,12 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧のCSV出力用処理.
+     * ユーザー一覧のCSV出力用処理.<br>
+     * 
+     * ユーザ一覧のCSVファイルを出力する。
+     * 
+     * @param model モデル
+     * @return ResponseEntity(bytes, header, HttpStatus.OK)
      */
     @GetMapping("/userList/csv")
     public ResponseEntity<byte[]> getUserListCsv(Model model) {
@@ -179,7 +198,12 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧のExcel出力用処理.
+     * ユーザー一覧のExcel出力用処理.<br>
+     * 
+     * ユーザ一覧のEXCELファイルを出力する。
+     * 
+     * @param model モデル
+     * @return model
      */
     @RequestMapping("/userList/excel")
     public UserListXlsxView excel(UserListXlsxView model) {
@@ -198,7 +222,13 @@ public class userController {
     }
 
     /**
-     * ユーザー登録画面のGETメソッド用処理.
+     * ユーザー登録画面のGETメソッド用処理.<BR>
+     * 
+     * ユーザ情報の新規登録画面を表示する。
+     * 
+     * @param form  入力用のform
+     * @param model モデル
+     * @return z/homeLayout
      */
     @GetMapping("/userUpdate")
     // このメソッドを使える権限を付与する場合は以下のようにPreAuthorizeをつける
@@ -304,7 +334,13 @@ public class userController {
     }
 
     /**
-     * ユーザー登録画面の戻る処理.
+     * ユーザー登録画面の戻る処理.<BR>
+     * 
+     * ユーザ一覧画面に戻る。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return getUserList(model)
      */
     @PostMapping(value = "/userUpdate", params = "back")
     public String postUserUpdateback(@ModelAttribute InputForm form, Model model) {
@@ -313,10 +349,17 @@ public class userController {
     }
 
     /**
-     * ユーザー詳細画面のGETメソッド用処理.
+     * ユーザー詳細画面のGETメソッド用処理.<BR>
+     * 
+     * ユーザ詳細画面を表示する。
+     * 
+     * @param form    入力用form
+     * @param model   モデル
+     * @param user_id 詳細情報を表示するuser_id
+     * @return z/homeLayout
      */
-    // user_idがメールアドレスなので正規表現（{id:.+}）で記述します。
     @GetMapping("/userDetail/{id:.+}")
+    // user_idがメールアドレスなので正規表現（{id:.+}）で記述します。
     public String getUserDetail(@ModelAttribute InputForm form, Model model, @PathVariable("id") String user_id) {
 
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
@@ -355,11 +398,18 @@ public class userController {
     }
 
     /**
-     * ユーザー詳細画面のユーザー更新用処理.
+     * ユーザー詳細画面のユーザー更新用処理.<BR>
+     * 
+     * 画面から入力したユーザ情報でデータを更新する。
+     * 
+     * @param form          入力用form
+     * @param bindingResult 更新する情報
+     * @param model         モデル
+     * @return getUserList(model)
      */
+    @PostMapping(value = "/userDetail", params = "update")
     // ユーザ詳細画面は更新も削除も/userDetailにPOSTするため、どちらが押されたかを判断するために、
     // name属性の値をパラメータとして使っています
-    @PostMapping(value = "/userDetail", params = "update")
     public String postUserDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputForm form,
             BindingResult bindingResult, Model model) {
 
@@ -409,7 +459,13 @@ public class userController {
     }
 
     /**
-     * ユーザー詳細画面のユーザー削除用処理.
+     * ユーザー詳細画面のユーザー削除用処理.<BR>
+     * 
+     * 画面から入力したユーザ情報でデータを削除する。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return getUserList(model)
      */
     @PostMapping(value = "/userDetail", params = "delete")
     public String postUserDetailDelete(@ModelAttribute InputForm form, Model model) {
@@ -429,7 +485,13 @@ public class userController {
     }
 
     /**
-     * ユーザー詳細画面の戻る処理.
+     * ユーザー詳細画面の戻る処理.<BR>
+     * 
+     * ユーザ一覧画面に戻る。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return getUserList(model)
      */
     @PostMapping(value = "/userDetail", params = "back")
     public String postUserDetailback(@ModelAttribute InputForm form, Model model) {

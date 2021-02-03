@@ -16,6 +16,10 @@ import com.portal.z.common.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * パスワード変更画面のService
+ *
+ */
 @Transactional
 @Service
 @Slf4j
@@ -34,7 +38,9 @@ public class Password_changeService {
     /**
      * パスワードを更新する.
      * 
-     * @throws ParseException
+     * @param userId   userId
+     * @param password password
+     * @throws ParseException ParseException
      */
     public void updatePasswordDate(String userId, String password) throws ParseException {
         // パスワード暗号化

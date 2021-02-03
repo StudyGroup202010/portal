@@ -6,8 +6,13 @@ import org.springframework.http.HttpStatus;
  * フレームワークのエラー一覧。
  */
 public enum Errors implements HttpErrors {
-    /** エラーを列挙する */
+    /**
+     * データ重複エラー用メッセージ
+     */
     DUPLICATED(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」は既に登録されています。"),
+    /**
+     * 想定外エラー用メッセージ
+     */
     UNEXPECTED(HttpStatus.INTERNAL_SERVER_ERROR, "想定外のエラーが発生しました。 : {0}");
 
     /** HTTPステータス */
