@@ -14,6 +14,10 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.password_change.domain.model.PasswordForm;
 import com.portal.z.password_change.domain.service.Password_changeService;
 
+/**
+ * パスワード変更画面用Controller
+ *
+ */
 @Controller
 public class Password_changeController {
 
@@ -22,6 +26,10 @@ public class Password_changeController {
 
     /**
      * 画面表示.
+     * 
+     * @param model model
+     * @param form  form
+     * @return z/password_change
      */
     @GetMapping("/password/change")
     public String getPasswordChange(Model model, @ModelAttribute PasswordForm form) {
@@ -31,7 +39,11 @@ public class Password_changeController {
     /**
      * パスワード変更.
      * 
-     * @throws ParseException
+     * @param model model
+     * @param form  form
+     * @param user  user
+     * @return redirect:/home
+     * @throws ParseException ParseException
      */
     @PostMapping("/password/change")
     public String postPasswordChange(Model model, @ModelAttribute PasswordForm form,

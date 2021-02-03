@@ -20,6 +20,12 @@ import com.portal.z.common.domain.model.AppUserDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * ユーザ情報の取得<BR>
+ * 
+ * ユーザに紐づく権限の取得
+ *
+ */
 @Repository
 @Slf4j
 public class LoginUserRepository {
@@ -63,6 +69,9 @@ public class LoginUserRepository {
 
     /**
      * ユーザー情報を取得して、UserDetailsを生成するメソッド.
+     * 
+     * @param userId userId
+     * @return ユーザ情報
      */
     public UserDetails selectOne(String userId) {
 

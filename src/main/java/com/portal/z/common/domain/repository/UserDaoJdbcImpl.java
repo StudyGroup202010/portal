@@ -7,6 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import com.portal.z.common.domain.logic.UserRowCallbackHandler;
 
+/**
+ * CSVに保存する。<BR>
+ * 
+ * SQLで検索した結果をサーバー上にCSVで保存する。
+ *
+ */
 @Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
 

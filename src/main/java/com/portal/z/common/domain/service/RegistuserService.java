@@ -9,6 +9,10 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.common.exception.Errors;
 
+/**
+ * RegistuserService
+ *
+ */
 @Transactional
 @Service
 public class RegistuserService {
@@ -20,7 +24,15 @@ public class RegistuserService {
     private UserService userService;
 
     /**
-     * insert用メソッド.
+     * insert用メソッド.<BR>
+     * 
+     * ユーザマスタとユーザロールマスタに追加する<BR>
+     * 
+     * ユーザマスタに追加するときは、ユーザロールマスタも追加しないといけないので、１つのメソッドにまとめました。
+     * 
+     * @param user     ユーザマスタ
+     * @param userrole ユーザロールマスタ
+     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse
      */
     public boolean insertOne(User user, Userrole userrole) {
 
@@ -43,7 +55,15 @@ public class RegistuserService {
     }
 
     /**
-     * delete用メソッド.
+     * delete用メソッド.<BR>
+     * 
+     * ユーザマスタとユーザロールマスタを削除する<BR>
+     * 
+     * ユーザマスタを削除するときは、まずユーザロールマスタを削除しないといけないので、１つのメソッドにまとめました。<BR>
+     * ※参照整合性制約があるため
+     * 
+     * @param user_id user_id
+     * @return 削除が成功したときtrue。それ以外false
      */
     public boolean deleteOne(String user_id) {
 
