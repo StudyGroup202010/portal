@@ -4,6 +4,9 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
+/**
+ * ユーザ情報の検索用Form
+ */
 @Data
 public class SelectForm {
     private String user_id; // ユーザーID

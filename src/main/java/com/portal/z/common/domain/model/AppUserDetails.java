@@ -11,6 +11,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * ユーザ情報
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,15 +27,38 @@ public class AppUserDetails implements UserDetails {
     // =========================
     // Springで必要なフィールド
     // =========================
-    private String user_id; // ユーザーID
-    private Date user_due_date; // ユーザー有効期限
-    private String password; // パスワード
-    private Date pass_update; // パスワード有効期限
-    private int login_miss_times; // ログイン失敗回数
-    private boolean lock_flg; // ロック状態
-    private boolean enabled_flg; // 有効フラグ
+    /**
+     * ユーザーID
+     */
+    private String user_id;
+    /**
+     * ユーザー有効期限
+     */
+    private Date user_due_date;
+    /**
+     * パスワード
+     */
+    private String password;
+    /**
+     * パスワード有効期限
+     */
+    private Date pass_update;
+    /**
+     * ログイン失敗回数
+     */
+    private int login_miss_times;
+    /**
+     * ロック状態
+     */
+    private boolean lock_flg;
+    /**
+     * 有効フラグ
+     */
+    private boolean enabled_flg;
 
-    // 権限のCollection
+    /**
+     * 権限のCollection
+     */
     private Collection<? extends GrantedAuthority> authority;
 
     @Override

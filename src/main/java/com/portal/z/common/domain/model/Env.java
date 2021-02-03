@@ -4,6 +4,10 @@ import java.util.Date;
 
 import lombok.Data;
 
+/**
+ * 環境マスタ
+ *
+ */
 @Data
 public class Env {
     private String env_id; // 環境ＩＤ

@@ -1,7 +1,5 @@
 package com.portal.z.common.config;
 
-// ログイン失敗時の処理
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
@@ -16,6 +14,10 @@ import com.portal.z.common.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * ログイン失敗時の処理
+ *
+ */
 @Component
 @Slf4j
 public class BadCredentialsEventListener {
@@ -29,7 +31,13 @@ public class BadCredentialsEventListener {
     @Autowired
     private UserService userService;
 
-    // 引数にセットしたイベントが発生したときにメソッドが呼ばれる
+    /**
+     * 認証に失敗したときの処理<BR>
+     * 認証に失敗したときはログイン失敗回数をカウントアップする。<BR>
+     * 引数にセットしたイベントが発生したときにメソッドが呼ばれる
+     * 
+     * @param event AuthenticationFailureBadCredentialsEvent
+     */
     @EventListener
     public void onBadCredentialsEvent(AuthenticationFailureBadCredentialsEvent event) {
 
@@ -59,9 +67,17 @@ public class BadCredentialsEventListener {
 
     }
 
-    //
-    // 失敗回数と有効/無効フラグを更新する.
-    //
+    /**
+     * 失敗回数と有効/無効フラグを更新する.<BR>
+     * 
+     * ログインに失敗したら、ユーザ情報の失敗回数をカウントアップする。<BR>
+     * 失敗回数が環境マスタの「LOGIN_MISS_TIMES_MAX」の値以上になったら、有効／無効フラグを「無効」にする。
+     * 
+     * 
+     * @param userId        ログインユーザID
+     * @param loginMissTime ログイン失敗回数
+     * @return ユーザ情報を更新
+     */
     private boolean updateUnlock(String userId, int loginMissTime) {
 
         boolean lock = false; // ロックフラグ(無効)
