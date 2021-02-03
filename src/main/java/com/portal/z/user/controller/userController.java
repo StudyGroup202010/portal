@@ -338,12 +338,11 @@ public class userController {
      * 
      * ユーザ一覧画面に戻る。
      * 
-     * @param form  入力用form
      * @param model モデル
      * @return getUserList(model)
      */
     @PostMapping(value = "/userUpdate", params = "back")
-    public String postUserUpdateback(@ModelAttribute InputForm form, Model model) {
+    public String postUserUpdateback(Model model) {
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
@@ -489,12 +488,11 @@ public class userController {
      * 
      * ユーザ一覧画面に戻る。
      * 
-     * @param form  入力用form
      * @param model モデル
      * @return getUserList(model)
      */
     @PostMapping(value = "/userDetail", params = "back")
-    public String postUserDetailback(@ModelAttribute InputForm form, Model model) {
+    public String postUserDetailback(Model model) {
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
