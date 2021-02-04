@@ -131,8 +131,6 @@ public class LoginUserRepository {
             boolean enabled_flg = (Boolean) userMap.get("enabled_flg");
 
             // 結果返却用のUserDetailsを生成
-            //AppUserDetails user = new AppUserDetails().builder()
-            new AppUserDetails();
             AppUserDetails user = AppUserDetails.builder()
                     .user_id(user_id)
                     .user_due_date(user_due_date)
