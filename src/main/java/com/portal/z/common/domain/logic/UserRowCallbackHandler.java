@@ -9,6 +9,12 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowCallbackHandler;
 
+/**
+ * コールバック処理<BR>
+ * 
+ * 時間のかかる処理を行い、処理が終了したら結果を受け取る。
+ *
+ */
 public class UserRowCallbackHandler implements RowCallbackHandler {
 
     @Override

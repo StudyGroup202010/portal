@@ -17,6 +17,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+/**
+ * セキュリティ設定
+ *
+ */
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,23 +35,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("UserDetailsServiceImpl")
     private UserDetailsService userDetailsService;
 
-    // パスワードの暗号化
+    /**
+     * パスワードを暗号化する
+     * 
+     * @return 暗号化したパスワード
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 静的リソースを除外する。<BR>
+     * 
+     * 静的リソースへのアクセスには、誰でもアクセスできても良いので、セキュリティを適用しない。
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
-
-        // 静的リソースへのアクセスには、誰でもアクセスできても良いので、セキュリティを適用しない。
         web.ignoring().antMatchers("/webjars/∗∗", "/css/∗∗");
     }
 
+    /**
+     * 直リンク（ログイン無しのアクセス）禁止の設定<BR>
+     * 
+     * CSRF対策はデフォルトで有効
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // 直リンク（ログイン無しのアクセス）禁止の設定
         http.authorizeRequests().antMatchers("/webjars/**").permitAll() // webjarsへアクセス許可
                 .antMatchers("/css/**").permitAll() // cssへアクセス許可
                 .antMatchers("/login").permitAll() // ログインページは直リンクOK
@@ -77,10 +92,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout") // ログアウトのURL
                 .logoutSuccessUrl("/login") // ログアウト成功後のURL
                 .deleteCookies("JSESSIONID");// ログアウト時にクッキーを消す（これをしないとログアウト時にエラーとなる
-
-        // CSRF対策はデフォルトで有効
     }
 
+    /**
+     * ログイン処理時のユーザー情報を、DBから取得する
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 認証プロバイダの設定(setHideUserNotFoundExceptionsをfalseにするため)

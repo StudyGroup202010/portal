@@ -1,7 +1,5 @@
 package com.portal.z.common.config;
 
-//　ユーザＩＤをログに出力するための仕組み
-
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +10,10 @@ import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+/**
+ * ユーザＩＤをログに出力する
+ *
+ */
 @Component("LoggingIntercepter")
 public class LoggingIntercepter extends HandlerInterceptorAdapter {
 

@@ -4,6 +4,9 @@ import java.util.Date;
 
 import lombok.Data;
 
+/**
+ * ユーザマスタ
+ */
 @Data
 public class User {
     private String user_id; // ユーザーID

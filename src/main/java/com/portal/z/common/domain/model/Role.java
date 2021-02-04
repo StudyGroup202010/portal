@@ -4,6 +4,9 @@ import java.util.Date;
 
 import lombok.Data;
 
+/**
+ * ロールマスタ
+ */
 @Data
 public class Role {
     private String role_id; // ロールID

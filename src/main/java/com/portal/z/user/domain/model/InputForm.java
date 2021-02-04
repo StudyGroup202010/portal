@@ -14,6 +14,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
+/**
+ * ユーザ情報の入力用Form
+ */
 @Data
 public class InputForm {
 
@@ -24,7 +27,7 @@ public class InputForm {
 
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date user_due_date; // ユーザ有効期限
 
     // 必須入力、長さ4から100桁まで、半角英数字のみ
@@ -36,7 +39,7 @@ public class InputForm {
 
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date pass_update; // パスワード有効期限
 
     // 値が0から10までの整数のみ

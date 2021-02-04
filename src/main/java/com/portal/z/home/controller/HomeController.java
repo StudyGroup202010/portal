@@ -7,11 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * home用のController
+ *
+ */
 @Controller
 public class HomeController {
 
     /**
      * ホーム画面のGET用メソッド
+     * 
+     * @param model     model
+     * @param principal principal
+     * @return z/homeLayout
      */
     @GetMapping("/home")
     public String getHome(Model model, Principal principal) {
@@ -24,6 +32,8 @@ public class HomeController {
 
     /**
      * ホーム画面のログアウト用処理.
+     * 
+     * @return redirect:/login
      */
     @PostMapping("/logout")
     public String postLogout() {

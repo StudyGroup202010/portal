@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,21 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.RegistuserService;
 import com.portal.z.common.domain.service.RoleService;
 import com.portal.z.common.domain.service.UserService;
+import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
+import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
+import com.portal.z.user.domain.model.SelectForm;
 import com.portal.z.user.domain.model.UpdateOrder;
 import com.portal.z.user.domain.model.UserListXlsxView;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * userマスタ用のController
+ * 
+ */
 @Controller
 @Slf4j
 public class userController {
@@ -53,6 +59,9 @@ public class userController {
 
     @Autowired
     private Utility utility;
+
+    @Autowired
+    private DateUtils dateUtils;
 
     // パスワード暗号化
     @Autowired
@@ -88,10 +97,19 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧画面のGETメソッド用処理.
+     * ユーザー一覧画面のGETメソッド用処理.<BR>
+     * 
+     * ユーザ一覧画面を表示する。
+     * 
+     * @param model モデル
+     * @return "z/homeLayout"
      */
     @GetMapping("/userList")
     public String getUserList(Model model) {
+
+        // 検索条件のformを登録
+        SelectForm form = new SelectForm();
+        model.addAttribute("selectForm", form);
 
         // コンテンツ部分にユーザー一覧を表示するための文字列を登録
         model.addAttribute("contents", "z/userList :: userList_contents");
@@ -103,14 +121,55 @@ public class userController {
         model.addAttribute("userList", userList);
 
         // データ件数を取得
-        int count = userService.count();
+        int count = userList.size();
         model.addAttribute("userListCount", count);
 
         return "z/homeLayout";
     }
 
     /**
-     * ユーザー一覧のCSV出力用処理.
+     * ユーザー一覧画面のユーザー検索用処理.<br>
+     * 
+     * 画面から入力した検索条件でユーザ情報を検索する。
+     * 
+     * @param form          検索条件のform
+     * @param bindingResult 検索条件の入力値
+     * @param model         モデル
+     * @return z/homeLayout
+     */
+    @RequestMapping(value = "/userList", params = "selectby")
+    public String getUserListByUserid(@ModelAttribute SelectForm form, BindingResult bindingResult, Model model) {
+
+        // コンテンツ部分にユーザー一覧を表示するための文字列を登録
+        model.addAttribute("contents", "z/userList :: userList_contents");
+
+        log.info("検索条件：" + form.getUser_id());
+        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())));
+        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
+
+        // ユーザー情報を取得
+        // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
+        List<User> userList = userService.selectBy(form.getUser_id(),
+                dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())),
+                dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
+
+        // Modelにユーザーリストを登録
+        model.addAttribute("userList", userList);
+
+        // データ件数を登録
+        int count = userList.size();
+        model.addAttribute("userListCount", count);
+
+        return "z/homeLayout";
+    }
+
+    /**
+     * ユーザー一覧のCSV出力用処理.<br>
+     * 
+     * ユーザ一覧のCSVファイルを出力する。
+     * 
+     * @param model モデル
+     * @return ResponseEntity(bytes, header, HttpStatus.OK)
      */
     @GetMapping("/userList/csv")
     public ResponseEntity<byte[]> getUserListCsv(Model model) {
@@ -139,7 +198,12 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧のExcel出力用処理.
+     * ユーザー一覧のExcel出力用処理.<br>
+     * 
+     * ユーザ一覧のEXCELファイルを出力する。
+     * 
+     * @param model モデル
+     * @return model
      */
     @RequestMapping("/userList/excel")
     public UserListXlsxView excel(UserListXlsxView model) {
@@ -158,7 +222,13 @@ public class userController {
     }
 
     /**
-     * ユーザー登録画面のGETメソッド用処理.
+     * ユーザー登録画面のGETメソッド用処理.<BR>
+     * 
+     * ユーザ情報の新規登録画面を表示する。
+     * 
+     * @param form  入力用のform
+     * @param model モデル
+     * @return z/homeLayout
      */
     @GetMapping("/userUpdate")
     // このメソッドを使える権限を付与する場合は以下のようにPreAuthorizeをつける
@@ -210,7 +280,7 @@ public class userController {
         String password = passwordEncoder.encode(form.getPassword());
         user.setPassword(password); // パスワード
         user.setPass_update(form.getPass_update()); // パスワード有効期限
-        // ロールとログイン失敗回数はテーブルの初期値にて設定される
+        // ロック状態と有効フラグはテーブルの初期値にて設定される
         user.setLock_flg(form.isLock_flg()); // ロック状態
         user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
@@ -250,13 +320,13 @@ public class userController {
                 model.addAttribute("result", "登録失敗");
                 log.info("登録失敗");
             }
-        } catch (DuplicateKeyException de) {
+        } catch (ApplicationException e) {
             // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
-                    null, null, utility.getMsg("DuplicatedUserId"));
+                    null, null, e.getMessage());
             bindingResult.addError(fieldError);
-            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
 
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
             return getSignUp(form, model);
         }
         // ユーザー一覧画面を表示
@@ -264,26 +334,37 @@ public class userController {
     }
 
     /**
-     * ユーザー登録画面の戻る処理.
+     * ユーザー登録画面の戻る処理.<BR>
+     * 
+     * ユーザ一覧画面に戻る。
+     * 
+     * @param model モデル
+     * @return getUserList(model)
      */
     @PostMapping(value = "/userUpdate", params = "back")
-    public String postUserUpdateback(@ModelAttribute InputForm form, Model model) {
-
+    public String postUserUpdateback(Model model) {
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
 
     /**
-     * ユーザー詳細画面のGETメソッド用処理.
+     * ユーザー詳細画面のGETメソッド用処理.<BR>
+     * 
+     * ユーザ詳細画面を表示する。
+     * 
+     * @param form    入力用form
+     * @param model   モデル
+     * @param user_id 詳細情報を表示するuser_id
+     * @return z/homeLayout
      */
-    // user_idがメールアドレスなので正規表現（{id:.+}）で記述します。
     @GetMapping("/userDetail/{id:.+}")
+    // user_idがメールアドレスなので正規表現（{id:.+}）で記述します。
     public String getUserDetail(@ModelAttribute InputForm form, Model model, @PathVariable("id") String user_id) {
 
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/userDetail :: userDetail_contents");
 
-        // 結婚ステータス用ラジオボタンの初期化
+        // ラジオボタンの初期化メソッド呼び出し
         radioEnabled = initRadioEnabled();
         radioLock = initRadioLock();
 
@@ -313,15 +394,21 @@ public class userController {
         }
 
         return "z/homeLayout";
-
     }
 
     /**
-     * ユーザー詳細画面のユーザー更新用処理.
+     * ユーザー詳細画面のユーザー更新用処理.<BR>
+     * 
+     * 画面から入力したユーザ情報でデータを更新する。
+     * 
+     * @param form          入力用form
+     * @param bindingResult 更新する情報
+     * @param model         モデル
+     * @return getUserList(model)
      */
+    @PostMapping(value = "/userDetail", params = "update")
     // ユーザ詳細画面は更新も削除も/userDetailにPOSTするため、どちらが押されたかを判断するために、
     // name属性の値をパラメータとして使っています
-    @PostMapping(value = "/userDetail", params = "update")
     public String postUserDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputForm form,
             BindingResult bindingResult, Model model) {
 
@@ -371,7 +458,13 @@ public class userController {
     }
 
     /**
-     * ユーザー詳細画面のユーザー削除用処理.
+     * ユーザー詳細画面のユーザー削除用処理.<BR>
+     * 
+     * 画面から入力したユーザ情報でデータを削除する。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return getUserList(model)
      */
     @PostMapping(value = "/userDetail", params = "delete")
     public String postUserDetailDelete(@ModelAttribute InputForm form, Model model) {
@@ -391,11 +484,15 @@ public class userController {
     }
 
     /**
-     * ユーザー詳細画面の戻る処理.
+     * ユーザー詳細画面の戻る処理.<BR>
+     * 
+     * ユーザ一覧画面に戻る。
+     * 
+     * @param model モデル
+     * @return getUserList(model)
      */
     @PostMapping(value = "/userDetail", params = "back")
-    public String postUserDetailback(@ModelAttribute InputForm form, Model model) {
-
+    public String postUserDetailback(Model model) {
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
