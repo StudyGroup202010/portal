@@ -42,7 +42,7 @@ public class BadCredentialsEventListener {
     @EventListener
     public void onBadCredentialsEvent(AuthenticationFailureBadCredentialsEvent event) {
 
-        // ユーザーIDの取得 //TODO log出力のためです。ログが不要になったら見直します。
+        // ユーザーIDの取得(ログ用)
         String userId = event.getAuthentication().getName();
 
         // 存在しないユーザ名でのログイン失敗
@@ -50,18 +50,16 @@ public class BadCredentialsEventListener {
             // ユーザＩＤが存在しない場合はユーザマスタを更新できないので終了
             log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）");
             return;
-
-        } else {
-            // 存在するユーザ名でのログイン失敗
-            log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が存在するがパスワード失敗）");
-            // ユーザー情報の取得
-            AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
-            // ログイン失敗回数を1増やす
-            int loginMissTime = user.getLogin_miss_times() + 1;
-            // 失敗回数を更新する
-            updateUnlock(userId, loginMissTime);
-
         }
+
+        // 存在するユーザ名でのログイン失敗
+        log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が存在するがパスワード失敗）");
+        // ユーザー情報の取得
+        AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
+        // ログイン失敗回数を1増やす
+        int loginMissTime = user.getLogin_miss_times() + 1;
+        // 失敗回数を更新する
+        updateUnlock(userId, loginMissTime);
     }
 
     /**
