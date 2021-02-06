@@ -13,6 +13,10 @@ import org.springframework.dao.DataAccessException;
 
 import com.portal.z.common.domain.repository.UserDao;
 
+/**
+ * UserService
+ *
+ */
 @Transactional
 @Service
 public class UserService {
@@ -25,6 +29,9 @@ public class UserService {
 
     /**
      * insert用メソッド.
+     * 
+     * @param user user
+     * @return insertOne
      */
     public boolean insert(User user) {
         return userMapper.insertOne(user);
@@ -32,6 +39,8 @@ public class UserService {
 
     /**
      * カウント用メソッド.
+     * 
+     * @return count
      */
     public int count() {
         return userMapper.count();
@@ -39,6 +48,8 @@ public class UserService {
 
     /**
      * 全件取得用メソッド.
+     * 
+     * @return selectMany
      */
     public List<User> selectMany() {
         // 全件取得
@@ -47,6 +58,9 @@ public class UserService {
 
     /**
      * １件取得用メソッド.
+     * 
+     * @param user_id user
+     * @return selectOne
      */
     public User selectOne(String user_id) {
         // selectOne実行
@@ -55,6 +69,9 @@ public class UserService {
 
     /**
      * １件更新用メソッド.
+     * 
+     * @param user user
+     * @return updateOne
      */
     public boolean updateOne(User user) {
         return userMapper.updateOne(user);
@@ -62,6 +79,9 @@ public class UserService {
 
     /**
      * １件削除用メソッド.
+     * 
+     * @param user_id user_id
+     * @return deleteOne
      */
     public boolean deleteOne(String user_id) {
         return userMapper.deleteOne(user_id);
@@ -69,13 +89,18 @@ public class UserService {
 
     /**
      * CSV出力用メソッド.
+     * 
+     * @throws DataAccessException DataAccessException
      */
-    public void userCsvOut() throws DataAccessException{
+    public void userCsvOut() throws DataAccessException {
         dao.userCsvOut();
     }
 
     /**
      * ロックフラグ更新用メソッド.
+     * 
+     * @param user user
+     * @return updateLockflg
      */
     public boolean updateLockflg(User user) {
         return userMapper.updateLockflg(user);
@@ -83,9 +108,24 @@ public class UserService {
 
     /**
      * パスワード有効期限更新用メソッド.
+     * 
+     * @param user user
+     * @return updatePassupdate
      */
     public boolean updatePassupdate(User user) {
         return userMapper.updatePassupdate(user);
     }
 
+    /**
+     * 条件検索用メソッド.
+     * 
+     * @param user_id            user_id
+     * @param user_due_date_from user_due_date_from
+     * @param user_due_date_to   user_due_date_to
+     * @return selectBy
+     */
+    public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to) {
+        // selectBy実行
+        return userMapper.selectBy(user_id, user_due_date_from, user_due_date_to);
+    }
 }

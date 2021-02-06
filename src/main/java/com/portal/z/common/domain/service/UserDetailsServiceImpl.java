@@ -9,9 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.z.common.domain.repository.LoginUserRepository;
 
-//
-//SecurityConfigから呼ばれる
-//
+/**
+ * UserDetailsService<BR>
+ * 
+ * SecurityConfigから呼ばれる
+ *
+ */
 @Transactional
 @Component("UserDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -20,11 +23,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private LoginUserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        //ユーザ情報を取得
-        //ここで検索結果を評価したいところですが、Springの認証機能に任せることにします。
+        // ユーザ情報を取得
         UserDetails user = repository.selectOne(username);
 
         return user;

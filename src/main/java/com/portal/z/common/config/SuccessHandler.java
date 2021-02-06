@@ -1,8 +1,5 @@
 package com.portal.z.common.config;
 
-//　ログイン成功時の処理（パスワード有効期限チェックなど）
-// AuthenticationSuccessHandlernの処理なので遷移先が変更できる
-
 import java.io.IOException;
 import java.util.Date;
 
@@ -21,6 +18,12 @@ import com.portal.z.common.domain.service.UserDetailsServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * ログイン成功時の処理（パスワード有効期限チェックなど）<BR>
+ * 
+ * AuthenticationSuccessHandlernの処理なので遷移先が変更できる
+ *
+ */
 @Component("SuccessHandler")
 @Slf4j
 public class SuccessHandler implements AuthenticationSuccessHandler {
@@ -40,7 +43,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         String redirectPath = request.getContextPath();
 
         // パスワード更新日付のチェック
-        if(user.getPass_update().after(new Date())) {
+        if (user.getPass_update().after(new Date())) {
             // パスワード期限が切れてない
             redirectPath += "/home";
 

@@ -11,6 +11,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Webの設定<BR>
+ * 
+ * ユーザＩＤをログに出力する（LoggingIntercepterの使用）<BR>
+ * フォームとメッセージの紐付け
+ *
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -28,23 +35,31 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(loggingInterceptor);
     }
 
-    // フォームとメッセージの紐付け
+    /**
+     * メッセージプロパティをセットする。
+     * 
+     * @return メッセージプロパティ
+     */
     @Bean
     public MessageSource messageSource() {
 
         ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
 
-        //メッセージのプロパティファイル名（デフォルト）を指定します
-        //下記ではmessages.propertiesファイルがセットされます
+        // メッセージのプロパティファイル名（デフォルト）を指定します
+        // 下記ではmessages.propertiesファイルがセットされます
         bean.setBasename("classpath:messages");
 
-        //メッセージプロパティの文字コードを指定します
+        // メッセージプロパティの文字コードを指定します
         bean.setDefaultEncoding("UTF-8");
 
         return bean;
     }
 
-    //　フォームとメッセージの紐付け
+    /**
+     * フォームとメッセージを紐付ける。
+     * 
+     * @return localValidatorFactoryBean
+     */
     @Bean
     public LocalValidatorFactoryBean localValidatorFactoryBean() {
 

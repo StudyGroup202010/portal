@@ -12,6 +12,10 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Component;
 
+/**
+ * ユーティリティ関係
+ *
+ */
 @Component("Utility")
 public class Utility {
 
@@ -19,7 +23,12 @@ public class Utility {
     private MessageSource messageSource;
 
     /**
+     * ファイル出力<BR>
      * サーバーに保存されているファイルを取得して、byte配列に変換する.
+     * 
+     * @param fileName fileName
+     * @return bytes
+     * @throws IOException bytes
      */
     public byte[] getFile(String fileName) throws IOException {
 
