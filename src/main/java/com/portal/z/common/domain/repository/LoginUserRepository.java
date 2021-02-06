@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -116,11 +115,17 @@ public class LoginUserRepository {
      */
     private AppUserDetails buildUserDetails(String userId, List<GrantedAuthority> grantedAuthorityList) {
 
-        try {
             // ユーザ情報を取得
-            // ユーザ情報が取得できないときは例外を起こす。
-            Map<String, Object> userMap = jdbc.queryForMap(SELECT_USER_SQL, userId);
-
+            List<Map<String, Object>> userMapList = jdbc.queryForList(SELECT_USER_SQL, userId);
+            if (userMapList.isEmpty()) {
+                // 検索結果が０件の時はUsernameNotFoundExceptionを投げる。
+                log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
+                // エラーメッセージ取得 //TODO メッセージの設定方法(UsernameNotFoundはここでしか発生しないハズ)
+                String message = messageSource.getMessage(BAD_CREDENTIALS, null, Locale.getDefault());
+                throw new UsernameNotFoundException(message);
+            }
+            
+            Map<String, Object> userMap = userMapList.get(0);
             // Mapから値を取得
             String user_id = (String) userMap.get("user_id");
             Date user_due_date = (Date) userMap.get("user_due_date");
@@ -144,14 +149,5 @@ public class LoginUserRepository {
 
             return user;
 
-        } catch (EmptyResultDataAccessException e) {
-            // 検索結果が０件の時はUsernameNotFoundExceptionを返す。
-            log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
-            // エラーメッセージ取得
-            String message = messageSource.getMessage(BAD_CREDENTIALS, null, Locale.getDefault());
-            // Spring Securityのデフォルトの動作では、
-            // 結局はUsernameNotFoundExceptionはBadCredentialsExceptionに変換されてしまう。
-            throw new UsernameNotFoundException(message, e);
-        }
     }
 }
