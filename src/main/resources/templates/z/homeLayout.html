@@ -36,49 +36,56 @@
         <div class="row">
         
             <!-- ===== サイドバー（２グリッド分） ===== -->
-            <div class="col-sm-2 sidebar">
-              <nav class="nav　flex-column">
-              
-                <a class="nav-link border border-dark rounded text-center" th:href="@{'/home'}">ホーム</a>
-                
-                <!-- 一般権限を持っているユーザのみ表示 -->
-                <a class="nav-link border border-dark rounded text-center" th:href="@{'/general'}">一般用サブシステム１</a>
-                
-                <!-- 一般権限を持っているユーザのみ表示 -->
-                <a class="nav-link border border-dark rounded text-center" th:href="@{'/general'}">一般用サブシステム２</a>
-                
-                <!-- ADMIN権限を持っているユーザのみ表示 -->
-                <a class="nav-link border border-dark rounded text-center"
-                                          sec:authorize="hasRole('ADMIN')" th:href="@{'/admin'}">管理者用サブシステム</a>
-                
-                <a class="nav-link border border-dark rounded text-center dropdown-toggle"
-                     sec:authorize="hasRole('ADMIN')" data-toggle="dropdown"
-                     href="#" role="button" aria-haspopup="true" aria-expanded="false">マスタ管理</a>
-                  <div class="dropdown-menu">
-                    <div class="dropdown-item">
-                      <a class="nav-link text-center" th:href="@{'/userList'}">ユーザマスタ</a>
-                    </div>
-                    <div class="dropdown-item">
-                      <a class="nav-link text-center" th:href="@{'/admin'}">要素２（サンプル）</a>
-                    </div>
-                    <div class="dropdown-item">
-                      <a class="nav-link text-center" th:href="@{'/admin'}">要素３（サンプル）</a>
-                    </div>
-                    <div class="dropdown-item">
-                      <a class="nav-link text-center" th:href="@{'/admin'}">要素４（サンプル）</a>
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-item">
-                      <a class="nav-link text-center" th:href="@{'/admin'}">要素５（サンプル）</a>
-                    </div>
-                    <div class="dropdown-item">
-                      <a class="nav-link text-center" th:href="@{'/admin'}">要素６（サンプル）</a>
-                    </div>
-                  </div>
-              </nav>
-            </div>
-            
-            <!-- ===== コンテンツ（１０グリッド分） ===== -->
+			<div class="col-sm-2 sidebar">
+				<nav class="nav　flex-column">
+
+					<a class="nav-link border border-dark rounded text-center"
+						th:href="@{'/home'}">ホーム</a>
+
+					<!-- 一般権限を持っているユーザのみ表示 -->
+					<a class="nav-link border border-dark rounded text-center"
+						th:href="@{'/general'}">一般用サブシステム１</a>
+
+					<!-- 一般権限を持っているユーザのみ表示 -->
+					<a class="nav-link border border-dark rounded text-center"
+						th:href="@{'/general'}">一般用サブシステム２</a>
+
+					<!-- ADMIN権限を持っているユーザのみ表示 -->
+					<a class="nav-link border border-dark rounded text-center"
+						sec:authorize="hasRole('ADMIN')" th:href="@{'/admin'}">管理者用サブシステム</a>
+
+					<a
+						class="nav-link border border-dark rounded text-center dropdown-toggle"
+						sec:authorize="hasRole('ADMIN')" data-toggle="dropdown" href="#"
+						role="button" aria-haspopup="true" aria-expanded="false">マスタ管理</a>
+					<div class="dropdown-menu">
+						<div class="dropdown-item">
+							<a class="nav-link text-center" th:href="@{'/userList'}">ユーザマスタ</a>
+						</div>
+						<div class="dropdown-item">
+							<a class="nav-link text-center" th:href="@{'/admin'}">要素２（サンプル）</a>
+						</div>
+						<div class="dropdown-item">
+							<a class="nav-link text-center" th:href="@{'/admin'}">要素３（サンプル）</a>
+						</div>
+						<div class="dropdown-item">
+							<a class="nav-link text-center" th:href="@{'/admin'}">要素４（サンプル）</a>
+						</div>
+						<div class="dropdown-divider"></div>
+						<div class="dropdown-item">
+							<a class="nav-link text-center" th:href="@{'/admin'}">要素５（サンプル）</a>
+						</div>
+						<div class="dropdown-item">
+							<a class="nav-link text-center" th:href="@{'/admin'}">要素６（サンプル）</a>
+						</div>
+					</div>
+					<!-- 一般権限を持っているユーザのみ表示 -->
+					<a class="nav-link border border-dark rounded text-center"
+						th:href="@{'/contact'}">問い合わせ</a>
+				</nav>
+			</div>
+
+			<!-- ===== コンテンツ（１０グリッド分） ===== -->
             <div class="col-sm-10 main">
                 <!-- 表示するhtmlに記載した値（th:fragment="home_contents"など）を参照します -->
                 <div th:include="__${contents}__"></div>
