@@ -27,6 +27,7 @@ public class ContactController {
      * 
      * 問い合わせ画面を表示する。
      * 
+     * @param form  入力内容
      * @param model モデル
      * @return "z/homeLayout"
      */
