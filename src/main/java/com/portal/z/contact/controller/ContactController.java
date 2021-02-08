@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,10 +18,10 @@ import com.portal.z.contact.domain.model.ContactForm;
  */
 @Controller
 public class ContactController {
-    
+
     @Autowired
     MailSend mailsend;
-    
+
     /**
      * 問い合わせ画面のGETメソッド用処理.<BR>
      * 
@@ -30,10 +31,8 @@ public class ContactController {
      * @return "z/homeLayout"
      */
     @GetMapping("/contact")
-    public String getUserList(Model model) {
+    public String getContact(@ModelAttribute ContactForm form, Model model) {
 
-        // 入力項目のformを登録
-        ContactForm form = new ContactForm();
         model.addAttribute("contactForm", form);
 
         // コンテンツ部分に問い合わせ画面を表示するための文字列を登録
@@ -41,7 +40,7 @@ public class ContactController {
 
         return "z/homeLayout";
     }
-    
+
     /**
      * 問い合わせ画面のメール送信メソッド用処理.<BR>
      * 
@@ -52,23 +51,34 @@ public class ContactController {
      * @throws MessagingException メール送信エラー
      */
     @RequestMapping(value = "/contact", params = "sendmail")
-    public String sendmail(@ModelAttribute ContactForm form, BindingResult bindingResult, Model model)
+    public String sendmail(@ModelAttribute @Validated ContactForm form, BindingResult bindingResult, Model model)
             throws MessagingException {
 
+        // 入力チェックに引っかかった場合、問い合わせ画面に戻る
+        if (bindingResult.hasErrors()) {
+            // GETリクエスト用のメソッドを呼び出して、問い合わせ画面に戻ります
+            return getContact(form, model);
+        }
+
         // 受け取った内容からメール本文を作成
-        String text = "お問い合わせは下記の通りです。\n\n" + "---------------------------\n" + "お名前: " + form.getName() + "\n"
-                + "メールアドレス: " + form.getEmail() + "\n" + "メッセージ: \n" + form.getMessage()
+        String text = "お問い合わせは下記の通りです。\n\n" + "---------------------------\n" + "お名前: " + form.getContact_name() + "\n"
+                + "メールアドレス: " + form.getContact_email() + "\n" + "メッセージ: \n" + form.getContact_message()
                 + "\n---------------------------";
 
         // メールを送信する。
-        boolean result = mailsend.mailsendregister(form.getEmail(), "suzuki196906@gmail.com", "お問い合わせがありました", text);
+        boolean result = mailsend.mailsendregister(form.getContact_email(), "suzuki196906@gmail.com", "お問い合わせがありました", text);
 
         if (result == true) {
             model.addAttribute("result", "ご記入いただいた内容を管理者に送信しました。");
+            // Modelを初期化
+            form.setContact_name(null); // ユーザID
+            form.setContact_email(null); // メールアドレス
+            form.setContact_message(null); // お問い合わせ内容
+            model.addAttribute("ContactForm", form);
         } else {
             model.addAttribute("result", "送信が出来ませんでした。送信不可になっているか、設定が間違っている可能性があります。");
         }
         // 問い合わせ画面を表示
-        return getUserList(model);
+        return getContact(form, model);
     }
 }
