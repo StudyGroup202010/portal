@@ -128,4 +128,14 @@ public class UserService {
         // selectBy実行
         return userMapper.selectBy(user_id, user_due_date_from, user_due_date_to);
     }
+    
+    /**
+     * パスワード有効期限更新用メソッド
+     * 
+     * @param user user
+     * @return updatePassupdate
+     */
+    public boolean updateLoginMissTimes(String user_id) {
+        return userMapper.updateLoginMissTimes(user_id);
+    }
 }

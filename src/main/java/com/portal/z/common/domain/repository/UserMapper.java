@@ -84,4 +84,12 @@ public interface UserMapper {
      * @return selectBy
      */
     public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
+    
+    /**
+     * 失敗回数をリセット(0回に更新)するメソッド
+     * 
+     * @param user_id user_id
+     * @return 成功ならtrue/失敗ならfalse
+     */
+    public boolean updateLoginMissTimes(String user_id);
 }
