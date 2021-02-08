@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrapの設定 -->
+    
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  
+      <!-- CSSの読込 -->
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
+  
+    <title>Contact</title>  
+</head>
+<body>
+	<div th:fragment="contact_contents">
+		<div class="page-header">
+			<h3>お問い合わせ</h3>
+		</div>
+		<div class="container"></div>
+		<div>
+			<p class="text-left">以下を入力して送信ボタンをクリックしてください。（＊は入力必須です。）</p>
+			<form method="post" th:action="@{/contact}"
+				th:object="${contactForm}">
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('contact_name')} ? 'has-error'">
+					<div class="col-sm-4">
+						ユーザID＊<input type="text" class="form-control"
+							th:field="*{contact_name}" /> <span class="text-danger"
+							th:if="${#fields.hasErrors('contact_name')}"
+							th:errors="*{contact_name}"> name error </span>
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('contact_email')} ? 'has-error'">
+					<div class="col-sm-4">
+						メールアドレス＊<input type="email" class="form-control"
+							th:field="*{contact_email}" /> <span class="text-danger"
+							th:if="${#fields.hasErrors('contact_email')}"
+							th:errors="*{contact_email}"> name error </span>
+					</div>
+				</div>
+				<div class="form-group"
+					th:classappend="${#fields.hasErrors('contact_message')} ? 'has-error'">
+					<div class="col-sm-7">
+						お問い合わせ内容
+						<textarea class="form-control" th:field="*{contact_message}"
+							rows="5"></textarea>
+						<span class="text-danger"
+							th:if="${#fields.hasErrors('contact_message')}"
+							th:errors="*{contact_message}"> name error </span>
+					</div>
+				</div>
+				<div class="text-center">
+					<button type="submit" name="sendmail"
+						class="btn btn-primary btn-lg">送信する</button>
+				</div>
+			</form>
+		</div>
+		<!-- 送信処理の結果表示用 -->
+		<label class="text-info" th:text="${result}">結果表示</label><br />
+		<div th:insert="z/footer :: footer"></div>
+	</div>
+</body>
+</html>

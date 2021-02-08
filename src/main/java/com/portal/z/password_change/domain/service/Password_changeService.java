@@ -13,6 +13,7 @@ import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.EnvService;
 import com.portal.z.common.domain.service.UserService;
+import com.portal.z.common.domain.util.Constants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +47,7 @@ public class Password_changeService {
         // パスワード暗号化
         String encryptPass = passwordEncoder.encode(password);
 
-        int PASS_UPDATE_NXT = 0; // パスワード有効期限月数
+        int PASS_UPDATE_NXT = Constants.PASS_UPDATE_NXT; // パスワード有効期限月数
 
         // パスワード有効期限
         // 環境マスタに登録したパスワード有効期限月数を取得
