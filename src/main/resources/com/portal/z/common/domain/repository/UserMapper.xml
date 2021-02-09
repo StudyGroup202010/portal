@@ -170,6 +170,8 @@
           zm001_user
         set
           login_miss_times = 0
+          ,update_user = #{user_id}
+          ,update_date = NOW()
         where
           user_id = #{user_id}
     </update>
