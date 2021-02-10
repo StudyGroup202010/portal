@@ -1,7 +1,7 @@
 package com.portal.z.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class AuthenticationSuccessEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
+public class AuthenticationSuccessEventListener {
 
     @Autowired
     UserService service;
 
-    @Override
+    @EventListener
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
 
         log.info("正常なログインです。ログイン失敗回数を0にします。");
