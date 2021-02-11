@@ -9,6 +9,10 @@ import com.portal.z.common.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * 認証成功時のイベントリスナ
+ *
+ */
 @Component
 @Slf4j
 public class AuthenticationSuccessEventListener {
@@ -16,6 +20,12 @@ public class AuthenticationSuccessEventListener {
     @Autowired
     UserService service;
 
+    /**
+     * AuthenticationSuccessEventのイベント処理
+     * <br>
+     * ログイン時にIDとパスワードの認証に成功した直後に動作します。
+     * @param event AuthenticationSuccessEvent
+     */
     @EventListener
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
 
