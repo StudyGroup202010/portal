@@ -128,4 +128,14 @@ public class UserService {
         // selectBy実行
         return userMapper.selectBy(user_id, user_due_date_from, user_due_date_to);
     }
+    
+    /**
+     * 失敗回数をリセット(0回に更新)するメソッド
+     * 
+     * @param user_id user_id
+     * @return 成功ならtrue/失敗ならfalse
+     */
+    public boolean updateLoginMissTimes(String user_id) {
+        return userMapper.updateLoginMissTimes(user_id);
+    }
 }
