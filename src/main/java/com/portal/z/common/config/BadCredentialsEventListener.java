@@ -16,7 +16,7 @@ import com.portal.z.common.domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * ログイン失敗時の処理
+ * ログイン認証失敗時の処理
  *
  */
 @Component
@@ -33,9 +33,10 @@ public class BadCredentialsEventListener {
     private UserService userService;
 
     /**
-     * 認証に失敗したときの処理<BR>
-     * 認証に失敗したときはログイン失敗回数をカウントアップする。<BR>
-     * 引数にセットしたイベントが発生したときにメソッドが呼ばれる
+     * AuthenticationFailureBadCredentialsEventのイベント処理 <br>
+     * ログイン時にIDとパスワードの認証に失敗した直後に動作します。 <br>
+     * ・ログイン失敗回数をカウントアップします。<BR>
+     * ・ログイン失敗回数が環境マスタの「LOGIN_MISS_TIMES_MAX」の値以上になったら、ロック状態をtrueにします。
      * 
      * @param event AuthenticationFailureBadCredentialsEvent
      */
@@ -63,10 +64,10 @@ public class BadCredentialsEventListener {
     }
 
     /**
-     * 失敗回数と有効/無効フラグを更新する.<BR>
+     * 失敗回数とロック状態を更新する.<BR>
      * 
      * ログインに失敗したら、ユーザ情報の失敗回数をカウントアップする。<BR>
-     * 失敗回数が環境マスタの「LOGIN_MISS_TIMES_MAX」の値以上になったら、有効／無効フラグを「無効」にする。
+     * 失敗回数が環境マスタの「LOGIN_MISS_TIMES_MAX」の値以上になったら、ロック状態をtrueにする。
      * 
      * 
      * @param userId        ログインユーザID
@@ -75,7 +76,7 @@ public class BadCredentialsEventListener {
      */
     private boolean updateUnlock(String userId, int loginMissTime) {
 
-        boolean lock = false; // ロックフラグ(無効)
+        boolean lock = false; // ロック状態(無効)
         int LOGIN_MISS_LIMIT = 0; // ログイン失敗回数の最大値の初期値
 
         // 環境マスタに登録したログイン失敗回数の最大値を取得
@@ -104,7 +105,7 @@ public class BadCredentialsEventListener {
         // Userインスタンスの生成
         User user = new User();
 
-        // フォームクラスをUserクラスに変換
+        // Userクラスに値をセット
         user.setUser_id(userId); // ユーザーID
         user.setLogin_miss_times(loginMissTime); // ログイン失敗回数
         user.setLock_flg(lock); // ロック状態

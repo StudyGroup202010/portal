@@ -114,7 +114,7 @@
         delete from zm001_user where user_id = #{user_id}
     </delete>
     
-    <!-- １件更新 -->
+    <!-- ログイン失敗回数とロック状態を更新 -->
     <update id="updateLockflg" parameterType="com.portal.z.common.domain.model.User">
         update
           zm001_user
@@ -127,7 +127,7 @@
           user_id           = #{user_id}
     </update>
     
-        <!-- １件更新 -->
+    <!-- パスワード有効期限を更新 -->
     <update id="updatePassupdate" parameterType="com.portal.z.common.domain.model.User">
         update
           zm001_user
@@ -139,7 +139,7 @@
           user_id      = #{user_id}
     </update>
     
-        <!-- 条件検索 -->
+    <!-- ユーザIDとユーザ有効期限で条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="user">
     <![CDATA[
         select
@@ -169,7 +169,7 @@
         update
           zm001_user
         set
-          login_miss_times = 0
+           login_miss_times = 0
           ,update_user = #{user_id}
           ,update_date = NOW()
         where
