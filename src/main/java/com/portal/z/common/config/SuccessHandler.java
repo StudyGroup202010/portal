@@ -19,9 +19,7 @@ import com.portal.z.common.domain.service.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * ログイン成功時の処理（パスワード有効期限チェックなど）<BR>
- * 
- * AuthenticationSuccessHandlernの処理なので遷移先が変更できる
+ * ログイン成功時の処理<BR>
  *
  */
 @Component("SuccessHandler")
@@ -31,6 +29,12 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     UserDetailsServiceImpl service;
 
+    /**
+     * ログインが成功した時の処理<BR>
+     * 認証成功時におけるWeb層の処理(主に画面遷移に関する処理)を行うためのインタフェースなので、<BR>
+     * 認証失敗回数のクリアなどのビジネスルールに依存する処理（ビジネスロジック）はここには実装しないようにしましょう。
+     *
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
