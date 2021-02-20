@@ -27,8 +27,6 @@ import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.RegistuserService;
-import com.portal.z.common.domain.service.RoleService;
-import com.portal.z.common.domain.service.UserService;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.exception.ApplicationException;
@@ -37,6 +35,7 @@ import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.SelectForm;
 import com.portal.z.user.domain.model.UpdateOrder;
 import com.portal.z.user.domain.model.UserListXlsxView;
+import com.portal.z.user.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,9 +49,6 @@ public class userController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
 
     @Autowired
     private RegistuserService registuserService;
@@ -292,7 +288,7 @@ public class userController {
 
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Role role = roleService.selectRoleid("ROLE_NAME_G");
+        Role role = userService.selectRoleid("ROLE_NAME_G");
         if (role == null) {
             // エラーメッセージを暫定でユーザーIDのフィールドエラーとして表示する
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,

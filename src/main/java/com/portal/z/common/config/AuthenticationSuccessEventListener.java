@@ -5,7 +5,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
-import com.portal.z.common.domain.service.UserService;
+import com.portal.z.user.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 

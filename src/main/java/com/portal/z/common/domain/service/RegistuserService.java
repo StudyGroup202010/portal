@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.repository.UserroleMapper;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.common.exception.Errors;
+import com.portal.z.user.domain.service.UserService;
 
 /**
  * RegistuserService
@@ -18,7 +20,7 @@ import com.portal.z.common.exception.Errors;
 public class RegistuserService {
 
     @Autowired
-    private UserroleService userroleService;
+    private UserroleMapper userroleMapper;
 
     @Autowired
     private UserService userService;
@@ -39,7 +41,7 @@ public class RegistuserService {
         // 登録実行
         try {
             boolean result_1 = userService.insert(user);
-            boolean result_2 = userroleService.insert(userrole);
+            boolean result_2 = userroleMapper.insertOne(userrole);
 
             // ユーザー登録結果の判定
             if (result_1 == true && result_2 == true) {
@@ -68,7 +70,7 @@ public class RegistuserService {
     public boolean deleteOne(String user_id) {
 
         // 削除実行
-        boolean result_1 = userroleService.deleteOne(user_id);
+        boolean result_1 = userroleMapper.deleteOne(user_id);
         boolean result_2 = userService.deleteOne(user_id);
 
         if (result_1 == true && result_2 == true) {

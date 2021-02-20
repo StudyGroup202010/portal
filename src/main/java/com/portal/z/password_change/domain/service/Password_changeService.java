@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.service.EnvService;
-import com.portal.z.common.domain.service.UserService;
+import com.portal.z.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.util.Constants;
+import com.portal.z.user.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ public class Password_changeService {
     private UserService userService;
 
     @Autowired
-    private EnvService envService;
+    private EnvSharedService envSharedService;
 
     // パスワード暗号化
     @Autowired
@@ -51,7 +51,7 @@ public class Password_changeService {
 
         // パスワード有効期限
         // 環境マスタに登録したパスワード有効期限月数を取得
-        Env env = envService.selectIntOne("PASS_UPDATE_NXT");
+        Env env = envSharedService.selectIntOne("PASS_UPDATE_NXT");
 
         if (env != null) {
             PASS_UPDATE_NXT = Integer.parseInt(env.getEnv_txt());
