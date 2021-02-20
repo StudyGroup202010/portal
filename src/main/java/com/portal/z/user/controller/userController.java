@@ -26,7 +26,7 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
-import com.portal.z.common.domain.service.RegistuserService;
+import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.exception.ApplicationException;
@@ -51,7 +51,7 @@ public class userController {
     private UserService userService;
 
     @Autowired
-    private RegistuserService registuserService;
+    private UserSharedService userSharedService;
 
     @Autowired
     private Utility utility;
@@ -139,10 +139,6 @@ public class userController {
         // コンテンツ部分にユーザー一覧を表示するための文字列を登録
         model.addAttribute("contents", "z/userList :: userList_contents");
 
-        log.info("検索条件：" + form.getUser_id());
-        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())));
-        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
-
         // ユーザー情報を取得
         // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
         List<User> userList = userService.selectBy(form.getUser_id(),
@@ -211,7 +207,7 @@ public class userController {
         model.addStaticAttribute("userList", userList);
 
         // データ件数を取得
-        int count = userService.count();
+        int count = userList.size();
         model.addStaticAttribute("userListCount", count);
 
         return model;
@@ -306,7 +302,7 @@ public class userController {
 
         // ユーザー登録処理(user,userrole)
         try {
-            boolean result = registuserService.insertOne(user, userrole);
+            boolean result = userSharedService.insertOne(user, userrole);
 
             // ユーザー登録結果の判定
             if (result == true) {
@@ -466,7 +462,7 @@ public class userController {
     public String postUserDetailDelete(@ModelAttribute InputForm form, Model model) {
 
         // 削除実行
-        boolean result = registuserService.deleteOne(form.getUser_id());
+        boolean result = userSharedService.deleteOne(form.getUser_id());
 
         if (result == true) {
             model.addAttribute("result", "削除成功");

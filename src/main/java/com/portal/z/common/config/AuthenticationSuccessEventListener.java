@@ -5,7 +5,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
-import com.portal.z.user.domain.service.UserService;
+import com.portal.z.common.domain.repository.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthenticationSuccessEventListener {
 
     @Autowired
-    UserService service;
+    UserMapper userMapper;
 
     /**
      * AuthenticationSuccessEventのイベント処理 <br>
@@ -36,6 +36,6 @@ public class AuthenticationSuccessEventListener {
         String userId = event.getAuthentication().getName();
 
         // ログイン失敗回数を0に更新する。
-        service.updateLoginMissTimes(userId);
+        userMapper.updateLoginMissTimes(userId);
     }
 }

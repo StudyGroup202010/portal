@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
+import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.util.Constants;
-import com.portal.z.user.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Password_changeService {
 
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     @Autowired
     private EnvSharedService envSharedService;
@@ -75,7 +75,7 @@ public class Password_changeService {
         user.setUpdate_user(userId); // 更新者はログインしようとしているユーザ
 
         // パスワード更新
-        userService.updatePassupdate(user);
+        userMapper.updatePassupdate(user);
 
     }
 }

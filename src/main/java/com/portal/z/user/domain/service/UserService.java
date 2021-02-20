@@ -33,25 +33,6 @@ public class UserService {
     UserDao dao;
 
     /**
-     * insert用メソッド.
-     * 
-     * @param user user
-     * @return insertOne
-     */
-    public boolean insert(User user) {
-        return userMapper.insertOne(user);
-    }
-
-    /**
-     * カウント用メソッド.
-     * 
-     * @return count
-     */
-    public int count() {
-        return userMapper.count();
-    }
-
-    /**
      * 全件取得用メソッド.
      * 
      * @return selectMany
@@ -83,42 +64,12 @@ public class UserService {
     }
 
     /**
-     * １件削除用メソッド.
-     * 
-     * @param user_id user_id
-     * @return deleteOne
-     */
-    public boolean deleteOne(String user_id) {
-        return userMapper.deleteOne(user_id);
-    }
-
-    /**
      * CSV出力用メソッド.
      * 
      * @throws DataAccessException DataAccessException
      */
     public void userCsvOut() throws DataAccessException {
         dao.userCsvOut();
-    }
-
-    /**
-     * ロックフラグ更新用メソッド.
-     * 
-     * @param user user
-     * @return updateLockflg
-     */
-    public boolean updateLockflg(User user) {
-        return userMapper.updateLockflg(user);
-    }
-
-    /**
-     * パスワード有効期限更新用メソッド.
-     * 
-     * @param user user
-     * @return updatePassupdate
-     */
-    public boolean updatePassupdate(User user) {
-        return userMapper.updatePassupdate(user);
     }
 
     /**
@@ -133,17 +84,7 @@ public class UserService {
         // selectBy実行
         return userMapper.selectBy(user_id, user_due_date_from, user_due_date_to);
     }
-    
-    /**
-     * 失敗回数をリセット(0回に更新)するメソッド
-     * 
-     * @param user_id user_id
-     * @return 成功ならtrue/失敗ならfalse
-     */
-    public boolean updateLoginMissTimes(String user_id) {
-        return userMapper.updateLoginMissTimes(user_id);
-    }
-    
+
     /**
      * ロールＩＤ取得用メソッド.<BR>
      * 環境マスタの環境ＩＤからロールＩＤを取得する ※ROLE_NAME_AとROLE_NAME_Gを想定

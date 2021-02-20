@@ -10,8 +10,8 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.EnvMapper;
+import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.UserDetailsServiceImpl;
-import com.portal.z.user.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ public class BadCredentialsEventListener {
     private EnvMapper envMapper;
 
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     /**
      * AuthenticationFailureBadCredentialsEventのイベント処理 <br>
@@ -113,7 +113,7 @@ public class BadCredentialsEventListener {
 
         // パスワード更新
         // 更新実行
-        boolean result = userService.updateLockflg(user);
+        boolean result = userMapper.updateLockflg(user);
 
         return result;
 
