@@ -9,7 +9,7 @@ import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.repository.UserroleMapper;
 import com.portal.z.common.exception.ApplicationException;
-import com.portal.z.common.exception.Errors;
+import com.portal.z.common.exception.HttpErrorsImpl;
 
 /**
  * UserSharedServiceImpl
@@ -52,7 +52,7 @@ public class UserSharedServiceImpl implements UserSharedService{
 
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            throw new ApplicationException(Errors.DUPLICATED, e, user.getUser_id());
+            throw new ApplicationException(HttpErrorsImpl.DUPLICATED, e, user.getUser_id());
         }
     }
 
