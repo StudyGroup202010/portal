@@ -2,45 +2,23 @@ package com.portal.z.user.domain.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.repository.UserMapper;
 //JDBC用
 import org.springframework.dao.DataAccessException;
-
-import com.portal.z.common.domain.repository.RoleMapper;
-import com.portal.z.common.domain.repository.UserDao;
 
 /**
  * UserService
  *
  */
-@Transactional
-@Service
-public class UserService {
-
-    @Autowired
-    UserMapper userMapper;
-    
-    @Autowired
-    RoleMapper roleMapper;
-
-    @Autowired
-    UserDao dao;
+public interface UserService {
 
     /**
      * 全件取得用メソッド.
      * 
      * @return selectMany
      */
-    public List<User> selectMany() {
-        // 全件取得
-        return userMapper.selectMany();
-    }
+    public List<User> selectMany();
 
     /**
      * １件取得用メソッド.
@@ -48,10 +26,7 @@ public class UserService {
      * @param user_id user
      * @return selectOne
      */
-    public User selectOne(String user_id) {
-        // selectOne実行
-        return userMapper.selectOne(user_id);
-    }
+    public User selectOne(String user_id);
 
     /**
      * １件更新用メソッド.
@@ -59,18 +34,14 @@ public class UserService {
      * @param user user
      * @return updateOne
      */
-    public boolean updateOne(User user) {
-        return userMapper.updateOne(user);
-    }
+    public boolean updateOne(User user);
 
     /**
      * CSV出力用メソッド.
      * 
      * @throws DataAccessException DataAccessException
      */
-    public void userCsvOut() throws DataAccessException {
-        dao.userCsvOut();
-    }
+    public void userCsvOut() throws DataAccessException;
 
     /**
      * 条件検索用メソッド.
@@ -80,10 +51,7 @@ public class UserService {
      * @param user_due_date_to   user_due_date_to
      * @return selectBy
      */
-    public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to) {
-        // selectBy実行
-        return userMapper.selectBy(user_id, user_due_date_from, user_due_date_to);
-    }
+    public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
 
     /**
      * ロールＩＤ取得用メソッド.<BR>
@@ -92,7 +60,5 @@ public class UserService {
      * @param env_id env_id
      * @return selectRoleid
      */
-    public Role selectRoleid(String env_id) {
-        return roleMapper.selectRoleid(env_id);
-    }
+    public Role selectRoleid(String env_id);
 }
