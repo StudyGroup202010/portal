@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
-import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.model.Userrole;
 import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
@@ -282,27 +280,9 @@ public class userController {
 
         user.setInsert_user(user_auth.getUsername()); // 作成者
 
-        // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
-        // 取得できない(取得結果がnull)の場合、処理を中止する
-        Role role = userService.selectRoleid("ROLE_NAME_G");
-        if (role == null) {
-            // エラーメッセージを暫定でユーザーIDのフィールドエラーとして表示する
-            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
-                    null, null, utility.getMsg("RoleNameNotFoundAtEnvTable"));
-            bindingResult.addError(fieldError);
-            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
-            return getSignUp(form, model);
-        }
-
-        // ユーザロールマスタinsert用変数
-        Userrole userrole = new Userrole();
-
-        userrole.setUser_id(form.getUser_id()); // ユーザーID
-        userrole.setRole_id(role.getRole_id()); // ロールID
-
-        // ユーザー登録処理(user,userrole)
+        // ユーザー登録処理(user)
         try {
-            boolean result = userSharedService.insertOne(user, userrole);
+            boolean result = userSharedService.insertOne(user);
 
             // ユーザー登録結果の判定
             if (result == true) {
@@ -313,7 +293,7 @@ public class userController {
                 log.info("登録失敗");
             }
         } catch (ApplicationException e) {
-            // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
+            // エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
                     null, null, e.getMessage());
             bindingResult.addError(fieldError);
@@ -369,9 +349,6 @@ public class userController {
 
             // ユーザー情報を取得
             User user = userService.selectOne(user_id);
-            // ToDo ユーザ情報が取得できなかったときの処理
-            //
-            //
 
             // Userクラスをフォームクラスに変換
             form.setUser_id(user.getUser_id()); // ユーザーID
@@ -406,9 +383,6 @@ public class userController {
 
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
-
-            log.info("入力エラー");
-
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
             return getUserDetail(form, model, "");
         }

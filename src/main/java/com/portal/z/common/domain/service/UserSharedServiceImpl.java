@@ -4,12 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.repository.RoleMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.repository.UserroleMapper;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.common.exception.HttpErrorsImpl;
+import com.portal.z.common.domain.util.Constants;
 
 /**
  * UserSharedServiceImpl
@@ -24,7 +28,10 @@ public class UserSharedServiceImpl implements UserSharedService{
 
     @Autowired
     private UserMapper userMapper;
-
+    
+    @Autowired
+    private RoleMapper roleMapper;
+    
     /**
      * insert用メソッド.<BR>
      * 
@@ -32,11 +39,25 @@ public class UserSharedServiceImpl implements UserSharedService{
      * 
      * ユーザマスタに追加するときは、ユーザロールマスタも追加しないといけないので、１つのメソッドにまとめました。
      * 
-     * @param user     ユーザマスタ
-     * @param userrole ユーザロールマスタ
-     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse
+     * @param user ユーザマスタ
+     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse。<BR>
+     *         アプリケーションエラー<BR>
+     *         ・環境マスタに"ROLE_NAME_G"が登録されていないとき。<BR>
+     *         ・一意制約エラーが発生したとき。
      */
-    public boolean insertOne(User user, Userrole userrole) {
+    public boolean insertOne(User user) {
+
+        // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
+        // 取得できない(取得結果がnull)の場合、処理を中止する
+        Role role = roleMapper.selectRoleid(Constants.ROLE_NAME.ROLE_NAME_G.name());
+        if (role == null) {
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.ROLE_NAME.ROLE_NAME_G.name());
+        }
+
+        // ユーザロールマスタinsert用変数
+        Userrole userrole = new Userrole();
+        userrole.setUser_id(user.getUser_id()); // ユーザーID
+        userrole.setRole_id(role.getRole_id()); // ロールID
 
         // 登録実行
         try {

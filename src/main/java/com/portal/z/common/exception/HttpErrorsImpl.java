@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
  */
 public enum HttpErrorsImpl implements HttpErrors {
     /**
+     * 環境マスタ未登録エラー用メッセージ
+     */
+    NOTFOUND_ENV(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」が環境マスタに登録されていません。"),
+    /**
      * データ重複エラー用メッセージ
      */
     DUPLICATED(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」は既に登録されています。"),

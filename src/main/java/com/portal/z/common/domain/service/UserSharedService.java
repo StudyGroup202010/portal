@@ -1,7 +1,6 @@
 package com.portal.z.common.domain.service;
 
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.model.Userrole;
 
 /**
  * UserSharedService
@@ -16,11 +15,13 @@ public interface UserSharedService {
      * 
      * ユーザマスタに追加するときは、ユーザロールマスタも追加しないといけないので、１つのメソッドにまとめました。
      * 
-     * @param user     ユーザマスタ
-     * @param userrole ユーザロールマスタ
-     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse
+     * @param user ユーザマスタ
+     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse。<BR>
+     *         アプリケーションエラー<BR>
+     *         ・環境マスタに"ROLE_NAME_G"が登録されていないとき。<BR>
+     *         ・一意制約エラーが発生したとき。
      */
-    public boolean insertOne(User user, Userrole userrole);
+    public boolean insertOne(User user);
 
     /**
      * delete用メソッド.<BR>

@@ -1,10 +1,7 @@
 package com.portal.z.user.domain.service;
 
 import java.util.List;
-
-import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
-//JDBC用
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -53,12 +50,4 @@ public interface UserService {
      */
     public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
 
-    /**
-     * ロールＩＤ取得用メソッド.<BR>
-     * 環境マスタの環境ＩＤからロールＩＤを取得する ※ROLE_NAME_AとROLE_NAME_Gを想定
-     * 
-     * @param env_id env_id
-     * @return selectRoleid
-     */
-    public Role selectRoleid(String env_id);
 }
