@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
  * HTTPサービスの共通エラー。
  */
 public interface HttpErrors {
+    
     /**
      * HTTPステータスを取得します。
      * 

@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.portal.z.common.domain.model.Env;
-import com.portal.z.common.domain.service.EnvService;
+import com.portal.z.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.util.Constants;
 import com.sun.mail.util.MailConnectException;
 
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MailSend {
 
     @Autowired
-    private EnvService envService;
+    private EnvMapper envMapper;
 
     /**
      * メール送信用メソッド
@@ -46,7 +46,7 @@ public class MailSend {
 
         // 環境マスタに登録したメール送信可否フラグを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env sendmail = envService.selectOne(Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
+        Env sendmail = envMapper.selectOne(Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
         if (sendmail == null) {
             log.info("メール送信可否フラグ取得失敗");
             return false;
@@ -54,7 +54,7 @@ public class MailSend {
 
         // 環境マスタに登録したSMTPホストアドレスを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env host = envService.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
+        Env host = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
         if (host == null) {
             log.info("SMTPホストアドレス取得失敗");
             return false;
@@ -62,7 +62,7 @@ public class MailSend {
 
         // 環境マスタに登録したSMTPポート番号を取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env port = envService.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
+        Env port = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
         if (port == null) {
             log.info("SMTPポート番号取得失敗");
             return false;
@@ -70,7 +70,7 @@ public class MailSend {
 
         // 環境マスタに登録したSMTPログインユーザ名を取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env username = envService.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
+        Env username = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
         if (username == null) {
             log.info("SMTPログインユーザ名取得失敗");
             return false;
@@ -78,7 +78,7 @@ public class MailSend {
 
         // 環境マスタに登録したSMTPログインパスワードを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env password = envService.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
+        Env password = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
         if (password == null) {
             log.info("SMTPログインパスワード取得失敗");
             return false;
@@ -86,7 +86,7 @@ public class MailSend {
 
         // 環境マスタに登録したSMTP認証を取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env auth = envService.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
+        Env auth = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
         if (auth == null) {
             log.info("SMTP認証取得失敗");
             return false;
@@ -94,7 +94,7 @@ public class MailSend {
 
         // 環境マスタに登録したTLS接続を取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
-        Env starttls = envService.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
+        Env starttls = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
         if (starttls == null) {
             log.info("TLS接続取得失敗");
             return false;

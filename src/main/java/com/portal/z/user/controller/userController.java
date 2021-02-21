@@ -23,12 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
-import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.model.Userrole;
-import com.portal.z.common.domain.service.RegistuserService;
-import com.portal.z.common.domain.service.RoleService;
-import com.portal.z.common.domain.service.UserService;
+import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.exception.ApplicationException;
@@ -37,6 +33,7 @@ import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.SelectForm;
 import com.portal.z.user.domain.model.UpdateOrder;
 import com.portal.z.user.domain.model.UserListXlsxView;
+import com.portal.z.user.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,10 +49,7 @@ public class userController {
     private UserService userService;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private RegistuserService registuserService;
+    private UserSharedService userSharedService;
 
     @Autowired
     private Utility utility;
@@ -143,10 +137,6 @@ public class userController {
         // コンテンツ部分にユーザー一覧を表示するための文字列を登録
         model.addAttribute("contents", "z/userList :: userList_contents");
 
-        log.info("検索条件：" + form.getUser_id());
-        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())));
-        log.info("検索条件：" + dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
-
         // ユーザー情報を取得
         // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
         List<User> userList = userService.selectBy(form.getUser_id(),
@@ -215,7 +205,7 @@ public class userController {
         model.addStaticAttribute("userList", userList);
 
         // データ件数を取得
-        int count = userService.count();
+        int count = userList.size();
         model.addStaticAttribute("userListCount", count);
 
         return model;
@@ -290,27 +280,9 @@ public class userController {
 
         user.setInsert_user(user_auth.getUsername()); // 作成者
 
-        // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
-        // 取得できない(取得結果がnull)の場合、処理を中止する
-        Role role = roleService.selectRoleid("ROLE_NAME_G");
-        if (role == null) {
-            // エラーメッセージを暫定でユーザーIDのフィールドエラーとして表示する
-            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
-                    null, null, utility.getMsg("RoleNameNotFoundAtEnvTable"));
-            bindingResult.addError(fieldError);
-            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
-            return getSignUp(form, model);
-        }
-
-        // ユーザロールマスタinsert用変数
-        Userrole userrole = new Userrole();
-
-        userrole.setUser_id(form.getUser_id()); // ユーザーID
-        userrole.setRole_id(role.getRole_id()); // ロールID
-
-        // ユーザー登録処理(user,userrole)
+        // ユーザー登録処理(user)
         try {
-            boolean result = registuserService.insertOne(user, userrole);
+            boolean result = userSharedService.insertOne(user);
 
             // ユーザー登録結果の判定
             if (result == true) {
@@ -321,7 +293,7 @@ public class userController {
                 log.info("登録失敗");
             }
         } catch (ApplicationException e) {
-            // 一意制約エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
+            // エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
             FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
                     null, null, e.getMessage());
             bindingResult.addError(fieldError);
@@ -377,9 +349,6 @@ public class userController {
 
             // ユーザー情報を取得
             User user = userService.selectOne(user_id);
-            // ToDo ユーザ情報が取得できなかったときの処理
-            //
-            //
 
             // Userクラスをフォームクラスに変換
             form.setUser_id(user.getUser_id()); // ユーザーID
@@ -414,9 +383,6 @@ public class userController {
 
         // 入力チェックに引っかかった場合、ユーザー詳細画面に戻る
         if (bindingResult.hasErrors()) {
-
-            log.info("入力エラー");
-
             // GETリクエスト用のメソッドを呼び出して、ユーザ詳細画面に戻ります
             return getUserDetail(form, model, "");
         }
@@ -470,7 +436,7 @@ public class userController {
     public String postUserDetailDelete(@ModelAttribute InputForm form, Model model) {
 
         // 削除実行
-        boolean result = registuserService.deleteOne(form.getUser_id());
+        boolean result = userSharedService.deleteOne(form.getUser_id());
 
         if (result == true) {
             model.addAttribute("result", "削除成功");
