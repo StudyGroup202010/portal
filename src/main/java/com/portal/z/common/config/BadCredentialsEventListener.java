@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.service.EnvService;
+import com.portal.z.common.domain.repository.EnvMapper;
+import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.UserDetailsServiceImpl;
-import com.portal.z.common.domain.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,10 +27,10 @@ public class BadCredentialsEventListener {
     private UserDetailsServiceImpl userdetailsService;
 
     @Autowired
-    private EnvService envService;
+    private EnvMapper envMapper;
 
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     /**
      * AuthenticationFailureBadCredentialsEventのイベント処理 <br>
@@ -82,7 +82,7 @@ public class BadCredentialsEventListener {
         // 環境マスタに登録したログイン失敗回数の最大値を取得
         // 本来ならここでselectIntOneを使いたいところだが、例外がキャッチできない。（何か制約がある？）
         // なのでselectOneを使い、ここで値の評価もする事にした。
-        Env env = envService.selectOne("LOGIN_MISS_TIMES_MAX");
+        Env env = envMapper.selectOne("LOGIN_MISS_TIMES_MAX");
 
         if (env != null) {
             try {
@@ -113,7 +113,7 @@ public class BadCredentialsEventListener {
 
         // パスワード更新
         // 更新実行
-        boolean result = userService.updateLockflg(user);
+        boolean result = userMapper.updateLockflg(user);
 
         return result;
 

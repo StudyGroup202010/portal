@@ -77,12 +77,12 @@ public final class Constants {
      */
     public static enum ROLE_NAME {
         /**
-         * 一般用
+         * 一般用ロール(ROLE_GENERAL)
          */
-        ROLE_GENERAL,
+        ROLE_NAME_G,
         /**
-         * 管理者用
+         * 管理者用ロール(ROLE_ADMIN)
          */
-        ROLE_ADMIN
+        ROLE_NAME_A
     };
 }
