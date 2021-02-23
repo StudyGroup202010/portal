@@ -92,5 +92,18 @@ public final class Constants {
         MAIL_SMTP_STARTTLS_ENABLE
     }
 
-
+    /**
+     * メール関係設定<BR>
+     * ・環境マスタ設定値。
+     */
+    public static enum MAIL_ENV {
+        /**
+         * 問い合わせ用送信先メールアドレス
+         */
+        MAIL_ADMIN_CONTACT,
+        /**
+         * 問い合わせ用メールタイトル
+         */
+        MAIL_TITLE_CONTACT
+    };
 }

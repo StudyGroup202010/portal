@@ -9,8 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.portal.z.common.domain.logic.MailSend;
 import com.portal.z.contact.domain.model.ContactForm;
+import com.portal.z.contact.domain.service.ContactService;
 
 /**
  * Contact用のController
@@ -20,7 +20,7 @@ import com.portal.z.contact.domain.model.ContactForm;
 public class ContactController {
 
     @Autowired
-    MailSend mailsend;
+    ContactService contactService;
 
     /**
      * 問い合わせ画面のGETメソッド用処理.<BR>
@@ -67,7 +67,7 @@ public class ContactController {
                 + "\n---------------------------";
 
         // メールを送信する。
-        boolean result = mailsend.mailsendregister(form.getContact_email(), "suzuki196906@gmail.com", "お問い合わせがありました", text);
+        boolean result = contactService.Contactmailsendregister(form.getContact_email(), text);
 
         if (result == true) {
             model.addAttribute("result", "ご記入いただいた内容を管理者に送信しました。");

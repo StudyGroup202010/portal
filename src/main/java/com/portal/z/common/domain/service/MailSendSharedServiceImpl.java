@@ -1,4 +1,4 @@
-package com.portal.z.common.domain.logic;
+package com.portal.z.common.domain.service;
 
 import java.util.Properties;
 
@@ -26,23 +26,40 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component("MailSend")
 @Slf4j
-public class MailSend {
+public class MailSendSharedServiceImpl implements MailSendSharedService {
 
     @Autowired
     private EnvMapper envMapper;
 
     /**
-     * メール送信用メソッド
+     * メール送信用メソッド<BR>
+     * <BR>
+     * 
+     * 環境マスタに以下の値を設定していないとエラーになります。<BR>
+     * ・メール送信可否フラグ（SEND_MAIL_ENABLE）<BR>
+     * ・SMTPホストアドレス（MAIL_SMTP_HOST）<BR>
+     * ・SMTPポート番号（MAIL_SMTP_PORT）<BR>
+     * ・SMTPログインユーザ名（MAIL_SMTP_USERNAME）<BR>
+     * ・SMTPログインパスワード（MAIL_SMTP_PASSWORD）<BR>
+     * ・SMTP認証（MAIL_SMTP_AUTH）<BR>
+     * ・TLS接続（MAIL_SMTP_STARTTLS_ENABLE）<BR>
      * 
      * @param sendFrom 送信者のアドレス
-     * @param sendTo   受信者のアドレス
+     * @param sendTo   送信先のアドレス
      * @param Subject  メールタイトル
      * @param text     メール本文
-     * @return 送信成功：true 送信失敗:false
+     * @return 送信成功：true<BR>
+     *         送信失敗:false<BR>
      * @throws MessagingException 送信エラー
      */
     public boolean mailsendregister(String sendFrom, String sendTo, String Subject, String text)
             throws MessagingException {
+
+        // 送信者のアドレスか送信先のアドレスが未入力の時はエラー
+        if (sendFrom == null || sendTo == null) {
+            log.info("送信者のアドレスか送信先のアドレスが未入力");
+            return false;
+        }
 
         // 環境マスタに登録したメール送信可否フラグを取得する
         // 取得できない(取得結果がnull)の場合、処理を中止する
@@ -109,15 +126,16 @@ public class MailSend {
         props.put("mail.smtp.auth", auth.getEnv_txt());
         props.put("mail.smtp.starttls.enable", starttls.getEnv_txt());
 
-        // セッションを作成する。
-        Session session = Session.getInstance(props, new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(props.getProperty("mail.smtp.username"),
-                        props.getProperty("mail.smtp.password"));
-            }
-        });
-
         try {
+
+            // セッションを作成する。
+            Session session = Session.getInstance(props, new Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(props.getProperty("mail.smtp.username"),
+                            props.getProperty("mail.smtp.password"));
+                }
+            });
+
             // セッションを生成する。
             MimeMessage message = new MimeMessage(session);
             // メール送信者（実際は接続情報で設定したmail.smtp.usernameから送付されます）

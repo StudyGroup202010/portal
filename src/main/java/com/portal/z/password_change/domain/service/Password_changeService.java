@@ -9,7 +9,7 @@ import java.text.ParseException;
 public interface Password_changeService {
 
     /**
-     * パスワードを更新する.
+     * updatePasswordDate
      * 
      * @param userId   userId
      * @param password password
