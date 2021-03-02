@@ -17,7 +17,7 @@ public interface EnvMapper {
      * 登録用メソッド
      * 
      * @param env Env
-     * @return insertOne
+     * @return true/false
      */
     public boolean insertOne(Env env);
 
@@ -25,14 +25,14 @@ public interface EnvMapper {
      * １件検索用メソッド
      * 
      * @param env_id env_id
-     * @return selectOne
+     * @return Env
      */
     public Env selectOne(String env_id);
 
     /**
      * 全件検索用メソッド
      * 
-     * @return selectMany
+     * @return Env
      */
     public List<Env> selectMany();
 
@@ -40,7 +40,7 @@ public interface EnvMapper {
      * １件更新用メソッド
      * 
      * @param env env
-     * @return updateOne
+     * @return true/false
      */
     public boolean updateOne(Env env);
 
@@ -48,7 +48,7 @@ public interface EnvMapper {
      * １件削除用メソッド
      * 
      * @param env_id env_id
-     * @return deleteOne
+     * @return true/false
      */
     public boolean deleteOne(String env_id);
 }

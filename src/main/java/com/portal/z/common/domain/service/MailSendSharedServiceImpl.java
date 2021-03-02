@@ -125,27 +125,27 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         props.put("mail.smtp.password", password.getEnv_txt());
         props.put("mail.smtp.auth", auth.getEnv_txt());
         props.put("mail.smtp.starttls.enable", starttls.getEnv_txt());
+        
+        // セッションを作成する。
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(props.getProperty("mail.smtp.username"),
+                        props.getProperty("mail.smtp.password"));
+            }
+        });
 
+        // セッションを生成する。
+        MimeMessage message = new MimeMessage(session);
+        // メール送信者（実際は接続情報で設定したmail.smtp.usernameから送付されます）
+        message.setFrom(sendFrom);
+        // メール送付先
+        message.setRecipients(Message.RecipientType.TO, sendTo);
+        // メールタイトル
+        message.setSubject(Subject);
+        // メール本文
+        message.setText(text);
+            
         try {
-
-            // セッションを作成する。
-            Session session = Session.getInstance(props, new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(props.getProperty("mail.smtp.username"),
-                            props.getProperty("mail.smtp.password"));
-                }
-            });
-
-            // セッションを生成する。
-            MimeMessage message = new MimeMessage(session);
-            // メール送信者（実際は接続情報で設定したmail.smtp.usernameから送付されます）
-            message.setFrom(sendFrom);
-            // メール送付先
-            message.setRecipients(Message.RecipientType.TO, sendTo);
-            // メールタイトル
-            message.setSubject(Subject);
-            // メール本文
-            message.setText(text);
 
             Transport.send(message);
 
