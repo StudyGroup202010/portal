@@ -2,7 +2,6 @@ package com.portal.z.common.domain.service;
 
 import java.util.Properties;
 
-import javax.mail.AuthenticationFailedException;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -16,7 +15,8 @@ import org.springframework.stereotype.Component;
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.util.Constants;
-import com.sun.mail.util.MailConnectException;
+import com.portal.z.common.exception.ApplicationException;
+import com.portal.z.common.exception.HttpErrorsImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,39 +26,19 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Component("MailSend")
 @Slf4j
+
 public class MailSendSharedServiceImpl implements MailSendSharedService {
 
     @Autowired
     private EnvMapper envMapper;
 
-    /**
-     * メール送信用メソッド<BR>
-     * 
-     * 送信元（sendFrom）と送信先（sendTo）のアドレスは必須。<BR>
-     * 環境マスタに以下の値を設定しておくこと。<BR>
-     * ・メール送信可否フラグ（SEND_MAIL_ENABLE）<BR>
-     * ・SMTPホストアドレス（MAIL_SMTP_HOST）<BR>
-     * ・SMTPポート番号（MAIL_SMTP_PORT）<BR>
-     * ・SMTPログインユーザ名（MAIL_SMTP_USERNAME）<BR>
-     * ・SMTPログインパスワード（MAIL_SMTP_PASSWORD）<BR>
-     * ・SMTP認証（MAIL_SMTP_AUTH）<BR>
-     * ・TLS接続（MAIL_SMTP_STARTTLS_ENABLE）<BR>
-     * 
-     * @param sendFrom 送信元のアドレス
-     * @param sendTo   送信先のアドレス
-     * @param Subject  メールタイトル
-     * @param text     メール本文
-     * @return 送信成功：true<BR>
-     *         送信失敗：false<BR>
-     * @throws MessagingException 送信エラー
-     */
-    public boolean mailsendregister(String sendFrom, String sendTo, String Subject, String text)
+    public void mailsendregister(String sendFrom, String sendTo, String Subject, String text)
             throws MessagingException {
 
         // 送信元のアドレスか送信先のアドレスが未入力の時はエラー
         if (sendFrom == null || sendTo == null) {
             log.info("送信者のアドレスか送信先のアドレスが未入力");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTSET_MAILADRESS, "送信者か送信先");
         }
 
         // 環境マスタに登録したメール送信可否フラグを取得する
@@ -66,7 +46,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env sendmail = envMapper.selectOne(Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
         if (sendmail == null) {
             log.info("メール送信可否フラグ取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
         }
 
         // 環境マスタに登録したSMTPホストアドレスを取得する
@@ -74,7 +54,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env host = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
         if (host == null) {
             log.info("SMTPホストアドレス取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
         }
 
         // 環境マスタに登録したSMTPポート番号を取得する
@@ -82,7 +62,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env port = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
         if (port == null) {
             log.info("SMTPポート番号取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
         }
 
         // 環境マスタに登録したSMTPログインユーザ名を取得する
@@ -90,7 +70,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env username = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
         if (username == null) {
             log.info("SMTPログインユーザ名取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
         }
 
         // 環境マスタに登録したSMTPログインパスワードを取得する
@@ -98,7 +78,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env password = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
         if (password == null) {
             log.info("SMTPログインパスワード取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
         }
 
         // 環境マスタに登録したSMTP認証を取得する
@@ -106,7 +86,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env auth = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
         if (auth == null) {
             log.info("SMTP認証取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
         }
 
         // 環境マスタに登録したTLS接続を取得する
@@ -114,7 +94,8 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env starttls = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
         if (starttls == null) {
             log.info("TLS接続取得失敗");
-            return false;
+            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV,
+                    Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
         }
 
         // セッション用作成用の接続情報を設定する
@@ -125,7 +106,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         props.put("mail.smtp.password", password.getEnv_txt());
         props.put("mail.smtp.auth", auth.getEnv_txt());
         props.put("mail.smtp.starttls.enable", starttls.getEnv_txt());
-        
+
         // セッションを作成する。
         Session session = Session.getInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -144,18 +125,8 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         message.setSubject(Subject);
         // メール本文
         message.setText(text);
-            
-        try {
+        // メールを送信する
+        Transport.send(message);
 
-            Transport.send(message);
-
-            return true;
-
-        } catch (MailConnectException | AuthenticationFailedException e) {
-
-            log.info("エラー発生" + e);
-
-            return false;
-        }
     }
 }

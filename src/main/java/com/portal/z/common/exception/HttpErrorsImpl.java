@@ -11,6 +11,10 @@ public enum HttpErrorsImpl implements HttpErrors {
      */
     NOTFOUND_ENV(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」が環境マスタに登録されていません。"),
     /**
+     * メールアドレス未登録エラー用メッセージ
+     */
+    NOTSET_MAILADRESS(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」にメールアドレスが登録されていません。"),
+    /**
      * データ重複エラー用メッセージ
      */
     DUPLICATED(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」は既に登録されています。"),

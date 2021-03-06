@@ -1,5 +1,6 @@
 package com.portal.z.contact.controller;
 
+import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.contact.domain.model.ContactForm;
 import com.portal.z.contact.domain.service.ContactService;
+import com.sun.mail.util.MailConnectException;
 
 /**
  * Contact用のController
@@ -66,19 +70,23 @@ public class ContactController {
                 + "メールアドレス: " + form.getContact_email() + "\n" + "メッセージ: \n" + form.getContact_message()
                 + "\n---------------------------";
 
-        // メールを送信する。
-        boolean result = contactService.Contactmailsendregister(form.getContact_email(), text);
+        try {
+            // メールを送信する。
+            contactService.Contactmailsendregister(form.getContact_email(), text);
 
-        if (result == true) {
-            model.addAttribute("result", "ご記入いただいた内容を管理者に送信しました。");
+            model.addAttribute("result", "ご記入いただいた内容を担当者に送信しました。");
             // Modelを初期化
             form.setContact_name(null); // ユーザID
             form.setContact_email(null); // メールアドレス
             form.setContact_message(null); // お問い合わせ内容
             model.addAttribute("ContactForm", form);
-        } else {
-            model.addAttribute("result", "送信が出来ませんでした。送信不可になっているか、設定が間違っている可能性があります。");
+
+        } catch (ApplicationException e) {
+            model.addAttribute("result", "送信が出来ませんでした。送信不可になっているか、送信設定が間違っている可能性があります。"+ e.getMessage());
+        } catch (MailConnectException | AuthenticationFailedException e) {
+            model.addAttribute("result", "送信が出来ませんでした。送信設定が間違っている可能性があります。"+ e.getMessage());
         }
+
         // 問い合わせ画面を表示
         return getContact(form, model);
     }

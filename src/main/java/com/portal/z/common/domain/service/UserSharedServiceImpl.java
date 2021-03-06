@@ -32,16 +32,6 @@ public class UserSharedServiceImpl implements UserSharedService{
     @Autowired
     private RoleMapper roleMapper;
     
-    /**
-     * ユーザマスタ追加用メソッド<BR>
-     * ユーザマスタに追加するときは、ユーザロールマスタにも追加する必要があるため、このメソッドで一緒に行う。
-     * 
-     * @param user ユーザマスタ
-     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse。<BR>
-     *         アプリケーションエラー<BR>
-     *         ・環境マスタに"ROLE_NAME_G"が登録されていないとき。<BR>
-     *         ・一意制約エラーが発生したとき。
-     */
     public boolean insertOne(User user) {
 
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
@@ -74,15 +64,6 @@ public class UserSharedServiceImpl implements UserSharedService{
         }
     }
 
-    /**
-     * ユーザマスタ削除用メソッド<BR>
-     * 
-     * ユーザマスタを削除するときは、ユーザロールマスタも削除する必要があるため、このメソッドで一緒に行う。
-     * ※参照整合性制約があるため
-     * 
-     * @param user_id user_id
-     * @return 両方のテーブルの削除が成功したときtrue。それ以外false
-     */
     public boolean deleteOne(String user_id) {
 
         // 削除実行

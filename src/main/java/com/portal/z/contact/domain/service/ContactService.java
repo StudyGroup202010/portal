@@ -9,13 +9,11 @@ import javax.mail.MessagingException;
 public interface ContactService {
 
     /**
-     * Contactmailsendregister<BR>
+     * 問い合わせ内容メール送信<BR>
      * 
-     * @param sendFrom 送信者のアドレス
-     * @param text     メール本文
-     * @return 送信成功：true<BR>
-     *         送信失敗:false<BR>
+     * @param sendFrom 問い合わせした人のアドレス
+     * @param text     問い合わせ内容本文
      * @throws MessagingException 送信エラー
      */
-    public boolean Contactmailsendregister(String sendFrom, String text) throws MessagingException;
+    public void Contactmailsendregister(String sendFrom, String text) throws MessagingException;
 }

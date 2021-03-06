@@ -23,7 +23,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable
+     * @throws Throwable Throwable
      */
     @Around("@within(org.springframework.stereotype.Controller)")
     public Object startLog_controller(ProceedingJoinPoint jp) throws Throwable {
@@ -55,7 +55,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable
+     * @throws Throwable Throwable
      */
     @Around("@within(org.springframework.stereotype.Service)")
     public Object startLog_service(ProceedingJoinPoint jp) throws Throwable {
@@ -84,7 +84,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable
+     * @throws Throwable Throwable
      */
     @Around("@within(org.springframework.stereotype.Component)")
     public Object startLog_component(ProceedingJoinPoint jp) throws Throwable {
@@ -114,7 +114,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable
+     * @throws Throwable Throwable
      */
     @Around("@within(org.springframework.stereotype.Repository)")
     public Object startLog_repository(ProceedingJoinPoint jp) throws Throwable {
