@@ -1,0 +1,77 @@
+package com.portal.z.pwreissue.controller;
+
+import java.text.ParseException;
+
+import javax.mail.MessagingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import com.portal.z.common.exception.ApplicationException;
+import com.portal.z.pwreissue.domain.model.PwreissueForm;
+import com.portal.z.pwreissue.domain.service.PwreissueService;
+
+/**
+ * パスワード再設定画面用Controller
+ *
+ */
+@Controller
+public class PwreissueController {
+
+    @Autowired
+    PwreissueService pwreissueService;
+
+    /**
+     * 画面表示.
+     * 
+     * @param form  form
+     * @param model model
+     * @return z/createReissueInfoForm
+     */
+    @GetMapping("/pwreissue")
+    public String getPwreissue(@ModelAttribute PwreissueForm form, Model model) {
+
+        return "z/pwreissue";
+    }
+
+    /**
+     * パスワード再設定情報登録
+     * 
+     * @param model         model
+     * @param form          form
+     * @param bindingResult bindingResult
+     * @return パスワード再設定画面
+     * @throws ParseException     ParseException
+     * @throws MessagingException MessagingException
+     */
+    @PostMapping("/pwreissue")
+    public String postPwreissue(Model model, @ModelAttribute @Validated PwreissueForm form, BindingResult bindingResult)
+            throws ParseException, MessagingException {
+
+        // 入力チェックに引っかかった場合、パスワード再設定画面に戻る
+        if (bindingResult.hasErrors()) {
+            return getPwreissue(form, model);
+        }
+
+        try {
+            // パスワード再設定用情報を登録する。
+            String result = pwreissueService.insertPwreissueinfo(form.getUser_id());
+
+            // パスワード再設定画面のURLをメールで送信する。
+            pwreissueService.sendMailToUser(form.getUser_id());
+            
+            model.addAttribute("result1", "パスワード再設定用のURLを、ご入力いただいたユーザIDに送信しました。");
+            model.addAttribute("result2", "お送りしたURLにアクセスし、以下の仮パスワードでログインしてください。");
+            model.addAttribute("result3", "仮パスワード：" + result);
+
+        } catch (ApplicationException e) {
+            model.addAttribute("result1", "このユーザIDは登録されていません。");
+        }
+        return getPwreissue(form, model);
+    }
+}

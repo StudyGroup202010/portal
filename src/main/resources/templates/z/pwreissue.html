@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrapの設定 -->
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+
+
+    <title>パスワード再設定</title>
+</head>
+<body class="text-center">
+    <h3>パスワード再設定</h3>
+    <br>
+    <p>パスワード再設定を行います。</p>
+    <p>再設定を行いたいユーザIDのメールアドレスを入力してください。</p>
+    <form method="post" th:action="@{/pwreissue}"
+        th:object="${pwreissueForm}">
+        <!-- パスワード再設定 -->
+        <div class="form-group"
+            th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
+            <input type="text" class="form-control-lg"
+                th:field="*{user_id}" /> <BR> <span
+                class="text-danger"
+                th:if="${#fields.hasErrors('user_id')}"
+                th:errors="*{user_id}"> name error </span>
+        </div>
+        <!-- パスワード再設定 -->
+        <button type="submit" class="btn btn-danger btn-lg">パスワード再設定</button>
+    </form>
+    <!-- パスワード再設定画面情報作成処理の結果表示 -->
+    <label class="text-info" th:text="${result1}"></label>
+    <BR>
+    <label class="text-info" th:text="${result2}"></label>
+    <BR>
+    <label class="text-info" th:text="${result3}"></label>
+    <BR>
+    <div th:insert="z/footer :: footer"></div>
+</body>
+</html>
