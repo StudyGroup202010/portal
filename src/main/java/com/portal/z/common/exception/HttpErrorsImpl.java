@@ -3,7 +3,7 @@ package com.portal.z.common.exception;
 import org.springframework.http.HttpStatus;
 
 /**
- * フレームワークのエラー一覧。
+ * エラーの一覧。
  */
 public enum HttpErrorsImpl implements HttpErrors {
     /**

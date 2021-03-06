@@ -68,7 +68,7 @@ public class DateUtils {
     }
 
     /**
-     * 日付初期値設定処理<BR>
+     * 初期日付値設定処理<BR>
      * 
      * dateがnullの場合に日付の初期値を設定します。 dateがnullではない場合、そのまま返します。
      * 
@@ -83,7 +83,7 @@ public class DateUtils {
     }
 
     /**
-     * 日付永遠設定処理<BR>
+     * 永遠日付設定処理<BR>
      * 
      * dateがnullの場合に日付の永遠値を設定します。 dateがnullではない場合、そのまま返します。
      * 

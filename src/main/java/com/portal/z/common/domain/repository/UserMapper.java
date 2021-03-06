@@ -39,7 +39,7 @@ public interface UserMapper {
     /**
      * 全件検索用メソッド
      * 
-     * @return User
+     * @return UserList
      */
     public List<User> selectMany();
 
@@ -81,7 +81,7 @@ public interface UserMapper {
      * @param user_id            user_id
      * @param user_due_date_from user_due_date_from
      * @param user_due_date_to   user_due_date_to
-     * @return User
+     * @return UserList
      */
     public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
 

@@ -9,15 +9,11 @@ import org.springframework.stereotype.Controller;
 @Controller
 public final class Constants {
 
-    private Constants() {
-    }
-
     /**
      * ロール名<BR>
      * ・環境マスタ設定値。<BR>
      * ・一般用と管理者用を登録する。<BR>
-     * ・Spring Securityの認可処理は、"ROLE_"で始まる権限情報をロールとして扱うので、<BR>
-     * かならず"ROLE_"をつけること。
+     * ・Spring Securityの認可処理は、"ROLE_"で始まる権限情報をロールとして扱うので、必ず"ROLE_"で始まること。
      */
     public static enum ROLE_NAME {
         /**
@@ -31,16 +27,18 @@ public final class Constants {
     };
 
     /**
-     * ログイン失敗回数の最大値（１回）<BR>
+     * ログイン失敗回数の最大値<BR>
      * ・環境マスタ設定値。<BR>
-     * ・この値を超えるとアカウントがロックされます。
+     * ・この値を超えるとアカウントがロックされます。<BR>
+     * ・初期値は１回。
      */
     public static final String LOGIN_MISS_TIMES_MAX = "1";
 
     /**
-     * パスワード有効期間（１か月）<BR>
+     * パスワード有効期間<BR>
      * ・環境マスタ設定値。<BR>
-     * ・パスワードの有効期限の初期値（月数）
+     * ・パスワードの有効期限の初期値（月数）<BR>
+     * ・初期値は１か月。
      */
     public static final int PASS_UPDATE_NXT = 1;
 
@@ -98,11 +96,11 @@ public final class Constants {
      */
     public static enum MAIL_ENV {
         /**
-         * 問い合わせ用送信先メールアドレス
+         * 問い合わせ用メールの送信先メールアドレス
          */
         MAIL_ADMIN_CONTACT,
         /**
-         * 問い合わせ用メールタイトル
+         * 問い合わせ用メールのタイトル
          */
         MAIL_TITLE_CONTACT
     };

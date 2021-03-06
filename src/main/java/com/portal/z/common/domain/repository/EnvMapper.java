@@ -16,7 +16,7 @@ public interface EnvMapper {
     /**
      * 登録用メソッド
      * 
-     * @param env Env
+     * @param env env
      * @return true/false
      */
     public boolean insertOne(Env env);
@@ -32,7 +32,7 @@ public interface EnvMapper {
     /**
      * 全件検索用メソッド
      * 
-     * @return Env
+     * @return EnvList
      */
     public List<Env> selectMany();
 

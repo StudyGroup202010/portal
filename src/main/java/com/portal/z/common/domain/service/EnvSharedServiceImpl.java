@@ -8,7 +8,7 @@ import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.repository.EnvMapper;
 
 /**
- * EnvSharedServiceImpl
+ * 環境マスタ用共通Service
  *
  */
 @Transactional
@@ -22,7 +22,7 @@ public class EnvSharedServiceImpl implements EnvSharedService {
      * 環境マスタから数値項目を１件取得する。<BR>
      * 
      * @param env_id env_id
-     * @return 数値の場合は値を返す。数値で無い場合はnull
+     * @return 数値の場合は値を返す。数値で無い場合はnullを返す。
      */
     public Env selectIntOne(String env_id) {
         try {
@@ -36,7 +36,7 @@ public class EnvSharedServiceImpl implements EnvSharedService {
             return env;
 
         } catch (NumberFormatException e) {
-            // 数値以外の値が登録されていたらnullを返す。
+            // 数値以外の値が登録されていた。
             return null;
         }
     }

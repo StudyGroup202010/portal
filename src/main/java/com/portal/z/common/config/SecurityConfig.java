@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 静的リソースを除外する。<BR>
      * 
-     * 静的リソースへのアクセスには、誰でもアクセスできても良いので、セキュリティを適用しない。
+     * 静的リソースには誰でもアクセスできて良いので、セキュリティを適用しない。
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -56,9 +56,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 直リンク（ログイン無しのアクセス）禁止の設定<BR>
+     * 直リンク（ログイン無しのアクセス）の設定<BR>
      * 
-     * CSRF対策はデフォルトで有効
+     * ・許可したURL以外は直接アクセスすることを禁止。<BR>
+     * ・レスポンスヘッダーの設定<BR>
+     * ・ログイン処理<BR>
+     * ・セッション管理（セッションエラー後の遷移先）<BR>
+     * ・ログアウト処理<BR>
+     * ・CSRF対策は有効（デフォルト）
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -96,6 +101,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * ログイン処理時のユーザー情報を、DBから取得する
+     * 
+     * 認証プロバイダの設定(setHideUserNotFoundExceptionsをfalseにするため)
+     *
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -104,9 +112,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 認証プロバイダの生成を行う。
-     * <br>
-     * 認証プロバイダに関する設定はここで行う。
+     * 認証プロバイダの生成を行う。<BR>
+     * 
+     * 認証プロバイダに関する設定はここで行う。<BR>
+     * ・setHideUserNotFoundExceptionsはfalseに設定
      * 
      * @return daoAuthenticationProvider 認証プロバイダ
      */

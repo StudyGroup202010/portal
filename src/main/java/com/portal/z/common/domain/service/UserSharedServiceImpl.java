@@ -16,7 +16,7 @@ import com.portal.z.common.exception.HttpErrorsImpl;
 import com.portal.z.common.domain.util.Constants;
 
 /**
- * UserSharedServiceImpl
+ * ユーザマスタ用共通サービス
  *
  */
 @Transactional
@@ -33,11 +33,8 @@ public class UserSharedServiceImpl implements UserSharedService{
     private RoleMapper roleMapper;
     
     /**
-     * insert用メソッド.<BR>
-     * 
-     * ユーザマスタとユーザロールマスタに追加する<BR>
-     * 
-     * ユーザマスタに追加するときは、ユーザロールマスタも追加しないといけないので、１つのメソッドにまとめました。
+     * ユーザマスタ追加用メソッド<BR>
+     * ユーザマスタに追加するときは、ユーザロールマスタにも追加する必要があるため、このメソッドで一緒に行う。
      * 
      * @param user ユーザマスタ
      * @return 両方のテーブルに追加できたときtrue。それ以外はfalse。<BR>
@@ -78,15 +75,13 @@ public class UserSharedServiceImpl implements UserSharedService{
     }
 
     /**
-     * delete用メソッド.<BR>
+     * ユーザマスタ削除用メソッド<BR>
      * 
-     * ユーザマスタとユーザロールマスタを削除する<BR>
-     * 
-     * ユーザマスタを削除するときは、まずユーザロールマスタを削除しないといけないので、１つのメソッドにまとめました。<BR>
+     * ユーザマスタを削除するときは、ユーザロールマスタも削除する必要があるため、このメソッドで一緒に行う。
      * ※参照整合性制約があるため
      * 
      * @param user_id user_id
-     * @return 削除が成功したときtrue。それ以外false
+     * @return 両方のテーブルの削除が成功したときtrue。それ以外false
      */
     public boolean deleteOne(String user_id) {
 

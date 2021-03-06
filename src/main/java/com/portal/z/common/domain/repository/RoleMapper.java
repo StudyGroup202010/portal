@@ -32,7 +32,7 @@ public interface RoleMapper {
     /**
      * 全件検索用メソッド
      * 
-     * @return Role
+     * @return RoleList
      */
     public List<Role> selectMany();
 

@@ -21,7 +21,7 @@ import com.sun.mail.util.MailConnectException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * メール送信用の共通クラス
+ * メール送信用共通サービス
  *
  */
 @Component("MailSend")
@@ -33,9 +33,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
 
     /**
      * メール送信用メソッド<BR>
-     * <BR>
      * 
-     * 環境マスタに以下の値を設定していないとエラーになります。<BR>
+     * 送信元（sendFrom）と送信先（sendTo）のアドレスは必須。<BR>
+     * 環境マスタに以下の値を設定しておくこと。<BR>
      * ・メール送信可否フラグ（SEND_MAIL_ENABLE）<BR>
      * ・SMTPホストアドレス（MAIL_SMTP_HOST）<BR>
      * ・SMTPポート番号（MAIL_SMTP_PORT）<BR>
@@ -44,18 +44,18 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
      * ・SMTP認証（MAIL_SMTP_AUTH）<BR>
      * ・TLS接続（MAIL_SMTP_STARTTLS_ENABLE）<BR>
      * 
-     * @param sendFrom 送信者のアドレス
+     * @param sendFrom 送信元のアドレス
      * @param sendTo   送信先のアドレス
      * @param Subject  メールタイトル
      * @param text     メール本文
      * @return 送信成功：true<BR>
-     *         送信失敗:false<BR>
+     *         送信失敗：false<BR>
      * @throws MessagingException 送信エラー
      */
     public boolean mailsendregister(String sendFrom, String sendTo, String Subject, String text)
             throws MessagingException {
 
-        // 送信者のアドレスか送信先のアドレスが未入力の時はエラー
+        // 送信元のアドレスか送信先のアドレスが未入力の時はエラー
         if (sendFrom == null || sendTo == null) {
             log.info("送信者のアドレスか送信先のアドレスが未入力");
             return false;

@@ -23,7 +23,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable エラー
+     * @throws Throwable
      */
     @Around("@within(org.springframework.stereotype.Controller)")
     public Object startLog_controller(ProceedingJoinPoint jp) throws Throwable {
@@ -55,7 +55,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable エラー
+     * @throws Throwable
      */
     @Around("@within(org.springframework.stereotype.Service)")
     public Object startLog_service(ProceedingJoinPoint jp) throws Throwable {
@@ -77,27 +77,34 @@ public class LogAspct {
         }
     }
 
-    // JointPoint（実行タイミング）はAround（メソッド実行の前後）
-    // 実行場所はwithin(Componentアノテーションがついている全ての場所）
-    // @Around("@within(org.springframework.stereotype.Component)")
-    // public Object startLog_component(ProceedingJoinPoint jp) throws Throwable {
-    //
-    // log.info("Cメソッド開始：" + jp.getSignature());
-    //
-    // try {
-    // //メソッド実行
-    // Object result = jp.proceed();
-    //
-    // log.info("Cメソッド終了：" + jp.getSignature());
-    //
-    // return result;
-    //
-    // } catch (Exception e) {
-    // log.error("Cメソッド異常終了：" + jp.getSignature());
-    // e.printStackTrace();
-    // throw e;
-    // }
-    // }
+    /**
+     * Component起動時にログを出力する。<BR>
+     * JointPoint（実行タイミング）はAround（メソッド実行の前後）<BR>
+     * 実行場所はwithin(Componentアノテーションがついている全ての場所）
+     * 
+     * @param jp ProceedingJoinPoint
+     * @return 実行結果
+     * @throws Throwable
+     */
+    @Around("@within(org.springframework.stereotype.Component)")
+    public Object startLog_component(ProceedingJoinPoint jp) throws Throwable {
+
+        log.info("Cメソッド開始：" + jp.getSignature());
+
+        try {
+            // メソッド実行
+            Object result = jp.proceed();
+
+            log.info("Cメソッド終了：" + jp.getSignature());
+
+            return result;
+
+        } catch (Exception e) {
+            log.error("Cメソッド異常終了：" + jp.getSignature());
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
     /**
      * repository起動時にログを出力する。<BR>
@@ -107,7 +114,7 @@ public class LogAspct {
      * 
      * @param jp ProceedingJoinPoint
      * @return 実行結果
-     * @throws Throwable エラー
+     * @throws Throwable
      */
     @Around("@within(org.springframework.stereotype.Repository)")
     public Object startLog_repository(ProceedingJoinPoint jp) throws Throwable {

@@ -19,7 +19,9 @@ public class UserDaoJdbcImpl implements UserDao {
     @Autowired
     JdbcTemplate jdbc;
 
-    // SQL取得結果をサーバーにCSVで保存する
+    /**
+     * SQL取得結果をサーバーにCSVで保存する
+     */
     @Override
     public void userCsvOut() throws DataAccessException {
 
