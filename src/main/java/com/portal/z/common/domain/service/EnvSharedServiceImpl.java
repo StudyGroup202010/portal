@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.repository.EnvMapper;
+import com.portal.z.common.domain.util.Constants;
+import com.portal.z.common.exception.ApplicationException;
+import com.portal.z.common.exception.HttpErrorsImpl;
 
 /**
  * 環境マスタ用共通Service
@@ -18,16 +21,16 @@ public class EnvSharedServiceImpl implements EnvSharedService {
     @Autowired
     EnvMapper envMapper;
 
-    public Env selectIntOne(String env_id) {
+    public Integer selectIntOne(String env_id) {
+
+        Env env = envMapper.selectOne(env_id);
+
+        if (env == null)
+            return null;
+
         try {
-            Env env = envMapper.selectOne(env_id);
-
-            if (env != null) {
-                // 取得した値が数値かどうかを確認する
-                Integer.parseInt(env.getEnv_txt());
-            }
-
-            return env;
+            // 取得した値が数値かどうかを確認する
+            return Integer.parseInt(env.getEnv_txt());
 
         } catch (NumberFormatException e) {
             // 数値以外の値が登録されていた。

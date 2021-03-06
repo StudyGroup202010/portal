@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.EnvSharedService;
@@ -46,10 +45,10 @@ public class Password_changeServiceImpl implements Password_changeService {
         int PASS_UPDATE_NXT = Constants.PASS_UPDATE_NXT;
 
         // 環境マスタに登録したパスワード有効期限月数を取得
-        Env env = envSharedService.selectIntOne("PASS_UPDATE_NXT");
+        Integer env = envSharedService.selectIntOne("PASS_UPDATE_NXT");
 
         if (env != null) {
-            PASS_UPDATE_NXT = Integer.parseInt(env.getEnv_txt());
+            PASS_UPDATE_NXT = env;
         }
         
         // パスワード有効期限を計算
