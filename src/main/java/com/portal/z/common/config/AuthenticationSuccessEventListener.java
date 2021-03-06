@@ -22,6 +22,7 @@ public class AuthenticationSuccessEventListener {
 
     /**
      * AuthenticationSuccessEventのイベント処理 <br>
+     * 
      * ログイン時にIDとパスワードの認証に成功した直後に動作します。 <br>
      * ・ログイン失敗回数に０をセットします。
      * 

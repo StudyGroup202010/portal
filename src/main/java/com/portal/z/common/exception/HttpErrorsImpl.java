@@ -3,13 +3,17 @@ package com.portal.z.common.exception;
 import org.springframework.http.HttpStatus;
 
 /**
- * フレームワークのエラー一覧。
+ * エラーの一覧。
  */
 public enum HttpErrorsImpl implements HttpErrors {
     /**
      * 環境マスタ未登録エラー用メッセージ
      */
     NOTFOUND_ENV(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」が環境マスタに登録されていません。"),
+    /**
+     * メールアドレス未登録エラー用メッセージ
+     */
+    NOTSET_MAILADRESS(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」にメールアドレスが登録されていません。"),
     /**
      * データ重複エラー用メッセージ
      */

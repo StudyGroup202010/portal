@@ -9,13 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.util.Constants;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Password_changeServiceImpl
@@ -23,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Transactional
 @Service
-@Slf4j
 public class Password_changeServiceImpl implements Password_changeService {
 
     @Autowired
@@ -44,21 +40,17 @@ public class Password_changeServiceImpl implements Password_changeService {
      * @throws ParseException ParseException
      */
     public void updatePasswordDate(String userId, String password) throws ParseException {
-        // パスワード暗号化
-        String encryptPass = passwordEncoder.encode(password);
 
-        int PASS_UPDATE_NXT = Constants.PASS_UPDATE_NXT; // パスワード有効期限月数
+        // パスワード有効期限月数の初期値
+        int PASS_UPDATE_NXT = Constants.PASS_UPDATE_NXT;
 
-        // パスワード有効期限
         // 環境マスタに登録したパスワード有効期限月数を取得
-        Env env = envSharedService.selectIntOne("PASS_UPDATE_NXT");
+        Integer env = envSharedService.selectIntOne("PASS_UPDATE_NXT");
 
         if (env != null) {
-            PASS_UPDATE_NXT = Integer.parseInt(env.getEnv_txt());
+            PASS_UPDATE_NXT = env;
         }
-
-        log.info("PASS_UPDATE_NXT：" + PASS_UPDATE_NXT);
-
+        
         // パスワード有効期限を計算
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
@@ -70,7 +62,7 @@ public class Password_changeServiceImpl implements Password_changeService {
 
         // フォームクラスをUserクラスに変換
         user.setUser_id(userId); // ユーザーID
-        user.setPassword(encryptPass); // パスワード
+        user.setPassword(passwordEncoder.encode(password)); // パスワード
         user.setPass_update(passwordUpdateDate); // パスワード有効期限
         user.setUpdate_user(userId); // 更新者はログインしようとしているユーザ
 

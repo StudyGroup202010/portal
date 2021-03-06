@@ -70,7 +70,7 @@ public class LoginUserRepository {
      * ユーザー情報を取得して、UserDetailsを生成するメソッド.
      * 
      * @param userId userId
-     * @return ユーザ情報
+     * @return user
      */
     public UserDetails selectOne(String userId) {
 
@@ -85,6 +85,9 @@ public class LoginUserRepository {
 
     /**
      * 権限リストを取得するメソッド.
+     * 
+     * @param userId userId
+     * @return grantedAuthorityList
      */
     private List<GrantedAuthority> getRoleList(String userId) {
 
@@ -112,6 +115,10 @@ public class LoginUserRepository {
 
     /**
      * ユーザークラスの作成.
+     * 
+     * @param userId               userId
+     * @param grantedAuthorityList
+     * @return user
      */
     private AppUserDetails buildUserDetails(String userId, List<GrantedAuthority> grantedAuthorityList) {
 

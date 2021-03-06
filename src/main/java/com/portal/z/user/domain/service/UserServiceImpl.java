@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 全件取得用メソッド.
      * 
-     * @return selectMany
+     * @return User
      */
     public List<User> selectMany() {
         // 全件取得
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
      * １件取得用メソッド.
      * 
      * @param user_id user
-     * @return selectOne
+     * @return User
      */
     public User selectOne(String user_id) {
         // selectOne実行
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
      * １件更新用メソッド.
      * 
      * @param user user
-     * @return updateOne
+     * @return true/false
      */
     public boolean updateOne(User user) {
         return userMapper.updateOne(user);
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
      * @param user_id            user_id
      * @param user_due_date_from user_due_date_from
      * @param user_due_date_to   user_due_date_to
-     * @return selectBy
+     * @return User
      */
     public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to) {
         // selectBy実行

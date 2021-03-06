@@ -8,7 +8,8 @@ import org.springframework.dao.DataAccessException;
  */
 public interface UserDao {
     /**
-     * userCsvOut()
+     * userCsvOut()<BR>
+     * SQL取得結果をサーバーにCSVで保存する
      * 
      * @throws DataAccessException エラー
      */
