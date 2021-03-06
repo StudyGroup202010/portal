@@ -22,7 +22,8 @@ public interface HttpErrors {
     String getMessage();
 
     /**
-     * エラー名を取得します。
+     * エラー名を取得します。<BR>
+     * エラー名とは"UNEXPECTED"などのこと
      * 
      * @return エラー名
      */

@@ -3,36 +3,32 @@ package com.portal.z.common.domain.service;
 import com.portal.z.common.domain.model.User;
 
 /**
- * UserSharedService
+ *  ユーザマスタ用共通サービス
  *
  */
 public interface UserSharedService {
 
     /**
-     * insert用メソッド.<BR>
+     * ユーザマスタ追加用メソッド<BR>
+     * ユーザマスタに追加するときは、ユーザロールマスタにも追加する必要があるため、このメソッドで一緒に行う。<BR>
      * 
-     * ユーザマスタとユーザロールマスタに追加する<BR>
-     * 
-     * ユーザマスタに追加するときは、ユーザロールマスタも追加しないといけないので、１つのメソッドにまとめました。
-     * 
+     * 以下の場合はアプリケーションエラー（ApplicationException）となる<BR>
+     *  ・環境マスタに"ROLE_NAME_G"が登録されていないとき。<BR>
+     *  ・一意制約エラーが発生したとき。
+     *  
      * @param user ユーザマスタ
-     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse。<BR>
-     *         アプリケーションエラー<BR>
-     *         ・環境マスタに"ROLE_NAME_G"が登録されていないとき。<BR>
-     *         ・一意制約エラーが発生したとき。
+     * @return 両方のテーブルに追加できたときtrue。それ以外はfalse。
      */
     public boolean insertOne(User user);
 
     /**
-     * delete用メソッド.<BR>
+     * ユーザマスタ削除用メソッド<BR>
      * 
-     * ユーザマスタとユーザロールマスタを削除する<BR>
-     * 
-     * ユーザマスタを削除するときは、まずユーザロールマスタを削除しないといけないので、１つのメソッドにまとめました。<BR>
+     * ユーザマスタを削除するときは、ユーザロールマスタも削除する必要があるため、このメソッドで一緒に行う。<BR>
      * ※参照整合性制約があるため
      * 
      * @param user_id user_id
-     * @return 削除が成功したときtrue。それ以外false
+     * @return 両方のテーブルの削除が成功したときtrue。それ以外false
      */
     public boolean deleteOne(String user_id);
 }

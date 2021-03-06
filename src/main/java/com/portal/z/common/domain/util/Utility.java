@@ -13,7 +13,7 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Component;
 
 /**
- * ユーティリティ関係
+ * ユーティリティ
  *
  */
 @Component("Utility")

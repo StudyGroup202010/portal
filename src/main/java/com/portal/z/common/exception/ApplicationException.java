@@ -6,9 +6,6 @@ import java.text.MessageFormat;
  * アプリケーション例外クラス。
  */
 public class ApplicationException extends RuntimeException {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     /** エラー */
@@ -87,7 +84,7 @@ public class ApplicationException extends RuntimeException {
     }
 
     /**
-     * {@inheritDoc}
+     * エラーメッセージを生成して返します。
      */
     @Override
     public String getMessage() {

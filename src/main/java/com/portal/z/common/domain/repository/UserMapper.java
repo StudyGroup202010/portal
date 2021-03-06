@@ -24,7 +24,7 @@ public interface UserMapper {
      * 登録用メソッド
      * 
      * @param user user
-     * @return insertOne
+     * @return true/false
      */
     public boolean insertOne(User user);
 
@@ -32,14 +32,14 @@ public interface UserMapper {
      * １件検索用メソッド
      * 
      * @param user_id user_id
-     * @return selectOne
+     * @return User
      */
     public User selectOne(String user_id);
 
     /**
      * 全件検索用メソッド
      * 
-     * @return selectMany
+     * @return UserList
      */
     public List<User> selectMany();
 
@@ -47,7 +47,7 @@ public interface UserMapper {
      * １件更新用メソッド
      * 
      * @param user user
-     * @return updateOne
+     * @return true/false
      */
     public boolean updateOne(User user);
 
@@ -55,7 +55,7 @@ public interface UserMapper {
      * １件削除用メソッド
      * 
      * @param user_id user_id
-     * @return deleteOne
+     * @return true/false
      */
     public boolean deleteOne(String user_id);
 
@@ -63,7 +63,7 @@ public interface UserMapper {
      * ロックフラグ更新用メソッド
      * 
      * @param user user
-     * @return updateLockflg
+     * @return true/false
      */
     public boolean updateLockflg(User user);
 
@@ -71,7 +71,7 @@ public interface UserMapper {
      * パスワード有効期限更新用メソッド
      * 
      * @param user user
-     * @return updatePassupdate
+     * @return true/false
      */
     public boolean updatePassupdate(User user);
 
@@ -81,10 +81,10 @@ public interface UserMapper {
      * @param user_id            user_id
      * @param user_due_date_from user_due_date_from
      * @param user_due_date_to   user_due_date_to
-     * @return selectBy
+     * @return UserList
      */
     public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
-    
+
     /**
      * 失敗回数をリセット(0回に更新)するメソッド
      * 
