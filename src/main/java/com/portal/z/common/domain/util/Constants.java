@@ -10,6 +10,43 @@ import org.springframework.stereotype.Controller;
 public final class Constants {
 
     /**
+     * ログイン失敗回数の最大値<BR>
+     * ・環境マスタ設定値。<BR>
+     * ・この値を超えるとアカウントがロックされます。<BR>
+     * ・初期値は１回。
+     */
+    public static final String LOGIN_MISS_TIMES_MAX = "1";
+
+    /**
+     * パスワード有効期間<BR>
+     * ・環境マスタ設定値。<BR>
+     * ・パスワードの有効期限の初期値（月数）<BR>
+     * ・初期値は１か月。
+     */
+    public static final int PASS_UPDATE_NXT = 1;
+
+    /**
+     * 認証情報有効期間<BR>
+     * ・認証情報の有効期限（分）<BR>
+     * ・初期値は３０分。
+     */
+    public static final int EXPIRYDATE_NXT = 30;
+
+    /**
+     * 秘密情報桁数<BR>
+     * ・秘密情報を生成する時に指定する桁数<BR>
+     * ・初期値は１０桁。
+     */
+    public static final int SECRET_LEN = 10;
+    
+    /**
+     * アプリケーションURL<BR>
+     * ・このアプリケーションのURL<BR>
+     * ・初期値は"http://localhost:8080/"。
+     */
+    public static final String APPLICATION_URL = "http://localhost:8080/";
+
+    /**
      * ロール名<BR>
      * ・環境マスタ設定値。<BR>
      * ・一般用と管理者用を登録する。<BR>
@@ -25,22 +62,6 @@ public final class Constants {
          */
         ROLE_NAME_A
     };
-
-    /**
-     * ログイン失敗回数の最大値<BR>
-     * ・環境マスタ設定値。<BR>
-     * ・この値を超えるとアカウントがロックされます。<BR>
-     * ・初期値は１回。
-     */
-    public static final String LOGIN_MISS_TIMES_MAX = "1";
-
-    /**
-     * パスワード有効期間<BR>
-     * ・環境マスタ設定値。<BR>
-     * ・パスワードの有効期限の初期値（月数）<BR>
-     * ・初期値は１か月。
-     */
-    public static final int PASS_UPDATE_NXT = 1;
 
     /**
      * メール送信可否フラグ<BR>
@@ -96,12 +117,17 @@ public final class Constants {
      */
     public static enum MAIL_ENV {
         /**
-         * 問い合わせ用メールの送信先メールアドレス
+         * 管理者用メールアドレス
          */
         MAIL_ADMIN_CONTACT,
         /**
          * 問い合わせ用メールのタイトル
          */
-        MAIL_TITLE_CONTACT
+        MAIL_TITLE_CONTACT,
+        /**
+         * パスワード再設定用メールのタイトル
+         */
+        MAIL_TITLE_PWREISSUE
     };
+
 }

@@ -21,12 +21,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class DateUtilsTest {
 
     /*
-     * 注意：
-     * 環境変数を変更している場合、@TestPropertySourceの設定を変更してください。
-     *   【標準の設定】
-     *   DATASOURCE_URL jdbc:postgresql://localhost:5432/SAMPLE
-     *   DATASOURCE_USERNAME postgres
-     *   DATASOURCE_PASSWORD admin
+     * 注意： 環境変数を変更している場合、@TestPropertySourceの設定を変更してください。 【標準の設定】 DATASOURCE_URL
+     * jdbc:postgresql://localhost:5432/SAMPLE DATASOURCE_USERNAME postgres
+     * DATASOURCE_PASSWORD admin
      */
 
     @Autowired
@@ -83,5 +80,71 @@ class DateUtilsTest {
     @Test
     final void dateUtils_setEndDate_null入力チェック() {
         assertThat(dateUtils.setEndDate(null)).isEqualTo("9999-12-31");
+    }
+
+    //
+    // compareDate
+    //
+    @Test
+    final void dateUtils_compareDate_等しいチェック() {
+        Date date_1 = new Date();
+        Date date_2 = new Date();
+        assertThat(dateUtils.compareDate(date_1, date_2)).isEqualTo(0);
+    }
+
+    @Test
+    final void dateUtils_compareDate_date_1が新しいチェック() {
+        Date date_1 = new Date();
+        Date date_2 = new Date(0);
+        assertThat(dateUtils.compareDate(date_1, date_2)).isEqualTo(1);
+    }
+
+    @Test
+    final void dateUtils_compareDate_date_2が新しいチェック() {
+        Date date_1 = new Date(0);
+        Date date_2 = new Date();
+        assertThat(dateUtils.compareDate(date_1, date_2)).isEqualTo(-1);
+    }
+
+    @Test
+    final void dateUtils_calcDate_引数エラーチェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "XX", 1)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_calcDate_年加算チェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "YYYY", 1)).isEqualTo("1971-01-01T09:00:00.000");
+    }
+
+    @Test
+    final void dateUtils_calcDate_月加算チェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "MM", 1)).isEqualTo("1970-02-01T09:00:00.000");
+    }
+
+    @Test
+    final void dateUtils_calcDate_日加算チェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "DD", 1)).isEqualTo("1970-01-02T09:00:00.000");
+    }
+
+    @Test
+    final void dateUtils_calcDate_時加算チェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "HH", 1)).isEqualTo("1970-01-01T10:00:00.000");
+    }
+
+    @Test
+    final void dateUtils_calcDate_分加算チェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "MI", 1)).isEqualTo("1970-01-01T09:01:00.000");
+    }
+
+    @Test
+    final void dateUtils_calcDate_秒加算チェック() {
+        Date date = new Date(0);
+        assertThat(dateUtils.calcDate(date, "SS", 1)).isEqualTo("1970-01-01T09:00:01.000");
     }
 }

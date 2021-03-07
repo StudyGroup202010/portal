@@ -25,25 +25,23 @@
         <!-- エラーメッセージ -->
         <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
             th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-            class="text-danger">
-            ログインエラーメッセージ
-        </p>
-        
+            class="text-danger">ログインエラーメッセージ</p>
+
         <!-- ユーザーID -->
         <div class="form-group">
-          <label>ユーザーID</label><br>
-          <input type="text" name="user_id" class="form-control-lg" />
+            <label>ユーザーID</label><br> <input type="text"
+                name="user_id" class="form-control-lg" />
         </div>
-        
+
         <!-- パスワード -->
         <div class="form-group">
-          <label>パスワード</label><br>
-          <input type="password" name="password" class="form-control-lg" />
+            <label>パスワード</label><br> <input type="password"
+                name="password" class="form-control-lg" />
         </div>
-        
+
         <!-- ログインボタン -->
         <button class="btn btn-primary btn-lg" type="submit">ログイン</button>
-        
+
         <!-- CSRF対策用トークン（フォームを使っている画面では必須） -->
         <!-- ただしフォームで"th:action"を使っている場合は不要 -->
         <!--
@@ -52,6 +50,11 @@
             th:value="${_csrf.token}" />
          -->
     </form>
-    <br />
+    <BR>
+    <a class="text" th:href="@{'/pwreissue'}">ログインパスワード再登録</a>
+    <BR>
+    <BR>
+    <!-- ログイン画面の結果表示 -->
+    <label class="text-info" th:text="${result}"></label>
 </body>
 </html>

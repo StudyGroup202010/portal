@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrapの設定 -->
+
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+
+
+    <title>パスワード再設定</title>
+</head>
+<body class="text-center">
+    <h3>ログインパスワード再設定</h3>
+    <br>
+    <div class="container col-sm-6">
+        <p class="text-justify">
+            ログインパスワードの再設定を行います。<BR>
+            再設定を行いたいユーザIDのメールアドレスをご入力のうえ、メール送信ボタンをクリックしてください。<BR>
+            パスワード再設定用のURLをメールでお送りします。
+        </p>
+        <p class="text-justify text-danger">
+            本手続きは完了しておりませんので、本画面は閉じずに、メールソフトを起動するなどして、
+            ご登録のメールアドレスに送信されるメールの内容をご確認のうえ、続けてお手続きください。
+        </p>
+    </div>
+    <form method="post" th:action="@{/pwreissue}"
+        th:object="${pwreissueForm}">
+        <!-- パスワード再設定 -->
+        <div class="form-group"
+            th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
+            <input type="text" class="form-control-lg"
+                th:field="*{user_id}" /> <BR> <span
+                class="text-danger"
+                th:if="${#fields.hasErrors('user_id')}"
+                th:errors="*{user_id}"> name error </span>
+        </div>
+        <!-- 戻るボタン -->
+        <button type="submit" name="back" class="btn btn-primary btn-lg">戻る</button>
+        <!-- メール送信ボタン -->
+        <button type="submit" name="regist" class="btn btn-danger btn-lg">メール送信</button>
+    </form>
+    <BR>
+    <!-- パスワード再設定画面情報作成処理の結果表示 -->
+    <label class="text-info" th:text="${result1}"></label>
+    <BR>
+    <label class="text-info" th:text="${result2}"></label>
+    <BR>
+    <label class="text-danger" th:text="${result3}"></label>
+    <BR>
+    <div th:insert="z/footer :: footer"></div>
+</body>
+</html>
