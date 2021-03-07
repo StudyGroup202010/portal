@@ -51,7 +51,10 @@
          -->
     </form>
     <BR>
-    <a class="text" th:href="@{'/pwreissue'}">パスワード再設定</a>
-    <a class="text" th:href="@{'/resetpassword'}">パスワード再登録</a>
+    <a class="text" th:href="@{'/pwreissue'}">ログインパスワード再登録</a>
+    <BR>
+    <BR>
+    <!-- ログイン画面の結果表示 -->
+    <label class="text-info" th:text="${result}"></label>
 </body>
 </html>

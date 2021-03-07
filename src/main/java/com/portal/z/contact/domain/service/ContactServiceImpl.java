@@ -31,7 +31,7 @@ public class ContactServiceImpl implements ContactService {
 
     public void Contactmailsendregister(String sendFrom, String text) throws MessagingException {
 
-        // 送信元メールアドレスを取得
+        // 送信先メールアドレスを取得
         Env sendTo = envMapper.selectOne(Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name());
         if (sendTo == null) {
             log.info("問い合わせ用送信先メールアドレス取得失敗");

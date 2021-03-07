@@ -13,19 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public interface PwreissueService {
     /**
-     * パスワード再発行情報に追加する。
+     * パスワード再発行情報に追加し、URLをメール送信する。
      * 
      * @param user_id user_id
-     * @return 仮パスワード
+     * @return 生成された秘密情報
+     * @throws MessagingException MessagingException
      */
-    public String insertPwreissueinfo(String user_id);
-
-    /**
-     * パスワード再設定画面のURLをメールで送る。
-     * 
-     * @param user_id user_id
-     * @throws MessagingException
-     */
-    public void sendMailToUser(String user_id) throws MessagingException;
-
+    public String insertPwreissueinfo(String user_id) throws MessagingException;
 }

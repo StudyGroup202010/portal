@@ -47,18 +47,9 @@
     <delete id="deleteOne" parameterType="string">
         delete from zt001_pwreissueinfo where token = #{token}
     </delete>
-    
-        <!-- １件検索 -->
-    <select id="selectOneByUserid" parameterType="string" resultType="com.portal.z.common.domain.model.Pwreissueinfo">
-        select
-           token
-          ,user_id
-          ,secret
-          ,expirydate
-        from
-          zt001_pwreissueinfo
-        where
-          user_id = #{user_id}
-        order by to_char(expirydate, 'HH12:MI:SS') desc limit 1
-    </select>
+
+    <!-- １件削除 -->
+    <delete id="deleteOneByUserid" parameterType="string">
+        delete from zt001_pwreissueinfo where user_id = #{user_id}
+    </delete>
 </mapper>
