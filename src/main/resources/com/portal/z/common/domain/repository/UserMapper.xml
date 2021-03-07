@@ -175,4 +175,15 @@
         where
           user_id = #{user_id}
     </update>
+    <!-- パスワードを更新 -->
+    <update id="updatePassword" parameterType="string">
+        update
+          zm001_user
+        set
+           password = #{password}
+          ,update_user = #{user_id}
+          ,update_date = NOW()
+        where
+          user_id = #{user_id}
+    </update>
 </mapper>

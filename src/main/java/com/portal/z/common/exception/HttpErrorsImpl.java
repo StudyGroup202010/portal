@@ -19,6 +19,10 @@ public enum HttpErrorsImpl implements HttpErrors {
      */
     DUPLICATED(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」は既に登録されています。"),
     /**
+     * 整合性制約エラー用メッセージ
+     */
+    DATAINTEGRITY(HttpStatus.INTERNAL_SERVER_ERROR, "「{0}」は存在しません。"),
+    /**
      * 想定外エラー用メッセージ
      */
     UNEXPECTED(HttpStatus.INTERNAL_SERVER_ERROR, "想定外のエラーが発生しました。 : {0}");

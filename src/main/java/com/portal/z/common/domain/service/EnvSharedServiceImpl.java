@@ -6,9 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.repository.EnvMapper;
-import com.portal.z.common.domain.util.Constants;
-import com.portal.z.common.exception.ApplicationException;
-import com.portal.z.common.exception.HttpErrorsImpl;
+
 
 /**
  * 環境マスタ用共通Service

@@ -1,6 +1,5 @@
 package com.portal.z.password_change.domain.service;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -13,6 +12,7 @@ import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.util.Constants;
+import com.portal.z.common.domain.util.DateUtils;
 
 /**
  * Password_changeServiceImpl
@@ -32,6 +32,9 @@ public class Password_changeServiceImpl implements Password_changeService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private DateUtils dateUtils;
+
     /**
      * パスワードを更新する.
      * 
@@ -50,12 +53,9 @@ public class Password_changeServiceImpl implements Password_changeService {
         if (env != null) {
             PASS_UPDATE_NXT = env;
         }
-        
+
         // パスワード有効期限を計算
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        cal.add(Calendar.MONTH, PASS_UPDATE_NXT); // 月加算
-        Date passwordUpdateDate = cal.getTime();
+        Date passwordUpdateDate = dateUtils.calcDate(new Date(), "MM", PASS_UPDATE_NXT);
 
         // Userインスタンスの生成
         User user = new User();
