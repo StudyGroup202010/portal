@@ -3,6 +3,7 @@ package com.portal.z.contact.controller;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.contact.domain.model.ContactForm;
 import com.portal.z.contact.domain.service.ContactService;
@@ -38,6 +40,11 @@ public class ContactController {
     @GetMapping("/contact")
     public String getContact(@ModelAttribute ContactForm form, Model model) {
 
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        form.setContact_name(user_auth.getUsername());  // ユーザID
+        form.setContact_email(user_auth.getUsername()); // メールアドレス
         model.addAttribute("contactForm", form);
 
         // コンテンツ部分に問い合わせ画面を表示するための文字列を登録
