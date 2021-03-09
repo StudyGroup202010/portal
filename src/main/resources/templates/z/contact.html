@@ -26,18 +26,23 @@
 		</div>
 		<div class="container"></div>
 		<div>
-			<p class="text-left">以下を入力して送信ボタンをクリックしてください。（＊は入力必須です。）</p>
-			<form method="post" th:action="@{/contact}"
+            <p class="text-left">以下を入力して送信ボタンをクリックしてください。（＊は入力必須です。）</p>
+            <!-- 送信処理の結果表示用 -->
+            <label class="text-info" th:text="${result}">結果表示</label><br />
+            <form method="post" th:action="@{/contact}"
 				th:object="${contactForm}">
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('contact_name')} ? 'has-error'">
-					<div class="col-sm-4">
-						ユーザID＊<input type="text" class="form-control"
-							th:field="*{contact_name}" /> <span class="text-danger"
-							th:if="${#fields.hasErrors('contact_name')}"
-							th:errors="*{contact_name}"> name error </span>
-					</div>
-				</div>
+                    <div class="col-sm-4">
+                        ユーザID<input type="text" class="form-control"
+                            th:field="*{contact_name}"
+                            readonly="readonly" /> <span
+                            class="text-danger"
+                            th:if="${#fields.hasErrors('contact_name')}"
+                            th:errors="*{contact_name}"> name
+                            error </span>
+                    </div>
+                </div>
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('contact_email')} ? 'has-error'">
 					<div class="col-sm-4">
@@ -89,8 +94,7 @@
 				</div>
 			</form>
 		</div>
-		<!-- 送信処理の結果表示用 -->
-		<label class="text-info" th:text="${result}">結果表示</label><br />
+
 		<div th:insert="z/footer :: footer"></div>
 	</div>
 </body>
