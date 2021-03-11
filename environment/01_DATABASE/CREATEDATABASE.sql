@@ -1,1 +1,1 @@
-create database SAMPLE;
+create database PORTAL;
