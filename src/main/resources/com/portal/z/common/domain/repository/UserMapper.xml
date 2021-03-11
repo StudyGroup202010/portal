@@ -132,7 +132,8 @@
         update
           zm001_user
         set
-           pass_update = #{pass_update}
+           password    = #{password}
+          ,pass_update = #{pass_update}
           ,update_user = #{update_user}
           ,update_date = NOW()
         where
