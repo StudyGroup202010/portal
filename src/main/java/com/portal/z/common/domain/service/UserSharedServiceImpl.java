@@ -1,7 +1,11 @@
 package com.portal.z.common.domain.service;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +18,7 @@ import com.portal.z.common.domain.repository.UserroleMapper;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.common.exception.HttpErrorsImpl;
 import com.portal.z.common.domain.util.Constants;
+import com.portal.z.common.domain.util.DateUtils;
 
 /**
  * ユーザマスタ用共通サービス
@@ -21,17 +26,27 @@ import com.portal.z.common.domain.util.Constants;
  */
 @Transactional
 @Service
-public class UserSharedServiceImpl implements UserSharedService{
+public class UserSharedServiceImpl implements UserSharedService {
 
     @Autowired
     private UserroleMapper userroleMapper;
 
     @Autowired
     private UserMapper userMapper;
-    
+
     @Autowired
     private RoleMapper roleMapper;
-    
+
+    @Autowired
+    private EnvSharedService envSharedService;
+
+    @Autowired
+    private DateUtils dateUtils;
+
+    // パスワード暗号化
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public boolean insertOne(User user) {
 
         // 環境マスタに登録したロール名（一般ユーザ）のrole_idを取得する
@@ -75,5 +90,34 @@ public class UserSharedServiceImpl implements UserSharedService{
         } else {
             return false;
         }
+    }
+
+    public boolean updatePasswordDate(String userId, String password) throws ParseException {
+
+        // パスワード有効期限月数の初期値
+        int PASS_UPDATE_NXT = Constants.PASS_UPDATE_NXT;
+
+        // 環境マスタに登録したパスワード有効期限月数を取得
+        Integer env = envSharedService.selectIntOne("PASS_UPDATE_NXT");
+
+        if (env != null) {
+            PASS_UPDATE_NXT = env;
+        }
+
+        // パスワード有効期限を計算
+        Date passwordUpdateDate = dateUtils.calcDate(new Date(), "MM", PASS_UPDATE_NXT);
+
+        // Userインスタンスの生成
+        User user = new User();
+
+        // フォームクラスをUserクラスに変換
+        user.setUser_id(userId); // ユーザーID
+        user.setPassword(password); // パスワード
+        user.setPass_update(passwordUpdateDate); // パスワード有効期限
+        user.setUpdate_user(userId); // 更新者はログインしようとしているユーザ
+
+        // パスワード更新
+        return userMapper.updatePassupdate(user);
+
     }
 }

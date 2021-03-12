@@ -1,5 +1,7 @@
 package com.portal.z.common.domain.service;
 
+import java.text.ParseException;
+
 import com.portal.z.common.domain.model.User;
 
 /**
@@ -31,4 +33,14 @@ public interface UserSharedService {
      * @return 両方のテーブルの削除が成功したときtrue。それ以外false
      */
     public boolean deleteOne(String user_id);
+    
+    /**
+     * パスワードを更新する.
+     * 
+     * @param userId   userId
+     * @param password password
+     * @return true/false
+     * @throws ParseException ParseException
+     */
+    public boolean updatePasswordDate(String userId, String password) throws ParseException;
 }

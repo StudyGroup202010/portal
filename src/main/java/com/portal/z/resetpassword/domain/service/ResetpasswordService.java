@@ -33,15 +33,6 @@ public interface ResetpasswordService {
     public boolean checksecret(String token, String secret);
 
     /**
-     * パスワードを更新する。
-     * 
-     * @param user_id  user_id
-     * @param password password
-     * @return true/false
-     */
-    public boolean updatePasswordByUserid(String user_id, String password);
-
-    /**
      * パスワード再発行情報を削除する。
      * 
      * @param user_id user_id

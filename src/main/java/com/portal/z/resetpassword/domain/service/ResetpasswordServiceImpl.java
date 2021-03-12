@@ -48,10 +48,6 @@ public class ResetpasswordServiceImpl implements ResetpasswordService {
         return false;
     }
 
-    public boolean updatePasswordByUserid(String user_id, String password) {
-        return userMapper.updatePassword(user_id, password);
-    }
-
     public boolean deletePwreissueinfoByUserid(String user_id) {
         return pwreissueinfoMapper.deleteOneByUserid(user_id);
     }

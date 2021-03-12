@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.portal.z.common.domain.model.Pwreissueinfo;
+import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.resetpassword.domain.model.ResetpasswordForm;
 import com.portal.z.resetpassword.domain.service.ResetpasswordService;
@@ -31,10 +32,13 @@ public class ResetpasswordController {
     @Autowired
     ResetpasswordService resetpasswordService;
 
+    @Autowired
+    private UserSharedService userSharedService;
+
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private DateUtils dateUtils;
 
@@ -86,10 +90,10 @@ public class ResetpasswordController {
         if (bindingResult.hasErrors()) {
             return getResetpassword(form, model);
         }
-        
+
         // 入力した仮パスワードと秘密情報があっていなければエラー
-        boolean result1 = resetpasswordService.checksecret(form.getToken(),form.getSecret());
-        
+        boolean result1 = resetpasswordService.checksecret(form.getToken(), form.getSecret());
+
         if (result1 == false) {
             model.addAttribute("result", "仮パスワードが間違っています。");
             return getResetpassword(form, model);
@@ -105,7 +109,7 @@ public class ResetpasswordController {
         String password = passwordEncoder.encode(form.getNewPassword());
 
         // Userマスタのパスワードを、入力したパスワードで更新する。
-        boolean result2 = resetpasswordService.updatePasswordByUserid(form.getUser_id(), password);
+        boolean result2 = userSharedService.updatePasswordDate(form.getUser_id(), password);
 
         if (result2 == true) {
             model.addAttribute("result", "パスワードが更新されました。");
