@@ -1,5 +1,7 @@
 package com.portal.z.password_change.domain.model;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PasswordForm {
-    /** パスワード */
-    private String password;
+    @NotBlank(message = "{require_check}")
+    private String newPassword; /** パスワード */
+    
+    @NotBlank(message = "{require_check}")
+    private String confirmNewPassword;
 }

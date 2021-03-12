@@ -7,6 +7,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +26,7 @@ public class Password_changeController {
 
     @Autowired
     private UserSharedService userSharedService;
-    
+
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -51,14 +53,25 @@ public class Password_changeController {
      * @throws ParseException ParseException
      */
     @PostMapping("/password/change")
-    public String postPasswordChange(Model model, @ModelAttribute PasswordForm form,
-            @AuthenticationPrincipal AppUserDetails user) throws ParseException {
-        
+    public String postPasswordChange(Model model, @ModelAttribute @Validated PasswordForm form,
+            BindingResult bindingResult, @AuthenticationPrincipal AppUserDetails user) throws ParseException {
+
+        // 入力チェックに引っかかった場合、パスワード再発行画面に戻る
+        if (bindingResult.hasErrors()) {
+            return getPasswordChange(model, form);
+        }
+
+        // 入力したパスワードと再登録したパスワードが等しくなかったらパスワード再発行画面に戻る
+        if (form.getConfirmNewPassword().equals(form.getNewPassword()) == false) {
+            model.addAttribute("result", "新しいパスワードを正しく入力してください。");
+            return getPasswordChange(model, form);
+        }
+
         // パスワードを暗号化する
-        String password = passwordEncoder.encode(form.getPassword());
+        String password = passwordEncoder.encode(form.getNewPassword());
 
         userSharedService.updatePasswordDate(user.getUser_id(), password);
-
+        
         return "redirect:/home";
     }
 }
