@@ -92,13 +92,4 @@ public interface UserMapper {
      * @return 成功ならtrue/失敗ならfalse
      */
     public boolean updateLoginMissTimes(String user_id);
-
-    /**
-     * パスワードを更新するメソッド
-     * 
-     * @param user_id user_id
-     * @param password password
-     * @return 成功ならtrue/失敗ならfalse
-     */
-    public boolean updatePassword(String user_id,String password);
 }
