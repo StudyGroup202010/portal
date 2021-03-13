@@ -9,7 +9,6 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -47,21 +46,16 @@ public class Utility {
     /**
      * メッセージ取得共通処理<br>
      * 
-     * messageKeyに該当するメッセージプロパティのメッセージを取得します。
-     * messageKeyに該当するメッセージが存在しない場合、MessageKeyNotExistsのメッセージを返します。
+     * messageKeyに該当するメッセージプロパティのメッセージを取得します。<BR>
+     * 例） getMsg("messageKey01", new Object[] { "arg01", "arg02" });
      * 
      * @param messageKey メッセージプロパティのKEY
+     * @param args       パラメータ
      * @return メッセージ(メッセージプロパティのVALUE)
      */
-    public String getMsg(String messageKey) {
-        String message = "";
+    public String getMsg(String messageKey, Object[] args) {
 
-        try {
-            message = messageSource.getMessage(messageKey, null, Locale.getDefault());
-        } catch (NoSuchMessageException ne) {
-            message = messageSource.getMessage("MessageKeyNotExists", null, Locale.getDefault());
-        }
+        return messageSource.getMessage(messageKey, args, "エラーメッセージが登録されていません。", Locale.getDefault());
 
-        return message;
     }
 }

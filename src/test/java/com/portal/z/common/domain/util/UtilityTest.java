@@ -42,12 +42,12 @@ class UtilityTest {
     //
     @Test
     final void utility_getMsg_メッセージID無し() {
-        assertThat(utility.getMsg("999")).isEqualTo("【(要対応)メッセージが存在しません！】");
+        assertThat(utility.getMsg("999",null)).isEqualTo("エラーメッセージが登録されていません。");
     }
 
     @Test
     final void utility_getMsg_RoleNameNotFoundAtEnvTable() {
-        assertThat(utility.getMsg("RoleNameNotFoundAtEnvTable"))
+        assertThat(utility.getMsg("RoleNameNotFoundAtEnvTable",null))
                 .isEqualTo("【管理者に連絡してください】環境マスタ「ROLE_NAME_G」に登録した値がロールマスタに存在しません。");
     }
 }

@@ -99,12 +99,6 @@ public class ResetpasswordController {
             return getResetpassword(form, model);
         }
 
-        // 入力したパスワードと再登録したパスワードが等しくなかったらパスワード再発行画面に戻る
-        if (form.getConfirmNewPassword().equals(form.getNewPassword()) == false) {
-            model.addAttribute("result", "新しいパスワードを正しく入力してください。");
-            return getResetpassword(form, model);
-        }
-
         // パスワードを暗号化する
         String password = passwordEncoder.encode(form.getNewPassword());
 
