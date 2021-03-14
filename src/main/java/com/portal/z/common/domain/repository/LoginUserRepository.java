@@ -123,7 +123,7 @@ public class LoginUserRepository {
         if (userMapList.isEmpty()) {
             // ユーザマスタにユーザIDが登録されていなかったとき
             log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
-            throw new UsernameNotFoundException(massageUtils.getMsg("w.co.fw.2.013", null));
+            throw new UsernameNotFoundException(massageUtils.getMsg("e.co.fw.1.009", null));
         }
 
         Map<String, Object> userMap = userMapList.get(0);

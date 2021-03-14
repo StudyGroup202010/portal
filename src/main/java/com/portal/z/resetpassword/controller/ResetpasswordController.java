@@ -61,13 +61,13 @@ public class ResetpasswordController {
 
         if (pwreissueinfo == null) {
             // 認証情報が無ければログイン画面に戻る。
-            model.addAttribute("result", massageUtils.getMsg("e.co.fw.2.008", null));
+            model.addAttribute("result", massageUtils.getMsg("e.co.fw.2.006", null));
             return "z/login";
         }
 
         if (dateUtils.compareDate(new Date(), pwreissueinfo.getExpirydate()) != -1) {
             // 認証情報有効期限外
-            model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.009", null));
+            model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.001", null));
             return "z/login";
         }
 
@@ -99,7 +99,7 @@ public class ResetpasswordController {
         boolean result1 = resetpasswordService.checksecret(form.getToken(), form.getSecret());
 
         if (result1 == false) {
-            model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.010", null));
+            model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.007", null));
             return getResetpassword(form, model);
         }
 

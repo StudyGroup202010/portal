@@ -41,7 +41,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 送信元のアドレスか送信先のアドレスが未入力の時はエラー
         if (sendFrom == null || sendTo == null) {
             log.info("送信者のアドレスか送信先のアドレスが未入力");
-            String messageKey = "e.co.fw.3.002";
+            String messageKey = "e.co.fw.2.002";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { "送信者か送信先" }));
         }
 

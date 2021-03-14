@@ -80,7 +80,7 @@ public class UserSharedServiceImpl implements UserSharedService {
 
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            String messageKey = "e.co.fw.3.003";
+            String messageKey = "e.co.fw.2.003";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { user.getUser_id() }), e);
         }

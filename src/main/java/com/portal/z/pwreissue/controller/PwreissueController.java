@@ -67,15 +67,15 @@ public class PwreissueController {
         try {
             // パスワード再発行情報を登録する。
             String result = pwreissueService.insertPwreissueinfo(form.getUser_id());
-            model.addAttribute("result1", massageUtils.getMsg("i.co.pr.0.005", null));
-            model.addAttribute("result2", massageUtils.getMsg("i.co.pr.0.006", null));
+            model.addAttribute("result1", massageUtils.getMsg("i.co.pr.0.001", null));
+            model.addAttribute("result2", massageUtils.getMsg("i.co.pr.0.002", null));
             model.addAttribute("result3", "仮パスワード：" + result);
 
         } catch (ApplicationException e) {
             model.addAttribute("result1", e.getMessage());
 
         } catch (MailConnectException | AuthenticationFailedException e) {
-            model.addAttribute("result1", massageUtils.getMsg("e.co.fw.3.007", null) + e.getMessage());
+            model.addAttribute("result1", massageUtils.getMsg("e.co.fw.3.005", null) + e.getMessage());
         }
 
         return getPwreissue(form, model);
