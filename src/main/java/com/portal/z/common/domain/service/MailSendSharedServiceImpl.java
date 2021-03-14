@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.util.Constants;
+import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.common.exception.HttpErrorsImpl;
 
@@ -31,6 +32,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
 
     @Autowired
     private EnvMapper envMapper;
+    
+    @Autowired
+    private MassageUtils massageUtils;
 
     public void mailsendregister(String sendFrom, String sendTo, String Subject, String text)
             throws MessagingException {
@@ -38,6 +42,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 送信元のアドレスか送信先のアドレスが未入力の時はエラー
         if (sendFrom == null || sendTo == null) {
             log.info("送信者のアドレスか送信先のアドレスが未入力");
+            log.info(massageUtils.getMsg("e.co.fw.3.002",new String[] {"aaa"}));
             throw new ApplicationException(HttpErrorsImpl.NOTSET_MAILADRESS, "送信者か送信先");
         }
 
