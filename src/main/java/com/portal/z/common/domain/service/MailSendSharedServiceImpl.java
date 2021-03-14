@@ -17,7 +17,6 @@ import com.portal.z.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;
-import com.portal.z.common.exception.HttpErrorsImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,7 +31,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
 
     @Autowired
     private EnvMapper envMapper;
-    
+
     @Autowired
     private MassageUtils massageUtils;
 
@@ -42,8 +41,8 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 送信元のアドレスか送信先のアドレスが未入力の時はエラー
         if (sendFrom == null || sendTo == null) {
             log.info("送信者のアドレスか送信先のアドレスが未入力");
-            log.info(massageUtils.getMsg("e.co.fw.3.002",new String[] {"aaa"}));
-            throw new ApplicationException(HttpErrorsImpl.NOTSET_MAILADRESS, "送信者か送信先");
+            String messageKey = "e.co.fw.3.002";
+            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { "送信者か送信先" }));
         }
 
         // 環境マスタに登録したメール送信可否フラグを取得する
@@ -51,7 +50,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env sendmail = envMapper.selectOne(Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
         if (sendmail == null) {
             log.info("メール送信可否フラグ取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.SEND_MAIL.SEND_MAIL_ENABLE.name() }));
         }
 
         // 環境マスタに登録したSMTPホストアドレスを取得する
@@ -59,7 +60,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env host = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
         if (host == null) {
             log.info("SMTPホストアドレス取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_HOST.name() }));
         }
 
         // 環境マスタに登録したSMTPポート番号を取得する
@@ -67,7 +70,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env port = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
         if (port == null) {
             log.info("SMTPポート番号取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_PORT.name() }));
         }
 
         // 環境マスタに登録したSMTPログインユーザ名を取得する
@@ -75,7 +80,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env username = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
         if (username == null) {
             log.info("SMTPログインユーザ名取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name() }));
         }
 
         // 環境マスタに登録したSMTPログインパスワードを取得する
@@ -83,7 +90,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env password = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
         if (password == null) {
             log.info("SMTPログインパスワード取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name() }));
         }
 
         // 環境マスタに登録したSMTP認証を取得する
@@ -91,7 +100,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env auth = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
         if (auth == null) {
             log.info("SMTP認証取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name() }));
         }
 
         // 環境マスタに登録したTLS接続を取得する
@@ -99,8 +110,9 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         Env starttls = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
         if (starttls == null) {
             log.info("TLS接続取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV,
-                    Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
+                    new String[] { Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name() }));
         }
 
         // セッション用作成用の接続情報を設定する

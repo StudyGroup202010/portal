@@ -33,12 +33,12 @@ class MessageUtilsTest {
     //
     @Test
     final void utility_getMsg_メッセージID無し() {
-        assertThat(massageUtils.getMsg("999",null)).isEqualTo("エラーメッセージが登録されていません。");
+        assertThat(massageUtils.getMsg("999",null)).isEqualTo("[999]：エラーメッセージが登録されていません。");
     }
 
     @Test
     final void utility_getMsg_RoleNameNotFoundAtEnvTable() {
         assertThat(massageUtils.getMsg("e.co.fw.3.000",new String[] {"TEST"}))
-                .isEqualTo("想定外のエラーが発生しました。 : TEST");
+                .isEqualTo("[e.co.fw.3.000]：想定外のエラーが発生しました。 : TEST");
     }
 }

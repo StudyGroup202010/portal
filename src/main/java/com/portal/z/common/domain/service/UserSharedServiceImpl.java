@@ -16,9 +16,9 @@ import com.portal.z.common.domain.repository.RoleMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.repository.UserroleMapper;
 import com.portal.z.common.exception.ApplicationException;
-import com.portal.z.common.exception.HttpErrorsImpl;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
+import com.portal.z.common.domain.util.MassageUtils;
 
 /**
  * ユーザマスタ用共通サービス
@@ -46,6 +46,9 @@ public class UserSharedServiceImpl implements UserSharedService {
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private MassageUtils massageUtils;
 
     public boolean insertOne(User user) {
 
@@ -53,7 +56,9 @@ public class UserSharedServiceImpl implements UserSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Role role = roleMapper.selectRoleid(Constants.ROLE_NAME.ROLE_NAME_G.name());
         if (role == null) {
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.ROLE_NAME.ROLE_NAME_G.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.ROLE_NAME.ROLE_NAME_G.name() }));
         }
 
         // ユーザロールマスタinsert用変数
@@ -75,7 +80,9 @@ public class UserSharedServiceImpl implements UserSharedService {
 
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            throw new ApplicationException(HttpErrorsImpl.DUPLICATED, e, user.getUser_id());
+            String messageKey = "e.co.fw.3.003";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { user.getUser_id() }), e);
         }
     }
 

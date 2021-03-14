@@ -1,31 +1,31 @@
-package com.portal.z.common.exception;
-
-import org.springframework.http.HttpStatus;
-
-/**
- * HTTPサービスの共通エラー。
- */
-public interface HttpErrors {
-    
-    /**
-     * HTTPステータスを取得します。
-     * 
-     * @return HTTPステータス
-     */
-    HttpStatus getStatus();
-
-    /**
-     * メッセージを取得します。
-     * 
-     * @return メッセージ
-     */
-    String getMessage();
-
-    /**
-     * エラー名を取得します。<BR>
-     * エラー名とは"UNEXPECTED"などのこと
-     * 
-     * @return エラー名
-     */
-    String name();
-}
+//package com.portal.z.common.exception;
+//
+//import org.springframework.http.HttpStatus;
+//
+///**
+// * HTTPサービスの共通エラー。
+// */
+//public interface HttpErrors {
+//    
+//    /**
+//     * HTTPステータスを取得します。
+//     * 
+//     * @return HTTPステータス
+//     */
+//    HttpStatus getStatus();
+//
+//    /**
+//     * メッセージを取得します。
+//     * 
+//     * @return メッセージ
+//     */
+//    String getMessage();
+//
+//    /**
+//     * エラー名を取得します。<BR>
+//     * エラー名とは"UNEXPECTED"などのこと
+//     * 
+//     * @return エラー名
+//     */
+//    String name();
+//}

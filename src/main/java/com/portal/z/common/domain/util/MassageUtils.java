@@ -20,15 +20,18 @@ public class MassageUtils {
      * メッセージ取得共通処理<br>
      * 
      * messageKeyに該当するメッセージプロパティのメッセージを取得します。<BR>
-     * 例） getMsg("messageKey01", new String[] { "arg01", "arg02" });
+     * 例） getMsg("message_id01", new String[] { "arg01", "arg02" });
      * 
-     * @param messageKey メッセージプロパティのKEY
+     * @param message_id メッセージID
      * @param args       パラメータ
      * @return メッセージ(メッセージプロパティのVALUE)
      */
-    public String getMsg(String messageKey, Object[] args) {
+    public String getMsg(String message_id, Object[] args) {
 
-        return messageSource.getMessage(messageKey, args, Constants.NOT_FOUND_MESSAGE, Locale.getDefault());
+        String message = "[" + message_id + "]："
+                + messageSource.getMessage(message_id, args, Constants.NOT_FOUND_MESSAGE, Locale.getDefault());
+
+        return message;
 
     }
 }

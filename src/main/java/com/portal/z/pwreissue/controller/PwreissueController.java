@@ -69,7 +69,8 @@ public class PwreissueController {
             model.addAttribute("result3", "仮パスワード：" + result);
 
         } catch (ApplicationException e) {
-            if (e.getError().toString().compareTo("DATAINTEGRITY") == 0) {
+            if (e.getMessage_id().toString().compareTo("e.co.fw.3.004") == 0) {
+                // 整合性制約エラーの時
                 model.addAttribute("result1", "このユーザIDは登録されていません。");
             } else {
                 model.addAttribute("result1", "送信が出来ませんでした。送信不可になっているか、送信設定が間違っている可能性があります。" + e.getMessage());
