@@ -52,7 +52,6 @@ public class ContactServiceImpl implements ContactService {
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_TITLE_CONTACT.name() }));
         }
 
-//        mailSendSharedService.mailsendregister(sendFrom, sendTo.getEnv_txt(), Subject.getEnv_txt(), text);
-        mailSendSharedService.mailsendregister(null, sendTo.getEnv_txt(), Subject.getEnv_txt(), text);
+        mailSendSharedService.mailsendregister(sendFrom, sendTo.getEnv_txt(), Subject.getEnv_txt(), text);
     }
 }

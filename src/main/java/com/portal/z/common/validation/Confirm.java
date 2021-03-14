@@ -19,9 +19,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME) // アノテーションが影響する範囲。
 public @interface Confirm {
     /**
-     * @return　メッセージ
+     * @return メッセージ
      */
-    String message() default "The values are different.";
+    String message() default "";
 
     /**
      * @return 空のgroups()
@@ -29,12 +29,12 @@ public @interface Confirm {
     Class<?>[] groups() default {};
 
     /**
-     * @return　空のpayload()
+     * @return 空のpayload()
      */
     Class<? extends Payload>[] payload() default {};
 
     /**
-     * @return　アノテーションに渡す項目名
+     * @return アノテーションに渡す項目名
      */
     String field(); // アノテーションに渡す項目
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.contact.domain.model.ContactForm;
 import com.portal.z.contact.domain.service.ContactService;
@@ -27,6 +28,9 @@ public class ContactController {
 
     @Autowired
     ContactService contactService;
+    
+    @Autowired
+    private MassageUtils massageUtils;
 
     /**
      * 問い合わせ画面のGETメソッド用処理.<BR>
@@ -80,8 +84,7 @@ public class ContactController {
         try {
             // メールを送信する。
             contactService.Contactmailsendregister(form.getContact_email(), text);
-
-            model.addAttribute("result", "ご記入いただいた内容を担当者に送信しました。");
+            model.addAttribute("result", massageUtils.getMsg("i.co.pr.0.012", null));
             // Modelを初期化
             form.setContact_name(null); // ユーザID
             form.setContact_email(null); // メールアドレス
@@ -89,9 +92,9 @@ public class ContactController {
             model.addAttribute("ContactForm", form);
 
         } catch (ApplicationException e) {
-            model.addAttribute("result", "送信が出来ませんでした。送信不可になっているか、送信設定が間違っている可能性があります。"+ e.getMessage());
+            model.addAttribute("result", e.getMessage());
         } catch (MailConnectException | AuthenticationFailedException e) {
-            model.addAttribute("result", "送信が出来ませんでした。送信設定が間違っている可能性があります。"+ e.getMessage());
+            model.addAttribute("result", massageUtils.getMsg("e.co.fw.3.007", null) + e.getMessage());
         }
 
         // 問い合わせ画面を表示

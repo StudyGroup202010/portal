@@ -21,17 +21,19 @@ public class MassageUtils {
      * 
      * messageKeyに該当するメッセージプロパティのメッセージを取得します。<BR>
      * 例） getMsg("message_id01", new String[] { "arg01", "arg02" });
+     * メッセージIDがinfoではないときは、メッセージの先頭にメッセージIDが付与されます。
      * 
      * @param message_id メッセージID
      * @param args       パラメータ
-     * @return メッセージ(メッセージプロパティのVALUE)
+     * @return メッセージ
      */
     public String getMsg(String message_id, Object[] args) {
 
-        String message = "[" + message_id + "]："
-                + messageSource.getMessage(message_id, args, Constants.NOT_FOUND_MESSAGE, Locale.getDefault());
+        String message = messageSource.getMessage(message_id, args, Constants.NOT_FOUND_MESSAGE, Locale.getDefault());
 
+        if (message_id.substring(0, 1).compareTo("i") != 0) {
+            message = "[" + message_id + "]：" + message;
+        }
         return message;
-
     }
 }
