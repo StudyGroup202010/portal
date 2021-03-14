@@ -26,7 +26,8 @@
 			<div class="page-header">
 				<h3>ユーザー登録</h3>
 			</div>
-
+            <!-- ユーザー登録画面の結果表示 -->
+            <label class="text-danger" th:text="${result}"></label>
 			<form method="post" th:action="@{/userUpdate}"
 				th:object="${inputForm}">
 				<table class="table table-bordered table-hover table-sm">
