@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.portal.z.common.domain.model.Pwreissueinfo;
 import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.DateUtils;
+import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.resetpassword.domain.model.ResetpasswordForm;
 import com.portal.z.resetpassword.domain.service.ResetpasswordService;
 
@@ -41,6 +42,9 @@ public class ResetpasswordController {
 
     @Autowired
     private DateUtils dateUtils;
+    
+    @Autowired
+    private MassageUtils massageUtils;
 
     /**
      * 画面表示.
@@ -57,13 +61,13 @@ public class ResetpasswordController {
 
         if (pwreissueinfo == null) {
             // 認証情報が無ければログイン画面に戻る。
-            model.addAttribute("result", "認証情報がありません。");
+            model.addAttribute("result", massageUtils.getMsg("e.co.fw.2.008", null));
             return "z/login";
         }
 
         if (dateUtils.compareDate(new Date(), pwreissueinfo.getExpirydate()) != -1) {
             // 認証情報有効期限外
-            model.addAttribute("result", "認証情報が有効期限を過ぎました。");
+            model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.009", null));
             return "z/login";
         }
 
@@ -95,13 +99,7 @@ public class ResetpasswordController {
         boolean result1 = resetpasswordService.checksecret(form.getToken(), form.getSecret());
 
         if (result1 == false) {
-            model.addAttribute("result", "仮パスワードが間違っています。");
-            return getResetpassword(form, model);
-        }
-
-        // 入力したパスワードと再登録したパスワードが等しくなかったらパスワード再発行画面に戻る
-        if (form.getConfirmNewPassword().equals(form.getNewPassword()) == false) {
-            model.addAttribute("result", "新しいパスワードを正しく入力してください。");
+            model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.010", null));
             return getResetpassword(form, model);
         }
 
@@ -112,10 +110,10 @@ public class ResetpasswordController {
         boolean result2 = userSharedService.updatePasswordDate(form.getUser_id(), password);
 
         if (result2 == true) {
-            model.addAttribute("result", "パスワードが更新されました。");
+            model.addAttribute("result", "更新成功");
             log.info("更新成功");
         } else {
-            model.addAttribute("result", "パスワードの更新に失敗しました。");
+            model.addAttribute("result", "更新失敗");
             log.info("更新失敗");
         }
 

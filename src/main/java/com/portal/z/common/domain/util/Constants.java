@@ -1,12 +1,12 @@
 package com.portal.z.common.domain.util;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 /**
  * 定数定義
  *
  */
-@Controller
+@Component("Constants")
 public final class Constants {
 
     /**
@@ -45,6 +45,11 @@ public final class Constants {
      * ・初期値は"http://localhost:8080/"。
      */
     public static final String APPLICATION_URL = "http://localhost:8080/";
+    
+    /**
+     * エラーメッセージ未登録用メッセージ<BR>
+     */
+    public static final String NOT_FOUND_MESSAGE = "エラーメッセージが登録されていません。";
 
     /**
      * ロール名<BR>

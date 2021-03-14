@@ -1,6 +1,9 @@
 package com.portal.z.resetpassword.domain.model;
 
 import javax.validation.constraints.NotBlank;
+
+import com.portal.z.common.validation.Confirm;
+
 import lombok.Data;
 
 /**
@@ -8,6 +11,7 @@ import lombok.Data;
  *
  */
 @Data
+@Confirm(field = "newPassword")
 public class ResetpasswordForm {
     @NotBlank(message = "{require_check}")
     private String user_id; // ユーザID

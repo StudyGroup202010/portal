@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.pwreissue.domain.model.PwreissueForm;
 import com.portal.z.pwreissue.domain.service.PwreissueService;
@@ -28,6 +29,9 @@ public class PwreissueController {
 
     @Autowired
     PwreissueService pwreissueService;
+    
+    @Autowired
+    private MassageUtils massageUtils;
 
     /**
      * 画面表示.
@@ -63,19 +67,15 @@ public class PwreissueController {
         try {
             // パスワード再発行情報を登録する。
             String result = pwreissueService.insertPwreissueinfo(form.getUser_id());
-
-            model.addAttribute("result1", "パスワード再設定用のURLを、ご入力いただいたメールアドレスに送信しました。");
-            model.addAttribute("result2", "メール本文に記載されているURLにアクセスし、以下の仮パスワードを使ってログインしてください。");
+            model.addAttribute("result1", massageUtils.getMsg("i.co.pr.0.005", null));
+            model.addAttribute("result2", massageUtils.getMsg("i.co.pr.0.006", null));
             model.addAttribute("result3", "仮パスワード：" + result);
 
         } catch (ApplicationException e) {
-            if (e.getError().toString().compareTo("DATAINTEGRITY") == 0) {
-                model.addAttribute("result1", "このユーザIDは登録されていません。");
-            } else {
-                model.addAttribute("result1", "送信が出来ませんでした。送信不可になっているか、送信設定が間違っている可能性があります。" + e.getMessage());
-            }
+            model.addAttribute("result1", e.getMessage());
+
         } catch (MailConnectException | AuthenticationFailedException e) {
-            model.addAttribute("result1", "送信が出来ませんでした。送信設定が間違っている可能性があります。" + e.getMessage());
+            model.addAttribute("result1", massageUtils.getMsg("e.co.fw.3.007", null) + e.getMessage());
         }
 
         return getPwreissue(form, model);
