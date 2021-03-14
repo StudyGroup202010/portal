@@ -25,7 +25,7 @@ public class ConfirmValidatorImpl implements ConstraintValidator<Confirm, Object
     private String confirmField;
 
     public void initialize(Confirm constraintAnnotation) {
-        message = massageUtils.getMsg("w.co.fw.2.011", null);
+        message = massageUtils.getMsg("e.co.fw.1.008", null);
         field = constraintAnnotation.field();
         confirmField = "confirm" + StringUtils.capitalize(field);
     }

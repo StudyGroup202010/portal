@@ -84,7 +84,7 @@ public class ContactController {
         try {
             // メールを送信する。
             contactService.Contactmailsendregister(form.getContact_email(), text);
-            model.addAttribute("result", massageUtils.getMsg("i.co.pr.0.012", null));
+            model.addAttribute("result", massageUtils.getMsg("i.co.pr.0.003", null));
             // Modelを初期化
             form.setContact_name(null); // ユーザID
             form.setContact_email(null); // メールアドレス
@@ -94,7 +94,7 @@ public class ContactController {
         } catch (ApplicationException e) {
             model.addAttribute("result", e.getMessage());
         } catch (MailConnectException | AuthenticationFailedException e) {
-            model.addAttribute("result", massageUtils.getMsg("e.co.fw.3.007", null) + e.getMessage());
+            model.addAttribute("result", massageUtils.getMsg("e.co.fw.3.005", null) + e.getMessage());
         }
 
         // 問い合わせ画面を表示
