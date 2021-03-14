@@ -89,7 +89,7 @@ public class PwreissueServiceImpl implements PwreissueService {
 
         } catch (DataIntegrityViolationException e) {
             // 参照整合性エラーが発生した時はビジネス例外として返す。
-            String messageKey = "e.co.fw.3.004";
+            String messageKey = "e.co.fw.2.004";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { user_id }), e);
         }
 
