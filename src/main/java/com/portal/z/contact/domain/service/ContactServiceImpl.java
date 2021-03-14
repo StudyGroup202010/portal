@@ -9,8 +9,8 @@ import com.portal.z.common.domain.model.Env;
 import com.portal.z.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.service.MailSendSharedService;
 import com.portal.z.common.domain.util.Constants;
+import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;
-import com.portal.z.common.exception.HttpErrorsImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,20 +29,27 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private EnvMapper envMapper;
 
+    @Autowired
+    private MassageUtils massageUtils;
+
     public void Contactmailsendregister(String sendFrom, String text) throws MessagingException {
 
         // 送信先メールアドレスを取得
         Env sendTo = envMapper.selectOne(Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name());
         if (sendTo == null) {
             log.info("問い合わせ用送信先メールアドレス取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name() }));
         }
 
         // 問い合わせメールタイトルを取得
         Env Subject = envMapper.selectOne(Constants.MAIL_ENV.MAIL_TITLE_CONTACT.name());
         if (Subject == null) {
             log.info("問い合わせ用メールタイトル取得失敗");
-            throw new ApplicationException(HttpErrorsImpl.NOTFOUND_ENV, Constants.MAIL_ENV.MAIL_TITLE_CONTACT.name());
+            String messageKey = "e.co.fw.3.001";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_TITLE_CONTACT.name() }));
         }
 
         mailSendSharedService.mailsendregister(sendFrom, sendTo.getEnv_txt(), Subject.getEnv_txt(), text);
