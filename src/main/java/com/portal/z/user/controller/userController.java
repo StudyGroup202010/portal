@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -293,12 +292,7 @@ public class userController {
                 log.info("登録失敗");
             }
         } catch (ApplicationException e) {
-            // エラーの処理(後付けでユーザーIDのフィールドにエラーを設定する。)
-            FieldError fieldError = new FieldError(bindingResult.getObjectName(), "user_id", form.getUser_id(), false,
-                    null, null, e.getMessage());
-            bindingResult.addError(fieldError);
-
-            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            model.addAttribute("result", e.getMessage());
             return getSignUp(form, model);
         }
         // ユーザー一覧画面を表示
