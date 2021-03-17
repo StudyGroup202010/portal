@@ -1,1 +1,1 @@
-create database PORTAL;
+create database portal;
