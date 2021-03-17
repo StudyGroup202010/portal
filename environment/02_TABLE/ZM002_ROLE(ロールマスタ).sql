@@ -1,25 +1,25 @@
---システム管理(Z) - ロールマスタ(ZM002_ROLE)
-CREATE TABLE ZM002_ROLE(
-     ROLE_ID VARCHAR(50) NOT NULL,
-     ROLE_NAME VARCHAR(50),
-     BIKO VARCHAR(50),
-     INSERT_USER VARCHAR(50) NOT NULL,
-     INSERT_DATE TIMESTAMP NOT NULL,
-     UPDATE_USER VARCHAR(50),
-     UPDATE_DATE TIMESTAMP,
-CONSTRAINT ZM002_ROLE_PK PRIMARY KEY (ROLE_ID),
-CONSTRAINT ZM002_ROLE_SK1 UNIQUE (ROLE_NAME)
+--システム管理(z) - ロールマスタ(zm002_role)
+create table zm002_role(
+     role_id varchar(50) not null,
+     role_name varchar(50),
+     biko varchar(50),
+     insert_user varchar(50) not null,
+     insert_date timestamp not null,
+     update_user varchar(50),
+     update_date timestamp,
+constraint zm002_role_pk primary key (role_id),
+constraint zm002_role_sk1 unique (role_name)
 );
 
-COMMENT ON TABLE ZM002_ROLE is 'ロールマスタ';
-COMMENT ON COLUMN ZM002_ROLE.ROLE_ID is 'ロールＩＤ';
-COMMENT ON COLUMN ZM002_ROLE.ROLE_NAME is 'ロール名';
-COMMENT ON COLUMN ZM002_ROLE.BIKO is '備考';
-COMMENT ON COLUMN ZM002_ROLE.INSERT_USER is '作成者';
-COMMENT ON COLUMN ZM002_ROLE.INSERT_DATE is '作成日時';
-COMMENT ON COLUMN ZM002_ROLE.UPDATE_USER is '更新者';
-COMMENT ON COLUMN ZM002_ROLE.UPDATE_DATE is '更新日時';
+comment on table zm002_role is 'ロールマスタ';
+comment on column zm002_role.role_id is 'ロールｉｄ';
+comment on column zm002_role.role_name is 'ロール名';
+comment on column zm002_role.biko is '備考';
+comment on column zm002_role.insert_user is '作成者';
+comment on column zm002_role.insert_date is '作成日時';
+comment on column zm002_role.update_user is '更新者';
+comment on column zm002_role.update_date is '更新日時';
 
-ALTER TABLE ZM002_ROLE ADD CONSTRAINT ZM002_ROLE_FK1
-      FOREIGN KEY (ROLE_NAME)
-      REFERENCES ZM500_ROLE_NAME_LIST (ROLE_NAME);
+alter table zm002_role add constraint zm002_role_fk1
+      foreign key (role_name)
+      references zm500_role_name_list (role_name);

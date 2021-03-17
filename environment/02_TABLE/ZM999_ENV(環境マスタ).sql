@@ -1,24 +1,24 @@
---システム管理(Z) - 環境マスタ(ZM999_ENV)
-CREATE TABLE ZM999_ENV(
-     ENV_ID VARCHAR(50) NOT NULL,
-     ENV_KBN VARCHAR(20),
-     ENV_NUM SMALLINT DEFAULT 0 NOT NULL,
-     ENV_TXT VARCHAR(100) NOT NULL,
-     BIKO VARCHAR(100),
-     INSERT_USER VARCHAR(50) NOT NULL,
-     INSERT_DATE TIMESTAMP NOT NULL,
-     UPDATE_USER VARCHAR(50),
-     UPDATE_DATE TIMESTAMP,
-CONSTRAINT ZM999_ENV_PK PRIMARY KEY (ENV_ID)
+--システム管理(z) - 環境マスタ(zm999_env)
+create table zm999_env(
+     env_id varchar(50) not null,
+     env_kbn varchar(20),
+     env_num smallint default 0 not null,
+     env_txt varchar(100) not null,
+     biko varchar(100),
+     insert_user varchar(50) not null,
+     insert_date timestamp not null,
+     update_user varchar(50),
+     update_date timestamp,
+constraint zm999_env_pk primary key (env_id)
 );
 
-COMMENT ON TABLE ZM999_ENV is '環境マスタ';
-COMMENT ON COLUMN ZM999_ENV.ENV_ID is '環境ＩＤ';
-COMMENT ON COLUMN ZM999_ENV.ENV_KBN is '環境区分';
-COMMENT ON COLUMN ZM999_ENV.ENV_NUM is '環境連番';
-COMMENT ON COLUMN ZM999_ENV.ENV_TXT is '環境値';
-COMMENT ON COLUMN ZM999_ENV.BIKO is '備考';
-COMMENT ON COLUMN ZM999_ENV.INSERT_USER is '作成者';
-COMMENT ON COLUMN ZM999_ENV.INSERT_DATE is '作成日時';
-COMMENT ON COLUMN ZM999_ENV.UPDATE_USER is '更新者';
-COMMENT ON COLUMN ZM999_ENV.UPDATE_DATE is '更新日時';
+comment on table zm999_env is '環境マスタ';
+comment on column zm999_env.env_id is '環境ｉｄ';
+comment on column zm999_env.env_kbn is '環境区分';
+comment on column zm999_env.env_num is '環境連番';
+comment on column zm999_env.env_txt is '環境値';
+comment on column zm999_env.biko is '備考';
+comment on column zm999_env.insert_user is '作成者';
+comment on column zm999_env.insert_date is '作成日時';
+comment on column zm999_env.update_user is '更新者';
+comment on column zm999_env.update_date is '更新日時';
