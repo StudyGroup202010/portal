@@ -1,6 +1,11 @@
 package com.portal.z.env.domain.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+
+import com.portal.z.user.domain.model.ValidUpdate1;
+
 import lombok.Data;
 
 /**
@@ -14,7 +19,10 @@ public class InputEnvForm {
 
     private String env_kbn; // 環境区分
 
+    @Min(value = 0, message = "{min_check}")
+    @Max(value = 100, message = "{max_check}")
     private int env_num; // 環境連番
+    
     // 必須入力
     @NotBlank(message = "{require_check}")
     private String env_txt; // 環境値
