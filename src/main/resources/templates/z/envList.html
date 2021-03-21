@@ -14,8 +14,8 @@
     <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   
-      <!-- CSSの読込 -->
-    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
+
+
   
     <title>EnvList</title>  
 </head>
@@ -91,7 +91,6 @@
 		<!-- 更新・削除処理の結果表示用 -->
 		<label class="text-info" th:text="${result}">結果表示</label><br />
 
-		<div th:insert="z/footer :: footer"></div>
 	</div>
 </body>
 </html>

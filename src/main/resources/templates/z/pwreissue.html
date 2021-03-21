@@ -13,7 +13,8 @@
     <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
-
+    <!-- CSSの読込 -->
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
 
 
     <title>パスワード再設定</title>
@@ -56,6 +57,5 @@
     <BR>
     <label class="text-danger" th:text="${result3}"></label>
     <BR>
-    <div th:insert="z/footer :: footer"></div>
 </body>
 </html>
