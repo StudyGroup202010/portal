@@ -33,7 +33,7 @@
 				<table class="table table-bordered table-hover table-sm">
 					<!-- ユーザーID（入力不可） -->
 					<tr>
-						<th class="active table-info">ユーザID</th>
+						<th class="table-info">ユーザID</th>
 						<td>
 							<div class="form-group">
 								<input type="text" class="form-control" th:field="*{user_id}"
@@ -43,7 +43,7 @@
 					</tr>
 					<!-- ユーザ有効期限 -->
 					<tr>
-						<th class="active table-info">ユーザ有効期限</th>
+						<th class="table-info">ユーザ有効期限</th>
 						<td>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">
@@ -56,7 +56,7 @@
 					</tr>
 					<!-- パスワード -->
 					<tr>
-						<th class="active table-info">パスワード</th>
+						<th class="table-info">パスワード</th>
 						<td>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
@@ -69,7 +69,7 @@
 					</tr>
 					<!-- パスワード有効期限 -->
 					<tr>
-						<th class="active table-info">パスワード有効期限</th>
+						<th class="table-info">パスワード有効期限</th>
 						<td>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('pass_update')} ? 'has-error'">
@@ -82,7 +82,7 @@
 					</tr>
 					<!-- ログイン失敗回数 -->
 					<tr>
-						<th class="active table-info">ログイン失敗回数</th>
+						<th class="table-info">ログイン失敗回数</th>
 						<td>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('login_miss_times')} ? 'has-error'">
@@ -96,7 +96,7 @@
 					</tr>
 					<!-- ロックフラグ -->
 					<tr>
-						<th class="active table-info">ロックフラグ</th>
+						<th class="table-info">ロックフラグ</th>
 						<td>
 							<div class="form-group">
 								<div th:each="item : ${radioLock}">
@@ -111,7 +111,7 @@
 					</tr>
 					<!-- 有効フラグ -->
 					<tr>
-						<th class="active table-info">有効フラグ</th>
+						<th class="table-info">有効フラグ</th>
 						<td>
 							<div class="form-group">
 								<div th:each="item : ${radioEnabled}">

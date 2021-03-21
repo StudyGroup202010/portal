@@ -76,7 +76,7 @@
 					<tr th:each="user : ${userList}">
 						<td align="center"><a class="btn btn-primary"
 							th:href="@{'/userDetail/' + ${user.user_id}}">詳細</a></td>
-						<th scope="row" th:text="${user.user_id}"></th>
+                        <td align="left" th:text="${user.user_id}"></td>
 						<td align="center"
 							th:text="${#dates.format(user.user_due_date, 'yyyy/MM/dd')}"></td>
 						<td align="center"

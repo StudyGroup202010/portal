@@ -40,11 +40,11 @@
                         環境値<input type="text" class="form-control"
                             th:field="*{env_txt}" />
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         備考<input type="text" class="form-control"
                             th:field="*{biko}" />
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <!-- 検索実行 -->
                         <button type="submit" name="selectby"
                             class="btn btn-primary btn-lg float-right">検索</button>
@@ -68,19 +68,18 @@
 						<th scope="col"><p class="text-nowrap text-center">環境区分</p></th>
 						<th scope="col"><p class="text-nowrap text-center">環境連番</p></th>
 						<th scope="col"><p class="text-nowrap text-center">環境値</p></th>
-						<th scope="col"><p class="text-nowrap text-center">備考</p></th>
+						<th scope="col"><p class="text-nowrap text-center">　　　　　備考　　　　　</p></th>
 					</tr>
 				</thead>
-
 				<tbody>
 					<tr th:each="env : ${envList}">
 						<td align="center"><a class="btn btn-primary"
 							th:href="@{'/envDetail/' + ${env.env_id}}">詳細</a></td>
-						<th scope="row" th:text="${env.env_id}"></th>
-                        <th scope="row" th:text="${env.env_kbn}"></th>
-                        <th scope="row" th:text="${env.env_num}"></th>
-                        <th scope="row" th:text="${env.env_txt}"></th>
-                        <th scope="row" th:text="${env.biko}"></th>
+                        <td align="left" th:text="${env.env_id}"></td>
+                        <td align="left" th:text="${env.env_kbn}"></td>
+                        <td align="Right" th:text="${env.env_num}"></td>
+                        <td align="left" th:text="${env.env_txt}"></td>
+                        <td align="left" th:text="${env.biko}"></td>
 					</tr>
 				</tbody>
 
