@@ -51,4 +51,15 @@ public interface EnvMapper {
      * @return true/false
      */
     public boolean deleteOne(String env_id);
+
+    /**
+     * 条件検索用メソッド
+     * 
+     * @param env_id  env_id
+     * @param env_kbn env_kbn
+     * @param env_txt env_txt
+     * @param biko    biko
+     * @return EnvList
+     */
+    public List<Env> selectBy(String env_id, String env_kbn, String env_txt, String biko);
 }
