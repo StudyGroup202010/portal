@@ -25,12 +25,28 @@ public interface EnvService {
     public Env selectOne(String env_id);
 
     /**
+     * 登録用メソッド
+     * 
+     * @param env env
+     * @return true/false
+     */
+    public boolean insertOne(Env env);
+
+    /**
      * １件更新用メソッド.
      * 
      * @param env env
      * @return true/false
      */
     public boolean updateOne(Env env);
+
+    /**
+     * １件削除用メソッド.
+     * 
+     * @param env_id env_id
+     * @return true/false
+     */
+    public boolean deleteOne(String env_id);
 
     /**
      * 条件検索用メソッド.
