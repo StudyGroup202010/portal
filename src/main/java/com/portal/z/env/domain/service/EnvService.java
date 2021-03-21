@@ -1,17 +1,28 @@
-package com.portal.z.common.domain.repository;
+package com.portal.z.env.domain.service;
 
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
-
 import com.portal.z.common.domain.model.Env;
 
 /**
- * EnvMapper
+ * EnvService
  *
  */
-@Mapper
-public interface EnvMapper {
+public interface EnvService {
+
+    /**
+     * 全件取得用メソッド.
+     * 
+     * @return EnvList
+     */
+    public List<Env> selectMany();
+
+    /**
+     * １件取得用メソッド.
+     * 
+     * @param env_id env_id
+     * @return env
+     */
+    public Env selectOne(String env_id);
 
     /**
      * 登録用メソッド
@@ -22,22 +33,7 @@ public interface EnvMapper {
     public boolean insertOne(Env env);
 
     /**
-     * １件検索用メソッド
-     * 
-     * @param env_id env_id
-     * @return Env
-     */
-    public Env selectOne(String env_id);
-
-    /**
-     * 全件検索用メソッド
-     * 
-     * @return EnvList
-     */
-    public List<Env> selectMany();
-
-    /**
-     * １件更新用メソッド
+     * １件更新用メソッド.
      * 
      * @param env env
      * @return true/false
@@ -45,7 +41,7 @@ public interface EnvMapper {
     public boolean updateOne(Env env);
 
     /**
-     * １件削除用メソッド
+     * １件削除用メソッド.
      * 
      * @param env_id env_id
      * @return true/false
@@ -53,7 +49,7 @@ public interface EnvMapper {
     public boolean deleteOne(String env_id);
 
     /**
-     * 条件検索用メソッド
+     * 条件検索用メソッド.
      * 
      * @param env_id  env_id
      * @param env_kbn env_kbn

@@ -59,6 +59,9 @@
 						sec:authorize="hasRole('ADMIN')" data-toggle="dropdown" href="#"
 						role="button" aria-haspopup="true" aria-expanded="false">マスタ管理</a>
 					<div class="dropdown-menu">
+                        <div class="dropdown-item">
+                            <a class="nav-link text-center" th:href="@{'/envList'}">環境マスタ</a>
+                        </div>
 						<div class="dropdown-item">
 							<a class="nav-link text-center" th:href="@{'/userList'}">ユーザマスタ</a>
 						</div>

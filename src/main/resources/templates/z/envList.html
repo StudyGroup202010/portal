@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrapの設定 -->
+    
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  
+      <!-- CSSの読込 -->
+    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
+  
+    <title>EnvList</title>  
+</head>
+<body>
+	<div th:fragment="envList_contents">
+		<div class="page-header">
+			<h3>環境マスタ一覧</h3>
+		</div>
+        <div class="container-fluid border bg-light">
+            <form method="post" th:action="@{/envList}"
+                th:object="${selectEnvForm}">
+                <div class="row">
+                    <div class="col-sm-2">
+                        環境ID<input type="text" class="form-control"
+                            th:field="*{env_id}" />
+                    </div>
+                    <div class="col-sm-2">
+                        環境区分<input type="text" class="form-control"
+                            th:field="*{env_kbn}" />
+                    </div>
+                    <div class="col-sm-2">
+                        環境値<input type="text" class="form-control"
+                            th:field="*{env_txt}" />
+                    </div>
+                    <div class="col-sm-2">
+                        備考<input type="text" class="form-control"
+                            th:field="*{biko}" />
+                    </div>
+                    <div class="col-sm-4">
+                        <!-- 検索実行 -->
+                        <button type="submit" name="selectby"
+                            class="btn btn-primary btn-lg float-right">検索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+		<div class="table-responsive">
+			<div class="col">
+				<!-- 環境登録画面へのリンク -->
+				<a class="btn btn-danger" th:href="@{'/envUpdate'}"
+					sec:authorize="hasRole('ADMIN')">新規登録</a>
+			</div>
+			<table
+				class="table table-bordered table-hover table-striped table-sm">
+
+				<thead>
+					<tr class="table-info">
+						<th scope="col"></th>
+						<th scope="col"><p class="text-nowrap text-center">環境ID</p></th>
+						<th scope="col"><p class="text-nowrap text-center">環境区分</p></th>
+						<th scope="col"><p class="text-nowrap text-center">環境連番</p></th>
+						<th scope="col"><p class="text-nowrap text-center">環境値</p></th>
+						<th scope="col"><p class="text-nowrap text-center">備考</p></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="env : ${envList}">
+						<td align="center"><a class="btn btn-primary"
+							th:href="@{'/envDetail/' + ${env.env_id}}">詳細</a></td>
+						<th scope="row" th:text="${env.env_id}"></th>
+                        <th scope="row" th:text="${env.env_kbn}"></th>
+                        <th scope="row" th:text="${env.env_num}"></th>
+                        <th scope="row" th:text="${env.env_txt}"></th>
+                        <th scope="row" th:text="${env.biko}"></th>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+
+		<!-- ユーザー一覧の件数 -->
+		<label th:text=" '合計：' + ${envListCount} + '件' "></label><br />
+		<!-- 更新・削除処理の結果表示用 -->
+		<label class="text-info" th:text="${result}">結果表示</label><br />
+
+		<div th:insert="z/footer :: footer"></div>
+	</div>
+</body>
+</html>
