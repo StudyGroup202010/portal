@@ -59,9 +59,14 @@
                     <tr>
                         <th class="active table-info">環境連番</th>
                         <td>
-                            <div class="form-group">
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('env_num')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_num}" />
+                                    th:field="*{env_num}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('env_num')}"
+                                    th:errors="*{env_num}">
+                                    env_txt error </span>
                             </div>
                         </td>
                     </tr>
