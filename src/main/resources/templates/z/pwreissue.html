@@ -20,26 +20,22 @@
     <title>パスワード再設定</title>
 </head>
 <body class="text-center">
-    <h3>ログインパスワード再設定</h3>
-    <br>
-    <div class="container col-sm-6">
+    <h3 class="mt-5">ログインパスワード再設定</h3>
+    <form class="form-signin bg-light border" method="post"
+        th:action="@{/pwreissue}" th:object="${pwreissueForm}">
         <p class="text-justify">
             ログインパスワードの再設定を行います。<BR>
             再設定を行いたいユーザIDのメールアドレスをご入力のうえ、メール送信ボタンをクリックしてください。<BR>
             パスワード再設定用のURLをメールでお送りします。
         </p>
-        <p class="text-justify text-danger">
+        <p class="text-justify text-danger">【注意！】
             本手続きは完了しておりませんので、本画面は閉じずに、メールソフトを起動するなどして、
-            ご登録のメールアドレスに送信されるメールの内容をご確認のうえ、続けてお手続きください。
-        </p>
-    </div>
-    <form method="post" th:action="@{/pwreissue}"
-        th:object="${pwreissueForm}">
+            ご登録のメールアドレスに送信されるメールの内容をご確認のうえ、続けてお手続きください。</p>
         <!-- パスワード再設定 -->
         <div class="form-group"
             th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
-            <input type="text" class="form-control-lg"
-                th:field="*{user_id}" /> <BR> <span
+            <input type="text" class="form-control w-50 m-auto"
+                th:field="*{user_id}" autofocus /><span
                 class="text-danger"
                 th:if="${#fields.hasErrors('user_id')}"
                 th:errors="*{user_id}"> name error </span>
@@ -47,7 +43,8 @@
         <!-- 戻るボタン -->
         <button type="submit" name="back" class="btn btn-primary btn-lg">戻る</button>
         <!-- メール送信ボタン -->
-        <button type="submit" name="regist" class="btn btn-danger btn-lg">メール送信</button>
+        <button type="submit" name="regist"
+            class="btn btn-danger btn-lg">メール送信</button>
     </form>
     <BR>
     <!-- パスワード再設定画面情報作成処理の結果表示 -->
