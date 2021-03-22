@@ -45,14 +45,10 @@
         <!-- メール送信ボタン -->
         <button type="submit" name="regist"
             class="btn btn-danger btn-lg">メール送信</button>
+        <!-- パスワード再設定画面情報作成処理の結果表示 -->
+        <p class="text-justify text-info" th:text="${result1}"></p>
+        <p class="text-justify text-info" th:text="${result2}"></p>
+        <p class="text-danger" th:text="${result3}"></p>
     </form>
-    <BR>
-    <!-- パスワード再設定画面情報作成処理の結果表示 -->
-    <label class="text-info" th:text="${result1}"></label>
-    <BR>
-    <label class="text-info" th:text="${result2}"></label>
-    <BR>
-    <label class="text-danger" th:text="${result3}"></label>
-    <BR>
 </body>
 </html>
