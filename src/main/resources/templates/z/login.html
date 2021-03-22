@@ -19,23 +19,26 @@
     <title>ログイン</title>
 </head>
 <body class="text-center">
-    <form class="form-signin" method="post" th:action="@{/login}">
-        <h3>ログイン</h3>
+    <h3 class="mt-5">ログイン</h3>
+    <form class="form-signin bg-light border" method="post"
+        th:action="@{/login}">
+
         <!-- エラーメッセージ -->
         <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
             th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
             class="text-danger">ログインエラーメッセージ</p>
-
+        <p></p>
         <!-- ユーザーID -->
-        <input type="text" name="user_id" class="form-control"
-            placeholder="ユーザーID" autofocus>
-
+        <input type="text" name="user_id"
+            class="form-control w-50 m-auto" placeholder="ユーザーID"
+            autofocus>
+        <p></p>
         <!-- パスワード -->
-        <input type="password" name="password" class="form-control"
-            placeholder="パスワード">
-
+        <input type="password" name="password"
+            class="form-control w-50 m-auto" placeholder="パスワード">
+        <p></p>
         <!-- ログインボタン -->
-        <button class="btn btn-primary btn-lg" type="submit">ログイン</button>
+        <button class="btn btn-primary btn-lg w-50" type="submit">ログイン</button>
 
         <!-- CSRF対策用トークン（フォームを使っている画面では必須） -->
         <!-- ただしフォームで"th:action"を使っている場合は不要 -->
@@ -44,7 +47,9 @@
             th:name="${_csrf.parameterName}"
             th:value="${_csrf.token}" />
          -->
-        <BR> <a class="text" th:href="@{'/pwreissue'}">ログインパスワード再登録</a>
+        <p></p>
+        <a class="text" th:href="@{'/pwreissue'}">ログインパスワード再登録</a>
+        <p></p>
         <!-- ログイン画面の結果表示 -->
         <label class="text-info" th:text="${result}"></label>
     </form>
