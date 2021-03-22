@@ -34,7 +34,7 @@
         <!-- パスワード再設定 -->
         <div class="form-group"
             th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
-            <input type="text" class="form-control w-50 m-auto"
+            <input type="text" class="form-control w-75 m-auto"
                 th:field="*{user_id}" autofocus /><span
                 class="text-danger"
                 th:if="${#fields.hasErrors('user_id')}"
