@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
@@ -15,18 +16,17 @@
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
     <!-- CSSの読込 -->
-    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
-
+    <link th:href="@{/css/portal.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/jpn.css}" rel="stylesheet"></link>
     <title>HomeLayout</title>
 </head>
-<body class="bg-light">
+<body>
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
-    <nav class="navbar navbar-dark bg-primary">
+    <nav class="navbar navbar-dark bg-primary p-0">
             <div class="navbar-header">
                 <a class="navbar-brand" th:href="@{'/home'}">ポータルサイト</a>
             </div>
- 
-            <form method="post" th:action="@{/logout}">
+             <form method="post" th:action="@{/logout}">
                 <button class="btn btn-link navbar-brand" type="submit">ログアウト</button>
             </form>
     </nav>
