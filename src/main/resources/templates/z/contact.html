@@ -59,7 +59,7 @@
                     <div class="col-sm-7">
                         お問い合わせ内容
                         <textarea class="form-control"
-                            th:field="*{contact_message}" rows="5"></textarea>
+                            th:field="*{contact_message}" rows="5" autofocus></textarea>
                         <span class="text-danger"
                             th:if="${#fields.hasErrors('contact_message')}"
                             th:errors="*{contact_message}"> name

@@ -1,0 +1,31 @@
+body {
+  background-color: #f5f5f5;
+}
+
+/* ボタンの間隔 */
+.btn {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* 入力フォームの間隔 */
+.form-control {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* サードバーのリンク枠線の表示間隔 */
+.nav-link {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/* ログイン画面 */
+.form-signin {
+    max-width: 450px;
+    margin: auto;
+}
