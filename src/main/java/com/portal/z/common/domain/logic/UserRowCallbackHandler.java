@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowCallbackHandler;
 
+import com.portal.z.common.domain.util.Constants;
+
 /**
  * コールバック処理<BR>
  * 
@@ -23,7 +25,7 @@ public class UserRowCallbackHandler implements RowCallbackHandler {
         try {
 
             // ファイル書き込みの準備
-            File file = new File("userlist.csv");
+            File file = new File(Constants.USERLIST_CSVNAME);
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
 
