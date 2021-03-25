@@ -2,7 +2,6 @@ package com.portal.z.common.domain.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.text.ParseException;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -51,7 +50,7 @@ class DateUtilsTest {
     }
 
     @Test
-    final void dateUtils_getDateFromString_通常日付入力チェック() throws ParseException {
+    final void dateUtils_getDateFromString_通常日付入力チェック() {
         assertThat(dateUtils.getDateFromString("19700101")).isEqualTo("1970-01-01T00:00:00.000");
     }
 
