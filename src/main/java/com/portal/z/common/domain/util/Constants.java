@@ -50,6 +50,12 @@ public final class Constants {
      * エラーメッセージ未登録用メッセージ<BR>
      */
     public static final String NOT_FOUND_MESSAGE = "エラーメッセージが登録されていません。";
+    
+    /**
+     * ユーザ一覧CSVファイル名<BR>
+     * ・ユーザ一覧画面から出力するCSVファイルの名称<BR>
+     */
+    public static final String USERLIST_CSVNAME = "userlist.csv";
 
     /**
      * ロール名<BR>

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
+import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.exception.ApplicationException;
@@ -170,7 +171,7 @@ public class userController {
 
         try {
             // サーバーに保存されているcsvファイルをbyteで取得する
-            bytes = utility.getFile("userlist.csv");
+            bytes = utility.getFile(Constants.USERLIST_CSVNAME);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,7 +180,7 @@ public class userController {
         // HTTPヘッダーの設定
         HttpHeaders header = new HttpHeaders();
         header.add("Content-Type", "text/csv; charset=UTF-8");
-        header.setContentDispositionFormData("filename", "userlist.csv");
+        header.setContentDispositionFormData("filename", Constants.USERLIST_CSVNAME);
 
         // csvを戻す
         // ResponseEntity型を使うとファイル（bytes型の配列）を呼び出し元に返せる
