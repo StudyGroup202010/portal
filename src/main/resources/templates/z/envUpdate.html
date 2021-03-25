@@ -37,7 +37,7 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_id')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_id}" /> <span
+                                    th:field="*{env_id}" autofocus /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('env_id')}"
                                     th:errors="*{env_id}"> env_id
