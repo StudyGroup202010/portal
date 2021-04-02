@@ -1,7 +1,8 @@
 package com.portal.z.common.domain.service;
 
+import java.sql.Date;
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -46,7 +47,7 @@ public class UserSharedServiceImpl implements UserSharedService {
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private MassageUtils massageUtils;
 
@@ -112,7 +113,8 @@ public class UserSharedServiceImpl implements UserSharedService {
         }
 
         // パスワード有効期限を計算
-        Date passwordUpdateDate = dateUtils.calcDate(new Date(), "MM", PASS_UPDATE_NXT);
+        Date passwordUpdateDate = Date
+                .valueOf(dateUtils.calcDate(LocalDateTime.now(), "MM", PASS_UPDATE_NXT).toLocalDate());
 
         // Userインスタンスの生成
         User user = new User();
