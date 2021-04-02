@@ -1,7 +1,6 @@
 package com.portal.z.common.domain.model;
 
-import java.util.Date;
-
+import java.sql.Timestamp;
 import lombok.Data;
 
 /**
@@ -12,5 +11,5 @@ public class Pwreissueinfo {
     private String token; // トークン
     private String user_id; // ユーザーID
     private String secret; // 秘密情報
-    private Date expirydate; // 認証情報有効期限
+    private Timestamp expirydate; // 認証情報有効期限
 }

@@ -1,7 +1,8 @@
 package com.portal.z.pwreissue.domain.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,7 +75,8 @@ public class PwreissueServiceImpl implements PwreissueService {
         String encodeSecret = passwordEncoder.encode(rowSecret); // 暗号化
 
         // 認証情報有効期限を計算（認証情報有効期間の初期値を使用）
-        Date expirydate = dateUtils.calcDate(new Date(), "MI", Constants.EXPIRYDATE_NXT);
+        LocalDateTime localdatetime = LocalDateTime.now();
+        Timestamp expirydate = Timestamp.valueOf(dateUtils.calcDate(localdatetime, "MI", Constants.EXPIRYDATE_NXT));
 
         // パスワード再発行情報クラスに設定
         Pwreissueinfo pwreissueinfo = new Pwreissueinfo();

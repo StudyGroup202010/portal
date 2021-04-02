@@ -1,7 +1,7 @@
 package com.portal.z.resetpassword.controller;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +42,7 @@ public class ResetpasswordController {
 
     @Autowired
     private DateUtils dateUtils;
-    
+
     @Autowired
     private MassageUtils massageUtils;
 
@@ -65,7 +65,7 @@ public class ResetpasswordController {
             return "z/login";
         }
 
-        if (dateUtils.compareDate(new Date(), pwreissueinfo.getExpirydate()) != -1) {
+        if (dateUtils.compareDateTime(LocalDateTime.now(), pwreissueinfo.getExpirydate().toLocalDateTime()) != -1) {
             // 認証情報有効期限外
             model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.001", null));
             return "z/login";

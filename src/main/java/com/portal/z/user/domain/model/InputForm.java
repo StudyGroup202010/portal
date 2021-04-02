@@ -1,6 +1,6 @@
 package com.portal.z.user.domain.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -28,7 +28,7 @@ public class InputForm {
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date user_due_date; // ユーザ有効期限
+    private LocalDate user_due_date; // ユーザ有効期限
 
     // 必須入力、長さ4から100桁まで、半角英数字のみ
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
@@ -40,7 +40,7 @@ public class InputForm {
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date pass_update; // パスワード有効期限
+    private LocalDate pass_update; // パスワード有効期限
 
     // 値が0から10までの整数のみ
     // 必須入力チェックを記述しなくても、未入力の時はintのチェックがかかるのでＯＫ

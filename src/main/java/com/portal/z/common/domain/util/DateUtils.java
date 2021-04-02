@@ -1,11 +1,9 @@
 package com.portal.z.common.domain.util;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +15,7 @@ import org.springframework.stereotype.Component;
 public class DateUtils {
 
     /**
-     * 日付の初期値（"00010101"）。<BR>
-     * これを使って初期値を設定しても、実際には0001年１月１日にはならず、なぜか0001年1月2日23:41:01になります。
+     * 日付の初期値（"00010101"）。
      */
     public final String DEFAULT_START_DATE = "00010101";
 
@@ -37,15 +34,14 @@ public class DateUtils {
      * @param date 変換元の日付
      * @return String型に変換したdate
      */
-    public String getStringFromDate(Date date) {
+    public String getStringFromDate(LocalDate date) {
         if (date == null) {
             return null;
         }
         // 変換する文字列のフォーマットを決めます。
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd").withLocale(Locale.JAPANESE)
                 .withResolverStyle(ResolverStyle.STRICT);
-        // Date型をLocalDate型に変換して使います。
-        return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        return formatter.format(date);
     }
 
     /**
@@ -57,7 +53,7 @@ public class DateUtils {
      * @param date 変換元の文字列（様式はYYYYMMDD）
      * @return Date型に変換したdate
      */
-    public Date getDateFromString(String date) {
+    public LocalDate getDateFromString(String date) {
         if (date == null) {
             return null;
         }
@@ -65,7 +61,7 @@ public class DateUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd").withLocale(Locale.JAPANESE)
                 .withResolverStyle(ResolverStyle.STRICT);
         // 日付変換したLocalDate型の値をDate型に変換して返します。
-        return Date.from(LocalDate.parse(date, formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
+        return LocalDate.parse(date, formatter);
     }
 
     /**
@@ -76,7 +72,7 @@ public class DateUtils {
      * @param date 変換元の日付
      * @return 初期値に変換したdate
      */
-    public Date setStartDate(Date date) {
+    public LocalDate setStartDate(LocalDate date) {
         if (date != null) {
             return date;
         }
@@ -91,7 +87,7 @@ public class DateUtils {
      * @param date 変換元の日付
      * @return 永遠値に変換したdate
      */
-    public Date setEndDate(Date date) {
+    public LocalDate setEndDate(LocalDate date) {
         if (date != null) {
             return date;
         }
@@ -109,8 +105,16 @@ public class DateUtils {
      *         date_1＞date_2の時：1<BR>
      *         date_1＜date_2の時：-1
      */
-    public int compareDate(Date date_1, Date date_2) {
-        return date_1.compareTo(date_2);
+    public int compareDateTime(LocalDateTime date_1, LocalDateTime date_2) {
+        int result = 0;
+        if (date_1.isEqual(date_2)) {
+            result = 0;
+        } else if (date_1.isAfter(date_2)) {
+            result = 1;
+        } else if (date_1.isBefore(date_2)) {
+            result = -1;
+        }
+        return result;
     }
 
     /**
@@ -126,26 +130,25 @@ public class DateUtils {
      * @return Date<BR>
      *         誤った単位を入力したときはnull
      */
-    public Date calcDate(Date date, String string, int value) {
+    public LocalDateTime calcDate(LocalDateTime date, String string, int value) {
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        LocalDateTime result = null;
 
         if (string.equals("YYYY")) {
-            calendar.add(Calendar.YEAR, value); // 年
+            result = date.plusYears(value); // 年
         } else if (string.equals("MM")) {
-            calendar.add(Calendar.MONTH, value); // 月
+            result = date.plusMonths(value); // 月
         } else if (string.equals("DD")) {
-            calendar.add(Calendar.DAY_OF_MONTH, value); // 日
+            result = date.plusDays(value); // 日
         } else if (string.equals("HH")) {
-            calendar.add(Calendar.HOUR_OF_DAY, value); // 時
+            result = date.plusHours(value); // 時
         } else if (string.equals("MI")) {
-            calendar.add(Calendar.MINUTE, value); // 分
+            result = date.plusMinutes(value); // 分
         } else if (string.equals("SS")) {
-            calendar.add(Calendar.SECOND, value); // 秒
+            result = date.plusSeconds(value); // 秒
         } else {
             return null;
         }
-        return calendar.getTime();
+        return result;
     }
 }

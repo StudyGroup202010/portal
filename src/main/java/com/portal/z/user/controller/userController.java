@@ -1,6 +1,7 @@
 package com.portal.z.user.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -265,11 +266,11 @@ public class userController {
         User user = new User();
 
         user.setUser_id(form.getUser_id()); // ユーザーID
-        user.setUser_due_date(form.getUser_due_date()); // ユーザ有効期限
+        user.setUser_due_date(Date.valueOf(form.getUser_due_date())); // ユーザ有効期限
         // パスワードは暗号化する
         String password = passwordEncoder.encode(form.getPassword());
         user.setPassword(password); // パスワード
-        user.setPass_update(form.getPass_update()); // パスワード有効期限
+        user.setPass_update(Date.valueOf(form.getPass_update())); // パスワード有効期限
         // ロック状態と有効フラグはテーブルの初期値にて設定される
         user.setLock_flg(form.isLock_flg()); // ロック状態
         user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
@@ -347,8 +348,8 @@ public class userController {
 
             // Userクラスをフォームクラスに変換
             form.setUser_id(user.getUser_id()); // ユーザーID
-            form.setUser_due_date(user.getUser_due_date()); // ユーザ有効期限
-            form.setPass_update(user.getPass_update()); // パスワード有効期限
+            form.setUser_due_date(user.getUser_due_date().toLocalDate()); // ユーザ有効期限
+            form.setPass_update(user.getPass_update().toLocalDate()); // パスワード有効期限
             form.setLogin_miss_times(user.getLogin_miss_times()); // ログイン失敗回数
             form.setLock_flg(user.isLock_flg()); // ロック状態
             form.setEnabled_flg(user.isEnabled_flg()); // 有効フラグ
@@ -387,11 +388,11 @@ public class userController {
 
         // フォームクラスをUserクラスに変換
         user.setUser_id(form.getUser_id()); // ユーザーID
-        user.setUser_due_date(form.getUser_due_date()); // ユーザ有効期限
+        user.setUser_due_date(Date.valueOf(form.getUser_due_date())); // ユーザ有効期限
         // パスワードは暗号化する
         String password = passwordEncoder.encode(form.getPassword());
         user.setPassword(password); // パスワード
-        user.setPass_update(form.getPass_update()); // パスワード有効期限
+        user.setPass_update(Date.valueOf(form.getPass_update())); // パスワード有効期限
         // 権限は変更できない
         user.setLogin_miss_times(form.getLogin_miss_times()); // ログイン失敗回数
         user.setLock_flg(form.isLock_flg()); // ロック状態
