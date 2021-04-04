@@ -75,8 +75,8 @@ public class PwreissueServiceImpl implements PwreissueService {
         String encodeSecret = passwordEncoder.encode(rowSecret); // 暗号化
 
         // 認証情報有効期限を計算（認証情報有効期間の初期値を使用）
-        LocalDateTime localdatetime = LocalDateTime.now();
-        Timestamp expirydate = Timestamp.valueOf(dateUtils.calcDate(localdatetime, "MI", Constants.EXPIRYDATE_NXT));
+        Timestamp expirydate = Timestamp
+                .valueOf(dateUtils.calcDate(LocalDateTime.now(), "MI", Constants.EXPIRYDATE_NXT));
 
         // パスワード再発行情報クラスに設定
         Pwreissueinfo pwreissueinfo = new Pwreissueinfo();

@@ -1,15 +1,11 @@
 package com.portal.z.user.controller;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,14 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
-import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
-import com.portal.z.common.domain.util.Utility;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
 import com.portal.z.user.domain.model.SelectForm;
 import com.portal.z.user.domain.model.UpdateOrder;
+import com.portal.z.user.domain.model.UserListCsvView;
 import com.portal.z.user.domain.model.UserListXlsxView;
 import com.portal.z.user.domain.service.UserService;
 
@@ -51,9 +46,6 @@ public class userController {
 
     @Autowired
     private UserSharedService userSharedService;
-
-    @Autowired
-    private Utility utility;
 
     @Autowired
     private DateUtils dateUtils;
@@ -163,29 +155,15 @@ public class userController {
      * @return ResponseEntity(bytes, header, HttpStatus.OK)
      */
     @GetMapping("/userList/csv")
-    public ResponseEntity<byte[]> getUserListCsv(Model model) {
+    public UserListCsvView getUserListCsv(UserListCsvView model) {
 
-        // ユーザーを全件取得して、CSVをサーバーに保存する
-        userService.userCsvOut();
+        // ユーザー一覧の生成
+        List<User> userList = userService.selectMany();
 
-        byte[] bytes = null;
+        // Modelにユーザーリストを登録
+        model.addStaticAttribute("userList", userList);
 
-        try {
-            // サーバーに保存されているcsvファイルをbyteで取得する
-            bytes = utility.getFile(Constants.USERLIST_CSVNAME);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // HTTPヘッダーの設定
-        HttpHeaders header = new HttpHeaders();
-        header.add("Content-Type", "text/csv; charset=UTF-8");
-        header.setContentDispositionFormData("filename", Constants.USERLIST_CSVNAME);
-
-        // csvを戻す
-        // ResponseEntity型を使うとファイル（bytes型の配列）を呼び出し元に返せる
-        return new ResponseEntity<>(bytes, header, HttpStatus.OK);
+        return model;
     }
 
     /**
