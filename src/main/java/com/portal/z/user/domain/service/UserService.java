@@ -2,7 +2,6 @@ package com.portal.z.user.domain.service;
 
 import java.util.List;
 import com.portal.z.common.domain.model.User;
-import org.springframework.dao.DataAccessException;
 
 /**
  * UserService
@@ -32,13 +31,6 @@ public interface UserService {
      * @return true/false
      */
     public boolean updateOne(User user);
-
-    /**
-     * CSV出力用メソッド.
-     * 
-     * @throws DataAccessException DataAccessException
-     */
-    public void userCsvOut() throws DataAccessException;
 
     /**
      * 条件検索用メソッド.
