@@ -61,7 +61,7 @@ public class userController {
     /**
      * ラジオボタンの初期化メソッド.
      */
-    private Map<String, String> initRadioEnabled() {
+    private static final Map<String, String> initRadioEnabled() {
 
         Map<String, String> radio = new LinkedHashMap<>();
 
