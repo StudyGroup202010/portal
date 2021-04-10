@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +40,12 @@ public class UserReportXlsxView extends AbstractXlsxView {
 
         Workbook workbook = null;
         try {
-            InputStream is = new ByteArrayInputStream(Files.readAllBytes(excelTemplateFile.toPath()));
+            // エクセルテンプレートを使ってエクセルブックを作る。
+            InputStream is = new ByteArrayInputStream(Files.readAllBytes(Paths.get(excelTemplateFile.toString())));
             workbook = WorkbookFactory.create(is);
         } catch (IOException | EncryptedDocumentException e) {
             // テンプレートが開けなかったとき。
-            throw new ApplicationException(null, Constants.NOT_FOUND_TEMPLATE);
+            throw new ApplicationException(null, Constants.NOT_FOUND_TEMPLATE, e);
         }
         return workbook;
     }
@@ -56,7 +58,7 @@ public class UserReportXlsxView extends AbstractXlsxView {
         List<User> userList = (List<User>) model.get("userList");
         int userListCount = (int) model.get("userListCount");
 
-        // 出力するシートを指定
+        // データを出力するシートを指定
         Sheet sheet = workbook.getSheet("ユーザー一覧");
         if (sheet == null) {
             // 指定したシートが無かったとき。

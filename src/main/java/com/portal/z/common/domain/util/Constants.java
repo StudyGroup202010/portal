@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 @Component("Constants")
 public final class Constants {
 
+    // 他でインスタンス化されないようにprivateでコンストラクタを定義する。
+    private Constants() {
+    };
+
     /**
      * ログイン失敗回数の最大値<BR>
      * ・環境マスタ設定値。<BR>
@@ -48,25 +52,29 @@ public final class Constants {
 
     /**
      * エラーメッセージ未登録用メッセージ<BR>
+     * ・初期値は"エラーメッセージが登録されていません。"
      */
     public static final String NOT_FOUND_MESSAGE = "エラーメッセージが登録されていません。";
-    
+
     /**
-     * エクセルテンプレート<BR>
+     * エクセルテンプレートの場所<BR>
+     * ・初期値は"src/main/resources/templates/excel/"
      */
     public static final String EXCEL_TEMPLATE = "src/main/resources/templates/excel/";
 
     /**
      * View用メッセージ<BR>
+     * ・エクセルテンプレートが存在しないとき。<BR>
+     * ・初期値は"エクセルテンプレートが開けませんでした。"
      */
     public static final String NOT_FOUND_TEMPLATE = "エクセルテンプレートが開けませんでした。";
-    public static final String NOT_FOUND_SHEET = "シートが開けませんでした。";
 
     /**
-     * ユーザ一覧CSVファイル名<BR>
-     * ・ユーザ一覧画面から出力するCSVファイルの名称<BR>
+     * View用メッセージ<BR>
+     * ・エクセルテンプレートが存在しないとき。<BR>
+     * ・初期値は"シートが開けませんでした。"
      */
-    public static final String USERLIST_CSVNAME = "userlist.csv";
+    public static final String NOT_FOUND_SHEET = "シートが開けませんでした。";
 
     /**
      * ロール名<BR>

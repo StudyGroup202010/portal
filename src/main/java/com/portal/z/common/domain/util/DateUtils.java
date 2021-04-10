@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
 public class DateUtils {
 
     /**
-     * 日付の初期値（"00010101"）。
+     * 日付の初期値（"00010101"）
      */
-    public final String DEFAULT_START_DATE = "00010101";
+    private String DEFAULT_START_DATE = "00010101";
 
     /**
      * 日付の永遠値（"99991231"）
      */
-    public final String DEFAULT_END_DATE = "99991231";
+    private String DEFAULT_END_DATE = "99991231";
 
     /**
      * 日付⇒文字列変換処理<BR>
