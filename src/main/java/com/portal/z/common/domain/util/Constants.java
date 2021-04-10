@@ -38,19 +38,30 @@ public final class Constants {
      * ・初期値は１０桁。
      */
     public static final int SECRET_LEN = 10;
-    
+
     /**
      * アプリケーションURL<BR>
      * ・このアプリケーションのURL<BR>
      * ・初期値は"http://localhost:8080/"。
      */
     public static final String APPLICATION_URL = "http://localhost:8080/";
-    
+
     /**
      * エラーメッセージ未登録用メッセージ<BR>
      */
     public static final String NOT_FOUND_MESSAGE = "エラーメッセージが登録されていません。";
     
+    /**
+     * エクセルテンプレート<BR>
+     */
+    public static final String EXCEL_TEMPLATE = "src/main/resources/templates/excel/";
+
+    /**
+     * View用メッセージ<BR>
+     */
+    public static final String NOT_FOUND_TEMPLATE = "エクセルテンプレートが開けませんでした。";
+    public static final String NOT_FOUND_SHEET = "シートが開けませんでした。";
+
     /**
      * ユーザ一覧CSVファイル名<BR>
      * ・ユーザ一覧画面から出力するCSVファイルの名称<BR>
