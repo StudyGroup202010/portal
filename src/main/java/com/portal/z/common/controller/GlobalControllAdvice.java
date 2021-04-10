@@ -27,7 +27,7 @@ public class GlobalControllAdvice {
     public String dataAccessExceptionHandler(ApplicationException e, Model model) {
 
         // 例外クラスのメッセージをModelに登録
-        model.addAttribute("error", "内部サーバーエラー（DB）：GlobalControllAdvice");
+        model.addAttribute("error", "内部サーバーエラー（AP）：GlobalControllAdvice");
 
         // 例外クラスのメッセージをModelに登録
         model.addAttribute("message", "ApplicationExceptionが発生しました。詳しくはログを参照してください。" + e.getMessage());
