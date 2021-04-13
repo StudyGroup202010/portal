@@ -48,9 +48,6 @@ public class userController {
     @Autowired
     private UserSharedService userSharedService;
 
-    @Autowired
-    private DateUtils dateUtils;
-
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -134,8 +131,12 @@ public class userController {
         // ユーザー情報を取得
         // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
         List<User> userList = userService.selectBy(form.getUser_id(),
-                dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())),
-                dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
+                DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())),
+                DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
+
+        System.out.println(
+                "==TEST1:" + DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())));
+        System.out.println("==TEST2:" + DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
 
         // Modelにユーザーリストを登録
         model.addAttribute("userList", userList);

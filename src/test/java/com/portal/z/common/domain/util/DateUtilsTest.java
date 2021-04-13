@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -17,7 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/SAMPLE",
+@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/portal",
         "DATASOURCE_PASSWORD=admin", "DATASOURCE_USERNAME=postgres" })
 class DateUtilsTest {
 
@@ -26,21 +25,31 @@ class DateUtilsTest {
      * jdbc:postgresql://localhost:5432/SAMPLE DATASOURCE_USERNAME postgres
      * DATASOURCE_PASSWORD admin
      */
-
-    @Autowired
-    private DateUtils dateUtils;
-
     //
     // getStringFromDate
     //
     @Test
     final void dateUtils_getStringFromDate_null入力チェック() {
-        assertThat(dateUtils.getStringFromDate(null)).isEqualTo(null);
+        assertThat(DateUtils.getStringFromDate(null)).isEqualTo(null);
     }
 
     @Test
     final void dateUtils_getStringFromDate_通常日付入力チェック() {
-        assertThat(dateUtils.getStringFromDate(LocalDate.of(1970, 01, 01))).isEqualTo("19700101");
+        assertThat(DateUtils.getStringFromDate(LocalDate.of(1970, 01, 01))).isEqualTo("19700101");
+    }
+
+    //
+    // getStringFromDateTime
+    //
+    @Test
+    final void dateUtils_getStringFromDateTime_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateTime(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getStringFromDateTime_通常日付入力チェック() {
+        assertThat(DateUtils.getStringFromDateTime(LocalDateTime.of(1970, 01, 01, 12, 31, 51)))
+                .isEqualTo("19700101 123151");
     }
 
     //
@@ -48,12 +57,12 @@ class DateUtilsTest {
     //
     @Test
     final void dateUtils_getDateFromString_null入力チェック() {
-        assertThat(dateUtils.getDateFromString(null)).isNull();
+        assertThat(DateUtils.getDateFromString(null)).isNull();
     }
 
     @Test
     final void dateUtils_getDateFromString_通常日付入力チェック() {
-        assertThat(dateUtils.getDateFromString("19700101")).isEqualTo("1970-01-01");
+        assertThat(DateUtils.getDateFromString("19700101")).isEqualTo("1970-01-01");
     }
 
     //
@@ -61,12 +70,12 @@ class DateUtilsTest {
     //
     @Test
     final void dateUtils_setStartDate_通常日付入力チェック() {
-        assertThat(dateUtils.setStartDate(LocalDate.of(1970, 01, 01))).isEqualTo("1970-01-01");
+        assertThat(DateUtils.setStartDate(LocalDate.of(1970, 01, 01))).isEqualTo("1970-01-01");
     }
 
     @Test
     final void dateUtils_setStartDate_null入力チェック() {
-        assertThat(dateUtils.setStartDate(null)).isEqualTo("0001-01-01");
+        assertThat(DateUtils.setStartDate(null)).isEqualTo("0001-01-01");
     }
 
     //
@@ -74,12 +83,12 @@ class DateUtilsTest {
     //
     @Test
     final void dateUtils_setEndDate_通常日付入力チェック() {
-        assertThat(dateUtils.setEndDate(LocalDate.of(1970, 01, 01))).isEqualTo("1970-01-01");
+        assertThat(DateUtils.setEndDate(LocalDate.of(1970, 01, 01))).isEqualTo("1970-01-01");
     }
 
     @Test
     final void dateUtils_setEndDate_null入力チェック() {
-        assertThat(dateUtils.setEndDate(null)).isEqualTo("9999-12-31");
+        assertThat(DateUtils.setEndDate(null)).isEqualTo("9999-12-31");
     }
 
     //
@@ -89,7 +98,7 @@ class DateUtilsTest {
     final void dateUtils_compareDate_等しいチェック() {
         LocalDateTime date_1 = LocalDateTime.now();
         LocalDateTime date_2 = LocalDateTime.now();
-        assertThat(dateUtils.compareDateTime(date_1, date_2)).isEqualTo(0);
+        assertThat(DateUtils.compareDateTime(date_1, date_2)).isEqualTo(0);
     }
 
     @Test
@@ -98,7 +107,7 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime date_2 = LocalDateTime.of(date, time);
-        assertThat(dateUtils.compareDateTime(date_1, date_2)).isEqualTo(1);
+        assertThat(DateUtils.compareDateTime(date_1, date_2)).isEqualTo(1);
     }
 
     @Test
@@ -107,13 +116,13 @@ class DateUtilsTest {
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime date_1 = LocalDateTime.of(date, time);
         LocalDateTime date_2 = LocalDateTime.now();
-        assertThat(dateUtils.compareDateTime(date_1, date_2)).isEqualTo(-1);
+        assertThat(DateUtils.compareDateTime(date_1, date_2)).isEqualTo(-1);
     }
 
     @Test
     final void dateUtils_calcDate_引数エラーチェック_様式() {
         LocalDateTime date = LocalDateTime.now();
-        assertThat(dateUtils.calcDate(date, "XX", 1)).isNull();
+        assertThat(DateUtils.calcDate(date, "XX", 1)).isNull();
     }
 
     @Test
@@ -121,7 +130,7 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime datetime = LocalDateTime.of(date, time);
-        assertThat(dateUtils.calcDate(datetime, "YYYY", 1)).isEqualTo("1971-01-01T09:00:00.000");
+        assertThat(DateUtils.calcDate(datetime, "YYYY", 1)).isEqualTo("1971-01-01T09:00:00.000");
     }
 
     @Test
@@ -129,7 +138,7 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime datetime = LocalDateTime.of(date, time);
-        assertThat(dateUtils.calcDate(datetime, "MM", 1)).isEqualTo("1970-02-01T09:00:00.000");
+        assertThat(DateUtils.calcDate(datetime, "MM", 1)).isEqualTo("1970-02-01T09:00:00.000");
     }
 
     @Test
@@ -137,7 +146,7 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime datetime = LocalDateTime.of(date, time);
-        assertThat(dateUtils.calcDate(datetime, "DD", 1)).isEqualTo("1970-01-02T09:00:00.000");
+        assertThat(DateUtils.calcDate(datetime, "DD", 1)).isEqualTo("1970-01-02T09:00:00.000");
     }
 
     @Test
@@ -145,7 +154,7 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime datetime = LocalDateTime.of(date, time);
-        assertThat(dateUtils.calcDate(datetime, "HH", 1)).isEqualTo("1970-01-01T10:00:00.000");
+        assertThat(DateUtils.calcDate(datetime, "HH", 1)).isEqualTo("1970-01-01T10:00:00.000");
     }
 
     @Test
@@ -153,7 +162,7 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime datetime = LocalDateTime.of(date, time);
-        assertThat(dateUtils.calcDate(datetime, "MI", 1)).isEqualTo("1970-01-01T09:01:00.000");
+        assertThat(DateUtils.calcDate(datetime, "MI", 1)).isEqualTo("1970-01-01T09:01:00.000");
     }
 
     @Test
@@ -161,6 +170,6 @@ class DateUtilsTest {
         LocalDate date = LocalDate.of(1970, 01, 01);
         LocalTime time = LocalTime.of(9, 00, 00);
         LocalDateTime datetime = LocalDateTime.of(date, time);
-        assertThat(dateUtils.calcDate(datetime, "SS", 1)).isEqualTo("1970-01-01T09:00:01.000");
+        assertThat(DateUtils.calcDate(datetime, "SS", 1)).isEqualTo("1970-01-01T09:00:01.000");
     }
 }

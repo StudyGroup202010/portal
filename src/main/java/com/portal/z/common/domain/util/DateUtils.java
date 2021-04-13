@@ -5,24 +5,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
-import org.springframework.stereotype.Component;
 
 /**
  * Date関係のユーティリティ
  *
  */
-@Component("DateUtils")
-public class DateUtils {
+public final class DateUtils {
+
+    // 他からインスタンス起動できないよう、コンストラクタをprivateで定義する。
+    private DateUtils() {
+
+    }
 
     /**
      * 日付の初期値（"00010101"）
      */
-    private String DEFAULT_START_DATE = "00010101";
+    private static String DEFAULT_START_DATE = "00010101";
 
     /**
      * 日付の永遠値（"99991231"）
      */
-    private String DEFAULT_END_DATE = "99991231";
+    private static String DEFAULT_END_DATE = "99991231";
 
     /**
      * 日付⇒文字列変換処理<BR>
@@ -34,7 +37,7 @@ public class DateUtils {
      * @param date 変換元の日付
      * @return String型に変換したdate
      */
-    public String getStringFromDate(LocalDate date) {
+    public static String getStringFromDate(LocalDate date) {
         if (date == null) {
             return null;
         }
@@ -42,6 +45,26 @@ public class DateUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd").withLocale(Locale.JAPANESE)
                 .withResolverStyle(ResolverStyle.STRICT);
         return formatter.format(date);
+    }
+
+    /**
+     * 日時⇒文字列変換処理<BR>
+     * 
+     * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDD HHmmss） <BR>
+     * datetimeがブランクの場合、nullを返します。<BR>
+     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
+     * 
+     * @param datetime 変換元の日時
+     * @return String型に変換したdatetime
+     */
+    public static String getStringFromDateTime(LocalDateTime datetime) {
+        if (datetime == null) {
+            return null;
+        }
+        // 変換する文字列のフォーマットを決めます。
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd HHmmss").withLocale(Locale.JAPANESE)
+                .withResolverStyle(ResolverStyle.STRICT);
+        return formatter.format(datetime);
     }
 
     /**
@@ -53,7 +76,7 @@ public class DateUtils {
      * @param date 変換元の文字列（様式はYYYYMMDD）
      * @return Date型に変換したdate
      */
-    public LocalDate getDateFromString(String date) {
+    public static LocalDate getDateFromString(String date) {
         if (date == null) {
             return null;
         }
@@ -72,7 +95,7 @@ public class DateUtils {
      * @param date 変換元の日付
      * @return 初期値に変換したdate
      */
-    public LocalDate setStartDate(LocalDate date) {
+    public static LocalDate setStartDate(LocalDate date) {
         if (date != null) {
             return date;
         }
@@ -87,7 +110,7 @@ public class DateUtils {
      * @param date 変換元の日付
      * @return 永遠値に変換したdate
      */
-    public LocalDate setEndDate(LocalDate date) {
+    public static LocalDate setEndDate(LocalDate date) {
         if (date != null) {
             return date;
         }
@@ -105,7 +128,7 @@ public class DateUtils {
      *         date_1＞date_2の時：1<BR>
      *         date_1＜date_2の時：-1
      */
-    public int compareDateTime(LocalDateTime date_1, LocalDateTime date_2) {
+    public static int compareDateTime(LocalDateTime date_1, LocalDateTime date_2) {
         int result = 0;
         if (date_1.isEqual(date_2)) {
             result = 0;
@@ -130,7 +153,7 @@ public class DateUtils {
      * @return Date<BR>
      *         誤った単位を入力したときはnull
      */
-    public LocalDateTime calcDate(LocalDateTime date, String string, int value) {
+    public static LocalDateTime calcDate(LocalDateTime date, String string, int value) {
 
         LocalDateTime result = null;
 

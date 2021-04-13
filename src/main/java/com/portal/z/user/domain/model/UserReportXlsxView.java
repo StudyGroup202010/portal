@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -23,6 +21,8 @@ import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.util.Constants;
+import com.portal.z.common.domain.util.DateUtils;
+import com.portal.z.common.domain.util.ExcelUtils;
 import com.portal.z.common.exception.ApplicationException;
 
 /**
@@ -65,40 +65,40 @@ public class UserReportXlsxView extends AbstractXlsxView {
             throw new ApplicationException(null, Constants.NOT_FOUND_SHEET);
         }
 
-        Row row = null;
-
-        // データをセット
-        // ここはもう少し共通化したいな。日付変換とか。
+        // 指定したシートにデータをセット
         for (int i = 0; i < userListCount; i++) {
-            row = sheet.createRow(i + 3);
+            // 行を追加（エクセルテンプレートに合わせて設定する。
+            int row = i + 3;
+            sheet.createRow(row);
+
             // ユーザID
-            row.createCell(0).setCellValue(userList.get(i).getUser_id());
+            ExcelUtils.setCell(sheet, row, 0).setCellValue(userList.get(i).getUser_id());
             // ユーザ有効期限
-            String User_due_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getUser_due_date());
-            row.createCell(1).setCellValue(User_due_date);
+            String User_due_date = DateUtils.getStringFromDate(userList.get(i).getUser_due_date().toLocalDate());
+            ExcelUtils.setCell(sheet, row, 1).setCellValue(User_due_date);
             // パスワード有効期限
-            String Pass_update = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getPass_update());
-            row.createCell(2).setCellValue(Pass_update);
+            String Pass_update = DateUtils.getStringFromDate(userList.get(i).getPass_update().toLocalDate());
+            ExcelUtils.setCell(sheet, row, 2).setCellValue(Pass_update);
             // ログイン失敗回数
-            row.createCell(3).setCellValue(userList.get(i).getLogin_miss_times());
+            ExcelUtils.setCell(sheet, row, 3).setCellValue(userList.get(i).getLogin_miss_times());
             // ロック状態
-            row.createCell(4).setCellValue(userList.get(i).isLock_flg());
+            ExcelUtils.setCell(sheet, row, 4).setCellValue(userList.get(i).isLock_flg());
             // 有効フラグ
-            row.createCell(5).setCellValue(userList.get(i).isEnabled_flg());
+            ExcelUtils.setCell(sheet, row, 5).setCellValue(userList.get(i).isEnabled_flg());
             // 作成者
-            row.createCell(6).setCellValue(userList.get(i).getInsert_user());
+            ExcelUtils.setCell(sheet, row, 6).setCellValue(userList.get(i).getInsert_user());
             // 作成日時
-            String Insert_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getInsert_date());
-            row.createCell(7).setCellValue(Insert_date);
+            String Insert_date = DateUtils.getStringFromDateTime(userList.get(i).getInsert_date().toLocalDateTime());
+            ExcelUtils.setCell(sheet, row, 7).setCellValue(Insert_date);
             // 更新者
-            row.createCell(8).setCellValue(userList.get(i).getUpdate_user());
+            ExcelUtils.setCell(sheet, row, 8).setCellValue(userList.get(i).getUpdate_user());
             // 更新日時
             if (userList.get(i).getUpdate_date() != null) {
-                String Update_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getUpdate_date());
-                row.createCell(9).setCellValue(Update_date);
+                String Update_date = DateUtils
+                        .getStringFromDateTime(userList.get(i).getUpdate_date().toLocalDateTime());
+                ExcelUtils.setCell(sheet, row, 9).setCellValue(Update_date);
             }
         }
-
         // カラム幅を自動調整
         for (int i = 0; i <= 9; i++) {
             sheet.autoSizeColumn(i);
