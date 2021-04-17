@@ -74,7 +74,7 @@ public final class Constants {
      * ・エクセルテンプレートが存在しないとき。<BR>
      * ・初期値は"シートが開けませんでした。"
      */
-    public static final String NOT_FOUND_SHEET = "シートが開けませんでした。";
+    public static final String NOT_FOUND_SHEET = "エクセルテンプレートのシートが開けませんでした。";
 
     /**
      * ロール名<BR>
