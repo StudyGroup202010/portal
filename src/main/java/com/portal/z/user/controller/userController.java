@@ -134,10 +134,6 @@ public class userController {
                 DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())),
                 DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
 
-        System.out.println(
-                "==TEST1:" + DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())));
-        System.out.println("==TEST2:" + DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
-
         // Modelにユーザーリストを登録
         model.addAttribute("userList", userList);
 
