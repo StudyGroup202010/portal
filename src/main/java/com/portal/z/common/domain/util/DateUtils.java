@@ -77,7 +77,7 @@ public final class DateUtils {
      * @return Date型に変換したdate
      */
     public static LocalDate getDateFromString(String date) {
-        if (date == null) {
+        if (date == null || date.isEmpty()) {
             return null;
         }
         // 変換元の文字列のフォーマットを指定します。

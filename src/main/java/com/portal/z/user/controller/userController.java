@@ -193,7 +193,7 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧のExcel出力用処理.<br>
+     * ユーザー一覧のExcel帳票出力用処理.<br>
      * 
      * ユーザ一覧の帳票を出力する。
      * 
@@ -212,6 +212,9 @@ public class userController {
         // データ件数を取得
         int count = userList.size();
         model.addStaticAttribute("userListCount", count);
+
+        // エクセルテンプレートファイルを指定
+        model.addStaticAttribute("template", "userList.xlsx");
 
         return model;
     }

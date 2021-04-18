@@ -1,54 +1,28 @@
 package com.portal.z.user.domain.model;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
+import com.portal.z.common.domain.model.AbstractXlsxReportView;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
-import com.portal.z.common.exception.ApplicationException;
 
 /**
  * 帳票出力用.
  */
 @Component
 @SuppressWarnings("unchecked") // このアノテーションつけないと「型の安全性: Object から ～ への未検査キャスト」が出る
-public class UserReportXlsxView extends AbstractXlsxView {
-
-    @Override
-    protected Workbook createWorkbook(Map<String, Object> model, HttpServletRequest request) {
-
-        // 出力するエクセルファイルの名称を定義
-        String tempName = "userList.xlsx";
-        File excelTemplateFile = new File(Constants.EXCEL_TEMPLATE + tempName);
-
-        try (InputStream is = new ByteArrayInputStream(Files.readAllBytes(Paths.get(excelTemplateFile.toString())))) {
-            // エクセルテンプレートを使ってエクセルブックを作る。
-            return WorkbookFactory.create(is);
-        } catch (IOException | EncryptedDocumentException e) {
-            // テンプレートが開けなかったとき。
-            throw new ApplicationException(null, Constants.NOT_FOUND_TEMPLATE, e);
-        }
-    }
+public class UserReportXlsxView extends AbstractXlsxReportView {
 
     @Override
     protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
@@ -58,7 +32,7 @@ public class UserReportXlsxView extends AbstractXlsxView {
         Sheet sheet = workbook.getSheet("ユーザー一覧");
         if (sheet == null) {
             // 指定したシートが無かったとき。
-            throw new ApplicationException(null, Constants.NOT_FOUND_SHEET);
+            sheet = workbook.createSheet();
         }
 
         // セルにセットする罫線を設定
