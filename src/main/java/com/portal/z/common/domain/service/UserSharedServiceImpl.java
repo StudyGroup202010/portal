@@ -41,9 +41,6 @@ public class UserSharedServiceImpl implements UserSharedService {
     @Autowired
     private EnvSharedService envSharedService;
 
-    @Autowired
-    private DateUtils dateUtils;
-
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -114,7 +111,7 @@ public class UserSharedServiceImpl implements UserSharedService {
 
         // パスワード有効期限を計算
         Date passwordUpdateDate = Date
-                .valueOf(dateUtils.calcDate(LocalDateTime.now(), "MM", PASS_UPDATE_NXT).toLocalDate());
+                .valueOf(DateUtils.calcDate(LocalDateTime.now(), "MM", PASS_UPDATE_NXT).toLocalDate());
 
         // Userインスタンスの生成
         User user = new User();

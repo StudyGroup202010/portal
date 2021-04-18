@@ -49,9 +49,6 @@ public class PwreissueServiceImpl implements PwreissueService {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    private DateUtils dateUtils;
-
-    @Autowired
     private EnvMapper envMapper;
 
     @Autowired
@@ -76,7 +73,7 @@ public class PwreissueServiceImpl implements PwreissueService {
 
         // 認証情報有効期限を計算（認証情報有効期間の初期値を使用）
         Timestamp expirydate = Timestamp
-                .valueOf(dateUtils.calcDate(LocalDateTime.now(), "MI", Constants.EXPIRYDATE_NXT));
+                .valueOf(DateUtils.calcDate(LocalDateTime.now(), "MI", Constants.EXPIRYDATE_NXT));
 
         // パスワード再発行情報クラスに設定
         Pwreissueinfo pwreissueinfo = new Pwreissueinfo();

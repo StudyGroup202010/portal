@@ -41,9 +41,6 @@ public class ResetpasswordController {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    private DateUtils dateUtils;
-
-    @Autowired
     private MassageUtils massageUtils;
 
     /**
@@ -65,7 +62,7 @@ public class ResetpasswordController {
             return "z/login";
         }
 
-        if (dateUtils.compareDateTime(LocalDateTime.now(), pwreissueinfo.getExpirydate().toLocalDateTime()) != -1) {
+        if (DateUtils.compareDateTime(LocalDateTime.now(), pwreissueinfo.getExpirydate().toLocalDateTime()) != -1) {
             // 認証情報有効期限外
             model.addAttribute("result", massageUtils.getMsg("w.co.fw.2.001", null));
             return "z/login";

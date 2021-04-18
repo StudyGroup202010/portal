@@ -1,6 +1,5 @@
 package com.portal.z.user.controller;
 
-import java.io.File;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -48,9 +47,6 @@ public class userController {
 
     @Autowired
     private UserSharedService userSharedService;
-
-    @Autowired
-    private DateUtils dateUtils;
 
     // パスワード暗号化
     @Autowired
@@ -135,8 +131,8 @@ public class userController {
         // ユーザー情報を取得
         // 日付項目は未入力時の対処が必要なので、ユーティリティを使います。
         List<User> userList = userService.selectBy(form.getUser_id(),
-                dateUtils.getStringFromDate(dateUtils.setStartDate(form.getUser_due_date_from())),
-                dateUtils.getStringFromDate(dateUtils.setEndDate(form.getUser_due_date_to())));
+                DateUtils.getStringFromDate(DateUtils.setStartDate(form.getUser_due_date_from())),
+                DateUtils.getStringFromDate(DateUtils.setEndDate(form.getUser_due_date_to())));
 
         // Modelにユーザーリストを登録
         model.addAttribute("userList", userList);
@@ -193,7 +189,7 @@ public class userController {
     }
 
     /**
-     * ユーザー一覧のExcel出力用処理.<br>
+     * ユーザー一覧のExcel帳票出力用処理.<br>
      * 
      * ユーザ一覧の帳票を出力する。
      * 
@@ -212,6 +208,9 @@ public class userController {
         // データ件数を取得
         int count = userList.size();
         model.addStaticAttribute("userListCount", count);
+
+        // エクセルテンプレートファイルを指定
+        model.addStaticAttribute("template", "userList.xlsx");
 
         return model;
     }

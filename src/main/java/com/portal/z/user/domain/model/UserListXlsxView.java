@@ -1,6 +1,5 @@
 package com.portal.z.user.domain.model;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractXlsxView;
 
 import com.portal.z.common.domain.model.User;
+import com.portal.z.common.domain.util.DateUtils;
 
 /**
  * ＥＸＣＥＬ出力用.
@@ -26,11 +26,12 @@ public class UserListXlsxView extends AbstractXlsxView {
     protected void buildExcelDocument(Map<String, Object> model, Workbook workbook, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
+        // データを出力するシートを指定
+        Sheet sheet = workbook.createSheet("Sheet1");
+
         // Controllerから受け取った値をセット
         List<User> userList = (List<User>) model.get("userList");
         int userListCount = (int) model.get("userListCount");
-
-        Sheet sheet = workbook.createSheet("Sheet1");
 
         // 列名をセット
         Row row = sheet.createRow(0);
@@ -45,17 +46,18 @@ public class UserListXlsxView extends AbstractXlsxView {
         row.createCell(8).setCellValue("更新者");
         row.createCell(9).setCellValue("更新日時");
 
-        // データをセット
-        // ここはもう少し共通化したいな。日付変換とか。
+        // 指定したシートにデータをセット
         for (int i = 0; i < userListCount; i++) {
+
+            // 行を追加
             row = sheet.createRow(i + 1);
             // ユーザID
             row.createCell(0).setCellValue(userList.get(i).getUser_id());
             // ユーザ有効期限
-            String User_due_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getUser_due_date());
+            String User_due_date = DateUtils.getStringFromDate(userList.get(i).getUser_due_date().toLocalDate());
             row.createCell(1).setCellValue(User_due_date);
             // パスワード有効期限
-            String Pass_update = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getPass_update());
+            String Pass_update = DateUtils.getStringFromDate(userList.get(i).getPass_update().toLocalDate());
             row.createCell(2).setCellValue(Pass_update);
             // ログイン失敗回数
             row.createCell(3).setCellValue(userList.get(i).getLogin_miss_times());
@@ -66,17 +68,17 @@ public class UserListXlsxView extends AbstractXlsxView {
             // 作成者
             row.createCell(6).setCellValue(userList.get(i).getInsert_user());
             // 作成日時
-            String Insert_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getInsert_date());
+            String Insert_date = DateUtils.getStringFromDateTime(userList.get(i).getInsert_date().toLocalDateTime());
             row.createCell(7).setCellValue(Insert_date);
             // 更新者
             row.createCell(8).setCellValue(userList.get(i).getUpdate_user());
             // 更新日時
             if (userList.get(i).getUpdate_date() != null) {
-                String Update_date = new SimpleDateFormat("yyyy/MM/dd").format(userList.get(i).getUpdate_date());
+                String Update_date = DateUtils
+                        .getStringFromDateTime(userList.get(i).getUpdate_date().toLocalDateTime());
                 row.createCell(9).setCellValue(Update_date);
             }
         }
-
         // カラム幅を自動調整
         for (int i = 0; i < 9; i++) {
             sheet.autoSizeColumn(i);
