@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.portal.z.common.domain.util;
+package com.portal.z.common.validation;
 
 import javax.validation.Payload;
 import javax.validation.Constraint;
@@ -14,18 +11,16 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * パスワード制約バリデータで使用するインターフェース
- * 
- * デフォルトの設定を定義している。
+ * パスワード制約バリデータのアノテーション
  */
 @Documented
-@Constraint(validatedBy = PasswordConstraintValidator.class)
+@Constraint(validatedBy = ValidPasswordValidatorImpl.class)
 @Target({ TYPE, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 public @interface ValidPassword {
 
     // デフォルトの設定のみなので、Javadocコメントは省略
-    
+
     @SuppressWarnings("javadoc")
     String message() default "Invalid Password";
 

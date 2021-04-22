@@ -1,4 +1,4 @@
-package com.portal.z.common.domain.util;
+package com.portal.z.common.validation;
 
 import org.passay.CharacterData;
 

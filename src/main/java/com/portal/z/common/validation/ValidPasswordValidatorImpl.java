@@ -1,4 +1,4 @@
-package com.portal.z.common.domain.util;
+package com.portal.z.common.validation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.PropertiesMessageResolver;
 import org.passay.RuleResult;
-import org.passay.WhitespaceRule;
+// import org.passay.WhitespaceRule;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  * 資料：http://www.passay.org/reference/
  */
 @Slf4j
-public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
+public class ValidPasswordValidatorImpl implements ConstraintValidator<ValidPassword, String> {
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
@@ -52,14 +52,16 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
         MessageResolver resolver = new PropertiesMessageResolver(props);
         PasswordValidator validator = new PasswordValidator(resolver, Arrays.asList(
 
-                // 文字の桁数 長さ4から100文字まで
-                new LengthRule(4, 100),
+                // 文字の桁数 長さ8から100文字まで
+                new LengthRule(8, 100),
 
                 // 記号(-_!@)を1文字以上含む
-                new CharacterRule(SpecialCharacterData.Special, 1),
+                new CharacterRule(SpecialCharacterData.Special, 1)
                 
-                // 空白を認めない ”P ASS”や”PASS ”はエラーにする。
-                new WhitespaceRule()
+// TODO 正規表現のチェックと重複するため、下記はコメントアウトしておく。
+//                ,
+//                // 空白を認めない ”P ASS”や”PASS ”はエラーにする。
+//                new WhitespaceRule()
 
         ));
 
@@ -71,8 +73,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
         List<String> messages = validator.getMessages(result);
         String messageTemplate = "";
-        // 複数のエラーがあった場合、最初の1件を表示する。
-        // TODO N件のエラーがあった場合、すべて出力するか？
+        // 最初の1件のみエラーメッセージを出力する。
         if (!CollectionUtils.isEmpty(messages)) {
             messageTemplate = messages.get(0);
         }

@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.portal.z.common.domain.util.ValidPassword;
+import com.portal.z.common.validation.ValidPassword;
 
 import lombok.Data;
 
