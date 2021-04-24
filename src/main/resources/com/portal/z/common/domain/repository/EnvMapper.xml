@@ -17,7 +17,7 @@
     <!-- １件insert -->
     <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Env">
         insert into
-          zm999_env (
+          km999_env (
            env_id
           ,env_kbn
           ,env_num
@@ -54,7 +54,7 @@
           ,update_user
           ,update_date
         from
-          zm999_env
+          km999_env
         where
           env_id = #{env_id}
     </select>
@@ -72,7 +72,7 @@
           ,update_user
           ,update_date
         from
-          zm999_env
+          km999_env
         order by
           env_id
     </select>
@@ -80,7 +80,7 @@
     <!-- １件更新 -->
     <update id="updateOne" parameterType="com.portal.z.common.domain.model.Env">
         update
-          zm999_env
+          km999_env
         set
            env_kbn     = #{env_kbn}
           ,env_num     = #{env_num}
@@ -94,7 +94,7 @@
 
     <!-- １件削除 -->
     <delete id="deleteOne" parameterType="string">
-        delete from zm999_env where env_id = #{env_id}
+        delete from km999_env where env_id = #{env_id}
     </delete>
     
     <!-- 環境IDで条件検索 -->
@@ -107,7 +107,7 @@
           ,env_txt
           ,biko
         from
-          zm999_env
+          km999_env
         where env_id               like CONCAT(#{env_id}  , '%')
           and COALESCE(env_kbn,'') like CONCAT(#{env_kbn} , '%')
           and env_txt              like CONCAT(#{env_txt} , '%')
