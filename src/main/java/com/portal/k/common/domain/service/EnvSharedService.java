@@ -1,4 +1,4 @@
-package com.portal.z.common.domain.service;
+package com.portal.k.common.domain.service;
 
 /**
  * 環境マスタ用共通Service

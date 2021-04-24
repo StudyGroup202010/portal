@@ -1,4 +1,4 @@
-package com.portal.z.env.domain.model;
+package com.portal.k.env.domain.model;
 
 import lombok.Data;
 
