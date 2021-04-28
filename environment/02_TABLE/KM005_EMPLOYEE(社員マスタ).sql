@@ -10,7 +10,8 @@ create table km005_employee(
      insert_date timestamp not null,
      update_user varchar(50),
      update_date timestamp,
-constraint km005_employee_pk primary key (employee_id)
+constraint km005_employee_pk primary key (employee_id),
+constraint km005_employee_sk1 unique (mail)
 );
 
 comment on table km005_employee is '社員マスタ';
