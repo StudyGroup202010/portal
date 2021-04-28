@@ -114,9 +114,7 @@ public class BadCredentialsEventListener {
 
         // パスワード更新
         // 更新実行
-        boolean result = userMapper.updateLockflg(user);
-
-        return result;
+        return userMapper.updateLockflg(user);
 
     }
 }

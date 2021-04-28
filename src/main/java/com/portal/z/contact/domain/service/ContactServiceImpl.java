@@ -32,7 +32,7 @@ public class ContactServiceImpl implements ContactService {
     @Autowired
     private MassageUtils massageUtils;
 
-    public void Contactmailsendregister(String sendFrom, String text) throws MessagingException {
+    public void contactmailsendregister(String sendFrom, String text) throws MessagingException {
 
         // 送信先メールアドレスを取得
         Env sendTo = envMapper.selectOne(Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name());

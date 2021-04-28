@@ -22,6 +22,13 @@ import java.util.Map;
 @SuppressWarnings("unchecked") // このアノテーションつけないと「型の安全性: Object から ～ への未検査キャスト」が出る
 public class UserListCsvView extends AbstractCsvView {
 
+    // ヘッダーを和名で設定
+    String[] Header_J = { "ユーザID", "ユーザ有効期限", "パスワード有効期限", "ログイン失敗回数", "ロック状態", "有効フラグ", "作成者", "作成日時", "更新者", "更新日時" };
+
+    // 出力する項目を設定
+    String[] Header = { "user_id", "user_due_date", "pass_update", "login_miss_times", "lock_flg", "enabled_flg",
+            "insert_user", "insert_date", "update_user", "update_date" };
+
     @Override
     protected void addResponseHeader(Map<String, Object> model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -41,15 +48,8 @@ public class UserListCsvView extends AbstractCsvView {
         List<User> userList = (List<User>) model.get("userList");
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-
-        // ヘッダーを和名で設定
-        String[] Header_J = { "ユーザID", "ユーザ有効期限", "パスワード有効期限", "ログイン失敗回数", "ロック状態", "有効フラグ", "作成者", "作成日時", "更新者",
-                "更新日時" };
         csvWriter.writeHeader(Header_J);
 
-        // 出力する項目を設定
-        String[] Header = { "user_id", "user_due_date", "pass_update", "login_miss_times", "lock_flg", "enabled_flg",
-                "insert_user", "insert_date", "update_user", "update_date" };
         for (User user : userList) {
             csvWriter.write(user, Header);
         }

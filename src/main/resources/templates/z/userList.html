@@ -61,7 +61,7 @@
                 <a class="btn btn-primary"
                     th:href="@{'/userList/report'}">帳票出力</a>
                 <!-- ユーザー登録画面へのリンク -->
-                <a class="btn btn-danger" th:href="@{'/userUpdate'}"
+                <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}"
                     sec:authorize="hasRole('ADMIN')">新規登録</a>
             </div>
             <table
