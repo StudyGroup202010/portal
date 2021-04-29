@@ -52,10 +52,6 @@ public class userController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    // ラジオボタン用変数
-    private Map<String, String> radioEnabled;
-    private Map<String, String> radioLock;
-
     /**
      * ラジオボタンの初期化メソッド.
      */
@@ -233,13 +229,9 @@ public class userController {
         // コンテンツ部分にユーザー登録を表示するための文字列を登録
         model.addAttribute("contents", "z/userUpdate :: userUpdate_contents");
 
-        // ラジオボタンの初期化メソッド呼び出し
-        radioEnabled = initRadioEnabled();
-        radioLock = initRadioLock();
-
-        // ラジオボタン用のMapをModelに登録
-        model.addAttribute("radioEnabled", radioEnabled);
-        model.addAttribute("radioLock", radioLock);
+        // ラジオボタンのMapを初期化してModelに登録
+        model.addAttribute("radioEnabled", initRadioEnabled());
+        model.addAttribute("radioLock", initRadioLock());
 
         // userUpdate.htmlに画面遷移
         return "z/homeLayout";
@@ -335,13 +327,9 @@ public class userController {
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/userDetail :: userDetail_contents");
 
-        // ラジオボタンの初期化メソッド呼び出し
-        radioEnabled = initRadioEnabled();
-        radioLock = initRadioLock();
-
-        // ラジオボタン用のMapをModelに登録
-        model.addAttribute("radioEnabled", radioEnabled);
-        model.addAttribute("radioLock", radioLock);
+        // ラジオボタンのMapを初期化してModelに登録
+        model.addAttribute("radioEnabled", initRadioEnabled());
+        model.addAttribute("radioLock", initRadioLock());
 
         // ユーザーIDのチェック
         if (user_id != null && user_id.length() > 0) {
