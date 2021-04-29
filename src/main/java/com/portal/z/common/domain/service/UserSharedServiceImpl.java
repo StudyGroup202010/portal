@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.portal.k.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;

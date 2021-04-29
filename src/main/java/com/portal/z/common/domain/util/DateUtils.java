@@ -157,17 +157,17 @@ public final class DateUtils {
 
         LocalDateTime result = null;
 
-        if (string.equals("YYYY")) {
+        if ("YYYY".equals(string)) {
             result = date.plusYears(value); // 年
-        } else if (string.equals("MM")) {
+        } else if ("MM".equals(string)) {
             result = date.plusMonths(value); // 月
-        } else if (string.equals("DD")) {
+        } else if ("DD".equals(string)) {
             result = date.plusDays(value); // 日
-        } else if (string.equals("HH")) {
+        } else if ("HH".equals(string)) {
             result = date.plusHours(value); // 時
-        } else if (string.equals("MI")) {
+        } else if ("MI".equals(string)) {
             result = date.plusMinutes(value); // 分
-        } else if (string.equals("SS")) {
+        } else if ("SS".equals(string)) {
             result = date.plusSeconds(value); // 秒
         } else {
             return null;

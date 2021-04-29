@@ -1,4 +1,4 @@
-package com.portal.z.env.controller;
+package com.portal.k.env.controller;
 
 import java.util.List;
 
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
-import com.portal.z.common.domain.model.Env;
+import com.portal.k.common.domain.model.Env;
 import com.portal.z.common.exception.ApplicationException;
-import com.portal.z.env.domain.model.InputEnvForm;
-import com.portal.z.env.domain.model.SelectEnvForm;
-import com.portal.z.env.domain.service.EnvService;
+import com.portal.k.env.domain.model.InputEnvForm;
+import com.portal.k.env.domain.model.SelectEnvForm;
+import com.portal.k.env.domain.service.EnvService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +50,7 @@ public class envController {
         model.addAttribute("selectEnvForm", form);
 
         // コンテンツ部分に環境マスタ一覧を表示するための文字列を登録
-        model.addAttribute("contents", "z/envList :: envList_contents");
+        model.addAttribute("contents", "k/envList :: envList_contents");
 
         // 環境マスタ一覧の生成
         List<Env> envList = envService.selectMany();
@@ -79,7 +79,7 @@ public class envController {
     public String getEnvListByEnvid(@ModelAttribute SelectEnvForm form, BindingResult bindingResult, Model model) {
 
         // コンテンツ部分に環境マスタ一覧を表示するための文字列を登録
-        model.addAttribute("contents", "z/envList :: envList_contents");
+        model.addAttribute("contents", "k/envList :: envList_contents");
 
         // 環境マスタ情報を取得
         List<Env> envList = envService.selectBy(form.getEnv_id(), form.getEnv_kbn(), form.getEnv_txt(), form.getBiko());
@@ -107,7 +107,7 @@ public class envController {
     public String getSignUp(@ModelAttribute InputEnvForm form, Model model) {
 
         // コンテンツ部分に環境マスタ登録を表示するための文字列を登録
-        model.addAttribute("contents", "z/envUpdate :: envUpdate_contents");
+        model.addAttribute("contents", "k/envUpdate :: envUpdate_contents");
 
         // 環境マスタ登録画面に画面遷移
         return "z/homeLayout";
@@ -194,7 +194,7 @@ public class envController {
     public String getEnvDetail(@ModelAttribute InputEnvForm form, Model model, @PathVariable("id") String env_id) {
 
         // コンテンツ部分に環境マスタ詳細を表示するための文字列を登録
-        model.addAttribute("contents", "z/envDetail :: envDetail_contents");
+        model.addAttribute("contents", "k/envDetail :: envDetail_contents");
 
         // 環境IDのチェック
         if (env_id != null && env_id.length() > 0) {

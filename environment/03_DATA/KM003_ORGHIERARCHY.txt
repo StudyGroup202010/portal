@@ -1,0 +1,4 @@
+INSERT INTO km003_orghierarchy (organization_cd ,start_yearmonth ,upperorganization_cd ,INSERT_USER,INSERT_DATE,UPDATE_USER,UPDATE_DATE)
+VALUES('ORG01','200001','ORG01','HAND',NOW(),NULL,NULL)
+,('ORG02','200001','ORG01','HAND',NOW(),NULL,NULL)
+,('ORG03','200001','ORG01','HAND',NOW(),NULL,NULL)

@@ -31,7 +31,7 @@ public class MassageUtils {
 
         String message = messageSource.getMessage(message_id, args, Constants.NOT_FOUND_MESSAGE, Locale.getDefault());
 
-        if (message_id.substring(0, 1).compareTo("i") != 0) {
+        if ("i".compareTo(message_id.substring(0, 1)) != 0) {
             message = "[" + message_id + "]：" + message;
         }
         return message;

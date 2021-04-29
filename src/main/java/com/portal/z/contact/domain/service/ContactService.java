@@ -15,5 +15,5 @@ public interface ContactService {
      * @param text     問い合わせ内容本文
      * @throws MessagingException 送信エラー
      */
-    public void Contactmailsendregister(String sendFrom, String text) throws MessagingException;
+    public void contactmailsendregister(String sendFrom, String text) throws MessagingException;
 }

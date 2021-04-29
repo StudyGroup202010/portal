@@ -1,4 +1,4 @@
-package com.portal.z.common.domain.model;
+package com.portal.k.common.domain.model;
 
 import java.sql.Timestamp;
 import lombok.Data;
