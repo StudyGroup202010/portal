@@ -1,31 +1,82 @@
 package com.portal.z.common.domain.util;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 /**
  * 定数定義
  *
  */
-@Controller
+@Component("Constants")
 public final class Constants {
 
-    private Constants() {
-    }
-
     /**
-     * ログイン失敗回数の最大値（１回）<BR>
-     * この値を超えるとアカウントがロックされます。
+     * ログイン失敗回数の最大値<BR>
+     * ・環境マスタ設定値。<BR>
+     * ・この値を超えるとアカウントがロックされます。<BR>
+     * ・初期値は１回。
      */
     public static final String LOGIN_MISS_TIMES_MAX = "1";
 
     /**
-     * パスワード有効期間（１か月）<BR>
-     * パスワードの有効期限の初期値（月数）
+     * パスワード有効期間<BR>
+     * ・環境マスタ設定値。<BR>
+     * ・パスワードの有効期限の初期値（月数）<BR>
+     * ・初期値は１か月。
      */
     public static final int PASS_UPDATE_NXT = 1;
 
     /**
-     * メール送信可否フラグ
+     * 認証情報有効期間<BR>
+     * ・認証情報の有効期限（分）<BR>
+     * ・初期値は３０分。
+     */
+    public static final int EXPIRYDATE_NXT = 30;
+
+    /**
+     * 秘密情報桁数<BR>
+     * ・秘密情報を生成する時に指定する桁数<BR>
+     * ・初期値は１０桁。
+     */
+    public static final int SECRET_LEN = 10;
+    
+    /**
+     * アプリケーションURL<BR>
+     * ・このアプリケーションのURL<BR>
+     * ・初期値は"http://localhost:8080/"。
+     */
+    public static final String APPLICATION_URL = "http://localhost:8080/";
+    
+    /**
+     * エラーメッセージ未登録用メッセージ<BR>
+     */
+    public static final String NOT_FOUND_MESSAGE = "エラーメッセージが登録されていません。";
+    
+    /**
+     * ユーザ一覧CSVファイル名<BR>
+     * ・ユーザ一覧画面から出力するCSVファイルの名称<BR>
+     */
+    public static final String USERLIST_CSVNAME = "userlist.csv";
+
+    /**
+     * ロール名<BR>
+     * ・環境マスタ設定値。<BR>
+     * ・一般用と管理者用を登録する。<BR>
+     * ・Spring Securityの認可処理は、"ROLE_"で始まる権限情報をロールとして扱うので、必ず"ROLE_"で始まること。
+     */
+    public static enum ROLE_NAME {
+        /**
+         * 一般用ロール(ROLE_GENERAL)
+         */
+        ROLE_NAME_G,
+        /**
+         * 管理者用ロール(ROLE_ADMIN)
+         */
+        ROLE_NAME_A
+    };
+
+    /**
+     * メール送信可否フラグ<BR>
+     * ・環境マスタ設定値。
      *
      */
     public static enum SEND_MAIL {
@@ -40,7 +91,8 @@ public final class Constants {
     };
 
     /**
-     * メール送信用SMTPの設定
+     * メール送信用SMTPの設定<BR>
+     * ・環境マスタ設定値。
      *
      */
     public static enum MAIL_SMTP {
@@ -58,7 +110,6 @@ public final class Constants {
         MAIL_SMTP_USERNAME,
         /**
          * SMTPログインユーザパスワード
-         * 
          */
         MAIL_SMTP_PASSWORD,
         /**
@@ -72,17 +123,22 @@ public final class Constants {
     }
 
     /**
-     * ロール名
-     *
+     * メール関係設定<BR>
+     * ・環境マスタ設定値。
      */
-    public static enum ROLE_NAME {
+    public static enum MAIL_ENV {
         /**
-         * 一般用
+         * 管理者用メールアドレス
          */
-        ROLE_GENERAL,
+        MAIL_ADMIN_CONTACT,
         /**
-         * 管理者用
+         * 問い合わせ用メールのタイトル
          */
-        ROLE_ADMIN
+        MAIL_TITLE_CONTACT,
+        /**
+         * パスワード再設定用メールのタイトル
+         */
+        MAIL_TITLE_PWREISSUE
     };
+
 }

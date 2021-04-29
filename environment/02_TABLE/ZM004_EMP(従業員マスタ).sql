@@ -1,32 +1,32 @@
---システム管理(Z) - 従業員マスタ(ZM004_EMP)
-CREATE TABLE ZM004_EMP(
-     EMP_ID VARCHAR(50) NOT NULL,
-     EMP_NAME VARCHAR(50),
-     MAILADDRESS VARCHAR(50),
-     BIRTHDAY DATE NOT NULL,
-     MARRIAGE_FLG BOOLEAN DEFAULT FALSE NOT NULL,
-     USER_ID VARCHAR(50),
-     INSERT_USER VARCHAR(50) NOT NULL,
-     INSERT_DATE TIMESTAMP NOT NULL,
-     UPDATE_USER VARCHAR(50),
-     UPDATE_DATE TIMESTAMP,
-CONSTRAINT ZM004_EMP_PK PRIMARY KEY (EMP_ID)
+--システム管理(z) - 従業員マスタ(zm004_emp)
+create table zm004_emp(
+     emp_id varchar(50) not null,
+     emp_name varchar(50),
+     mailaddress varchar(50),
+     birthday date not null,
+     marriage_flg boolean default false not null,
+     user_id varchar(50),
+     insert_user varchar(50) not null,
+     insert_date timestamp not null,
+     update_user varchar(50),
+     update_date timestamp,
+constraint zm004_emp_pk primary key (emp_id)
 );
 
-COMMENT ON TABLE ZM004_EMP is '従業員マスタ';
-COMMENT ON COLUMN ZM004_EMP.EMP_ID is '従業員ＩＤ';
-COMMENT ON COLUMN ZM004_EMP.EMP_NAME is '従業員名';
-COMMENT ON COLUMN ZM004_EMP.MAILADDRESS is 'メールアドレス';
-COMMENT ON COLUMN ZM004_EMP.BIRTHDAY is '生年月日';
-COMMENT ON COLUMN ZM004_EMP.MARRIAGE_FLG is '結婚フラグ';
-COMMENT ON COLUMN ZM004_EMP.USER_ID is 'ユーザID';
-COMMENT ON COLUMN ZM004_EMP.INSERT_USER is '作成者';
-COMMENT ON COLUMN ZM004_EMP.INSERT_DATE is '作成日時';
-COMMENT ON COLUMN ZM004_EMP.UPDATE_USER is '更新者';
-COMMENT ON COLUMN ZM004_EMP.UPDATE_DATE is '更新日時';
+comment on table zm004_emp is '従業員マスタ';
+comment on column zm004_emp.emp_id is '従業員ｉｄ';
+comment on column zm004_emp.emp_name is '従業員名';
+comment on column zm004_emp.mailaddress is 'メールアドレス';
+comment on column zm004_emp.birthday is '生年月日';
+comment on column zm004_emp.marriage_flg is '結婚フラグ';
+comment on column zm004_emp.user_id is 'ユーザid';
+comment on column zm004_emp.insert_user is '作成者';
+comment on column zm004_emp.insert_date is '作成日時';
+comment on column zm004_emp.update_user is '更新者';
+comment on column zm004_emp.update_date is '更新日時';
 
 
---Foreign Key Constraints
-ALTER TABLE ZM004_EMP ADD CONSTRAINT ZM004_EMP_FK1
-      FOREIGN KEY (USER_ID)
-      REFERENCES ZM001_USER (USER_ID);
+--foreign key constraints
+alter table zm004_emp add constraint zm004_emp_fk1
+      foreign key (user_id)
+      references zm001_user (user_id);

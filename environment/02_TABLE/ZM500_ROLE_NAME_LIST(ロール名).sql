@@ -1,10 +1,10 @@
---システム管理(Z) - ロール名(ZM500_ROLE_NAME_LIST)
-CREATE TABLE ZM500_ROLE_NAME_LIST(
-     ROLE_NAME VARCHAR(50) NOT NULL,
-     ENABLED_FLG BOOLEAN DEFAULT TRUE NOT NULL,
-CONSTRAINT ZM500_ROLE_NAME_LIST_PK PRIMARY KEY (ROLE_NAME)
+--システム管理(z) - ロール名(zm500_role_name_list)
+create table zm500_role_name_list(
+     role_name varchar(50) not null,
+     enabled_flg boolean default true not null,
+constraint zm500_role_name_list_pk primary key (role_name)
 );
 
-COMMENT ON TABLE ZM500_ROLE_NAME_LIST is 'ロール名';
-COMMENT ON COLUMN ZM500_ROLE_NAME_LIST.ROLE_NAME is 'ロール名';
-COMMENT ON COLUMN ZM500_ROLE_NAME_LIST.ENABLED_FLG is '有効フラグ';
+comment on table zm500_role_name_list is 'ロール名';
+comment on column zm500_role_name_list.role_name is 'ロール名';
+comment on column zm500_role_name_list.enabled_flg is '有効フラグ';

@@ -17,7 +17,7 @@ public interface RoleMapper {
      * 登録用メソッド
      * 
      * @param role role
-     * @return insertOne
+     * @return true/false
      */
     public boolean insertOne(Role role);
 
@@ -25,14 +25,14 @@ public interface RoleMapper {
      * １件検索用メソッド
      * 
      * @param role_id role_id
-     * @return selectOne
+     * @return Role
      */
     public Role selectOne(String role_id);
 
     /**
      * 全件検索用メソッド
      * 
-     * @return selectMany
+     * @return RoleList
      */
     public List<Role> selectMany();
 
@@ -40,7 +40,7 @@ public interface RoleMapper {
      * １件更新用メソッド
      * 
      * @param role role
-     * @return updateOne
+     * @return true/false
      */
     public boolean updateOne(Role role);
 
@@ -48,7 +48,7 @@ public interface RoleMapper {
      * １件削除用メソッド
      * 
      * @param role_id role_id
-     * @return deleteOne
+     * @return true/false
      */
     public boolean deleteOne(String role_id);
 
@@ -56,7 +56,7 @@ public interface RoleMapper {
      * ロールＩＤ検索用メソッド
      * 
      * @param env_id env_id
-     * @return selectRoleid
+     * @return Role
      */
     public Role selectRoleid(String env_id);
 

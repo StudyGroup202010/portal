@@ -96,4 +96,25 @@
     <delete id="deleteOne" parameterType="string">
         delete from zm999_env where env_id = #{env_id}
     </delete>
+    
+    <!-- 環境IDで条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="env">
+    <![CDATA[
+        select
+           env_id
+          ,env_kbn
+          ,env_num
+          ,env_txt
+          ,biko
+        from
+          zm999_env
+        where env_id               like CONCAT(#{env_id}  , '%')
+          and COALESCE(env_kbn,'') like CONCAT(#{env_kbn} , '%')
+          and env_txt              like CONCAT(#{env_txt} , '%')
+          and COALESCE(biko,'')    like CONCAT('%' , #{biko} , '%')
+        order by
+          env_id
+    ]]>
+    </select>
+    
 </mapper>

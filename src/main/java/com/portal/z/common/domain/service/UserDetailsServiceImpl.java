@@ -22,6 +22,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private LoginUserRepository repository;
 
+    /**
+     * ユーザ情報を取得
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

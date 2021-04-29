@@ -10,3 +10,7 @@ VALUES('ROLE_NAME_G','ROLE_NAME','ROLE_GENERAL','ロール名（一般ユーザ�
 ,('MAIL_SMTP_PASSWORD','MAIL_SMTP','password','SMTPログインパスワード','HAND',NOW())
 ,('MAIL_SMTP_AUTH','MAIL_SMTP','true','SMTP認証','HAND',NOW())
 ,('MAIL_SMTP_STARTTLS_ENABLE','MAIL_SMTP','true','TLS接続','HAND',NOW())
+,('MAIL_ADMIN_CONTACT','MAIL_ENV','test@mail','問い合わせ用送信先メールアドレス','HAND',NOW())
+,('MAIL_TITLE_CONTACT','MAIL_ENV','お問い合わせがありました','問い合わせ用メールタイトル','HAND',NOW())
+,('APPLICATION_URL',NULL,'http://localhost:8080/','アプリケーションURL','HAND',NOW())
+,('MAIL_TITLE_PWREISSUE','MAIL_ENV','パスワードを再設定してください。','パスワード再設定用メールのタイトル','HAND',NOW())

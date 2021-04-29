@@ -1,7 +1,9 @@
 package com.portal.z.contact.controller;
 
+import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,8 +11,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.portal.z.common.domain.logic.MailSend;
+
+import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.MassageUtils;
+import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.contact.domain.model.ContactForm;
+import com.portal.z.contact.domain.service.ContactService;
+import com.sun.mail.util.MailConnectException;
 
 /**
  * Contact用のController
@@ -20,7 +27,10 @@ import com.portal.z.contact.domain.model.ContactForm;
 public class ContactController {
 
     @Autowired
-    MailSend mailsend;
+    ContactService contactService;
+    
+    @Autowired
+    private MassageUtils massageUtils;
 
     /**
      * 問い合わせ画面のGETメソッド用処理.<BR>
@@ -34,6 +44,11 @@ public class ContactController {
     @GetMapping("/contact")
     public String getContact(@ModelAttribute ContactForm form, Model model) {
 
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        form.setContact_name(user_auth.getUsername());  // ユーザID
+        form.setContact_email(user_auth.getUsername()); // メールアドレス
         model.addAttribute("contactForm", form);
 
         // コンテンツ部分に問い合わせ画面を表示するための文字列を登録
@@ -66,19 +81,22 @@ public class ContactController {
                 + "メールアドレス: " + form.getContact_email() + "\n" + "メッセージ: \n" + form.getContact_message()
                 + "\n---------------------------";
 
-        // メールを送信する。
-        boolean result = mailsend.mailsendregister(form.getContact_email(), "suzuki196906@gmail.com", "お問い合わせがありました", text);
-
-        if (result == true) {
-            model.addAttribute("result", "ご記入いただいた内容を管理者に送信しました。");
+        try {
+            // メールを送信する。
+            contactService.Contactmailsendregister(form.getContact_email(), text);
+            model.addAttribute("result", massageUtils.getMsg("i.co.pr.0.003", null));
             // Modelを初期化
             form.setContact_name(null); // ユーザID
             form.setContact_email(null); // メールアドレス
             form.setContact_message(null); // お問い合わせ内容
             model.addAttribute("ContactForm", form);
-        } else {
-            model.addAttribute("result", "送信が出来ませんでした。送信不可になっているか、設定が間違っている可能性があります。");
+
+        } catch (ApplicationException e) {
+            model.addAttribute("result", e.getMessage());
+        } catch (MailConnectException | AuthenticationFailedException e) {
+            model.addAttribute("result", massageUtils.getMsg("e.co.fw.3.005", null) + e.getMessage());
         }
+
         // 問い合わせ画面を表示
         return getContact(form, model);
     }

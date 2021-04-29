@@ -30,7 +30,7 @@ public class GlobalControllAdvice {
         model.addAttribute("error", "内部サーバーエラー（DB）：GlobalControllAdvice");
 
         // 例外クラスのメッセージをModelに登録
-        model.addAttribute("message", "ApplicationExceptionが発生しました。詳しくはログを参照してください");
+        model.addAttribute("message", "ApplicationExceptionが発生しました。詳しくはログを参照してください。" + e.getMessage());
 
         // HTTPのエラーコード（500）をModelに登録
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,7 +52,7 @@ public class GlobalControllAdvice {
         model.addAttribute("error", "内部サーバーエラー（DB）：GlobalControllAdvice");
 
         // 例外クラスのメッセージをModelに登録
-        model.addAttribute("message", "DataAccessExceptionが発生しました。詳しくはログを参照してください");
+        model.addAttribute("message", "DataAccessExceptionが発生しました。詳しくはログを参照してください。" + e);
 
         // HTTPのエラーコード（500）をModelに登録
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR);

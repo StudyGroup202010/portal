@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
 
 <head>
     <meta charset="UTF-8"></meta>
@@ -13,37 +14,34 @@
     <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
-
-
-
+    <!-- CSSの読込 -->
+    <link th:href="@{/css/portal.css}" rel="stylesheet"></link>
+    <link th:href="@{/css/jpn.css}" rel="stylesheet"></link>
+    
     <title>ログイン</title>
 </head>
 <body class="text-center">
-    <h3>ログイン</h3>
-    <br>
-    <form method="post" th:action="@{/login}">
+    <h3 class="mt-5">ログイン</h3>
+    <form class="form-signin bg-light border" method="post"
+        th:action="@{/login}">
+
         <!-- エラーメッセージ -->
         <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
             th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-            class="text-danger">
-            ログインエラーメッセージ
-        </p>
-        
+            class="text-danger">ログインエラーメッセージ</p>
+        <P></P>
         <!-- ユーザーID -->
-        <div class="form-group">
-          <label>ユーザーID</label><br>
-          <input type="text" name="user_id" class="form-control-lg" />
-        </div>
-        
+        <input type="text" name="user_id"
+            class="form-control w-75 m-auto" placeholder="ユーザーID"
+            autofocus>
+        <p></p>
         <!-- パスワード -->
-        <div class="form-group">
-          <label>パスワード</label><br>
-          <input type="password" name="password" class="form-control-lg" />
-        </div>
-        
+        <input type="password" name="password"
+            class="form-control w-75 m-auto" placeholder="パスワード">
+        <p></p>
         <!-- ログインボタン -->
-        <button class="btn btn-primary btn-lg" type="submit">ログイン</button>
-        
+        <button class="btn btn-primary btn-lg w-75" type="submit">ログイン</button>
+
         <!-- CSRF対策用トークン（フォームを使っている画面では必須） -->
         <!-- ただしフォームで"th:action"を使っている場合は不要 -->
         <!--
@@ -51,7 +49,11 @@
             th:name="${_csrf.parameterName}"
             th:value="${_csrf.token}" />
          -->
+        <p></p>
+        <a class="text" th:href="@{'/pwreissue'}">ログインパスワード再登録</a>
+        <p></p>
+        <!-- ログイン画面の結果表示 -->
+        <label class="text-info" th:text="${result}"></label>
     </form>
-    <br />
 </body>
 </html>

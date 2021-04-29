@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.portal.z.common.domain.repository.PwreissueinfoMapper">
+	<!-- マッピング定義 -->
+	<resultMap
+		type="com.portal.z.common.domain.model.Pwreissueinfo" id="pwreissueinfo">
+		<id column="token" property="token" />
+		<result column="user_id" property="user_id" />
+		<result column="secret" property="secret" />
+		<result column="expiryDate" property="expiryDate" />
+	</resultMap>
+
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Pwreissueinfo">
+        insert into
+          zt001_pwreissueinfo (
+           token
+          ,user_id
+          ,secret
+          ,expirydate
+          )
+        values (
+           #{token}
+          ,#{user_id}
+          ,#{secret}
+          ,#{expirydate}
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.z.common.domain.model.Pwreissueinfo">
+        select
+           token
+          ,user_id
+          ,secret
+          ,expirydate
+        from
+          zt001_pwreissueinfo
+        where
+          token = #{token}
+    </select>
+    
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from zt001_pwreissueinfo where token = #{token}
+    </delete>
+
+    <!-- １件削除 -->
+    <delete id="deleteOneByUserid" parameterType="string">
+        delete from zt001_pwreissueinfo where user_id = #{user_id}
+    </delete>
+</mapper>

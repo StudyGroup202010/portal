@@ -56,7 +56,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     /**
-     * フォームとメッセージを紐付ける。
+     * バリデーションエラーメッセージをValidationMessages.propertiesからmessages.propertiesに変更する。<BR>
+     * メッセージは１箇所に集約した方がわかりやすいため。
      * 
      * @return localValidatorFactoryBean
      */
