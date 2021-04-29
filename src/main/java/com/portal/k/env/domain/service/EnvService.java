@@ -1,7 +1,7 @@
-package com.portal.z.env.domain.service;
+package com.portal.k.env.domain.service;
 
 import java.util.List;
-import com.portal.z.common.domain.model.Env;
+import com.portal.k.common.domain.model.Env;
 
 /**
  * EnvService

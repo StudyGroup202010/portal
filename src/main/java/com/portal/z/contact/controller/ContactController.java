@@ -83,7 +83,7 @@ public class ContactController {
 
         try {
             // メールを送信する。
-            contactService.Contactmailsendregister(form.getContact_email(), text);
+            contactService.contactmailsendregister(form.getContact_email(), text);
             model.addAttribute("result", massageUtils.getMsg("i.co.pr.0.003", null));
             // Modelを初期化
             form.setContact_name(null); // ユーザID

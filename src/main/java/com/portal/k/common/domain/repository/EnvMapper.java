@@ -1,10 +1,10 @@
-package com.portal.z.common.domain.repository;
+package com.portal.k.common.domain.repository;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.portal.z.common.domain.model.Env;
+import com.portal.k.common.domain.model.Env;
 
 /**
  * EnvMapper

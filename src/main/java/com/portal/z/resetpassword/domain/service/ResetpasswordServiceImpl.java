@@ -29,8 +29,7 @@ public class ResetpasswordServiceImpl implements ResetpasswordService {
 
     public Pwreissueinfo selectOne(String token) {
         // パスワード再発行情報を検索する。
-        Pwreissueinfo pwreissueinfo = pwreissueinfoMapper.selectOne(token);
-        return pwreissueinfo;
+        return pwreissueinfoMapper.selectOne(token);
     }
 
     public boolean checksecret(String token, String secret) {

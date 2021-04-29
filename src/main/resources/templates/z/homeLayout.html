@@ -44,45 +44,49 @@
 
 					<!-- 一般権限を持っているユーザのみ表示 -->
 					<a class="nav-link border border-dark rounded text-center"
-						th:href="@{'/general'}">一般用サブシステム１</a>
+						th:href="@{'/general'}">スキル管理システム</a>
 
-					<!-- 一般権限を持っているユーザのみ表示 -->
-					<a class="nav-link border border-dark rounded text-center"
-						th:href="@{'/general'}">一般用サブシステム２</a>
-
-					<!-- ADMIN権限を持っているユーザのみ表示 -->
-					<a class="nav-link border border-dark rounded text-center"
-						sec:authorize="hasRole('ADMIN')" th:href="@{'/admin'}">管理者用サブシステム</a>
-
-					<a
-						class="nav-link border border-dark rounded text-center dropdown-toggle"
-						sec:authorize="hasRole('ADMIN')" data-toggle="dropdown" href="#"
-						role="button" aria-haspopup="true" aria-expanded="false">マスタ管理</a>
-					<div class="dropdown-menu">
-                        <div class="dropdown-item">
-                            <a class="nav-link text-center" th:href="@{'/envList'}">環境マスタ</a>
+                    <!-- ADMIN権限を持っているユーザのみ表示 -->
+                    <div class="dropdown">
+                        <a
+                            class="nav-link border border-dark rounded text-center dropdown-toggle"
+                            sec:authorize="hasRole('ADMIN')"
+                            data-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true"
+                            aria-expanded="false">ポータル管理</a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <a class="nav-link text-center"
+                                    th:href="@{'/userList'}">ユーザマスタ</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a class="nav-link text-center"
+                                    th:href="@{'/admin'}">要素１（サンプル）</a>
+                            </div>
                         </div>
-						<div class="dropdown-item">
-							<a class="nav-link text-center" th:href="@{'/userList'}">ユーザマスタ</a>
-						</div>
-						<div class="dropdown-item">
-							<a class="nav-link text-center" th:href="@{'/admin'}">要素２（サンプル）</a>
-						</div>
-						<div class="dropdown-item">
-							<a class="nav-link text-center" th:href="@{'/admin'}">要素３（サンプル）</a>
-						</div>
-						<div class="dropdown-item">
-							<a class="nav-link text-center" th:href="@{'/admin'}">要素４（サンプル）</a>
-						</div>
-						<div class="dropdown-divider"></div>
-						<div class="dropdown-item">
-							<a class="nav-link text-center" th:href="@{'/admin'}">要素５（サンプル）</a>
-						</div>
-						<div class="dropdown-item">
-							<a class="nav-link text-center" th:href="@{'/admin'}">要素６（サンプル）</a>
-						</div>
-					</div>
-					<!-- 一般権限を持っているユーザのみ表示 -->
+                    </div>
+
+                    <!-- ADMIN権限を持っているユーザのみ表示 -->
+                    <div class="dropdown">
+                        <a
+                            class="nav-link border border-dark rounded text-center dropdown-toggle"
+                            sec:authorize="hasRole('ADMIN')"
+                            data-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true"
+                            aria-expanded="false">共通マスタ</a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item">
+                                <a class="nav-link text-center"
+                                    th:href="@{'/envList'}">環境マスタ</a>
+                            </div>
+                            <div class="dropdown-item">
+                                <a class="nav-link text-center"
+                                    th:href="@{'/admin'}">要素１（サンプル）</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 一般権限を持っているユーザのみ表示 -->
 					<a class="nav-link border border-dark rounded text-center"
 						th:href="@{'/contact'}">問い合わせ</a>
 				</nav>

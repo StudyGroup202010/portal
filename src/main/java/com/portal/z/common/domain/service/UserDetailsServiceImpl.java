@@ -29,8 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // ユーザ情報を取得
-        UserDetails user = repository.selectOne(username);
-
-        return user;
+        return repository.selectOne(username);
     }
 }

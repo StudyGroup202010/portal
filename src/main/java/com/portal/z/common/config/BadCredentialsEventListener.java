@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.portal.z.common.domain.model.AppUserDetails;
-import com.portal.z.common.domain.model.Env;
+import com.portal.k.common.domain.model.Env;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.repository.EnvMapper;
+import com.portal.k.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.UserDetailsServiceImpl;
 
@@ -114,9 +114,7 @@ public class BadCredentialsEventListener {
 
         // パスワード更新
         // 更新実行
-        boolean result = userMapper.updateLockflg(user);
-
-        return result;
+        return userMapper.updateLockflg(user);
 
     }
 }
