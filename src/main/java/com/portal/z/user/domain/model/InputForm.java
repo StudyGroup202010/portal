@@ -9,8 +9,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.portal.z.common.validation.ValidPassword;
 
 import lombok.Data;
 
@@ -30,11 +31,13 @@ public class InputForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate user_due_date; // ユーザ有効期限
 
-    // 必須入力、長さ4から100桁まで、半角英数字のみ
+    // (修正前)必須入力、長さ4から100桁まで、半角英数字のみ
+    // 必須入力
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    @Length(min = 4, max = 100, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", groups = { ValidCreate2.class,
-            ValidUpdate2.class }, message = "{pattern_check}")
+    // TODO パスワード制約チェックと内容が重複するが、メッセージが変わってしまうため、残しています
+    @Pattern(regexp = "^[a-zA-Z0-9\\-\\_!@]+$", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{pattern_check}")
+    // (修正後)パスワード制約チェック ※特殊文字を含むこと、文字数の長さをチェックしています
+    @ValidPassword(groups = { ValidCreate2.class, ValidUpdate2.class })
     private String password; // パスワード
 
     // 必須入力
