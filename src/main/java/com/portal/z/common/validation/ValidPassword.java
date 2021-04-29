@@ -11,7 +11,7 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * パスワード制約バリデータのアノテーション
+ * パスワード制約バリデータをアノテーションで使用するためのインターフェース
  */
 @Documented
 @Constraint(validatedBy = ValidPasswordValidatorImpl.class)
@@ -19,15 +19,25 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface ValidPassword {
 
-    // デフォルトの設定のみなので、Javadocコメントは省略
-
-    @SuppressWarnings("javadoc")
+    /**
+     * メッセージ(チェックのメッセージ)
+     * 
+     * @return メッセージ(デフォルト： "Invalid Password")
+     */
     String message() default "Invalid Password";
 
-    @SuppressWarnings("javadoc")
+    /**
+     * グループ指定(エラーのチェック順)
+     * 
+     * @return グループ情報
+     */
     Class<?>[] groups() default {};
 
-    @SuppressWarnings("javadoc")
+    /**
+     * ペイロード(バリデーション付加情報)
+     * 
+     * @return ペイロード情報
+     */
     Class<? extends Payload>[] payload() default {};
 
 }

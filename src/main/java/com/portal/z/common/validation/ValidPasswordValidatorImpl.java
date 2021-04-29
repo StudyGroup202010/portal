@@ -1,9 +1,8 @@
 package com.portal.z.common.validation;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -19,7 +18,6 @@ import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.PropertiesMessageResolver;
 import org.passay.RuleResult;
-// import org.passay.WhitespaceRule;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,17 +36,20 @@ public class ValidPasswordValidatorImpl implements ConstraintValidator<ValidPass
         // メッセージの日本語化
         // passayのデフォルトのルールを使う場合、メッセージ定数はpassayの定数に合わせてください。
         // →http://www.passay.org/reference/
+
+        // プロパティファイルからメッセージを読み込む。
         Properties props = new Properties();
         try {
-            // プロパティファイルからメッセージを読み込む。
-            props.load(new InputStreamReader(new FileInputStream("src/main/resources/messages.properties"), "UTF-8"));
-        } catch (FileNotFoundException e) {
-            log.error("FileNotFoundException@PasswordConstraintValidator:");
-            e.printStackTrace();
+            props.load(new InputStreamReader(getClass().getResourceAsStream("/messages.properties"),
+                    StandardCharsets.UTF_8));
         } catch (IOException e) {
-            log.error("IOException@PasswordConstraintValidator:");
+            log.error("プロパティファイルの読み込みに失敗しました【ValidPasswordValidatorImpl#isValid】");
             e.printStackTrace();
+            // プロパティファイルが読めなかった場合の例外処理が書けない！？
+            // TODO 暫定でfalseを返す。
+            return false;
         }
+
         MessageResolver resolver = new PropertiesMessageResolver(props);
         PasswordValidator validator = new PasswordValidator(resolver, Arrays.asList(
 
@@ -57,7 +58,7 @@ public class ValidPasswordValidatorImpl implements ConstraintValidator<ValidPass
 
                 // 記号(-_!@)を1文字以上含む
                 new CharacterRule(SpecialCharacterData.Special, 1)
-                
+
 // TODO 正規表現のチェックと重複するため、下記はコメントアウトしておく。
 //                ,
 //                // 空白を認めない ”P ASS”や”PASS ”はエラーにする。
