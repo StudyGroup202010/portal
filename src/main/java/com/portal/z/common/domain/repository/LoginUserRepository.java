@@ -103,7 +103,7 @@ public class LoginUserRepository {
 
         if (userMapList.isEmpty()) {
             // ユーザマスタにユーザIDが登録されていなかったとき
-            log.info("メソッド終了：buildUserDetails（ユーザＩＤ " + userId + " 未存在）");
+            log.info("メソッド終了：buildUserDetails（ユーザＩＤ {} が未存在)", userId);
             throw new UsernameNotFoundException(massageUtils.getMsg("e.co.fw.1.009", null));
         }
 

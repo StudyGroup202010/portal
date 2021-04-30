@@ -111,7 +111,7 @@ public class ResetpasswordController {
             log.info("更新成功");
         } else {
             model.addAttribute("result", "更新失敗");
-            log.info("更新失敗");
+            log.error("更新失敗");
         }
 
         // パスワード再発行情報を削除する（パスワードの更新が失敗していても削除してしまう）
