@@ -16,10 +16,10 @@ import lombok.Setter;
 @Confirm(field = "newPassword")
 public class PasswordForm {
     @NotBlank(message = "{require_check}")
-    // パスワード制約チェック
     @ValidPassword
     private String newPassword;
 
     @NotBlank(message = "{require_check}")
+    @ValidPassword
     private String confirmNewPassword;
 }

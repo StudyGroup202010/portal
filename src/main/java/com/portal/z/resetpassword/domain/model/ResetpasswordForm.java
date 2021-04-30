@@ -24,10 +24,10 @@ public class ResetpasswordForm {
     private String secret;
 
     @NotBlank(message = "{require_check}")
-    // パスワード制約チェック
     @ValidPassword
     private String newPassword;
 
     @NotBlank(message = "{require_check}")
+    @ValidPassword
     private String confirmNewPassword;
 }
