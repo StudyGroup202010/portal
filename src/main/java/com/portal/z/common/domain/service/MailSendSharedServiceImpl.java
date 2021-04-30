@@ -40,7 +40,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
 
         // 送信元のアドレスか送信先のアドレスが未入力の時はエラー
         if (sendFrom == null || sendFrom.isEmpty() || sendTo == null || sendTo.isEmpty()) {
-            log.info("送信者のアドレスか送信先のアドレスが未入力");
+            log.error("送信者のアドレスか送信先のアドレスが未入力");
             String messageKey = "e.co.fw.2.002";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { "送信者か送信先" }));
         }
@@ -49,7 +49,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env sendmail = envMapper.selectOne(Constants.SEND_MAIL.SEND_MAIL_ENABLE.name());
         if (sendmail == null) {
-            log.info("メール送信可否フラグ取得失敗");
+            log.error("メール送信可否フラグ取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.SEND_MAIL.SEND_MAIL_ENABLE.name() }));
@@ -59,7 +59,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env host = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_HOST.name());
         if (host == null) {
-            log.info("SMTPホストアドレス取得失敗");
+            log.error("SMTPホストアドレス取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_HOST.name() }));
@@ -69,7 +69,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env port = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PORT.name());
         if (port == null) {
-            log.info("SMTPポート番号取得失敗");
+            log.error("SMTPポート番号取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_PORT.name() }));
@@ -79,7 +79,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env username = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name());
         if (username == null) {
-            log.info("SMTPログインユーザ名取得失敗");
+            log.error("SMTPログインユーザ名取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_USERNAME.name() }));
@@ -89,7 +89,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env password = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name());
         if (password == null) {
-            log.info("SMTPログインパスワード取得失敗");
+            log.error("SMTPログインパスワード取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_PASSWORD.name() }));
@@ -99,7 +99,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env auth = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name());
         if (auth == null) {
-            log.info("SMTP認証取得失敗");
+            log.error("SMTP認証取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_SMTP.MAIL_SMTP_AUTH.name() }));
@@ -109,7 +109,7 @@ public class MailSendSharedServiceImpl implements MailSendSharedService {
         // 取得できない(取得結果がnull)の場合、処理を中止する
         Env starttls = envMapper.selectOne(Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name());
         if (starttls == null) {
-            log.info("TLS接続取得失敗");
+            log.error("TLS接続取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
                     new String[] { Constants.MAIL_SMTP.MAIL_SMTP_STARTTLS_ENABLE.name() }));

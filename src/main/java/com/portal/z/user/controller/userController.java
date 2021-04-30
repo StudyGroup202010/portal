@@ -286,7 +286,7 @@ public class userController {
                 log.info("登録成功");
             } else {
                 model.addAttribute("result", "登録失敗");
-                log.info("登録失敗");
+                log.error("登録失敗");
             }
         } catch (ApplicationException e) {
             model.addAttribute("result", e.getMessage());
@@ -403,7 +403,7 @@ public class userController {
             log.info("更新成功");
         } else {
             model.addAttribute("result", "更新失敗");
-            log.info("更新失敗");
+            log.error("更新失敗");
         }
 
         // ユーザー一覧画面を表示
@@ -430,7 +430,7 @@ public class userController {
             log.info("削除成功");
         } else {
             model.addAttribute("result", "削除失敗");
-            log.info("削除失敗");
+            log.error("削除失敗");
         }
         // ユーザー一覧画面を表示
         return getUserList(model);
