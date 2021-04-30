@@ -19,7 +19,6 @@ import org.passay.PropertiesMessageResolver;
 import org.passay.RuleResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.MassageUtils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +47,8 @@ public class ValidPasswordValidatorImpl implements ConstraintValidator<ValidPass
         try (InputStreamReader is = new InputStreamReader(getClass().getResourceAsStream("/messages.properties"),
                 StandardCharsets.UTF_8)) {
             props.load(is);
-        } catch (Exception e) { // 本来はIOExceptionですが、拾えないのでExceptionにしてメッセージを画面に表示します。
+        } catch (Exception e) {
+            // 本来はIOExceptionですが、拾えないのでExceptionにしてメッセージを画面に表示します。
             context.buildConstraintViolationWithTemplate(
                     massageUtils.getMsg("e.co.fw.3.010", new String[] { "messages.properties" }))
                     .addConstraintViolation().disableDefaultConstraintViolation();
