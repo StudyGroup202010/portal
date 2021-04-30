@@ -37,7 +37,7 @@ public class ContactServiceImpl implements ContactService {
         // 送信先メールアドレスを取得
         Env sendTo = envMapper.selectOne(Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name());
         if (sendTo == null) {
-            log.info("問い合わせ用送信先メールアドレス取得失敗");
+            log.error("問い合わせ用送信先メールアドレス取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name() }));
@@ -46,7 +46,7 @@ public class ContactServiceImpl implements ContactService {
         // 問い合わせメールタイトルを取得
         Env Subject = envMapper.selectOne(Constants.MAIL_ENV.MAIL_TITLE_CONTACT.name());
         if (Subject == null) {
-            log.info("問い合わせ用メールタイトル取得失敗");
+            log.error("問い合わせ用メールタイトル取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_TITLE_CONTACT.name() }));

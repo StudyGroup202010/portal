@@ -50,12 +50,12 @@ public class BadCredentialsEventListener {
         // 存在しないユーザ名でのログイン失敗
         if (event.getException().getClass().equals(UsernameNotFoundException.class)) {
             // ユーザＩＤが存在しない場合はユーザマスタを更新できないので終了
-            log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が未存在）");
+            log.error("メソッド終了：onBadCredentialsEvent（ユーザＩＤ {} が未存在）", userId);
             return;
         }
 
         // 存在するユーザ名でのログイン失敗
-        log.info("メソッド終了：onBadCredentialsEvent（ユーザＩＤ " + userId + " が存在するがパスワード失敗）");
+        log.error("メソッド終了：onBadCredentialsEvent（ユーザＩＤ {} が存在するがパスワード失敗）", userId);
         // ユーザー情報の取得
         AppUserDetails user = (AppUserDetails) userdetailsService.loadUserByUsername(userId);
         // ログイン失敗回数を1増やす
@@ -91,15 +91,13 @@ public class BadCredentialsEventListener {
                 LOGIN_MISS_LIMIT = Integer.parseInt(env.getEnv_txt());
 
             } catch (NumberFormatException e) {
-                log.info("環境マスタの「LOGIN_MISS_TIMES_MAX」に数字以外が登録されています");
+                log.error("環境マスタの「LOGIN_MISS_TIMES_MAX」に数字以外が登録されています");
                 LOGIN_MISS_LIMIT = 0;
             }
         }
 
-        log.info("LOGIN_MISS_LIMIT：" + LOGIN_MISS_LIMIT);
-
         if (loginMissTime >= LOGIN_MISS_LIMIT) {
-            log.info("ログイン失敗回数の最大値に達したので " + userId + " をロックします");
+            log.info("ログイン失敗回数の最大値に達したので {} をロックします", userId);
             lock = true;
         }
 
