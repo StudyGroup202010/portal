@@ -1,6 +1,5 @@
 package com.portal.z.common.validation;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -18,6 +17,9 @@ import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.PropertiesMessageResolver;
 import org.passay.RuleResult;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.portal.z.common.domain.util.MassageUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ValidPasswordValidatorImpl implements ConstraintValidator<ValidPassword, String> {
 
+    @Autowired
+    private MassageUtils massageUtils;
+
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
 
@@ -39,14 +44,17 @@ public class ValidPasswordValidatorImpl implements ConstraintValidator<ValidPass
 
         // プロパティファイルからメッセージを読み込む。
         Properties props = new Properties();
-        try {
-            props.load(new InputStreamReader(getClass().getResourceAsStream("/messages.properties"),
-                    StandardCharsets.UTF_8));
-        } catch (IOException e) {
+        try (InputStreamReader is = new InputStreamReader(getClass().getResourceAsStream("/messages.properties"),
+                StandardCharsets.UTF_8)) {
+            props.load(is);
+        } catch (Exception e) {
+            // 本来はIOExceptionですが、拾えないのでExceptionにしてメッセージを画面に表示します。
+            context.buildConstraintViolationWithTemplate(
+                    massageUtils.getMsg("e.co.fw.3.010", new String[] { "messages.properties" }))
+                    .addConstraintViolation().disableDefaultConstraintViolation();
+
             log.error("プロパティファイルの読み込みに失敗しました【ValidPasswordValidatorImpl#isValid】");
             e.printStackTrace();
-            // プロパティファイルが読めなかった場合の例外処理が書けない！？
-            // TODO 暫定でfalseを返す。
             return false;
         }
 
