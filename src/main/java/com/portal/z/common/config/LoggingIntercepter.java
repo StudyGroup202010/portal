@@ -23,7 +23,9 @@ public class LoggingIntercepter extends HandlerInterceptorAdapter {
     /** SESSION-IDのキー名 */
     private static final String SESSION_ID = "SESSION_ID";
 
-    // コントローラ実行前の処理
+    /**
+     * コントローラ実行前の処理
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
@@ -52,7 +54,9 @@ public class LoggingIntercepter extends HandlerInterceptorAdapter {
         return true;
     }
 
-    // リクエスト処理が完了した後の処理
+    /**
+     * リクエスト処理が完了した後の処理
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception ex) {

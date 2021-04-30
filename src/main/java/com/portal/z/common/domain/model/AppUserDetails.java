@@ -20,9 +20,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AppUserDetails implements UserDetails {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     // =========================
     // Springで必要なフィールド
@@ -55,44 +52,56 @@ public class AppUserDetails implements UserDetails {
      * 有効フラグ
      */
     private boolean enabled_flg;
-
     /**
      * 権限のCollection
      */
     private Collection<? extends GrantedAuthority> authority;
 
+    /**
+     * 権限を取得
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authority;
     }
 
+    /**
+     * パスワードを取得
+     */
     @Override
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * ユーザーIDを取得
+     */
     @Override
     public String getUsername() {
         return this.user_id;
     }
 
     /**
-     * アカウントの有効期限チェック true: 有効 false:無効
+     * アカウントの有効期限チェック<BR>
+     * ユーザー有効期限が、現在日付よりも後かどうかをチェック<BR>
+     * true: 有効（現在日付よりも後）<BR>
+     * false:無効（現在日付よりも前）
      */
     @Override
     public boolean isAccountNonExpired() {
-        // ユーザー有効期限が、現在日付よりも後かどうかをチェック
         if (this.user_due_date.after(new Date())) {
-            // 現在日付よりも後なら有効
+            // 現在日付よりも後
             return true;
         } else {
-            // 現在日付よりも前なら無効
+            // 現在日付よりも前
             return false;
         }
     }
 
     /**
-     * アカウントのロックチェック true: アンロック false: ロック
+     * アカウントのロックチェック<BR>
+     * true: ロックされていない<BR>
+     * false:ロックされている<BR>
      */
     @Override
     public boolean isAccountNonLocked() {
@@ -106,18 +115,19 @@ public class AppUserDetails implements UserDetails {
     }
 
     /**
-     * パスワードの有効期限チェック true:有効 false:無効
+     * パスワードの有効期限チェック<BR>
+     * パスワードの有効期限が切れていたら別で再設定をするので、ここはtrueを返す<BR>
+     * true:有効<BR>
      */
-    //
-    // パスワードの有効期限が切れていたら再設定をするので、この部分trueを返すだけとする
-    //
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     /**
-     * アカウントの有効・無効チェック true:有効 false:無効
+     * アカウントの有効・無効チェック<BR>
+     * true:有効<BR>
+     * false:無効<BR>
      */
     @Override
     public boolean isEnabled() {

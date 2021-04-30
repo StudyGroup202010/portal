@@ -1,18 +1,18 @@
---システム管理(Z) - ユーザロールマスタ(ZM003_USERROLE)
-CREATE TABLE ZM003_USERROLE(
-     USER_ID VARCHAR(50) NOT NULL,
-     ROLE_ID VARCHAR(50) NOT NULL,
-CONSTRAINT ZM003_USERROLE_PK PRIMARY KEY (USER_ID, ROLE_ID)
+--システム管理(z) - ユーザロールマスタ(zm003_userrole)
+create table zm003_userrole(
+     user_id varchar(50) not null,
+     role_id varchar(50) not null,
+constraint zm003_userrole_pk primary key (user_id, role_id)
 );
 
-COMMENT ON TABLE ZM003_USERROLE is 'ユーザロールマスタ';
-COMMENT ON COLUMN ZM003_USERROLE.USER_ID is 'ユーザID';
-COMMENT ON COLUMN ZM003_USERROLE.ROLE_ID is 'ロールＩＤ';
+comment on table zm003_userrole is 'ユーザロールマスタ';
+comment on column zm003_userrole.user_id is 'ユーザid';
+comment on column zm003_userrole.role_id is 'ロールｉｄ';
 
---Foreign Key Constraints
-ALTER TABLE ZM003_USERROLE ADD CONSTRAINT ZM003_USERROLE_FK1
-      FOREIGN KEY (ROLE_ID)
-      REFERENCES ZM002_ROLE (ROLE_ID);
-ALTER TABLE ZM003_USERROLE ADD CONSTRAINT ZM003_USERROLE_FK2
-      FOREIGN KEY (USER_ID)
-      REFERENCES ZM001_USER (USER_ID);
+--foreign key constraints
+alter table zm003_userrole add constraint zm003_userrole_fk1
+      foreign key (role_id)
+      references zm002_role (role_id);
+alter table zm003_userrole add constraint zm003_userrole_fk2
+      foreign key (user_id)
+      references zm001_user (user_id);
