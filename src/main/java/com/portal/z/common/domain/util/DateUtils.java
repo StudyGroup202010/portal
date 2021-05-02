@@ -18,9 +18,9 @@ public final class DateUtils {
     }
 
     /**
-     * 日付の初期値（"00010101"）
+     * 日付の初期値（"00000101"）
      */
-    private static String DEFAULT_START_DATE = "00010101";
+    private static String DEFAULT_START_DATE = "00000101";
 
     /**
      * 日付の永遠値（"99991231"）
@@ -28,7 +28,7 @@ public final class DateUtils {
     private static String DEFAULT_END_DATE = "99991231";
 
     /**
-     * 日付⇒文字列変換処理<BR>
+     * 日付（年月日）⇒文字列変換処理<BR>
      * 
      * 入力したdateに該当する文字列を取得します。（様式はYYYYMMDD） <BR>
      * dateがブランクの場合、nullを返します。<BR>
@@ -48,7 +48,7 @@ public final class DateUtils {
     }
 
     /**
-     * 日時⇒文字列変換処理<BR>
+     * 日付（年月日時分秒）⇒文字列変換処理<BR>
      * 
      * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDD HHmmss） <BR>
      * datetimeがブランクの場合、nullを返します。<BR>
@@ -68,7 +68,7 @@ public final class DateUtils {
     }
 
     /**
-     * 文字列⇒日付変換処理<BR>
+     * 文字列（YYYYMMDD）⇒日付変換処理<BR>
      * 
      * dateに該当する日付を取得します。 dateがブランクの場合、nullを返します。<BR>
      * 日付変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
@@ -141,7 +141,7 @@ public final class DateUtils {
     }
 
     /**
-     * 日付演算処理<BR>
+     * 日付加算減算処理<BR>
      * 
      * 日付に対して加算／減算をします。<BR>
      * 単位を指定すると演算したい日付に対して値が加算されます。<BR>

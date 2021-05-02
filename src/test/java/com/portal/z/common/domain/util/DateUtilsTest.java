@@ -75,7 +75,7 @@ class DateUtilsTest {
 
     @Test
     final void dateUtils_setStartDate_null入力チェック() {
-        assertThat(DateUtils.setStartDate(null)).isEqualTo("0001-01-01");
+        assertThat(DateUtils.setStartDate(null)).isEqualTo("0000-01-01");
     }
 
     //
