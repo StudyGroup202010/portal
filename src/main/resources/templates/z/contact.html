@@ -17,6 +17,7 @@
 
 
   
+  
     <title>Contact</title>  
 </head>
 <body>
@@ -28,7 +29,7 @@
         <div>
             <p class="text-left">以下を入力して送信ボタンをクリックしてください。（＊は入力必須です。）</p>
             <!-- 送信処理の結果表示用 -->
-            <label class="text-info" th:text="${result}">結果表示</label><br />
+            <label class="text-danger" th:text="${result}">結果表示</label><br />
             <form method="post" th:action="@{/contact}"
                 th:object="${contactForm}">
                 <div class="form-group"
