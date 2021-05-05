@@ -1,0 +1,4 @@
+INSERT INTO am005_employee ( employee_id , employee_name , employee_cd ,mail ,joined_date ,INSERT_USER,INSERT_DATE,UPDATE_USER,UPDATE_DATE)
+VALUES('00001','社員A','SYAIN001','001@mail','2001/01/01','HAND',NOW(),NULL,NULL)
+,('00002','社員B','SYAIN002','002@mail','2002/01/01','HAND',NOW(),NULL,NULL)
+,('00003','社員C','SYAIN003','003@mail','2003/01/01','HAND',NOW(),NULL,NULL)

@@ -12,8 +12,8 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.portal.k.common.domain.model.Env;
-import com.portal.k.common.domain.repository.EnvMapper;
+import com.portal.a.common.domain.model.Env;
+import com.portal.a.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;

@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.k.common.domain.model.Env;
-import com.portal.k.common.domain.repository.EnvMapper;
+import com.portal.a.common.domain.model.Env;
+import com.portal.a.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.service.MailSendSharedService;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.MassageUtils;
