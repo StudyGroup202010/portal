@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.portal.z.common.domain.repository.ColumnsMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.Columns"
+		id="columns">
+		<result column="table_name" property="table_name" />
+		<result column="column_name" property="column_name" />
+		<result column="data_type" property="data_type" />
+		<result column="character_maximum_length" property="character_maximum_length" />
+	</resultMap>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.z.common.domain.model.Columns">
+        select 
+           col.table_name
+          ,column_name
+          ,col.data_type
+          ,col.character_maximum_length
+        FROM
+           information_schema.columns col
+        WHERE
+           col.table_name = #{tablename}
+        and 
+           column_name = #{columnname}
+    </select>
+</mapper>

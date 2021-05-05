@@ -28,7 +28,7 @@ public final class DateUtils {
     private static String DEFAULT_END_DATE = "99991231";
 
     /**
-     * 日付（年月日）⇒文字列変換処理<BR>
+     * 日付（年月日）⇒文字列(YYYYMMDD)変換処理<BR>
      * 
      * 入力したdateに該当する文字列を取得します。（様式はYYYYMMDD） <BR>
      * dateがブランクの場合、nullを返します。<BR>
@@ -48,7 +48,27 @@ public final class DateUtils {
     }
 
     /**
-     * 日付（年月日時分秒）⇒文字列変換処理<BR>
+     * 日付（年月日）⇒文字列(YYYY/MM/DD)変換処理<BR>
+     * 
+     * 入力したdateに該当する文字列を取得します。（様式はYYYYMMDD） <BR>
+     * dateがブランクの場合、nullを返します。<BR>
+     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
+     * 
+     * @param date 変換元の日付
+     * @return String型に変換したdate（YYYY/MM/DD）
+     */
+    public static String getStringFromDateFormat(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+        // 変換する文字列のフォーマットを決めます。
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd").withLocale(Locale.JAPANESE)
+                .withResolverStyle(ResolverStyle.STRICT);
+        return formatter.format(date);
+    }
+
+    /**
+     * 日付（年月日時分秒）⇒文字列(YYYYMMDD HHmmss)変換処理<BR>
      * 
      * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDD HHmmss） <BR>
      * datetimeがブランクの場合、nullを返します。<BR>
@@ -63,6 +83,26 @@ public final class DateUtils {
         }
         // 変換する文字列のフォーマットを決めます。
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd HHmmss").withLocale(Locale.JAPANESE)
+                .withResolverStyle(ResolverStyle.STRICT);
+        return formatter.format(datetime);
+    }
+
+    /**
+     * 日付（年月日時分秒）⇒文字列(YYYY/MM/DD HH:mm:ss)変換処理<BR>
+     * 
+     * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDD HHmmss） <BR>
+     * datetimeがブランクの場合、nullを返します。<BR>
+     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
+     * 
+     * @param datetime 変換元の日時
+     * @return String型に変換したdatetime
+     */
+    public static String getStringFromDateTimeFormat(LocalDateTime datetime) {
+        if (datetime == null) {
+            return null;
+        }
+        // 変換する文字列のフォーマットを決めます。
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss").withLocale(Locale.JAPANESE)
                 .withResolverStyle(ResolverStyle.STRICT);
         return formatter.format(datetime);
     }

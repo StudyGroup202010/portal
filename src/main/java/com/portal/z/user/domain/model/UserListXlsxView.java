@@ -54,10 +54,10 @@ public class UserListXlsxView extends AbstractXlsxView {
             // ユーザID
             row.createCell(0).setCellValue(userList.get(i).getUser_id());
             // ユーザ有効期限
-            String User_due_date = DateUtils.getStringFromDate(userList.get(i).getUser_due_date().toLocalDate());
+            String User_due_date = DateUtils.getStringFromDateFormat(userList.get(i).getUser_due_date().toLocalDate());
             row.createCell(1).setCellValue(User_due_date);
             // パスワード有効期限
-            String Pass_update = DateUtils.getStringFromDate(userList.get(i).getPass_update().toLocalDate());
+            String Pass_update = DateUtils.getStringFromDateFormat(userList.get(i).getPass_update().toLocalDate());
             row.createCell(2).setCellValue(Pass_update);
             // ログイン失敗回数
             row.createCell(3).setCellValue(userList.get(i).getLogin_miss_times());
@@ -68,14 +68,15 @@ public class UserListXlsxView extends AbstractXlsxView {
             // 作成者
             row.createCell(6).setCellValue(userList.get(i).getInsert_user());
             // 作成日時
-            String Insert_date = DateUtils.getStringFromDateTime(userList.get(i).getInsert_date().toLocalDateTime());
+            String Insert_date = DateUtils
+                    .getStringFromDateTimeFormat(userList.get(i).getInsert_date().toLocalDateTime());
             row.createCell(7).setCellValue(Insert_date);
             // 更新者
             row.createCell(8).setCellValue(userList.get(i).getUpdate_user());
             // 更新日時
             if (userList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
-                        .getStringFromDateTime(userList.get(i).getUpdate_date().toLocalDateTime());
+                        .getStringFromDateTimeFormat(userList.get(i).getUpdate_date().toLocalDateTime());
                 row.createCell(9).setCellValue(Update_date);
             }
         }
