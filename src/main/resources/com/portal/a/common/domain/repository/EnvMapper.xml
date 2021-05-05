@@ -3,9 +3,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.portal.k.common.domain.repository.EnvMapper">
+	namespace="com.portal.a.common.domain.repository.EnvMapper">
 	<!-- マッピング定義 -->
-	<resultMap type="com.portal.k.common.domain.model.Env"
+	<resultMap type="com.portal.a.common.domain.model.Env"
 		id="env">
 		<id column="env_id" property="env_id" />
 		<result column="env_kbn" property="env_kbn" />
@@ -15,7 +15,7 @@
 	</resultMap>
     
     <!-- １件insert -->
-    <insert id="insertOne" parameterType="com.portal.k.common.domain.model.Env">
+    <insert id="insertOne" parameterType="com.portal.a.common.domain.model.Env">
         insert into
           am999_env (
            env_id
@@ -42,7 +42,7 @@
     </insert>
 
     <!-- １件検索 -->
-    <select id="selectOne" parameterType="string" resultType="com.portal.k.common.domain.model.Env">
+    <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Env">
         select
            env_id
           ,env_kbn
@@ -78,7 +78,7 @@
     </select>
 
     <!-- １件更新 -->
-    <update id="updateOne" parameterType="com.portal.k.common.domain.model.Env">
+    <update id="updateOne" parameterType="com.portal.a.common.domain.model.Env">
         update
           am999_env
         set
