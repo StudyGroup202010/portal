@@ -17,6 +17,7 @@
 
 
   
+  
     <title>UserList</title>  
 </head>
 <body>
@@ -63,7 +64,21 @@
                 <!-- ユーザー登録画面へのリンク -->
                 <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}"
                     sec:authorize="hasRole('ADMIN')">新規登録</a>
+
+                <form method="post" enctype="multipart/form-data"
+                    th:action="@{/userList/excelUpload}">
+                    <input type="file" name="uploadfile" accept=".xlsx"
+                        required /> <input class="btn btn-danger"
+                        type="submit" name="excelUpload" value="一括登録" />
+                </form>
+
             </div>
+
+            <!-- ユーザー一覧の件数 -->
+            <label th:text=" '合計：' + ${userListCount} + '件' "></label>
+            <!-- 更新・削除処理の結果表示用 -->
+            <label class="text-danger" th:text="${result}">結果表示</label>
+            
             <table
                 class="table table-bordered table-hover table-striped table-sm">
 
@@ -106,12 +121,6 @@
 
             </table>
         </div>
-
-        <!-- ユーザー一覧の件数 -->
-        <label th:text=" '合計：' + ${userListCount} + '件' "></label><br />
-        <!-- 更新・削除処理の結果表示用 -->
-        <label class="text-info" th:text="${result}">結果表示</label><br />
-
     </div>
 </body>
 </html>
