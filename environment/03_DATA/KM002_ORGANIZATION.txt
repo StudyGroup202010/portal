@@ -1,4 +1,0 @@
-INSERT INTO km002_organization (organization_cd ,organization_name ,company_cd ,start_yearmonth ,INSERT_USER,INSERT_DATE,UPDATE_USER,UPDATE_DATE)
-VALUES('ORG01','組織A','COM01','200001','HAND',NOW(),NULL,NULL)
-,('ORG02','組織B','COM01','200001','HAND',NOW(),NULL,NULL)
-,('ORG03','組織C','COM01','200001','HAND',NOW(),NULL,NULL)

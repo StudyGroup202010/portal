@@ -91,7 +91,7 @@
           a.role_id
         from
           zm002_role as a
-          inner join km999_env as b
+          inner join am999_env as b
             on a.role_name = b.env_txt
             and b.env_id = #{env_id}
     </select>

@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.portal.k.common.domain.model.Env;
+import com.portal.a.common.domain.model.Env;
 import com.portal.z.common.domain.model.Pwreissueinfo;
-import com.portal.k.common.domain.repository.EnvMapper;
+import com.portal.a.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.repository.PwreissueinfoMapper;
 import com.portal.z.common.domain.service.MailSendSharedService;
 import com.portal.z.common.domain.util.Constants;
