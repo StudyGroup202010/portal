@@ -1,28 +1,28 @@
---システム管理(Z) - ユーザマスタ(ZM001_USER)
-CREATE TABLE ZM001_USER(
-     USER_ID VARCHAR(50) NOT NULL,
-     USER_DUE_DATE DATE DEFAULT '2099/12/31' NOT NULL,
-     PASSWORD VARCHAR(100) NOT NULL,
-     PASS_UPDATE DATE DEFAULT '2099/12/31' NOT NULL,
-     LOGIN_MISS_TIMES SMALLINT DEFAULT 0 NOT NULL,
-     LOCK_FLG BOOLEAN DEFAULT FALSE NOT NULL,
-     ENABLED_FLG BOOLEAN DEFAULT TRUE NOT NULL,
-     INSERT_USER VARCHAR(50) NOT NULL,
-     INSERT_DATE TIMESTAMP NOT NULL,
-     UPDATE_USER VARCHAR(50),
-     UPDATE_DATE TIMESTAMP,
-CONSTRAINT ZM001_USER_PK PRIMARY KEY (USER_ID)
+--システム管理(z) - ユーザマスタ(zm001_user)
+create table zm001_user(
+     user_id varchar(50) not null,
+     user_due_date date default '2099/12/31' not null,
+     password varchar(100) not null,
+     pass_update date default '2099/12/31' not null,
+     login_miss_times smallint default 0 not null,
+     lock_flg boolean default false not null,
+     enabled_flg boolean default true not null,
+     insert_user varchar(50) not null,
+     insert_date timestamp not null,
+     update_user varchar(50),
+     update_date timestamp,
+constraint zm001_user_pk primary key (user_id)
 );
 
-COMMENT ON TABLE ZM001_USER is 'ユーザマスタ';
-COMMENT ON COLUMN ZM001_USER.USER_ID is 'ユーザID';
-COMMENT ON COLUMN ZM001_USER.USER_DUE_DATE is 'ユーザ有効期限';
-COMMENT ON COLUMN ZM001_USER.PASSWORD is 'パスワード';
-COMMENT ON COLUMN ZM001_USER.PASS_UPDATE is 'パスワード有効期限';
-COMMENT ON COLUMN ZM001_USER.LOGIN_MISS_TIMES is 'ログイン失敗回数';
-COMMENT ON COLUMN ZM001_USER.LOCK_FLG is 'ロック状態';
-COMMENT ON COLUMN ZM001_USER.ENABLED_FLG is '有効フラグ';
-COMMENT ON COLUMN ZM001_USER.INSERT_USER is '作成者';
-COMMENT ON COLUMN ZM001_USER.INSERT_DATE is '作成日時';
-COMMENT ON COLUMN ZM001_USER.UPDATE_USER is '更新者';
-COMMENT ON COLUMN ZM001_USER.UPDATE_DATE is '更新日時';
+comment on table zm001_user is 'ユーザマスタ';
+comment on column zm001_user.user_id is 'ユーザid';
+comment on column zm001_user.user_due_date is 'ユーザ有効期限';
+comment on column zm001_user.password is 'パスワード';
+comment on column zm001_user.pass_update is 'パスワード有効期限';
+comment on column zm001_user.login_miss_times is 'ログイン失敗回数';
+comment on column zm001_user.lock_flg is 'ロック状態';
+comment on column zm001_user.enabled_flg is '有効フラグ';
+comment on column zm001_user.insert_user is '作成者';
+comment on column zm001_user.insert_date is '作成日時';
+comment on column zm001_user.update_user is '更新者';
+comment on column zm001_user.update_date is '更新日時';
