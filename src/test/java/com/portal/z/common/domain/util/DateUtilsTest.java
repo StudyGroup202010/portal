@@ -39,6 +39,19 @@ class DateUtilsTest {
     }
 
     //
+    // getStringFromDateFormat
+    //
+    @Test
+    final void dateUtils_getStringFromDateFormat_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateFormat(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getStringFromDateFormat_通常日付入力チェック() {
+        assertThat(DateUtils.getStringFromDateFormat(LocalDate.of(1970, 01, 01))).isEqualTo("1970/01/01");
+    }
+
+    //
     // getStringFromDateTime
     //
     @Test
@@ -50,6 +63,20 @@ class DateUtilsTest {
     final void dateUtils_getStringFromDateTime_通常日付入力チェック() {
         assertThat(DateUtils.getStringFromDateTime(LocalDateTime.of(1970, 01, 01, 12, 31, 51)))
                 .isEqualTo("19700101 123151");
+    }
+
+    //
+    // getStringFromDateTimeFormat
+    //
+    @Test
+    final void dateUtils_getStringFromDateTimeFormat_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateTimeFormat(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getStringFromDateTimeFormat_通常日付入力チェック() {
+        assertThat(DateUtils.getStringFromDateTimeFormat(LocalDateTime.of(1970, 01, 01, 12, 31, 51)))
+                .isEqualTo("1970/01/01 12:31:51");
     }
 
     //
@@ -75,7 +102,7 @@ class DateUtilsTest {
 
     @Test
     final void dateUtils_setStartDate_null入力チェック() {
-        assertThat(DateUtils.setStartDate(null)).isEqualTo("0001-01-01");
+        assertThat(DateUtils.setStartDate(null)).isEqualTo("0000-01-01");
     }
 
     //
