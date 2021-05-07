@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-sm-2">
                         ユーザID<input type="text" class="form-control"
-                            th:field="*{user_id}" />
+                            autofocus th:field="*{user_id}" />
                     </div>
                     <div class="col-sm-2">
                         ユーザ有効期限FROM<input type="date"
@@ -45,8 +45,7 @@
                     <div class="col-sm-6">
                         <!-- 検索実行 -->
                         <button type="submit" name="selectby"
-                            class="btn btn-primary btn-lg float-right"
-                            autofocus>検索</button>
+                            class="btn btn-primary btn-lg float-right">検索</button>
                     </div>
                 </div>
             </form>
