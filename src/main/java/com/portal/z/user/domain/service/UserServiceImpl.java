@@ -74,8 +74,9 @@ public class UserServiceImpl implements UserService {
         Sheet sheet = workbook.getSheet(SheetName);
         if (sheet == null) {
             // 指定したシートが無かったとき。
-            String messageKey = "e.co.fw.1.011";
-            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { SheetName }));
+            String messageKey = "e.co.fw.2.004";
+            String message = "選択したエクセルファイルに" + SheetName+ "シート";
+            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { message }));
         }
 
         // ヘッダーを取得
@@ -84,15 +85,17 @@ public class UserServiceImpl implements UserService {
         if (checkheader(row) != true) {
             // シートに登録されたヘッダーの情報が間違っているとき
             String messageKey = "e.co.fw.1.012";
-            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { SheetName }));
+            String message = "選択したエクセルファイルの" + SheetName+ "シート";
+            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { message }));
         }
 
         // 最終行を取得
         int lastRowNbr = sheet.getLastRowNum();
         if (lastRowNbr == 0) {
             // シートにデータが登録されていないとき
-            String messageKey = "e.co.fw.1.013";
-            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { SheetName }));
+            String messageKey = "e.co.fw.2.004";
+            String message = "選択したエクセルファイルの" + SheetName+ "シートにデータ";
+            throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { message }));
         }
 
         int columnnum; // 列番号
@@ -216,6 +219,6 @@ public class UserServiceImpl implements UserService {
 //        Cell headerCell = headerRow.getCell(0);
 //        String headerStr = headerCell.getStringCellValue();
 
-        return true;
+        return false;
     }
 }
