@@ -26,6 +26,7 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.DateUtils;
+import com.portal.z.common.domain.util.StrUtils;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
@@ -373,7 +374,7 @@ public class userController {
         model.addAttribute("radioLock", initRadioLock());
 
         // ユーザーIDのチェック
-        if (user_id != null && user_id.length() > 0) {
+        if (user_id != null && StrUtils.getStrLength(user_id) > 0) {
 
             // ユーザー情報を取得
             User user = userService.selectOne(user_id);

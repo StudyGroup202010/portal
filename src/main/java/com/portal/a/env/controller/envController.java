@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.StrUtils;
 import com.portal.a.common.domain.model.Env;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.a.env.domain.model.InputEnvForm;
@@ -197,7 +198,7 @@ public class envController {
         model.addAttribute("contents", "a/envDetail :: envDetail_contents");
 
         // 環境IDのチェック
-        if (env_id != null && env_id.length() > 0) {
+        if (env_id != null && StrUtils.getStrLength(env_id) > 0) {
 
             // 環境マスタ情報を取得
             Env env = envService.selectOne(env_id);

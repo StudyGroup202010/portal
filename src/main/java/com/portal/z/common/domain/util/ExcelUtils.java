@@ -33,8 +33,8 @@ public class ExcelUtils {
      *         ・セルが生成されていないとき<BR>
      *         ・セルがブランクのとき<BR>
      * @throws ApplicationException <BR>
-     *                                  ・セルに文字列以外が登録されていたとき<BR>
-     *                                  ・セルに登録されている文字列が最大桁数を超えていたとき
+     *                              ・セルに文字列以外が登録されていたとき<BR>
+     *                              ・セルに登録されている文字列が最大桁数を超えていたとき
      */
     public String getColumnString(Row row, int columnnum, int columnlength) throws ApplicationException {
 
@@ -61,7 +61,7 @@ public class ExcelUtils {
 
         String cellstring = cell.getStringCellValue();
         // 桁数チェック
-        if (columnlength < cellstring.length()) {
+        if (columnlength < StrUtils.getStrLength(cellstring)) {
             String messageKey = "e.co.fw.1.016";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey,
@@ -83,10 +83,10 @@ public class ExcelUtils {
      *         ・セルが生成されていないとき<BR>
      *         ・セルがブランクのとき<BR>
      * @throws ApplicationException <BR>
-     *                                  ・セルに数値以外が登録されていたとき<BR>
-     *                                  ・セルに小数点以下の値が登録されていたとき<BR>
-     *                                  ・セルに登録されている数値がSmallint型の範囲に収まっていないとき（-32768～32767）
-     *                                  ※Postgresqlの仕様です。
+     *                              ・セルに数値以外が登録されていたとき<BR>
+     *                              ・セルに小数点以下の値が登録されていたとき<BR>
+     *                              ・セルに登録されている数値がSmallint型の範囲に収まっていないとき（-32768～32767）
+     *                              ※Postgresqlの仕様です。
      */
     public String getColumnSmallint(Row row, int columnnum) throws ApplicationException {
 
@@ -143,8 +143,8 @@ public class ExcelUtils {
      *         ・セルが生成されていないとき<BR>
      *         ・セルがブランクのとき<BR>
      * @throws ApplicationException <BR>
-     *                                  ・セルに数値以外が登録されていたとき<BR>
-     *                                  ・セルに日付に変換できない数値が登録されていたとき<BR>
+     *                              ・セルに数値以外が登録されていたとき<BR>
+     *                              ・セルに日付に変換できない数値が登録されていたとき<BR>
      */
     public Date getColumnDate(Row row, int columnnum) throws ApplicationException {
 
