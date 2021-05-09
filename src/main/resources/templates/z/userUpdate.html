@@ -111,6 +111,21 @@
                             </div>
                         </td>
                     </tr>
+                    <!-- 社員IDの入力エリア -->
+                    <tr>
+                        <th class="active table-info">社員ID</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('employee_id')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_id}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_id')}"
+                                    th:errors="*{employee_id}">
+                                    employee_id error </span>
+                            </div>
+                        </td>
+                    </tr>
                     <!-- 有効フラグの入力エリア -->
                     <tr>
                         <th class="active table-info">有効フラグ</th>

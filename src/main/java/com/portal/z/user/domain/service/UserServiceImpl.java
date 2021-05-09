@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,13 +70,16 @@ public class UserServiceImpl implements UserService {
     public boolean insertFromExcel(MultipartFile file, String SheetName)
             throws EncryptedDocumentException, IOException, ApplicationException {
 
+        String messageKey = null;
+        String message = null;
+
         // 指定したシートを取得する。
         Workbook workbook = WorkbookFactory.create(file.getInputStream());
         Sheet sheet = workbook.getSheet(SheetName);
         if (sheet == null) {
             // 指定したシートが無かったとき。
-            String messageKey = "e.co.fw.2.004";
-            String message = "選択したエクセルファイルに" + SheetName+ "シート";
+            messageKey = "e.co.fw.2.004";
+            message = "選択したエクセルファイルに" + SheetName + "シート";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { message }));
         }
 
@@ -84,8 +88,8 @@ public class UserServiceImpl implements UserService {
         // ヘッダーの値をチェック
         if (checkheader(row) != true) {
             // シートに登録されたヘッダーの情報が間違っているとき
-            String messageKey = "e.co.fw.1.012";
-            String message = "選択したエクセルファイルの" + SheetName+ "シート";
+            messageKey = "e.co.fw.1.011";
+            message = "選択したエクセルファイルの" + SheetName + "シート";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { message }));
         }
 
@@ -93,8 +97,8 @@ public class UserServiceImpl implements UserService {
         int lastRowNbr = sheet.getLastRowNum();
         if (lastRowNbr == 0) {
             // シートにデータが登録されていないとき
-            String messageKey = "e.co.fw.2.004";
-            String message = "選択したエクセルファイルの" + SheetName+ "シートにデータ";
+            messageKey = "e.co.fw.2.004";
+            message = "選択したエクセルファイルの" + SheetName + "シートにデータ";
             throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey, new String[] { message }));
         }
 
@@ -127,9 +131,9 @@ public class UserServiceImpl implements UserService {
 
             // 必須チェック
             if (cellstring == null) {
-                String messageKey = "e.co.fw.1.014";
+                messageKey = "e.co.fw.1.014";
                 throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
-                        new String[] { SheetName, String.valueOf(rowNbr), String.valueOf(columnnum) }));
+                        new String[] { SheetName, String.valueOf(rowNbr + 1), String.valueOf(columnnum) }));
             }
 
             // 取得した値をセット
@@ -143,9 +147,9 @@ public class UserServiceImpl implements UserService {
 
             // 必須チェック
             if (celldate == null) {
-                String messageKey = "e.co.fw.1.014";
+                messageKey = "e.co.fw.1.014";
                 throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
-                        new String[] { SheetName, String.valueOf(rowNbr), String.valueOf(columnnum) }));
+                        new String[] { SheetName, String.valueOf(rowNbr + 1), String.valueOf(columnnum) }));
             }
 
             // 取得した値をセット
@@ -164,9 +168,9 @@ public class UserServiceImpl implements UserService {
 
             // 必須チェック
             if (cellstring == null) {
-                String messageKey = "e.co.fw.1.014";
+                messageKey = "e.co.fw.1.014";
                 throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
-                        new String[] { SheetName, String.valueOf(rowNbr), String.valueOf(columnnum) }));
+                        new String[] { SheetName, String.valueOf(rowNbr + 1), String.valueOf(columnnum) }));
             }
 
             // 取得した値をセット
@@ -174,10 +178,30 @@ public class UserServiceImpl implements UserService {
 
             // ロック状態と有効フラグはテーブルの初期値にて設定される
             user.setLock_flg(true); // ロック状態
+
+            // ６つめの項目
+            columnnum = 6;
+
+            // 桁数取得
+            columnlength = sqlSharedService.getstrcolumnlength("zm001_user", "employee_id");
+
+            // セルの値を取得
+            cellstring = excelUtils.getColumnString(row, columnnum, columnlength);
+
+            // 必須チェック
+            if (cellstring == null) {
+                messageKey = "e.co.fw.1.014";
+                throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
+                        new String[] { SheetName, String.valueOf(rowNbr + 1), String.valueOf(columnnum) }));
+            }
+
+            // 取得した値をセット
+            user.setEmployee_id(cellstring); // 社員ID
+
             user.setEnabled_flg(true); // 有効フラグ
 
-            // ７つめの項目
-            columnnum = 7;
+            // ８つめの項目
+            columnnum = 8;
 
             // 桁数取得
             columnlength = sqlSharedService.getstrcolumnlength("zm001_user", "insert_user");
@@ -187,19 +211,42 @@ public class UserServiceImpl implements UserService {
 
             // 必須チェック
             if (cellstring == null) {
-                String messageKey = "e.co.fw.1.014";
+                messageKey = "e.co.fw.1.014";
                 throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
-                        new String[] { SheetName, String.valueOf(rowNbr), String.valueOf(columnnum) }));
+                        new String[] { SheetName, String.valueOf(rowNbr + 1), String.valueOf(columnnum) }));
             }
 
             // 取得した値をセット
             user.setInsert_user(cellstring); // 作成者
 
-            // ユーザー登録処理(user)
-            result = userSharedService.insertOne(user);
+            try {
+                // ユーザー登録処理(user)
+                result = userSharedService.insertOne(user);
+
+            } catch (DataIntegrityViolationException e) {
+
+                if ("DuplicateKeyException".equals(e.getClass().getSimpleName())) {
+                    // 一意制約エラーが発生した時とき。
+                    messageKey = "e.co.fw.2.003";
+                    message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員ID " + user.getEmployee_id();
+                    throw new ApplicationException(messageKey,
+                            massageUtils.getMsg(messageKey, new String[] { message }), e);
+
+                }
+
+                // 参照整合性エラーが発生したとき。
+                columnnum = 6;
+                message = "社員ID " + user.getEmployee_id()+ " が社員マスタに";
+
+                messageKey = "e.co.fw.1.012";
+                throw new ApplicationException(messageKey, massageUtils.getMsg(messageKey,
+                        new String[] { SheetName, String.valueOf(rowNbr + 1), String.valueOf(columnnum), message }), e);
+
+            }
         }
 
         return result;
+
     }
 
     /**
@@ -219,6 +266,6 @@ public class UserServiceImpl implements UserService {
 //        Cell headerCell = headerRow.getCell(0);
 //        String headerStr = headerCell.getStringCellValue();
 
-        return false;
+        return true;
     }
 }

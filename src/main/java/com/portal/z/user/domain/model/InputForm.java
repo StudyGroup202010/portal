@@ -48,6 +48,10 @@ public class InputForm {
     private int login_miss_times; // ログイン失敗回数
 
     private boolean lock_flg; // ロック状態
+    
+    // 必須入力
+    @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
+    private String employee_id; // 社員ID
 
     private boolean enabled_flg; // 有効フラグ
 

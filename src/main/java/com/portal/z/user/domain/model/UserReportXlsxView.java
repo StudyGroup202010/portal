@@ -74,33 +74,37 @@ public class UserReportXlsxView extends AbstractXlsxReportView {
             row.createCell(4).setCellStyle(cellstyle);
             row.getCell(4).setCellValue(userList.get(i).isLock_flg());
 
-            // 有効フラグ
+            // 社員ID
             row.createCell(5).setCellStyle(cellstyle);
-            row.getCell(5).setCellValue(userList.get(i).isEnabled_flg());
+            row.getCell(5).setCellValue(userList.get(i).getEmployee_id());
+
+            // 有効フラグ
+            row.createCell(6).setCellStyle(cellstyle);
+            row.getCell(6).setCellValue(userList.get(i).isEnabled_flg());
 
             // 作成者
-            row.createCell(6).setCellStyle(cellstyle);
-            row.getCell(6).setCellValue(userList.get(i).getInsert_user());
+            row.createCell(7).setCellStyle(cellstyle);
+            row.getCell(7).setCellValue(userList.get(i).getInsert_user());
 
             // 作成日時
-            row.createCell(7).setCellStyle(cellstyle);
+            row.createCell(8).setCellStyle(cellstyle);
             String Insert_date = DateUtils.getStringFromDateTime(userList.get(i).getInsert_date().toLocalDateTime());
-            row.getCell(7).setCellValue(Insert_date);
+            row.getCell(8).setCellValue(Insert_date);
 
             // 更新者
-            row.createCell(8).setCellStyle(cellstyle);
-            row.getCell(8).setCellValue(userList.get(i).getUpdate_user());
+            row.createCell(9).setCellStyle(cellstyle);
+            row.getCell(9).setCellValue(userList.get(i).getUpdate_user());
 
             // 更新日時
-            row.createCell(9).setCellStyle(cellstyle);
+            row.createCell(10).setCellStyle(cellstyle);
             if (userList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
                         .getStringFromDateTime(userList.get(i).getUpdate_date().toLocalDateTime());
-                row.getCell(9).setCellValue(Update_date);
+                row.getCell(10).setCellValue(Update_date);
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 9; i++) {
+        for (int i = 0; i <= 10; i++) {
             sheet.autoSizeColumn(i);
         }
     }

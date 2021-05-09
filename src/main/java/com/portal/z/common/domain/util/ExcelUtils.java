@@ -32,9 +32,8 @@ public class ExcelUtils {
      *         ・rowがnull,columnnumかcolumnlengthが0のとき<BR>
      *         ・セルが生成されていないとき<BR>
      *         ・セルがブランクのとき<BR>
-     * @throws ApplicationException <BR>
-     *                              ・セルに文字列以外が登録されていたとき<BR>
-     *                              ・セルに登録されている文字列が最大桁数を超えていたとき
+     * @throws ApplicationException セルに文字列以外が登録されていたとき<BR>
+     *                              セルに登録されている文字列が最大桁数を超えていたとき
      */
     public String getColumnString(Row row, int columnnum, int columnlength) throws ApplicationException {
 
@@ -59,7 +58,8 @@ public class ExcelUtils {
                             String.valueOf(cell.getRowIndex() + 1), String.valueOf(columnnum) }));
         }
 
-        String cellstring = cell.getStringCellValue();
+        // 値を取得するときはトリムする。
+        String cellstring = cell.getStringCellValue().trim();
         // 桁数チェック
         if (columnlength < StrUtils.getStrLength(cellstring)) {
             String messageKey = "e.co.fw.1.016";
@@ -85,7 +85,7 @@ public class ExcelUtils {
      * @throws ApplicationException <BR>
      *                              ・セルに数値以外が登録されていたとき<BR>
      *                              ・セルに小数点以下の値が登録されていたとき<BR>
-     *                              ・セルに登録されている数値がSmallint型の範囲に収まっていないとき（-32768～32767）
+     *                              ・セルに登録されている数値がSmallint型の範囲に収まっていないとき（-32768～32767）<BR>
      *                              ※Postgresqlの仕様です。
      */
     public String getColumnSmallint(Row row, int columnnum) throws ApplicationException {

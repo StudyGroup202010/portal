@@ -40,11 +40,12 @@ public class UserListXlsxView extends AbstractXlsxView {
         row.createCell(2).setCellValue("パスワード有効期限");
         row.createCell(3).setCellValue("ログイン失敗回数");
         row.createCell(4).setCellValue("ロック状態");
-        row.createCell(5).setCellValue("有効フラグ");
-        row.createCell(6).setCellValue("作成者");
-        row.createCell(7).setCellValue("作成日時");
-        row.createCell(8).setCellValue("更新者");
-        row.createCell(9).setCellValue("更新日時");
+        row.createCell(5).setCellValue("社員ID");
+        row.createCell(6).setCellValue("有効フラグ");
+        row.createCell(7).setCellValue("作成者");
+        row.createCell(8).setCellValue("作成日時");
+        row.createCell(9).setCellValue("更新者");
+        row.createCell(10).setCellValue("更新日時");
 
         // 指定したシートにデータをセット
         for (int i = 0; i < userListCount; i++) {
@@ -63,25 +64,27 @@ public class UserListXlsxView extends AbstractXlsxView {
             row.createCell(3).setCellValue(userList.get(i).getLogin_miss_times());
             // ロック状態
             row.createCell(4).setCellValue(userList.get(i).isLock_flg());
+            // 社員ID
+            row.createCell(5).setCellValue(userList.get(i).getEmployee_id());
             // 有効フラグ
-            row.createCell(5).setCellValue(userList.get(i).isEnabled_flg());
+            row.createCell(6).setCellValue(userList.get(i).isEnabled_flg());
             // 作成者
-            row.createCell(6).setCellValue(userList.get(i).getInsert_user());
+            row.createCell(7).setCellValue(userList.get(i).getInsert_user());
             // 作成日時
             String Insert_date = DateUtils
                     .getStringFromDateTimeFormat(userList.get(i).getInsert_date().toLocalDateTime());
-            row.createCell(7).setCellValue(Insert_date);
+            row.createCell(8).setCellValue(Insert_date);
             // 更新者
-            row.createCell(8).setCellValue(userList.get(i).getUpdate_user());
+            row.createCell(9).setCellValue(userList.get(i).getUpdate_user());
             // 更新日時
             if (userList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
                         .getStringFromDateTimeFormat(userList.get(i).getUpdate_date().toLocalDateTime());
-                row.createCell(9).setCellValue(Update_date);
+                row.createCell(10).setCellValue(Update_date);
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             sheet.autoSizeColumn(i);
         }
     }
