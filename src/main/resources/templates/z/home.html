@@ -26,6 +26,8 @@
     
         <div class="page-header">
             <h3>ホーム画面</h3>
+            <h5>本日の天気予報</h5>
+            <img id = "forecastImage" src=""> 
         </div>
         
         <div class="page-body">
@@ -34,6 +36,12 @@
             <h6>・就業規則など</h6>
             <h6>・社員教育の資料など</h6>
         </div>
+        <!-- 岐阜の天気予報の表示(画像) ※下のDIVの外に出すと無効になります -->
+        <script th:inline="javascript"  nonce="c3R1ZHlwb3J0YWwyMDIw">
+            $(document).ready(function(){
+                getWeatherImageUrl();
+            });
+        </script>
     </div>
 </body>
 </html>
