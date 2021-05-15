@@ -103,7 +103,6 @@
           zm001_user
         set
            user_due_date    = #{user_due_date}
-          ,password         = #{password}
           ,pass_update      = #{pass_update}
           ,login_miss_times = #{login_miss_times}
           ,lock_flg         = #{lock_flg}
@@ -133,7 +132,7 @@
           user_id           = #{user_id}
     </update>
     
-    <!-- パスワード有効期限を更新 -->
+    <!-- パスワード及びパスワード有効期限を更新 -->
     <update id="updatePassupdate" parameterType="com.portal.z.common.domain.model.User">
         update
           zm001_user

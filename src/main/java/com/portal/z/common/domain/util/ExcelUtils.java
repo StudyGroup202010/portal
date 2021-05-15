@@ -181,4 +181,43 @@ public class ExcelUtils {
         // java.sql.Date 型に変換します。
         return new Date(cell.getDateCellValue().getTime());
     }
+
+    /**
+     * 論理項目の値を取得する。
+     * 
+     * @param row       取得したいカラムの行
+     * @param columnnum 取得したいカラムの位置（左から１～）
+     * @return 取得した論理カラムの値<BR>
+     *         以下の場合はnullになります<BR>
+     *         ・rowがnull,columnnumが0のとき<BR>
+     *         ・セルが生成されていないとき<BR>
+     *         ・セルがブランクのとき<BR>
+     * @throws ApplicationException <BR>
+     *                              ・セルに論理値以外が登録されていたとき<BR>
+     */
+    public Boolean getColumnBoolean(Row row, int columnnum) throws ApplicationException {
+
+        if (row == null || columnnum == 0) {
+            return Boolean.FALSE;
+        }
+
+        Cell cell = row.getCell(columnnum - 1);
+        if (cell == null) {
+            return Boolean.FALSE;
+        }
+
+        if (cell.getCellType() == CellType.BLANK) {
+            return Boolean.FALSE;
+        }
+
+        if (cell.getCellType() != CellType.BOOLEAN) {
+            // 論理型ではない場合はエラーとします。
+            String messageKey = "e.co.fw.1.021";
+            throw new ApplicationException(messageKey,
+                    massageUtils.getMsg(messageKey, new String[] { cell.getSheet().getSheetName(),
+                            String.valueOf(cell.getRowIndex() + 1), String.valueOf(columnnum) }));
+        }
+
+        return cell.getBooleanCellValue();
+    }
 }

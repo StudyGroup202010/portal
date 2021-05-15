@@ -2,6 +2,7 @@ package com.portal.z.user.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
+import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.domain.util.StrUtils;
@@ -215,14 +217,14 @@ public class userController {
 
         // ユーザー登録処理(user)
         try {
-            boolean result = userService.insertFromExcel(file, "Sheet1");
+            boolean result = userService.insertFromExcel(file, "ユーザマスタ");
 
             // ユーザー登録結果の判定
             if (result == true) {
                 model.addAttribute("result", "登録成功");
                 log.info("登録成功");
             } else {
-                model.addAttribute("result", "登録失敗");
+                model.addAttribute("result", "エクセルデータが登録されませんでした。");
                 log.error("登録失敗");
             }
         } catch (ApplicationException e) {
@@ -282,6 +284,15 @@ public class userController {
         model.addAttribute("radioEnabled", initRadioEnabled());
         model.addAttribute("radioLock", initRadioLock());
 
+        // ユーザ有効期限に永遠値を初期設定
+        form.setUser_due_date(DateUtils.getDateFromString(DateUtils.DEFAULT_END_DATE));
+        // パスワード有効期限に本日を初期設定
+        form.setPass_update(LocalDate.now());
+        // 有効フラグを初期設定
+        form.setEnabled_flg(true);
+        // Modelに登録
+        model.addAttribute("inputForm", form);
+
         // userUpdate.htmlに画面遷移
         return "z/homeLayout";
     }
@@ -312,7 +323,7 @@ public class userController {
         user.setUser_id(form.getUser_id()); // ユーザーID
         user.setUser_due_date(Date.valueOf(form.getUser_due_date())); // ユーザ有効期限
         // パスワードは暗号化する
-        String password = passwordEncoder.encode(form.getPassword());
+        String password = passwordEncoder.encode(Constants.INITIAL_PASSWORD);
         user.setPassword(password); // パスワード
         user.setPass_update(Date.valueOf(form.getPass_update())); // パスワード有効期限
         // ロック状態と有効フラグはテーブルの初期値にて設定される
@@ -447,9 +458,6 @@ public class userController {
         // フォームクラスをUserクラスに変換
         user.setUser_id(form.getUser_id()); // ユーザーID
         user.setUser_due_date(Date.valueOf(form.getUser_due_date())); // ユーザ有効期限
-        // パスワードは暗号化する
-        String password = passwordEncoder.encode(form.getPassword());
-        user.setPassword(password); // パスワード
         user.setPass_update(Date.valueOf(form.getPass_update())); // パスワード有効期限
         // 権限は変更できない
         user.setLogin_miss_times(form.getLogin_miss_times()); // ログイン失敗回数
@@ -480,7 +488,7 @@ public class userController {
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getUserDetail(form, model, "");
-            
+
         } catch (DataIntegrityViolationException e) {
             // 参照整合性エラーが発生した時はビジネス例外として返す。
             String messageKey = "e.co.fw.2.004";

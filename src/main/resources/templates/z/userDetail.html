@@ -58,21 +58,6 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- パスワード -->
-                    <tr>
-                        <th class="table-info">パスワード</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{password}" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('password')}"
-                                    th:errors="*{password}">
-                                    password error </span>
-                            </div>
-                        </td>
-                    </tr>
                     <!-- パスワード有効期限 -->
                     <tr>
                         <th class="table-info">パスワード有効期限</th>
@@ -105,7 +90,7 @@
                     </tr>
                     <!-- ロックフラグ -->
                     <tr>
-                        <th class="table-info">ロックフラグ</th>
+                        <th class="table-info">ロック状態</th>
                         <td>
                             <div class="form-group">
                                 <div th:each="item : ${radioLock}">

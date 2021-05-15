@@ -22,13 +22,13 @@ public final class DateUtils {
      * 日付の初期値（"00000101"）<BR>
      * （注）日付に変換可能な文字列を登録すること
      */
-    private static String DEFAULT_START_DATE = "00000101";
+    public static String DEFAULT_START_DATE = "00000101";
 
     /**
      * 日付の永遠値（"99991231"）<BR>
      * （注）日付に変換可能な文字列を登録すること
      */
-    private static String DEFAULT_END_DATE = "99991231";
+    public static String DEFAULT_END_DATE = "99991231";
 
     /**
      * 日付（年月日）⇒文字列(YYYYMMDD)変換処理<BR>

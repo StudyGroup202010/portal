@@ -10,8 +10,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.portal.z.common.validation.ValidPassword;
-
 import lombok.Data;
 
 /**
@@ -29,13 +27,7 @@ public class InputForm {
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate user_due_date; // ユーザ有効期限
-
-    // 必須入力
-    @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    // パスワード制約チェック
-    @ValidPassword(groups = { ValidCreate2.class, ValidUpdate2.class })
-    private String password; // パスワード
-
+    
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

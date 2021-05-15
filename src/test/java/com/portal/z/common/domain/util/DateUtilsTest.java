@@ -137,7 +137,7 @@ class DateUtilsTest {
     @Test
     final void dateUtils_compareDate_等しいチェック() {
         LocalDateTime date_1 = LocalDateTime.now();
-        LocalDateTime date_2 = LocalDateTime.now();
+        LocalDateTime date_2 = date_1;
         assertThat(DateUtils.compareDateTime(date_1, date_2)).isEqualTo(0);
     }
 

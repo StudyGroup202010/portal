@@ -27,7 +27,7 @@ public class UserListXlsxView extends AbstractXlsxView {
             HttpServletResponse response) throws Exception {
 
         // データを出力するシートを指定
-        Sheet sheet = workbook.createSheet("Sheet1");
+        Sheet sheet = workbook.createSheet("ユーザマスタ");
 
         // Controllerから受け取った値をセット
         List<User> userList = (List<User>) model.get("userList");

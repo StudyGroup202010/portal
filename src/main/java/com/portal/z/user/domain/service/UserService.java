@@ -66,6 +66,6 @@ public interface UserService {
      *                                         ・シートにデータ行が登録されていなかったとき<BR>
      *                                         ・必須項目に値が登録されていなかったとき
      */
-    public boolean insertFromExcel(MultipartFile file, String SheetName) throws EncryptedDocumentException, IOException,
-            DuplicateKeyException, DataIntegrityViolationException, ApplicationException;
+    public boolean insertFromExcel(MultipartFile file, String SheetName) throws EncryptedDocumentException,
+            IOException, DuplicateKeyException, DataIntegrityViolationException, ApplicationException;
 }
