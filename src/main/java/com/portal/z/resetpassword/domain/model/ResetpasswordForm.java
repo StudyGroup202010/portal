@@ -3,6 +3,7 @@ package com.portal.z.resetpassword.domain.model;
 import javax.validation.constraints.NotBlank;
 
 import com.portal.z.common.validation.Confirm;
+import com.portal.z.common.validation.ValidPassword;
 
 import lombok.Data;
 
@@ -23,8 +24,10 @@ public class ResetpasswordForm {
     private String secret;
 
     @NotBlank(message = "{require_check}")
+    @ValidPassword
     private String newPassword;
 
     @NotBlank(message = "{require_check}")
+    @ValidPassword
     private String confirmNewPassword;
 }

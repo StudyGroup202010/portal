@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.portal.k.common.domain.model.Env;
+import com.portal.a.common.domain.model.Env;
 import com.portal.z.common.domain.model.Pwreissueinfo;
-import com.portal.k.common.domain.repository.EnvMapper;
+import com.portal.a.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.repository.PwreissueinfoMapper;
 import com.portal.z.common.domain.service.MailSendSharedService;
 import com.portal.z.common.domain.util.Constants;
@@ -133,7 +133,7 @@ public class PwreissueServiceImpl implements PwreissueService {
         // 送信元メールアドレスを取得
         Env sendFrom = envMapper.selectOne(Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name());
         if (sendFrom == null) {
-            log.info("パスワード再設定用送信元メールアドレス取得失敗");
+            log.error("パスワード再設定用送信元メールアドレス取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_ADMIN_CONTACT.name() }));
@@ -142,7 +142,7 @@ public class PwreissueServiceImpl implements PwreissueService {
         // パスワード再設定用メールタイトルを取得
         Env Subject = envMapper.selectOne(Constants.MAIL_ENV.MAIL_TITLE_PWREISSUE.name());
         if (Subject == null) {
-            log.info("パスワード再設定用メールのタイトル取得失敗");
+            log.error("パスワード再設定用メールのタイトル取得失敗");
             String messageKey = "e.co.fw.3.001";
             throw new ApplicationException(messageKey,
                     massageUtils.getMsg(messageKey, new String[] { Constants.MAIL_ENV.MAIL_TITLE_PWREISSUE.name() }));

@@ -1,4 +1,0 @@
-INSERT INTO km007_position ( position_cd , position_name , start_yearmonth ,INSERT_USER,INSERT_DATE,UPDATE_USER,UPDATE_DATE)
-VALUES('POS01','役職A','200001','HAND',NOW(),NULL,NULL)
-,('POS02','役職B','200001','HAND',NOW(),NULL,NULL)
-,('POS03','役職C','200001','HAND',NOW(),NULL,NULL)

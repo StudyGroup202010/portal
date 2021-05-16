@@ -1,10 +1,12 @@
 package com.portal.z.user.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
@@ -185,6 +189,43 @@ public class userController {
     }
 
     /**
+     * ユーザー一覧のExcelアップロード用処理.<br>
+     * 
+     * ユーザ一覧のエクセルアップロードをする。
+     * 
+     * @param file  アップロードしたいEXCELファイル
+     * @param model モデル
+     * @return getUserList(model)
+     * @throws EncryptedDocumentException EncryptedDocumentException
+     * @throws IOException                アップロードしたいエクセルファイルの読み込みエラー
+     */
+    @RequestMapping(value = "/userList/excelUpload", params = "excelUpload")
+    public String uploadfile(@RequestParam("uploadfile") MultipartFile file, Model model)
+            throws EncryptedDocumentException, IOException {
+
+        // メッセージを初期化
+        model.addAttribute("result", null);
+
+        // ユーザー登録処理(user)
+        try {
+            boolean result = userService.insertFromExcel(file, "Sheet1");
+
+            // ユーザー登録結果の判定
+            if (result == true) {
+                model.addAttribute("result", "登録成功");
+                log.info("登録成功");
+            } else {
+                model.addAttribute("result", "登録失敗");
+                log.error("登録失敗");
+            }
+        } catch (ApplicationException e) {
+            model.addAttribute("result", e.getMessage());
+        }
+        // ユーザー一覧画面を表示
+        return getUserList(model);
+    }
+
+    /**
      * ユーザー一覧のExcel帳票出力用処理.<br>
      * 
      * ユーザ一覧の帳票を出力する。
@@ -286,7 +327,7 @@ public class userController {
                 log.info("登録成功");
             } else {
                 model.addAttribute("result", "登録失敗");
-                log.info("登録失敗");
+                log.error("登録失敗");
             }
         } catch (ApplicationException e) {
             model.addAttribute("result", e.getMessage());
@@ -403,7 +444,7 @@ public class userController {
             log.info("更新成功");
         } else {
             model.addAttribute("result", "更新失敗");
-            log.info("更新失敗");
+            log.error("更新失敗");
         }
 
         // ユーザー一覧画面を表示
@@ -430,7 +471,7 @@ public class userController {
             log.info("削除成功");
         } else {
             model.addAttribute("result", "削除失敗");
-            log.info("削除失敗");
+            log.error("削除失敗");
         }
         // ユーザー一覧画面を表示
         return getUserList(model);

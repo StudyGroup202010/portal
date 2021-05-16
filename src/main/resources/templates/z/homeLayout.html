@@ -3,7 +3,6 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,91 +13,83 @@
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- portalのJSファイル -->
+    <script th:src="@{/js/portal.js}"></script>
 
     <!-- CSSの読込 -->
     <link th:href="@{/css/portal.css}" rel="stylesheet"></link>
     <link th:href="@{/css/jpn.css}" rel="stylesheet"></link>
+    
     <title>HomeLayout</title>
 </head>
 <body>
     <!-- ===== ヘッダー（ナビゲーションバー） =====  -->
-    <nav class="navbar navbar-dark bg-primary p-0">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{'/home'}">ポータルサイト</a>
-            </div>
-             <form method="post" th:action="@{/logout}">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info p-0">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/home'}">ポータルサイト</a>
+        </div>
+
+        <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#menu"
+            aria-controls="menu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><img
+                src="icons\menu.jpg" class="img-fluid"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a class="nav-link"
+                    th:href="@{'/home'}">ホーム<span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item active"><a class="nav-link"
+                    th:href="@{'/general'}">スキル管理システム（未）</a></li>
+
+                <li class="nav-item dropdown active"><a
+                    class="nav-link dropdown-toggle"
+                    sec:authorize="hasRole('ADMIN')" href="#"
+                    id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">ポータル</a>
+
+                    <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                            th:href="@{'/userList'}">ユーザマスタ</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{'/admin'}">要素１（サンプル）</a>
+                    </div></li>
+
+                <li class="nav-item dropdown active"><a
+                    class="nav-link dropdown-toggle"
+                    sec:authorize="hasRole('ADMIN')" href="#"
+                    id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">共通マスタ</a>
+
+                    <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{'/envList'}">環境マスタ</a>
+                        <a class="dropdown-item" th:href="@{'/admin'}">要素１（サンプル）</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{'/admin'}">要素２（サンプル）</a>
+                    </div></li>
+
+                <li class="nav-item active"><a class="nav-link"
+                    th:href="@{'/contact'}">問い合わせ</a></li>
+
+            </ul>
+            <form method="post" th:action="@{/logout}">
                 <button class="btn btn-link navbar-brand" type="submit">ログアウト</button>
             </form>
+        </div>
     </nav>
-    
+
     <!-- ===== ボディー  =====  -->
     <div class="container-fluid">
-        <div class="row">
-        
-            <!-- ===== サイドバー（２グリッド分） ===== -->
-			<div class="col-sm-2 sidebar">
-				<nav class="nav　flex-column">
-
-					<a class="nav-link border border-dark rounded text-center"
-						th:href="@{'/home'}">ホーム</a>
-
-					<!-- 一般権限を持っているユーザのみ表示 -->
-					<a class="nav-link border border-dark rounded text-center"
-						th:href="@{'/general'}">スキル管理システム</a>
-
-                    <!-- ADMIN権限を持っているユーザのみ表示 -->
-                    <div class="dropdown">
-                        <a
-                            class="nav-link border border-dark rounded text-center dropdown-toggle"
-                            sec:authorize="hasRole('ADMIN')"
-                            data-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="true"
-                            aria-expanded="false">ポータル管理</a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-item">
-                                <a class="nav-link text-center"
-                                    th:href="@{'/userList'}">ユーザマスタ</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <a class="nav-link text-center"
-                                    th:href="@{'/admin'}">要素１（サンプル）</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ADMIN権限を持っているユーザのみ表示 -->
-                    <div class="dropdown">
-                        <a
-                            class="nav-link border border-dark rounded text-center dropdown-toggle"
-                            sec:authorize="hasRole('ADMIN')"
-                            data-toggle="dropdown" href="#"
-                            role="button" aria-haspopup="true"
-                            aria-expanded="false">共通マスタ</a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-item">
-                                <a class="nav-link text-center"
-                                    th:href="@{'/envList'}">環境マスタ</a>
-                            </div>
-                            <div class="dropdown-item">
-                                <a class="nav-link text-center"
-                                    th:href="@{'/admin'}">要素１（サンプル）</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 一般権限を持っているユーザのみ表示 -->
-					<a class="nav-link border border-dark rounded text-center"
-						th:href="@{'/contact'}">問い合わせ</a>
-				</nav>
-			</div>
-
-			<!-- ===== コンテンツ（１０グリッド分） ===== -->
-            <div class="col-sm-10 main">
-                <!-- 表示するhtmlに記載した値（th:fragment="home_contents"など）を参照します -->
-                <div th:include="__${contents}__"></div>
-            </div>
-            
-        </div>
+        <!-- 表示するhtmlに記載した値（th:fragment="home_contents"など）を参照します -->
+        <div th:include="__${contents}__"></div>
     </div>
     <!-- =====　 フッター　=====  -->
     <div th:insert="z/footer :: footer"></div>
