@@ -3,6 +3,7 @@ package com.portal.z.common.domain.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
 
@@ -18,14 +19,16 @@ public final class DateUtils {
     }
 
     /**
-     * 日付の初期値（"00000101"）
+     * 日付の初期値（"00000101"）<BR>
+     * （注）日付に変換可能な文字列を登録すること
      */
-    private static String DEFAULT_START_DATE = "00000101";
+    public static String DEFAULT_START_DATE = "00000101";
 
     /**
-     * 日付の永遠値（"99991231"）
+     * 日付の永遠値（"99991231"）<BR>
+     * （注）日付に変換可能な文字列を登録すること
      */
-    private static String DEFAULT_END_DATE = "99991231";
+    public static String DEFAULT_END_DATE = "99991231";
 
     /**
      * 日付（年月日）⇒文字列(YYYYMMDD)変換処理<BR>
@@ -115,6 +118,7 @@ public final class DateUtils {
      * 
      * @param date 変換元の文字列（様式はYYYYMMDD）
      * @return Date型に変換したdate
+     * @throws DateTimeParseException 日付に変換できなかったとき
      */
     public static LocalDate getDateFromString(String date) {
         if (date == null || date.isEmpty()) {

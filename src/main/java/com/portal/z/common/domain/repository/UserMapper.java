@@ -68,7 +68,7 @@ public interface UserMapper {
     public boolean updateLockflg(User user);
 
     /**
-     * パスワード有効期限更新用メソッド
+     * パスワード及びパスワード有効期限更新用メソッド
      * 
      * @param user user
      * @return true/false

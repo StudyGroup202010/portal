@@ -77,6 +77,12 @@ public final class Constants {
     public static final String NOT_FOUND_SHEET = "エクセルテンプレートのシートが開けませんでした。";
 
     /**
+     * 初期パスワード<BR>
+     * ・ユーザ登録時に初期設定するパスワード<BR>
+     */
+    public static final String INITIAL_PASSWORD = "password";
+
+    /**
      * ロール名<BR>
      * ・環境マスタ設定値。<BR>
      * ・一般用と管理者用を登録する。<BR>

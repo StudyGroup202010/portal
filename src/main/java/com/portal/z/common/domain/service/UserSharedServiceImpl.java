@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,22 +65,14 @@ public class UserSharedServiceImpl implements UserSharedService {
         userrole.setRole_id(role.getRole_id()); // ロールID
 
         // 登録実行
-        try {
-            boolean result_1 = userMapper.insertOne(user);
-            boolean result_2 = userroleMapper.insertOne(userrole);
+        boolean result_1 = userMapper.insertOne(user);
+        boolean result_2 = userroleMapper.insertOne(userrole);
 
-            // ユーザー登録結果の判定
-            if (result_1 == true && result_2 == true) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (DuplicateKeyException e) {
-            // 一意制約エラーが発生した時はビジネス例外として返す。
-            String messageKey = "e.co.fw.2.003";
-            throw new ApplicationException(messageKey,
-                    massageUtils.getMsg(messageKey, new String[] { user.getUser_id() }), e);
+        // ユーザー登録結果の判定
+        if (result_1 == true && result_2 == true) {
+            return true;
+        } else {
+            return false;
         }
     }
 

@@ -3,7 +3,6 @@ package com.portal.z.common.domain.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-
 import lombok.Data;
 
 /**
@@ -17,6 +16,7 @@ public class User {
     private Date pass_update; // パスワード有効期限
     private int login_miss_times; // ログイン失敗回数
     private boolean lock_flg; // ロック状態
+    private String employee_id; // 社員ID
     private boolean enabled_flg; // 有効フラグ
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時
