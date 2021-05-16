@@ -80,11 +80,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // レスポンスヘッダーの設定
         // セキュリティを高めるために自分自身のサーバのスクリプトだけが実行できるように制限する
+        http.headers().contentSecurityPolicy("default-src 'self'");
         // コロンで区切って記述する。参考：https://qiita.com/tearoom6/items/30e3aacaa432860d4b36
         // nonce-c3R1ZHlwb3J0YWwyMDIwをつけるとインラインのJavaScriptが実行できる。
         // https://weather.tsukumijima.net からデータの取得を有効にする。
         // https://www.jma.go.jp から画像の取得を有効にする。
-        http.headers().contentSecurityPolicy("default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw';script-src 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net ");
+        //http.headers().contentSecurityPolicy("default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw';script-src 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net ");
 
         // ログイン処理
         http.formLogin().loginProcessingUrl("/login") // ログイン処理のパス（login.htmlの（action="/login"）と一致させること
