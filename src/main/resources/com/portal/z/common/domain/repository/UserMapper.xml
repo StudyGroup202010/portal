@@ -13,6 +13,7 @@
 		<result column="pass_update" property="pass_update" />
 		<result column="login_miss_times" property="login_miss_times" />
 		<result column="lock_flg" property="lock_flg" />
+		<result column="employee_id" property="employee_id" />
 		<result column="enabled_flg" property="enabled_flg" />
 	</resultMap>
 
@@ -31,6 +32,7 @@
           ,pass_update
           <!-- login_miss_times　は　初期値を使う -->
           ,lock_flg
+          ,employee_id
           ,enabled_flg
           ,insert_user
           ,insert_date
@@ -44,6 +46,7 @@
           ,#{pass_update}
           <!-- login_miss_times　は　初期値を使う -->
           ,#{lock_flg}
+          ,#{employee_id}
           ,#{enabled_flg}
           ,#{insert_user}
           ,NOW()
@@ -61,6 +64,7 @@
           ,pass_update
           ,login_miss_times
           ,lock_flg
+          ,employee_id
           ,enabled_flg
           ,insert_user
           ,insert_date
@@ -81,6 +85,7 @@
           ,pass_update
           ,login_miss_times
           ,lock_flg
+          ,employee_id
           ,enabled_flg
           ,insert_user
           ,insert_date
@@ -98,10 +103,10 @@
           zm001_user
         set
            user_due_date    = #{user_due_date}
-          ,password         = #{password}
           ,pass_update      = #{pass_update}
           ,login_miss_times = #{login_miss_times}
           ,lock_flg         = #{lock_flg}
+          ,employee_id      = #{employee_id}
           ,enabled_flg      = #{enabled_flg}
           ,update_user      = #{update_user}
           ,update_date      = NOW()
@@ -127,7 +132,7 @@
           user_id           = #{user_id}
     </update>
     
-    <!-- パスワード有効期限を更新 -->
+    <!-- パスワード及びパスワード有効期限を更新 -->
     <update id="updatePassupdate" parameterType="com.portal.z.common.domain.model.User">
         update
           zm001_user
@@ -150,6 +155,7 @@
           ,pass_update
           ,login_miss_times
           ,lock_flg
+          ,employee_id
           ,enabled_flg
           ,insert_user
           ,insert_date

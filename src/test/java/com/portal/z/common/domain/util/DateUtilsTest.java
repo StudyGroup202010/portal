@@ -1,6 +1,7 @@
 package com.portal.z.common.domain.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -92,6 +93,18 @@ class DateUtilsTest {
         assertThat(DateUtils.getDateFromString("19700101")).isEqualTo("1970-01-01");
     }
 
+    @Test
+    final void dateUtils_getDateFromString_異常日付入力チェック() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("700101");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '700101' could not be parsed at index 6");
+        }
+    }
+
     //
     // setStartDate
     //
@@ -124,7 +137,7 @@ class DateUtilsTest {
     @Test
     final void dateUtils_compareDate_等しいチェック() {
         LocalDateTime date_1 = LocalDateTime.now();
-        LocalDateTime date_2 = LocalDateTime.now();
+        LocalDateTime date_2 = date_1;
         assertThat(DateUtils.compareDateTime(date_1, date_2)).isEqualTo(0);
     }
 

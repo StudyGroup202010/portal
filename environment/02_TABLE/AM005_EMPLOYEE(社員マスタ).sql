@@ -6,6 +6,7 @@ create table am005_employee(
      mail varchar(50) not null,
      joined_date date not null,
      leave_date date default '9999/12/31' not null,
+     employeeattribute_id varchar(2) not null,
      insert_user varchar(50) not null,
      insert_date timestamp not null,
      update_user varchar(50),
@@ -21,7 +22,12 @@ comment on column am005_employee.employee_cd is '社員cd';
 comment on column am005_employee.mail is 'メールアドレス';
 comment on column am005_employee.joined_date is '入社日';
 comment on column am005_employee.leave_date is '退社日';
+comment on column am005_employee.employeeattribute_id is '社員属性id';
 comment on column am005_employee.insert_user is '作成者';
 comment on column am005_employee.insert_date is '作成日時';
 comment on column am005_employee.update_user is '更新者';
 comment on column am005_employee.update_date is '更新日時';
+
+alter table am005_employee add constraint am005_employee_fk1
+      foreign key (employeeattribute_id)
+      references am008_employeeattribute (employeeattribute_id);

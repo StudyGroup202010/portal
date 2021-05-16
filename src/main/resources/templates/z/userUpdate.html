@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <meta charset="UTF-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8"></meta>
+<meta name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!-- Bootstrapの設定 -->
+
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+    rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 
 
 
 
-    <title>UserUpdate</title>
+<title>UserUpdate</title>
 </head>
 <body>
     <div th:fragment="userUpdate_contents">
@@ -63,29 +65,15 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- パスワードの入力エリア -->
+                    <!-- パスワード有効期限 -->
                     <tr>
-                        <th class="active table-info">パスワード</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{password}" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('password')}"
-                                    th:errors="*{password}">
-                                    password error </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- パスワード有効期限の入力エリア -->
-                    <tr>
-                        <th class="active table-info">パスワード有効期限</th>
+                        <th class="table-info">パスワード有効期限</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('pass_update')} ? 'has-error'">
                                 <input type="date" class="form-control"
-                                    th:field="*{pass_update}" /> <span
+                                    th:field="*{pass_update}"
+                                    readonly="readonly" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('pass_update')}"
                                     th:errors="*{pass_update}">
@@ -95,7 +83,7 @@
                     </tr>
                     <!-- ロックの入力エリア -->
                     <tr>
-                        <th class="active table-info">ロック</th>
+                        <th class="active table-info">ロック状態</th>
                         <td>
                             <div class="form-group">
                                 <div th:each="item : ${radioLock}">
@@ -108,6 +96,21 @@
                                     th:if="${#fields.hasErrors('lock_flg')}"
                                     th:errors="*{lock_flg}">
                                     lock_flg error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員IDの入力エリア -->
+                    <tr>
+                        <th class="active table-info">社員ID</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('employee_id')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_id}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_id')}"
+                                    th:errors="*{employee_id}">
+                                    employee_id error </span>
                             </div>
                         </td>
                     </tr>

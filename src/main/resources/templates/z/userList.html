@@ -95,7 +95,9 @@
                         <th scope="col"><p
                                 class="text-nowrap text-center">ロック状態</p></th>
                         <th scope="col"><p
-                                class="text-nowrap text-center">有効無効</p></th>
+                                class="text-nowrap text-center">社員ID</p></th>        
+                        <th scope="col"><p
+                                class="text-nowrap text-center">有効フラグ</p></th>
                     </tr>
                 </thead>
 
@@ -113,6 +115,7 @@
                             th:text="${user.login_miss_times}"></td>
                         <td align="center"
                             th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>
+                        <td align="left" th:text="${user.employee_id}"></td>
                         <td align="center"
                             th:text="${user.enabled_flg} ? '有効' : '無効'"></td>
                     </tr>

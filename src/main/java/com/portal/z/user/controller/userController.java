@@ -2,12 +2,15 @@ package com.portal.z.user.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,7 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
+import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
+import com.portal.z.common.domain.util.MassageUtils;
+import com.portal.z.common.domain.util.StrUtils;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.user.domain.model.CreateOrder;
 import com.portal.z.user.domain.model.InputForm;
@@ -55,6 +61,9 @@ public class userController {
     // パスワード暗号化
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MassageUtils massageUtils;
 
     /**
      * ラジオボタンの初期化メソッド.
@@ -208,19 +217,20 @@ public class userController {
 
         // ユーザー登録処理(user)
         try {
-            boolean result = userService.insertFromExcel(file, "Sheet1");
+            boolean result = userService.insertFromExcel(file, "ユーザマスタ");
 
             // ユーザー登録結果の判定
             if (result == true) {
                 model.addAttribute("result", "登録成功");
                 log.info("登録成功");
             } else {
-                model.addAttribute("result", "登録失敗");
+                model.addAttribute("result", "エクセルデータが登録されませんでした。");
                 log.error("登録失敗");
             }
         } catch (ApplicationException e) {
             model.addAttribute("result", e.getMessage());
         }
+
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
@@ -274,6 +284,15 @@ public class userController {
         model.addAttribute("radioEnabled", initRadioEnabled());
         model.addAttribute("radioLock", initRadioLock());
 
+        // ユーザ有効期限に永遠値を初期設定
+        form.setUser_due_date(DateUtils.getDateFromString(DateUtils.DEFAULT_END_DATE));
+        // パスワード有効期限に本日を初期設定
+        form.setPass_update(LocalDate.now());
+        // 有効フラグを初期設定
+        form.setEnabled_flg(true);
+        // Modelに登録
+        model.addAttribute("inputForm", form);
+
         // userUpdate.htmlに画面遷移
         return "z/homeLayout";
     }
@@ -304,11 +323,12 @@ public class userController {
         user.setUser_id(form.getUser_id()); // ユーザーID
         user.setUser_due_date(Date.valueOf(form.getUser_due_date())); // ユーザ有効期限
         // パスワードは暗号化する
-        String password = passwordEncoder.encode(form.getPassword());
+        String password = passwordEncoder.encode(Constants.INITIAL_PASSWORD);
         user.setPassword(password); // パスワード
         user.setPass_update(Date.valueOf(form.getPass_update())); // パスワード有効期限
         // ロック状態と有効フラグはテーブルの初期値にて設定される
         user.setLock_flg(form.isLock_flg()); // ロック状態
+        user.setEmployee_id(form.getEmployee_id()); // 社員ID
         user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
         // ログインユーザー情報の取得
@@ -332,7 +352,23 @@ public class userController {
         } catch (ApplicationException e) {
             model.addAttribute("result", e.getMessage());
             return getSignUp(form, model);
+
+        } catch (DuplicateKeyException e) {
+            // 一意制約エラーが発生した時はビジネス例外として返す。
+            String message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員ID " + user.getEmployee_id();
+            String messageKey = "e.co.fw.2.003";
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+            return getSignUp(form, model);
+
+        } catch (DataIntegrityViolationException e) {
+            // 参照整合性エラーが発生した時はビジネス例外として返す。
+            String messageKey = "e.co.fw.2.004";
+            String message = "社員マスタに社員ID " + user.getEmployee_id();
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+            return getSignUp(form, model);
+
         }
+
         // ユーザー一覧画面を表示
         return getUserList(model);
     }
@@ -373,7 +409,7 @@ public class userController {
         model.addAttribute("radioLock", initRadioLock());
 
         // ユーザーIDのチェック
-        if (user_id != null && user_id.length() > 0) {
+        if (user_id != null && StrUtils.getStrLength(user_id) > 0) {
 
             // ユーザー情報を取得
             User user = userService.selectOne(user_id);
@@ -384,6 +420,7 @@ public class userController {
             form.setPass_update(user.getPass_update().toLocalDate()); // パスワード有効期限
             form.setLogin_miss_times(user.getLogin_miss_times()); // ログイン失敗回数
             form.setLock_flg(user.isLock_flg()); // ロック状態
+            form.setEmployee_id(user.getEmployee_id()); // 社員ID
             form.setEnabled_flg(user.isEnabled_flg()); // 有効フラグ
 
             // Modelに登録
@@ -421,13 +458,11 @@ public class userController {
         // フォームクラスをUserクラスに変換
         user.setUser_id(form.getUser_id()); // ユーザーID
         user.setUser_due_date(Date.valueOf(form.getUser_due_date())); // ユーザ有効期限
-        // パスワードは暗号化する
-        String password = passwordEncoder.encode(form.getPassword());
-        user.setPassword(password); // パスワード
         user.setPass_update(Date.valueOf(form.getPass_update())); // パスワード有効期限
         // 権限は変更できない
         user.setLogin_miss_times(form.getLogin_miss_times()); // ログイン失敗回数
         user.setLock_flg(form.isLock_flg()); // ロック状態
+        user.setEmployee_id(form.getEmployee_id()); // 社員ID
         user.setEnabled_flg(form.isEnabled_flg()); // 有効フラグ
 
         // ログインユーザー情報の取得
@@ -436,15 +471,31 @@ public class userController {
 
         user.setUpdate_user(user_auth.getUsername()); // 更新者
 
-        // 更新実行
-        boolean result = userService.updateOne(user);
+        try {
+            // 更新実行
+            boolean result = userService.updateOne(user);
 
-        if (result == true) {
-            model.addAttribute("result", "更新成功");
-            log.info("更新成功");
-        } else {
-            model.addAttribute("result", "更新失敗");
-            log.error("更新失敗");
+            if (result == true) {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            } else {
+                model.addAttribute("result", "更新失敗");
+                log.error("更新失敗");
+            }
+        } catch (DuplicateKeyException e) {
+            // 一意制約エラーが発生した時はビジネス例外として返す。
+            String message = "社員ID " + user.getEmployee_id();
+            String messageKey = "e.co.fw.2.003";
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+            return getUserDetail(form, model, "");
+
+        } catch (DataIntegrityViolationException e) {
+            // 参照整合性エラーが発生した時はビジネス例外として返す。
+            String messageKey = "e.co.fw.2.004";
+            String message = "社員マスタに社員ID " + user.getEmployee_id();
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+            return getUserDetail(form, model, "");
+
         }
 
         // ユーザー一覧画面を表示
