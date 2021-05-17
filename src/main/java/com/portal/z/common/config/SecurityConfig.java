@@ -70,7 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/webjars/**").permitAll() // webjarsへアクセス許可
                 .antMatchers("/css/**").permitAll() // cssへアクセス許可
-                .antMatchers("/icons/**").permitAll() // iconsへアクセス許可
                 .antMatchers("/login").permitAll() // ログインページは直リンクOK
                 .antMatchers("/pwreissue").permitAll() // パスワード再設定ページは直リンクOK
                 .antMatchers("/resetpassword").permitAll() // パスワード再発行ページは直リンクOK
