@@ -84,8 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // nonce-c3R1ZHlwb3J0YWwyMDIwをつけるとインラインのJavaScriptが実行できる。
         // https://weather.tsukumijima.net からデータの取得を有効にする。
         // https://www.jma.go.jp から画像の取得を有効にする。
-        http.headers().contentSecurityPolicy("default-src 'self'");
-        //http.headers().contentSecurityPolicy("default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw';script-src 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net ");
+        //http.headers().contentSecurityPolicy("default-src 'self'");
+        http.headers().contentSecurityPolicy(
+                "default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw';script-src 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net ");
 
         // ログイン処理
         http.formLogin().loginProcessingUrl("/login") // ログイン処理のパス（login.htmlの（action="/login"）と一致させること
