@@ -22,6 +22,13 @@ public final class Constants {
     public static final String LOGIN_MISS_TIMES_MAX = "1";
 
     /**
+     * ユーザ有効期間<BR>
+     * ・ユーザ有効期間の初期値（年数）<BR>
+     * ・初期値は10年。
+     */
+    public static final int USER_DUE_DATE_EXPIRATION_DATE = 10;
+
+    /**
      * パスワード有効期間<BR>
      * ・環境マスタ設定値。<BR>
      * ・パスワードの有効期限の初期値（月数）<BR>

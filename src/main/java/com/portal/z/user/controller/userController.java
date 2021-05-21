@@ -3,6 +3,7 @@ package com.portal.z.user.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -284,8 +285,9 @@ public class userController {
         model.addAttribute("radioEnabled", initRadioEnabled());
         model.addAttribute("radioLock", initRadioLock());
 
-        // ユーザ有効期限に永遠値を初期設定
-        form.setUser_due_date(DateUtils.getDateFromString(DateUtils.DEFAULT_END_DATE));
+        // ユーザ有効期限に初期設定
+        form.setUser_due_date(
+                DateUtils.calcDate(LocalDateTime.now(), "YYYY", Constants.USER_DUE_DATE_EXPIRATION_DATE).toLocalDate());
         // パスワード有効期限に本日を初期設定
         form.setPass_update(LocalDate.now());
         // 有効フラグを初期設定
