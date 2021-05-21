@@ -135,6 +135,23 @@ class DateUtilsTest {
     // compareDate
     //
     @Test
+    final void dateUtils_compareDate_nullチェック1() {
+        LocalDateTime date_2 = LocalDateTime.now();
+        assertThat(DateUtils.compareDateTime(null, date_2)).isEqualTo(-1);
+    }
+
+    @Test
+    final void dateUtils_compareDate_nullチェック2() {
+        LocalDateTime date_1 = LocalDateTime.now();
+        assertThat(DateUtils.compareDateTime(date_1, null)).isEqualTo(1);
+    }
+    
+    @Test
+    final void dateUtils_compareDate_nullチェック3() {
+        assertThat(DateUtils.compareDateTime(null, null)).isEqualTo(0);
+    }
+    
+    @Test
     final void dateUtils_compareDate_等しいチェック() {
         LocalDateTime date_1 = LocalDateTime.now();
         LocalDateTime date_2 = date_1;
@@ -159,6 +176,14 @@ class DateUtilsTest {
         assertThat(DateUtils.compareDateTime(date_1, date_2)).isEqualTo(-1);
     }
 
+    //
+    // calcDate
+    //
+    @Test
+    final void dateUtils_calcDate_引数チェック1() {
+        assertThat(DateUtils.calcDate(null, "YYYY", 1)).isNull();
+    }
+    
     @Test
     final void dateUtils_calcDate_引数エラーチェック_様式() {
         LocalDateTime date = LocalDateTime.now();
@@ -212,4 +237,5 @@ class DateUtilsTest {
         LocalDateTime datetime = LocalDateTime.of(date, time);
         assertThat(DateUtils.calcDate(datetime, "SS", 1)).isEqualTo("1970-01-01T09:00:01.000");
     }
+    
 }
