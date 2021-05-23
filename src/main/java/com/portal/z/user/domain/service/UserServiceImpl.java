@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.Employee;
 import com.portal.z.common.domain.model.User;
+import com.portal.z.common.domain.repository.EmployeeMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.SqlSharedService;
 import com.portal.z.common.domain.service.UserSharedService;
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
+    EmployeeMapper employeeMapper;
+
+    @Autowired
     private MassageUtils massageUtils;
 
     @Autowired
@@ -57,6 +62,10 @@ public class UserServiceImpl implements UserService {
 
     public List<User> selectMany() {
         return userMapper.selectMany();
+    }
+
+    public List<Employee> selectManyEmployee() {
+        return employeeMapper.selectMany();
     }
 
     public User selectOne(String user_id) {
@@ -180,6 +189,7 @@ public class UserServiceImpl implements UserService {
             }
 
             // 取得した値をセット
+            // TODO 本来はエクセルには社員CDをセットし、そこから社員Mで社員IDを検索してユーザマスタに追加する。
             user.setEmployee_id(cellstring); // 社員ID
 
             // ４つめの項目（有効フラグ）
@@ -201,7 +211,7 @@ public class UserServiceImpl implements UserService {
                 if ("DuplicateKeyException".equals(e.getClass().getSimpleName())) {
                     // 一意制約エラーが発生した時とき。
                     messageKey = "e.co.fw.2.003";
-                    message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員ID " + user.getEmployee_id();
+                    message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員";
                     throw new ApplicationException(messageKey,
                             massageUtils.getMsg(messageKey, new String[] { message }), e);
 
@@ -233,7 +243,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
-        // ToDo チェック内容を記述
+        // TODO チェック内容を記述
 //        Cell headerCell = headerRow.getCell(0);
 //        String headerStr = headerCell.getStringCellValue();
 
