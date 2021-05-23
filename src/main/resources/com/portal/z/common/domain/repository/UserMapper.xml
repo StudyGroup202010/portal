@@ -14,6 +14,8 @@
 		<result column="login_miss_times" property="login_miss_times" />
 		<result column="lock_flg" property="lock_flg" />
 		<result column="employee_id" property="employee_id" />
+		<result column="employee_cd" property="employee_cd" />
+		<result column="employee_name" property="employee_name" />
 		<result column="enabled_flg" property="enabled_flg" />
 	</resultMap>
 
@@ -71,7 +73,7 @@
           ,update_user
           ,update_date
         from
-          zm001_user
+          zm001_user u
         where
           user_id = #{user_id}
     </select>
@@ -79,22 +81,26 @@
     <!-- 全件検索 -->
     <select id="selectMany" resultMap="user">
         select
-           user_id
-          ,user_due_date
-          ,password
-          ,pass_update
-          ,login_miss_times
-          ,lock_flg
-          ,employee_id
-          ,enabled_flg
-          ,insert_user
-          ,insert_date
-          ,update_user
-          ,update_date
+           u.user_id
+          ,u.user_due_date
+          ,u.password
+          ,u.pass_update
+          ,u.login_miss_times
+          ,u.lock_flg
+          ,u.employee_id
+          ,e.employee_cd
+          ,e.employee_name
+          ,u.enabled_flg
+          ,u.insert_user
+          ,u.insert_date
+          ,u.update_user
+          ,u.update_date
         from
-          zm001_user
+          zm001_user u
+        left join am005_employee e
+          on e.employee_id = u.employee_id
         order by
-          user_id
+          u.user_id
     </select>
 
     <!-- １件更新 -->

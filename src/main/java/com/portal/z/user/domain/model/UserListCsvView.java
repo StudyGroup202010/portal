@@ -23,11 +23,11 @@ import java.util.Map;
 public class UserListCsvView extends AbstractCsvView {
 
     // ヘッダーを和名で設定
-    String[] Header_J = { "ユーザID", "ユーザ有効期限", "パスワード有効期限", "ログイン失敗回数", "ロック状態", "社員ID", "有効フラグ", "作成者", "作成日時", "更新者",
+    String[] Header_J = { "ユーザID", "ユーザ有効期限", "パスワード有効期限", "ログイン失敗回数", "ロック状態", "社員CD", "社員名", "有効フラグ", "作成者", "作成日時", "更新者",
             "更新日時" };
 
     // 出力する項目を設定
-    String[] Header = { "user_id", "user_due_date", "pass_update", "login_miss_times", "lock_flg", "employee_id",
+    String[] Header = { "user_id", "user_due_date", "pass_update", "login_miss_times", "lock_flg", "employee_cd", "employee_name",
             "enabled_flg", "insert_user", "insert_date", "update_user", "update_date" };
 
     @Override

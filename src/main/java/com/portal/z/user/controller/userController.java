@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.Employee;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.Constants;
@@ -285,6 +286,13 @@ public class userController {
         model.addAttribute("radioEnabled", initRadioEnabled());
         model.addAttribute("radioLock", initRadioLock());
 
+        // プルダウンの内容を設定
+        // 社員一覧の生成
+        List<Employee> employeeList = userService.selectManyEmployee();
+
+        // Modelに社員リストを登録
+        model.addAttribute("employeeList", employeeList);
+
         // ユーザ有効期限に初期設定
         form.setUser_due_date(
                 DateUtils.calcDate(LocalDateTime.now(), "YYYY", Constants.USER_DUE_DATE_EXPIRATION_DATE).toLocalDate());
@@ -357,7 +365,7 @@ public class userController {
 
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            String message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員ID " + user.getEmployee_id();
+            String message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員";
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getSignUp(form, model);
@@ -409,6 +417,13 @@ public class userController {
         // ラジオボタンのMapを初期化してModelに登録
         model.addAttribute("radioEnabled", initRadioEnabled());
         model.addAttribute("radioLock", initRadioLock());
+
+        // プルダウンの内容を設定
+        // 社員一覧の生成
+        List<Employee> employeeList = userService.selectManyEmployee();
+
+        // Modelに社員リストを登録
+        model.addAttribute("employeeList", employeeList);
 
         // ユーザーIDのチェック
         if (user_id != null && StrUtils.getStrLength(user_id) > 0) {
@@ -486,7 +501,7 @@ public class userController {
             }
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            String message = "社員ID " + user.getEmployee_id();
+            String message = "社員";
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getUserDetail(form, model, "");

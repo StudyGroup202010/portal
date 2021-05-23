@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.portal.z.common.domain.repository.EmployeeMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.Employee"
+		id="employee">
+		<id column="employee_id" property="employee_id" />
+		<result column="employee_id" property="employee_id" />
+		<result column="employee_name" property="employee_name" />
+		<result column="employee_cd" property="employee_cd" />
+		<result column="mail" property="mail" />
+		<result column="joined_date" property="joined_date" />
+		<result column="leave_date" property="leave_date" />
+		<result column="employeeattribute_id" property="employeeattribute_id" />
+	</resultMap>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="employee">
+        select
+           employee_id
+          ,employee_name
+          ,employee_cd
+          ,mail
+          ,joined_date
+          ,leave_date
+          ,employeeattribute_id
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am005_employee
+        order by
+          employee_cd
+    </select>
+</mapper>

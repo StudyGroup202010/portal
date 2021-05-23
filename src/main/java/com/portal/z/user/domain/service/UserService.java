@@ -7,6 +7,8 @@ import org.apache.poi.EncryptedDocumentException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.portal.z.common.domain.model.Employee;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.exception.ApplicationException;
 
@@ -22,6 +24,13 @@ public interface UserService {
      * @return User
      */
     public List<User> selectMany();
+
+    /**
+     * 全件取得用メソッド.
+     * 
+     * @return Employee
+     */
+    public List<Employee> selectManyEmployee();
 
     /**
      * １件取得用メソッド.
@@ -66,6 +75,6 @@ public interface UserService {
      *                                         ・シートにデータ行が登録されていなかったとき<BR>
      *                                         ・必須項目に値が登録されていなかったとき
      */
-    public boolean insertFromExcel(MultipartFile file, String SheetName) throws EncryptedDocumentException,
-            IOException, DuplicateKeyException, DataIntegrityViolationException, ApplicationException;
+    public boolean insertFromExcel(MultipartFile file, String SheetName) throws EncryptedDocumentException, IOException,
+            DuplicateKeyException, DataIntegrityViolationException, ApplicationException;
 }
