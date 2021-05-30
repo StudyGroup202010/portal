@@ -1,4 +1,4 @@
---システム管理(z) - ロールマスタ(zm002_role)
+--ポータルサイト(z) - ロールマスタ(zm002_role)
 create table zm002_role(
      role_id varchar(50) not null,
      role_name varchar(50),

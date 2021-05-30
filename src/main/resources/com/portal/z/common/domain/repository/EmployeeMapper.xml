@@ -9,7 +9,7 @@
 		id="employee">
 		<id column="employee_id" property="employee_id" />
 		<result column="employee_id" property="employee_id" />
-		<result column="employee_name" property="employee_name" />
+		<result column="employee_name1_last" property="employee_name1_last" />
 		<result column="employee_cd" property="employee_cd" />
 		<result column="mail" property="mail" />
 		<result column="joined_date" property="joined_date" />
@@ -21,7 +21,7 @@
     <select id="selectMany" resultMap="employee">
         select
            employee_id
-          ,employee_name
+          ,employee_name1_last
           ,employee_cd
           ,mail
           ,joined_date

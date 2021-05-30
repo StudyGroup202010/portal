@@ -1,4 +1,4 @@
---システム管理(z) - ユーザロールマスタ(zm003_userrole)
+--ポータルサイト(z) - ユーザロールマスタ(zm003_userrole)
 create table zm003_userrole(
      user_id varchar(50) not null,
      role_id varchar(50) not null,

@@ -1,4 +1,4 @@
---共通マスタ(k) - 環境マスタ(am999_env)
+--共通マスタ(a) - 環境マスタ(am999_env)
 create table am999_env(
      env_id varchar(50) not null,
      env_kbn varchar(20),
