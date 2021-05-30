@@ -42,7 +42,7 @@
                                 th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{user_id}"
-                                    placeholder="XXXX@mail" autofocus />
+                                    placeholder="英数字を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('user_id')}"
                                     th:errors="*{user_id}">
