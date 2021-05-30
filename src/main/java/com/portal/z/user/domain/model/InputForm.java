@@ -2,11 +2,12 @@ package com.portal.z.user.domain.model;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,9 +19,10 @@ import lombok.Data;
 @Data
 public class InputForm {
 
-    // 必須入力、メールアドレス形式
+    // 必須入力
     @NotBlank(groups = { ValidCreate1.class }, message = "{require_check}")
-    @Email(groups = { ValidCreate2.class }, message = "{email_check}")
+    @Size(min = 5, max = 50, groups = { ValidCreate1.class }, message = "{length_check}")
+    @Pattern(regexp = "[a-zA-Z0-9]*", groups = { ValidCreate1.class }, message = "{type_check}") // 英数字であること
     private String user_id; // ユーザーID
 
     // 必須入力
