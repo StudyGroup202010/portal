@@ -15,7 +15,7 @@
 		<result column="lock_flg" property="lock_flg" />
 		<result column="employee_id" property="employee_id" />
 		<result column="employee_cd" property="employee_cd" />
-		<result column="employee_name" property="employee_name" />
+		<result column="employee_name1_last" property="employee_name1_last" />
 		<result column="enabled_flg" property="enabled_flg" />
 	</resultMap>
 
@@ -89,7 +89,7 @@
           ,u.lock_flg
           ,u.employee_id
           ,e.employee_cd
-          ,e.employee_name
+          ,e.employee_name1_last
           ,u.enabled_flg
           ,u.insert_user
           ,u.insert_date

@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class Employee {
     private String employee_id; // 社員ID
-    private String employee_name; // 社員名
+    private String employee_name1_last; // 社員名漢字（性）
     private String employee_cd; // 社員CD
     private String mail; // メールアドレス
     private Date joined_date; // 入社日

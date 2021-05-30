@@ -1,0 +1,2 @@
+insert into bt001_skill( skill_id , employee_id , insert_user , insert_date)
+VALUES('00001' ,'00001', 'HAND',NOW())
