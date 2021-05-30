@@ -1,0 +1,2 @@
+insert into bt003_career( employee_id , certification_no , insert_user , insert_date )
+values('00001',1,'HAND',NOW())

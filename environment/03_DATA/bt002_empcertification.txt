@@ -1,0 +1,4 @@
+insert into bt002_empcertification( employee_id , certification_id , insert_user , insert_date )
+VALUES('00001','001','HAND',NOW())
+,('00001','002','HAND',NOW())
+

@@ -78,9 +78,9 @@ public class UserReportXlsxView extends AbstractXlsxReportView {
             row.createCell(5).setCellStyle(cellstyle);
             row.getCell(5).setCellValue(userList.get(i).getEmployee_cd());
 
-            // 社員名
+            // 社員名漢字（性）
             row.createCell(6).setCellStyle(cellstyle);
-            row.getCell(6).setCellValue(userList.get(i).getEmployee_name());
+            row.getCell(6).setCellValue(userList.get(i).getEmployee_name1_last());
 
             // 有効フラグ
             row.createCell(7).setCellStyle(cellstyle);
