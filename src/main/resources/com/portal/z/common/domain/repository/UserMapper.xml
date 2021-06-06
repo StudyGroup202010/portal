@@ -51,7 +51,7 @@
           ,#{employee_id}
           ,#{enabled_flg}
           ,#{insert_user}
-          ,NOW()
+          ,#{insert_date}
           ,NULL
           ,NULL
           )
@@ -115,7 +115,7 @@
           ,employee_id      = #{employee_id}
           ,enabled_flg      = #{enabled_flg}
           ,update_user      = #{update_user}
-          ,update_date      = NOW()
+          ,update_date      = #{update_date}
         where
           user_id           = #{user_id}
     </update>
@@ -133,7 +133,7 @@
            login_miss_times = #{login_miss_times}
           ,lock_flg         = #{lock_flg}
           ,update_user      = #{update_user}
-          ,update_date      = NOW()
+          ,update_date      = #{update_date}
         where
           user_id           = #{user_id}
     </update>
@@ -146,7 +146,7 @@
            password    = #{password}
           ,pass_update = #{pass_update}
           ,update_user = #{update_user}
-          ,update_date = NOW()
+          ,update_date = #{update_date}
         where
           user_id      = #{user_id}
     </update>
@@ -178,14 +178,15 @@
     </select>
     
     <!-- ログイン失敗回数を0に更新 -->
-    <update id="updateLoginMissTimes" parameterType="string">
+    <!-- 更新者=ログインしたユーザー で修正したがこれでよいか？ -->
+    <update id="updateLoginMissTimes" parameterType="com.portal.z.common.domain.model.User">
         update
           zm001_user
         set
            login_miss_times = 0
-          ,update_user = #{user_id}
-          ,update_date = NOW()
+          ,update_user = #{update_user}
+          ,update_date = #{update_date}
         where
-          user_id = #{user_id}
+          user_id = #{update_user}
     </update>
 </mapper>
