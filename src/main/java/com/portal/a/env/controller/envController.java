@@ -3,6 +3,7 @@ package com.portal.a.env.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.MassageUtils;
+import com.portal.z.common.domain.util.StrUtils;
 import com.portal.a.common.domain.model.Env;
-import com.portal.z.common.exception.ApplicationException;
 import com.portal.a.env.domain.model.InputEnvForm;
 import com.portal.a.env.domain.model.SelectEnvForm;
 import com.portal.a.env.domain.service.EnvService;
@@ -33,6 +35,9 @@ public class envController {
 
     @Autowired
     private EnvService envService;
+
+    @Autowired
+    private MassageUtils massageUtils;
 
     /**
      * 環境マスタ一覧画面のGETメソッド用処理.<BR>
@@ -157,11 +162,13 @@ public class envController {
                 model.addAttribute("result", "登録失敗");
                 log.error("登録失敗");
             }
-
-        } catch (ApplicationException e) {
-            model.addAttribute("result", e.getMessage());
+        } catch (DuplicateKeyException e) {
+            // 一意制約エラーが発生したとき。
+            String messageKey = "e.co.fw.2.003";
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { env.getEnv_id() }));
             return getSignUp(form, model);
         }
+
         // 環境マスタ一覧画面を表示
         return getEnvList(model);
     }
@@ -197,7 +204,7 @@ public class envController {
         model.addAttribute("contents", "a/envDetail :: envDetail_contents");
 
         // 環境IDのチェック
-        if (env_id != null && env_id.length() > 0) {
+        if (env_id != null && StrUtils.getStrLength(env_id) > 0) {
 
             // 環境マスタ情報を取得
             Env env = envService.selectOne(env_id);

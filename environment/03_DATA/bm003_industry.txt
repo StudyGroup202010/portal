@@ -1,0 +1,4 @@
+insert into bm003_industry( industry_id , industry_name , insert_user , insert_date)
+values('001','産業A','HAND',NOW())
+,('002','産業A','HAND',NOW())
+

@@ -3,6 +3,7 @@ package com.portal.z.common.domain.util;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
 
@@ -18,14 +19,16 @@ public final class DateUtils {
     }
 
     /**
-     * 日付の初期値（"00000101"）
+     * 日付の初期値（"00000101"）<BR>
+     * （注）日付に変換可能な文字列を登録すること
      */
-    private static String DEFAULT_START_DATE = "00000101";
+    public static String DEFAULT_START_DATE = "00000101";
 
     /**
-     * 日付の永遠値（"99991231"）
+     * 日付の永遠値（"99991231"）<BR>
+     * （注）日付に変換可能な文字列を登録すること
      */
-    private static String DEFAULT_END_DATE = "99991231";
+    public static String DEFAULT_END_DATE = "99991231";
 
     /**
      * 日付（年月日）⇒文字列(YYYYMMDD)変換処理<BR>
@@ -115,6 +118,7 @@ public final class DateUtils {
      * 
      * @param date 変換元の文字列（様式はYYYYMMDD）
      * @return Date型に変換したdate
+     * @throws DateTimeParseException 日付に変換できなかったとき
      */
     public static LocalDate getDateFromString(String date) {
         if (date == null || date.isEmpty()) {
@@ -169,15 +173,27 @@ public final class DateUtils {
      *         date_1＜date_2の時：-1
      */
     public static int compareDateTime(LocalDateTime date_1, LocalDateTime date_2) {
-        int result = 0;
-        if (date_1.isEqual(date_2)) {
-            result = 0;
-        } else if (date_1.isAfter(date_2)) {
-            result = 1;
-        } else if (date_1.isBefore(date_2)) {
-            result = -1;
+
+        // 引数チェック
+        if (date_1 == null && date_2 == null) {
+            return 0;
         }
-        return result;
+        if (date_1 == null) {
+            return -1;
+        }
+        if (date_2 == null) {
+            return 1;
+        }
+
+        if (date_1.isAfter(date_2)) {
+            // date_1＞date_2の時
+            return 1;
+        } else if (date_1.isBefore(date_2)) {
+            // date_1＜date_2の時
+            return -1;
+        }
+        // date_1＝date_2の時
+        return 0;
     }
 
     /**
@@ -195,23 +211,23 @@ public final class DateUtils {
      */
     public static LocalDateTime calcDate(LocalDateTime date, String string, int value) {
 
-        LocalDateTime result = null;
-
-        if ("YYYY".equals(string)) {
-            result = date.plusYears(value); // 年
-        } else if ("MM".equals(string)) {
-            result = date.plusMonths(value); // 月
-        } else if ("DD".equals(string)) {
-            result = date.plusDays(value); // 日
-        } else if ("HH".equals(string)) {
-            result = date.plusHours(value); // 時
-        } else if ("MI".equals(string)) {
-            result = date.plusMinutes(value); // 分
-        } else if ("SS".equals(string)) {
-            result = date.plusSeconds(value); // 秒
-        } else {
+        if (date == null) {
             return null;
         }
-        return result;
+
+        if ("YYYY".equals(string)) {
+            return date.plusYears(value); // 年
+        } else if ("MM".equals(string)) {
+            return date.plusMonths(value); // 月
+        } else if ("DD".equals(string)) {
+            return date.plusDays(value); // 日
+        } else if ("HH".equals(string)) {
+            return date.plusHours(value); // 時
+        } else if ("MI".equals(string)) {
+            return date.plusMinutes(value); // 分
+        } else if ("SS".equals(string)) {
+            return date.plusSeconds(value); // 秒
+        }
+        return null;
     }
 }

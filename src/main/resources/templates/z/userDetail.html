@@ -27,7 +27,8 @@
             <div class="page-header">
                 <h3>ユーザー詳細</h3>
             </div>
-
+            <!-- ユーザー詳細画面の結果表示 -->
+            <label class="text-danger" th:text="${result}"></label>
             <form method="post" th:action="@{/userDetail}"
                 th:object="${inputForm}">
                 <table class="table table-bordered table-hover table-sm">
@@ -54,21 +55,6 @@
                                     th:if="${#fields.hasErrors('user_due_date')}"
                                     th:errors="*{user_due_date}">
                                     user_due_date error </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- パスワード -->
-                    <tr>
-                        <th class="table-info">パスワード</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{password}" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('password')}"
-                                    th:errors="*{password}">
-                                    password error </span>
                             </div>
                         </td>
                     </tr>
@@ -104,7 +90,7 @@
                     </tr>
                     <!-- ロックフラグ -->
                     <tr>
-                        <th class="table-info">ロックフラグ</th>
+                        <th class="table-info">ロック状態</th>
                         <td>
                             <div class="form-group">
                                 <div th:each="item : ${radioLock}">
@@ -117,6 +103,26 @@
                                     th:if="${#fields.hasErrors('lock_flg')}"
                                     th:errors="*{lock_flg}">
                                     lock_flg error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員ID -->
+                    <tr>
+                        <th class="table-info">社員</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('employee_id')} ? 'has-error'">
+                                <select class="form-control"
+                                    th:field="*{employee_id}">
+                                    <option
+                                        th:each="employeeList : ${employeeList}"
+                                        th:value="${employeeList.employee_id}"
+                                        th:text="${employeeList.employee_cd}+'   '+${employeeList.employee_name1_last}"
+                                        th:selected="${employeeList.employee_id}"></option>
+                                </select> <span class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_id')}"
+                                    th:errors="*{employee_id}">
+                                    employee_id error </span>
                             </div>
                         </td>
                     </tr>

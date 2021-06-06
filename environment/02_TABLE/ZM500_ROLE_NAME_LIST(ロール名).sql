@@ -1,4 +1,4 @@
---システム管理(z) - ロール名(zm500_role_name_list)
+--ポータルサイト(z) - ロール名(zm500_role_name_list)
 create table zm500_role_name_list(
      role_name varchar(50) not null,
      enabled_flg boolean default true not null,

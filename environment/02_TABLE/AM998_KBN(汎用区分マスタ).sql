@@ -1,4 +1,4 @@
---共通マスタ(k) - 汎用区分マスタ(am998_kbn)
+--共通マスタ(a) - 汎用区分マスタ(am998_kbn)
 create table am998_kbn(
      kbn_id varchar(50) not null,
      kbn_txt varchar(100) not null,

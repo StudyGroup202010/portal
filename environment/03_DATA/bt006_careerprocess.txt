@@ -1,0 +1,4 @@
+insert into bt006_careerprocess( employee_id , certification_no , process_id , insert_user , insert_date )
+values('00001',1,'01','HAND',NOW())
+,('00001',1,'02','HAND',NOW())
+

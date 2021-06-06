@@ -2,9 +2,10 @@ package com.portal.z.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
-import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.stereotype.Component;
 
+import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,22 +22,20 @@ public class AuthenticationSuccessEventListener {
     UserMapper userMapper;
 
     /**
-     * AuthenticationSuccessEventのイベント処理 <br>
+     * InteractiveAuthenticationSuccessEvent のイベント処理 <br>
      * 
-     * ログイン時にIDとパスワードの認証に成功した直後に動作します。 <br>
-     * ・ログイン失敗回数に０をセットします。
+     * すべての認証に成功した直後に動作します。<br> ログイン失敗回数に０をセットします。<br>
+     * AuthenticationSuccessEvent→InteractiveAuthenticationSuccessEvent に変更<br>
+     * 参考：https://terasolunaorg.github.io/guideline/5.1.0.RELEASE/ja/Security/
+     * Authentication.html#id15 <br>
      * 
-     * @param event AuthenticationSuccessEvent
+     * @param event 認証処理がすべて成功したことを通知するためのイベントクラス
      */
     @EventListener
-    public void onApplicationEvent(AuthenticationSuccessEvent event) {
-
+    public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
         log.info("正常なログインです。ログイン失敗回数を0にします。");
 
-        // ユーザー情報の取得
-        String userId = event.getAuthentication().getName();
-
         // ログイン失敗回数を0に更新する。
-        userMapper.updateLoginMissTimes(userId);
+        userMapper.updateLoginMissTimes(new User());
     }
 }
