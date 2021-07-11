@@ -17,30 +17,30 @@ import com.portal.a.common.domain.repository.CompanyMapper;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-	@Autowired
-	CompanyMapper companyMapper;
+    @Autowired
+    CompanyMapper companyMapper;
 
-	public List<Company> selectMany() {
-		return companyMapper.selectMany();
-	}
+    public List<Company> selectMany() {
+        return companyMapper.selectMany();
+    }
 
-	public Company selectOne(String company_cd) {
-		return companyMapper.selectOne(company_cd);
-	}
+    public Company selectOne(String company_cd) {
+        return companyMapper.selectOne(company_cd);
+    }
 
-	public boolean insertOne(Company company) {
-		return companyMapper.insertOne(company);
-	}
+    public boolean insertOne(Company company) {
+        return companyMapper.insertOne(company);
+    }
 
-	public boolean updateOne(Company company) {
-		return companyMapper.updateOne(company);
-	}
+    public boolean updateOne(Company company) {
+        return companyMapper.updateOne(company);
+    }
 
-	public boolean deleteOne(String company_cd) {
-		return companyMapper.deleteOne(company_cd);
-	}
+    public boolean deleteOne(String company_cd) {
+        return companyMapper.deleteOne(company_cd);
+    }
 
-	public List<Company> selectBy(String company_name, String biko) {
-		return companyMapper.selectBy(company_name, biko);
-	}
+    public List<Company> selectBy(String company_name, String biko) {
+        return companyMapper.selectBy(company_name, biko);
+    }
 }

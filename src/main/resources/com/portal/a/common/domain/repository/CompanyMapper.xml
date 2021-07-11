@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.portal.a.common.domain.repository.CompanyMapper">
+<mapper namespace="com.portal.a.common.domain.repository.CompanyMapper">
 	<!-- マッピング定義 -->
 	<resultMap type="com.portal.a.common.domain.model.Company"
 		id="company">
@@ -72,8 +71,7 @@
         update
           am001_company
         set
-           company_cd     = #{company_cd}
-          ,company_name   = #{company_name}
+           company_name   = #{company_name}
           ,biko           = #{biko}
           ,update_user    = #{update_user}
           ,update_date    = NOW()
@@ -95,7 +93,7 @@
           ,biko
         from
           am001_company
-        where company_name               like CONCAT(#{company_name}  , '%')
+        where company_name               like CONCAT('%' , #{company_name}  , '%')
           and COALESCE(biko,'')          like CONCAT('%' , #{biko} , '%')
         order by
           company_cd

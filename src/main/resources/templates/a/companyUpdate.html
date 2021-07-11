@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <meta charset="UTF-8"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="UTF-8"></meta>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<!-- Bootstrapの設定 -->
+
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 
 
 
-    <title>CompanyUpdate</title>
+<title>CompanyUpdate</title>
 </head>
 <body>
 	<div th:fragment="companyUpdate_contents">
@@ -25,50 +27,47 @@
 			<div class="page-header">
 				<h3>会社マスタ登録</h3>
 			</div>
-            <!-- 会社マスタ登録画面の結果表示 -->
-            <!-- この下のobject指定がinputEnvFormとなっていたため、該当ファイル内の切り方に合わせました。 --> 
-            <label class="text-danger" th:text="${result}"></label>
+			<!-- 会社マスタ登録画面の結果表示 -->
+			<!-- この下のobject指定がinputEnvFormとなっていたため、該当ファイル内の切り方に合わせました。 -->
+			<label class="text-danger" th:text="${result}"></label>
 			<form method="post" th:action="@{/companyUpdate}"
 				th:object="${inputCompanyForm}">
-                <table class="table table-bordered table-hover table-sm">
-                    <!-- 会社CDの入力エリア -->
-                    <tr>
-                        <th class="active table-info">会社CD</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{company_cd}" autofocus /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('company_cd')}"
-                                    th:errors="*{company_cd}"> company_cd
-                                    error </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 会社名 -->
-                    <tr>
-                        <th class="active table-info">会社名</th>
-                        <td>
-                            <div class="form-group">
-                                <input type="text" class="form-control"
-                                    th:field="*{company_name}" />
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 備考 -->
-                    <tr>
-                        <th class="active table-info">備考</th>
-                        <td>
-                            <div class="form-group">
-                                <input type="text" class="form-control"
-                                    th:field="*{biko}" />
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+				<table class="table table-bordered table-hover table-sm">
+					<!-- 会社CDの入力エリア -->
+					<tr>
+						<th class="active table-info">会社CD</th>
+						<td>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
+								<input type="text" class="form-control" th:field="*{company_cd}"
+									autofocus /> <span class="text-danger"
+									th:if="${#fields.hasErrors('company_cd')}"
+									th:errors="*{company_cd}"> company_cd error </span>
+							</div>
+						</td>
+					</tr>
+					<!-- 会社名 -->
+					<tr>
+						<th class="active table-info">会社名</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control"
+									th:field="*{company_name}" />
+							</div>
+						</td>
+					</tr>
+					<!-- 備考 -->
+					<tr>
+						<th class="active table-info">備考</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control" th:field="*{biko}" />
+							</div>
+						</td>
+					</tr>
+				</table>
 
-                <!-- 戻るボタン -->
+				<!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
 				<!-- ユーザー登録ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"

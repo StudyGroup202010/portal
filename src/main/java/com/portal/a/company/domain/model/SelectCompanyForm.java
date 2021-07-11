@@ -7,6 +7,6 @@ import lombok.Data;
  */
 @Data
 public class SelectCompanyForm {
-	private String company_name; // 会社名
-	private String biko; // 備考
+    private String company_name; // 会社名
+    private String biko; // 備考
 }

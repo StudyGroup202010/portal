@@ -55,8 +55,8 @@ public interface CompanyMapper {
     /**
      * 条件検索用メソッド
      * 
-     * @param company_name
-     * @param biko    biko
+     * @param company_name company_name
+     * @param biko         biko
      * @return CompanyList
      */
     public List<Company> selectBy(String company_name, String biko);
