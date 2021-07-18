@@ -46,9 +46,12 @@
 					<tr>
 						<th class="table-info">会社名</th>
 						<td>
-							<div class="form-group">
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
 								<input type="text" class="form-control"
-									th:field="*{company_name}" />
+									th:field="*{company_name}" /> <span class="text-danger"
+									th:if="${#fields.hasErrors('company_name')}"
+									th:errors="*{company_name}"> company_name error </span>
 							</div>
 						</td>
 					</tr>
