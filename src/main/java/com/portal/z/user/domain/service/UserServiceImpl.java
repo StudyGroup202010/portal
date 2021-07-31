@@ -19,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.z.common.domain.model.AppUserDetails;
-import com.portal.z.common.domain.model.Employee;
+import com.portal.a.common.domain.model.Employee;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.repository.EmployeeMapper;
+import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.SqlSharedService;
 import com.portal.z.common.domain.service.UserSharedService;

@@ -169,7 +169,7 @@
           ,update_date
         from
           zm001_user
-        where user_id like CONCAT(#{user_id} , '%')
+        where user_id like CONCAT('%' , #{user_id} , '%')
         and TO_CHAR(user_due_date,'YYYYMMDD') >= #{user_due_date_from}
         and TO_CHAR(user_due_date,'YYYYMMDD') <= #{user_due_date_to}
         order by

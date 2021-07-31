@@ -12,7 +12,9 @@ import org.springframework.util.StringUtils;
 import com.portal.z.common.domain.util.MassageUtils;
 
 /**
- * ConfirmValidatorImpl実装クラス
+ * パスワード比較バリデータ
+ * 
+ * パスワードとパスワード（確認）の値を比較する。<br>
  *
  */
 public class ConfirmValidatorImpl implements ConstraintValidator<Confirm, Object> {
@@ -24,6 +26,12 @@ public class ConfirmValidatorImpl implements ConstraintValidator<Confirm, Object
     private String field;
     private String confirmField;
 
+    /**
+     * 初期化
+     * 
+     * メッセージキー：e.co.fw.1.008
+     * "
+     */
     public void initialize(Confirm constraintAnnotation) {
         message = massageUtils.getMsg("e.co.fw.1.008", null);
         field = constraintAnnotation.field();
