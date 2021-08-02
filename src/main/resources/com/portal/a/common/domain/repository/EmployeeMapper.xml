@@ -32,6 +32,8 @@
         <result column="joined_date" property="joined_date" />
         <result column="leave_date" property="leave_date" />
         <result column="employeeattribute_id" property="employeeattribute_id" />
+        <result column="organization_cd" property="organization_cd" />
+        <result column="start_yearmonth" property="start_yearmonth" />
         <result column="biko" property="biko" />
     </resultMap>
     
@@ -108,42 +110,108 @@
 
     <!-- １件検索 -->
     <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Employee">
+    <![CDATA[
         select
-           employee_id
-          ,employee_cd
-          ,employee_name1_last
-          ,employee_name1_first
-          ,employee_name2_last
-          ,employee_name2_first
-          ,gender_kbn
-          ,postcode
-          ,prefcode
-          ,pref_name1
-          ,pref_name2
-          ,citycode
-          ,city_name1
-          ,city_name2
-          ,streetaddress1
-          ,streetaddress2
-          ,birthday
-          ,nearest_station_code
-          ,nearest_station_name
-          ,final_education
-          ,department
-          ,graduation_date
-          ,mail
-          ,joined_date
-          ,leave_date
-          ,employeeattribute_id
-          ,biko
-          ,insert_user
-          ,insert_date
-          ,update_user
-          ,update_date
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,a.employee_name2_last
+          ,a.employee_name2_first
+          ,a.gender_kbn
+          ,a.postcode
+          ,a.prefcode
+          ,a.pref_name1
+          ,a.pref_name2
+          ,a.citycode
+          ,a.city_name1
+          ,a.city_name2
+          ,a.streetaddress1
+          ,a.streetaddress2
+          ,a.birthday
+          ,a.nearest_station_code
+          ,a.nearest_station_name
+          ,a.final_education
+          ,a.department
+          ,a.graduation_date
+          ,a.mail
+          ,a.joined_date
+          ,a.leave_date
+          ,a.employeeattribute_id
+          ,b.organization_cd
+          ,b.start_yearmonth
+          ,a.biko
+          ,a.insert_user
+          ,a.insert_date
+          ,a.update_user
+          ,a.update_date
         from
-          am005_employee
+          am005_employee a
+          left join am006_employeebelongs b
+            on  b.employee_id = a.employee_id
+            and b.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = b.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
         where
-          employee_id = #{employee_id}
+              a.employee_id = #{employee_id}
+    ]]>
+    </select>
+    
+    <!-- １件検索 -->
+    <select id="selectOneByCd" parameterType="string" resultType="com.portal.a.common.domain.model.Employee">
+    <![CDATA[
+        select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,a.employee_name2_last
+          ,a.employee_name2_first
+          ,a.gender_kbn
+          ,a.postcode
+          ,a.prefcode
+          ,a.pref_name1
+          ,a.pref_name2
+          ,a.citycode
+          ,a.city_name1
+          ,a.city_name2
+          ,a.streetaddress1
+          ,a.streetaddress2
+          ,a.birthday
+          ,a.nearest_station_code
+          ,a.nearest_station_name
+          ,a.final_education
+          ,a.department
+          ,a.graduation_date
+          ,a.mail
+          ,a.joined_date
+          ,a.leave_date
+          ,a.employeeattribute_id
+          ,b.organization_cd
+          ,b.start_yearmonth
+          ,a.biko
+          ,a.insert_user
+          ,a.insert_date
+          ,a.update_user
+          ,a.update_date
+        from
+          am005_employee a
+          left join am006_employeebelongs b
+            on  b.employee_id = a.employee_id
+            and b.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = b.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+        where
+          a.employee_cd = #{employee_cd}
+    ]]>
     </select>
 
     <!-- 全件検索 -->
@@ -183,8 +251,8 @@
           ,a.update_date
         from
           am005_employee a
-        left join am008_employeeattribute b
-          on a.employeeattribute_id = b.employeeattribute_id 
+          left join am008_employeeattribute b
+            on a.employeeattribute_id = b.employeeattribute_id
         order by
           a.employee_cd
     </select>
@@ -265,8 +333,8 @@
           ,a.biko
         from
           am005_employee a
-        left join am008_employeeattribute b
-          on a.employeeattribute_id = b.employeeattribute_id 
+          left join am008_employeeattribute b
+            on a.employeeattribute_id = b.employeeattribute_id 
         where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
           and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
           and a.mail                like CONCAT('%' , #{mail} , '%')

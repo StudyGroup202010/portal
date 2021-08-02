@@ -396,7 +396,7 @@
                     </tr>
                     <!-- 社員属性ID -->
                     <tr>
-                        <th class="active table-info">社員属性ID</th>
+                        <th class="active table-info">社員属性</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('employeeattribute_id')} ? 'has-error'">
@@ -411,6 +411,26 @@
                                     th:if="${#fields.hasErrors('employeeattribute_id')}"
                                     th:errors="*{employeeattribute_id}">
                                     employeeattribute_id error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 組織CD -->
+                    <tr>
+                        <th class="active table-info">組織</th>
+                        <td>
+                           <div class="form-group"
+                                th:classappend="${#fields.hasErrors('organization_cd')} ? 'has-error'">
+                                <select class="form-control"
+                                    th:field="*{organization_cd}">
+                                    <option
+                                        th:each="organizationList : ${organizationList}"
+                                        th:value="${organizationList.organization_cd}"
+                                        th:text="${organizationList.organization_name}"
+                                        th:selected="${organizationList.organization_cd}"></option>
+                                </select> <span class="text-danger"
+                                    th:if="${#fields.hasErrors('organization_cd')}"
+                                    th:errors="*{organization_cd}">
+                                    organization_cd error </span>
                             </div>
                         </td>
                     </tr>
@@ -429,6 +449,10 @@
                 <!-- 社員ID -->
                 <input type="hidden" class="form-control"
                     th:field="*{employee_id}" />
+                    
+                <!-- 組織所属開始年月 -->
+                <input type="hidden" class="form-control"
+                    th:field="*{start_yearmonth}" />
 
                 <!-- 戻るボタン -->
                 <button class="btn btn-lg btn-primary" type="submit"

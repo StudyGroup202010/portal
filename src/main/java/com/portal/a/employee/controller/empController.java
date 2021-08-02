@@ -1,11 +1,13 @@
 package com.portal.a.employee.controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
+import com.portal.a.common.domain.model.Employeebelongs;
+import com.portal.a.common.domain.model.Organization;
 import com.portal.a.employee.domain.model.CreateOrder;
 import com.portal.a.employee.domain.model.InputEmployeeForm;
 import com.portal.a.employee.domain.model.SelectEmployeeForm;
@@ -43,7 +47,7 @@ public class empController {
 
     @Autowired
     private EmployeeService employeeService;
-    
+
     @Autowired
     private MassageUtils massageUtils;
 
@@ -111,7 +115,7 @@ public class empController {
 
         // 社員マスタ情報を取得
         List<Employee> empList = employeeService.selectBy(form.getEmployee_cd(), form.getEmployee_name1_last(),
-                form.getMail(),form.getBiko());
+                form.getMail(), form.getBiko());
 
         // Modelに社員マスタリストを登録
         model.addAttribute("empList", empList);
@@ -140,13 +144,16 @@ public class empController {
 
         // ラジオボタンのMapを初期化してModelに登録
         model.addAttribute("radioGender_kbn", initRadioGender_kbn());
-        
-        // プルダウンの内容を設定
-        // 社員属性一覧の生成
-        List<Employeeattribute> employeeattribute  = employeeService.selectManyemployeeattribute();
 
+        // 社員属性一覧の生成
+        List<Employeeattribute> employeeattribute = employeeService.selectManyemployeeattribute();
         // Modelに社員属性リストを登録
         model.addAttribute("employeeattributeList", employeeattribute);
+
+        // 組織一覧の生成
+        List<Organization> organization = employeeService.selectManyorganization();
+        // Modelに組織リストを登録
+        model.addAttribute("organizationList", organization);
 
         // 社員マスタ登録画面に画面遷移
         return "z/homeLayout";
@@ -169,7 +176,7 @@ public class empController {
             // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
             return getSignUp(form, model);
         }
-        
+
         // 生年月日チェック(生年月日 <= 入社日）
         if (form.getBirthday() != null) {
             if (DateUtils.compareDateTime(form.getBirthday().atStartOfDay(),
@@ -180,7 +187,7 @@ public class empController {
                 return getSignUp(form, model);
             }
         }
-        
+
         // 退社日チェック(入社日 <= 退社日）
         if (form.getLeave_date() != null) {
             if (DateUtils.compareDateTime(form.getJoined_date().atStartOfDay(),
@@ -219,9 +226,7 @@ public class empController {
         employee.setDepartment(form.getDepartment()); // 学科
         employee.setGraduation_date(form.getGraduation_date()); // 卒業年月
         employee.setMail(form.getMail()); // メールアドレス
-        if (form.getJoined_date() != null) {
-            employee.setJoined_date(Date.valueOf(form.getJoined_date())); // 入社日
-        }
+        employee.setJoined_date(Date.valueOf(form.getJoined_date())); // 入社日
         if (form.getLeave_date() != null) {
             employee.setLeave_date(Date.valueOf(form.getLeave_date())); // 退社日
         }
@@ -234,9 +239,17 @@ public class empController {
 
         employee.setInsert_user(user_auth.getUsername()); // 作成者
 
-        // 社員マスタ登録処理(employee)
+        // 社員所属マスタinsert用変数
+        Employeebelongs employeebelongs = new Employeebelongs();
+
+        // 社員IDは社員マスタに登録後に取得する。
+        employeebelongs.setStart_yearmonth(DateUtils.getStringFromDate(form.getJoined_date()).substring(0, 6)); // 開始年月
+        employeebelongs.setOrganization_cd(form.getOrganization_cd()); // 組織CD
+        employeebelongs.setInsert_user(user_auth.getUsername()); // 作成者
+
+        // 社員マスタ、社員所属マスタ登録処理(employee、employeebelongs)
         try {
-            boolean result = employeeService.insertOne(employee);
+            boolean result = employeeService.insertOne(employee, employeebelongs);
 
             // 社員マスタ登録結果の判定
             if (result == true) {
@@ -246,10 +259,12 @@ public class empController {
                 model.addAttribute("result", "登録失敗");
                 log.error("登録失敗");
             }
+
         } catch (DuplicateKeyException e) {
-            // 一意制約エラーが発生したとき。
+            // 一意制約エラーが発生した時はビジネス例外として返す。
+            String message = "社員CD " + employee.getEmployee_cd() + "が既に登録されているか、メールアドレス " + employee.getMail();
             String messageKey = "e.co.fw.2.003";
-            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { employee.getEmployee_cd() }));
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getSignUp(form, model);
         }
 
@@ -290,13 +305,16 @@ public class empController {
 
         // ラジオボタンのMapを初期化してModelに登録
         model.addAttribute("radioGender_kbn", initRadioGender_kbn());
-        
-        // プルダウンの内容を設定
-        // 社員属性一覧の生成
-        List<Employeeattribute> employeeattributeList  = employeeService.selectManyemployeeattribute();
 
+        // 社員属性一覧の生成
+        List<Employeeattribute> employeeattributeList = employeeService.selectManyemployeeattribute();
         // Modelに社員属性リストを登録
         model.addAttribute("employeeattributeList", employeeattributeList);
+
+        // 組織一覧の生成
+        List<Organization> organizationList = employeeService.selectManyorganization();
+        // Modelに組織リストを登録
+        model.addAttribute("organizationList", organizationList);
 
         // 社員IDのチェック
         if (employee_id != null && StrUtils.getStrLength(employee_id) > 0) {
@@ -337,10 +355,12 @@ public class empController {
                 form.setLeave_date(employee.getLeave_date().toLocalDate()); // 退社日
             }
             form.setEmployeeattribute_id(employee.getEmployeeattribute_id()); // 社員属性ID
+            form.setOrganization_cd(employee.getOrganization_cd()); // 組織CD
+            form.setStart_yearmonth(employee.getStart_yearmonth()); // 開始年月
             form.setBiko(employee.getBiko()); // 備考
 
             // Modelに登録
-            model.addAttribute("inputEnvForm", form);
+            model.addAttribute("inputEmployeeForm", form);
         }
 
         return "z/homeLayout";
@@ -365,7 +385,7 @@ public class empController {
             // GETリクエスト用のメソッドを呼び出して、社員マスタ詳細画面に戻ります
             return getEmployeeDetail(form, model, "");
         }
-        
+
         // 生年月日チェック(生年月日 <= 入社日）
         if (form.getBirthday() != null) {
             if (DateUtils.compareDateTime(form.getBirthday().atStartOfDay(),
@@ -376,7 +396,7 @@ public class empController {
                 return getEmployeeDetail(form, model, "");
             }
         }
-        
+
         // 退社日チェック(入社日 <= 退社日）
         if (form.getLeave_date() != null) {
             if (DateUtils.compareDateTime(form.getJoined_date().atStartOfDay(),
@@ -423,6 +443,7 @@ public class empController {
             employee.setLeave_date(Date.valueOf(form.getLeave_date())); // 退社日
         }
         employee.setEmployeeattribute_id(form.getEmployeeattribute_id()); // 社員属性ID
+        employee.setOrganization_cd(form.getOrganization_cd()); // 組織CD
         employee.setBiko(form.getBiko()); // 備考
 
         // ログインユーザー情報の取得
@@ -431,15 +452,33 @@ public class empController {
 
         employee.setUpdate_user(user_auth.getUsername()); // 更新者
 
-        // 更新実行
-        boolean result = employeeService.updateOne(employee);
+        // 社員所属マスタupdate用変数
+        Employeebelongs employeebelongs = new Employeebelongs();
 
-        if (result == true) {
-            model.addAttribute("result", "更新成功");
-            log.info("更新成功");
-        } else {
-            model.addAttribute("result", "更新失敗");
-            log.error("更新失敗");
+        employeebelongs.setEmployee_id(form.getEmployee_id());// 社員ID
+        employeebelongs.setStart_yearmonth(DateUtils.getStringFromDate(LocalDate.now()).substring(0, 6));// 開始年月
+        employeebelongs.setOrganization_cd(form.getOrganization_cd());// 組織CD
+        employeebelongs.setInsert_user(user_auth.getUsername()); // 作成者
+        employeebelongs.setUpdate_user(user_auth.getUsername()); // 更新者
+
+        try {
+            // 更新実行
+            boolean result = employeeService.updateOne(employee, employeebelongs);
+
+            if (result == true) {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            } else {
+                model.addAttribute("result", "更新失敗");
+                log.error("更新失敗");
+            }
+
+        } catch (DuplicateKeyException e) {
+            // 一意制約エラーが発生した時はビジネス例外として返す。
+            String message = "社員CD " + employee.getEmployee_cd() + "が既に登録されているか、メールアドレス " + employee.getMail();
+            String messageKey = "e.co.fw.2.003";
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+            return getSignUp(form, model);
         }
 
         // 社員マスタ一覧画面を表示
@@ -458,16 +497,26 @@ public class empController {
     @PostMapping(value = "/empDetail", params = "delete")
     public String postEmployeeDetailDelete(@ModelAttribute InputEmployeeForm form, Model model) {
 
-        // 削除実行
-        boolean result = employeeService.deleteOne(form.getEmployee_id());
+        try {
+            // 削除実行
+            boolean result = employeeService.deleteOne(form.getEmployee_id());
 
-        if (result == true) {
-            model.addAttribute("result", "削除成功");
-            log.info("削除成功");
-        } else {
-            model.addAttribute("result", "削除失敗");
-            log.error("削除失敗");
+            if (result == true) {
+                model.addAttribute("result", "削除成功");
+                log.info("削除成功");
+            } else {
+                model.addAttribute("result", "削除失敗");
+                log.error("削除失敗");
+            }
+
+        } catch (DataIntegrityViolationException e) {
+            // 参照整合性エラーが発生した時はビジネス例外として返す。
+            String message = "この社員は役職がついているか経歴が残っているかユーザ情報" ;
+            String messageKey = "e.co.fw.2.023";
+            model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+            return getEmployeeDetail(form, model, "");
         }
+
         // 社員マスタ一覧画面を表示
         return getEmployeeList(model);
     }

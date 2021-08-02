@@ -3,6 +3,8 @@ package com.portal.a.employee.domain.service;
 import java.util.List;
 import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
+import com.portal.a.common.domain.model.Employeebelongs;
+import com.portal.a.common.domain.model.Organization;
 
 /**
  * EmployeeService
@@ -11,18 +13,25 @@ import com.portal.a.common.domain.model.Employeeattribute;
 public interface EmployeeService {
 
     /**
-     * 全件取得用メソッド.
+     * 全件取得用メソッド（社員マスタ）.
      * 
      * @return EmployeeList
      */
     public List<Employee> selectMany();
-    
+
     /**
-     * 全件取得用メソッド.
+     * 全件取得用メソッド（社員属性マスタ）.
      * 
      * @return EmployeeattributeList
      */
     public List<Employeeattribute> selectManyemployeeattribute();
+    
+    /**
+     * 全件取得用メソッド（組織マスタ）.
+     * 
+     * @return OrganizationList
+     */
+    public List<Organization> selectManyorganization();
 
     /**
      * １件取得用メソッド.
@@ -35,18 +44,20 @@ public interface EmployeeService {
     /**
      * 登録用メソッド
      * 
-     * @param employee employee
+     * @param employee        employee
+     * @param employeebelongs employeebelongs
      * @return true/false
      */
-    public boolean insertOne(Employee employee);
+    public boolean insertOne(Employee employee, Employeebelongs employeebelongs);
 
     /**
      * １件更新用メソッド.
      * 
-     * @param employee employee
+     * @param employee        employee
+     * @param employeebelongs employeebelongs
      * @return true/false
      */
-    public boolean updateOne(Employee employee);
+    public boolean updateOne(Employee employee,Employeebelongs employeebelongs);
 
     /**
      * １件削除用メソッド.

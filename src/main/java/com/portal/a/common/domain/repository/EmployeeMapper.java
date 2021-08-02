@@ -20,12 +20,20 @@ public interface EmployeeMapper {
     public boolean insertOne(Employee employee);
 
     /**
-     * １件検索用メソッド
+     * １件検索用メソッド(employee_id)
      * 
      * @param employee_id employee_id
      * @return Employee
      */
     public Employee selectOne(String employee_id);
+
+    /**
+     * １件検索用メソッド(employee_cd)
+     * 
+     * @param employee_cd employee_cd
+     * @return Employee
+     */
+    public Employee selectOneByCd(String employee_cd);
 
     /**
      * 全件検索用メソッド

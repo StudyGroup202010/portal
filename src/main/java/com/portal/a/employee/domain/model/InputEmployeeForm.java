@@ -86,6 +86,10 @@ public class InputEmployeeForm {
     private LocalDate leave_date;// 退社日
 
     private String employeeattribute_id;// 社員属性ID
+    
+    private String organization_cd;// 組織CD
+    
+    private String start_yearmonth;// 開始年月
 
     private String biko; // 備考
 }

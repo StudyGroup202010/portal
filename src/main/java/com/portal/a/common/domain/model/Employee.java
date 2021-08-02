@@ -37,6 +37,9 @@ public class Employee {
     private Date leave_date;// 退社日
     private String employeeattribute_id;// 社員属性ID
     private String employeeattribute_name;// 社員属性名
+    private String organization_cd;// 組織CD
+    private String organization_name;// 組織名
+    private String start_yearmonth;// 開始年月
     private String biko; // 備考
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時

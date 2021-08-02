@@ -32,7 +32,8 @@ create table am005_employee(
      update_user varchar(50),
      update_date timestamp,
 constraint am005_employee_pk primary key (employee_id),
-constraint am005_employee_sk1 unique (mail)
+constraint am005_employee_sk1 unique (mail),
+constraint am005_employee_sk2 unique (employee_cd)
 );
 
 comment on table am005_employee is '社員マスタ';
