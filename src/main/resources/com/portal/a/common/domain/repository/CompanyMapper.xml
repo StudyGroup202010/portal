@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.a.common.domain.repository.CompanyMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.a.common.domain.model.Company"
+		id="company">
+		<id column="company_cd" property="company_cd" />
+		<result column="company_name" property="company_name" />
+		<result column="biko" property="biko" />
+	</resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.a.common.domain.model.Company">
+        insert into
+          am001_company (
+           company_cd
+          ,company_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{company_cd}
+          ,#{company_name}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Company">
+        select
+           company_cd
+          ,company_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am001_company
+        where
+          company_cd = #{company_cd}
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="company">
+        select
+           company_cd
+          ,company_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am001_company
+        order by
+          company_cd
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.a.common.domain.model.Company">
+        update
+          am001_company
+        set
+           company_name   = #{company_name}
+          ,biko           = #{biko}
+          ,update_user    = #{update_user}
+          ,update_date    = NOW()
+        where
+          company_cd      = #{company_cd}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from am001_company where company_cd = #{company_cd}
+    </delete>
+    
+    <!-- 会社名で条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="company">
+    <![CDATA[
+        select
+           company_cd
+          ,company_name
+          ,biko
+        from
+          am001_company
+        where company_name               like CONCAT('%' , #{company_name}  , '%')
+          and COALESCE(biko,'')          like CONCAT('%' , #{biko} , '%')
+        order by
+          company_cd
+    ]]>
+    </select>
+    
+</mapper>
