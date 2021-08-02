@@ -49,6 +49,18 @@ public final class Constants {
      * ・初期値は１０桁。
      */
     public static final int SECRET_LEN = 10;
+    
+    /**
+     * 性別区分<BR>
+     * ・性別（男）を指定する値<BR>
+     */
+    public static String GENDER_KBN_MAN = "M";
+    
+    /**
+     * 性別区分<BR>
+     * ・性別（女）を指定する値<BR>
+     */
+    public static String GENDER_KBN_WOMAN = "W";
 
     /**
      * アプリケーションURL<BR>

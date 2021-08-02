@@ -2,8 +2,8 @@
 create table bt003_career(
      employee_id varchar(5) not null,
      certification_no smallint not null,
-     start_yearmonth varchar(6),
-     end_yearmonth varchar(6) default 999912,
+     start_yearmonth varchar(6) not null,
+     end_yearmonth varchar(6) default '209912',
      business_content varchar(300),
      biko varchar(100),
      insert_user varchar(50) not null,

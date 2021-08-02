@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+    namespace="com.portal.a.common.domain.repository.OrganizationMapper">
+    <!-- マッピング定義 -->
+    <resultMap type="com.portal.a.common.domain.model.Organization" id="organization">
+        <id column="organization_cd" property="organization_cd" />
+        <result column="organization_name" property="organization_name" />
+        <result column="company_cd" property="company_cd" />
+        <result column="start_yearmonth" property="start_yearmonth" />
+        <result column="end_yearmonth" property="end_yearmonth" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    
+    <!-- 全件検索 -->
+    <select id="selectManyorganization" resultMap="organization">
+         select
+           organization_cd
+          ,organization_name
+          ,company_cd
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am002_organization
+        order by
+          organization_name
+    </select>
+</mapper>

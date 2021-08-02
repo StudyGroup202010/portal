@@ -24,7 +24,7 @@ create table am005_employee(
      graduation_date varchar(6),
      mail varchar(50) not null,
      joined_date date not null,
-     leave_date date default '9999/12/31' not null,
+     leave_date date default '2099/12/31',
      employeeattribute_id varchar(2) not null,
      biko varchar(100),
      insert_user varchar(50) not null,
@@ -32,7 +32,8 @@ create table am005_employee(
      update_user varchar(50),
      update_date timestamp,
 constraint am005_employee_pk primary key (employee_id),
-constraint am005_employee_sk1 unique (mail)
+constraint am005_employee_sk1 unique (mail),
+constraint am005_employee_sk2 unique (employee_cd)
 );
 
 comment on table am005_employee is '社員マスタ';
