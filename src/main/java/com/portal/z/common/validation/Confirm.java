@@ -10,7 +10,9 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Confirmアノテーション
+ * パスワード比較バリデータをアノテーションで使用するためのインターフェース<BR>
+ * 
+ * 使い方： @Confirm(field = "newPassword") ・・・　「newPassword」と「confirm newPassword」の値を比較する。
  *
  */
 @Documented

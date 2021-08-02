@@ -3,7 +3,7 @@ create table am007_position(
      position_cd varchar(5) not null,
      position_name varchar(50) not null,
      start_yearmonth varchar(6) not null,
-     end_yearmonth varchar(6) default 999912 not null,
+     end_yearmonth varchar(6) default '209912' not null,
      biko varchar(100),
      insert_user varchar(50) not null,
      insert_date timestamp not null,
