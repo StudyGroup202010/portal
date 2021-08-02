@@ -30,7 +30,7 @@ public class ConfirmValidatorImpl implements ConstraintValidator<Confirm, Object
      * 初期化
      * 
      * メッセージキー：e.co.fw.1.008
-     * "
+     * 
      */
     public void initialize(Confirm constraintAnnotation) {
         message = massageUtils.getMsg("e.co.fw.1.008", null);
