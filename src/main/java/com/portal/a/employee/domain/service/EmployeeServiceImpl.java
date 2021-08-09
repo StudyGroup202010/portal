@@ -10,6 +10,7 @@ import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
 import com.portal.a.common.domain.model.Organization;
+import com.portal.a.common.domain.repository.EmployeeExpMapper;
 import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.a.common.domain.repository.EmployeeattributeMapper;
 import com.portal.a.common.domain.repository.EmployeebelongsMapper;
@@ -25,6 +26,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    EmployeeExpMapper employeeExpMapper;
 
     @Autowired
     EmployeebelongsMapper employeebelongsMapper;
@@ -57,7 +61,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         boolean result_1 = employeeMapper.insertOne(employee);
 
         // 社員マスタに登録した社員IDを取得する。
-        Employee inserted_employee = employeeMapper.selectOneByCd(employee.getEmployee_cd());
+        Employee inserted_employee = employeeExpMapper.selectOneByCd(employee.getEmployee_cd());
         employeebelongs.setEmployee_id(inserted_employee.getEmployee_id());
 
         // 社員所属マスタ追加実行
@@ -110,6 +114,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko) {
-        return employeeMapper.selectBy(employee_cd, employee_name1_last, mail, biko);
+        return employeeExpMapper.selectBy(employee_cd, employee_name1_last, mail, biko);
     }
 }

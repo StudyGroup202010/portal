@@ -28,14 +28,6 @@ public interface EmployeeMapper {
     public Employee selectOne(String employee_id);
 
     /**
-     * １件検索用メソッド(employee_cd)
-     * 
-     * @param employee_cd employee_cd
-     * @return Employee
-     */
-    public Employee selectOneByCd(String employee_cd);
-
-    /**
      * 全件検索用メソッド
      * 
      * @return EmployeeList
@@ -57,15 +49,4 @@ public interface EmployeeMapper {
      * @return true/false
      */
     public boolean deleteOne(String employee);
-
-    /**
-     * 条件検索用メソッド
-     * 
-     * @param employee_cd         employee_cd
-     * @param employee_name1_last employee_name1_last
-     * @param mail                mail
-     * @param biko                biko
-     * @return EnvList
-     */
-    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
 }
