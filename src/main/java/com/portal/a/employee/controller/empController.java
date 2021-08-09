@@ -498,7 +498,7 @@ public class empController {
 
         } catch (DataIntegrityViolationException e) {
             // 参照整合性エラーが発生した時はビジネス例外として返す。
-            String message = "この社員は役職がついているか経歴が残っているかユーザ情報" ;
+            String message = "この社員は役職がついているか経歴が残っているかユーザ情報";
             String messageKey = "e.co.fw.2.023";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getEmployeeDetail(form, model, "");

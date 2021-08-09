@@ -42,6 +42,13 @@ public interface UserMapper {
      * @return UserList
      */
     public List<User> selectMany();
+    
+    /**
+     * 全件検索用メソッド
+     * 
+     * @return UserList
+     */
+    public List<User> selectManyExceptRetire();
 
     /**
      * １件更新用メソッド
