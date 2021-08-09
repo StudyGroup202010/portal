@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.a.common.domain.model.Employee;
+import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.UserSharedService;
 import com.portal.z.common.domain.util.Constants;
@@ -287,8 +287,8 @@ public class userController {
         model.addAttribute("radioLock", initRadioLock());
 
         // プルダウンの内容を設定
-        // 社員一覧の生成
-        List<Employee> employeeList = userService.selectManyEmployee();
+        // 社員一覧の生成（退職者を除く）
+        List<Employee> employeeList = userService.selectManyExceptRetireeEmployee();
 
         // Modelに社員リストを登録
         model.addAttribute("employeeList", employeeList);
@@ -419,8 +419,8 @@ public class userController {
         model.addAttribute("radioLock", initRadioLock());
 
         // プルダウンの内容を設定
-        // 社員一覧の生成
-        List<Employee> employeeList = userService.selectManyEmployee();
+        // 社員一覧の生成（退職者を除く）
+        List<Employee> employeeList = userService.selectManyExceptRetireeEmployee();
 
         // Modelに社員リストを登録
         model.addAttribute("employeeList", employeeList);

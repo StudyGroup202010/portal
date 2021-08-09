@@ -188,17 +188,6 @@ public class empController {
             }
         }
 
-        // 退社日チェック(入社日 <= 退社日）
-        if (form.getLeave_date() != null) {
-            if (DateUtils.compareDateTime(form.getJoined_date().atStartOfDay(),
-                    form.getLeave_date().atStartOfDay()) == 1) {
-                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
-                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
-                        new String[] { "入社日：" + form.getJoined_date(), "退社日：" + form.getLeave_date() }));
-                return getSignUp(form, model);
-            }
-        }
-
         // 社員マスタinsert用変数
         Employee employee = new Employee();
 
@@ -227,9 +216,7 @@ public class empController {
         employee.setGraduation_date(form.getGraduation_date()); // 卒業年月
         employee.setMail(form.getMail()); // メールアドレス
         employee.setJoined_date(Date.valueOf(form.getJoined_date())); // 入社日
-        if (form.getLeave_date() != null) {
-            employee.setLeave_date(Date.valueOf(form.getLeave_date())); // 退社日
-        }
+        // 退社日は新規登録時は入力しない。
         employee.setEmployeeattribute_id(form.getEmployeeattribute_id()); // 社員属性ID
         employee.setBiko(form.getBiko()); // 備考
 
@@ -511,7 +498,7 @@ public class empController {
 
         } catch (DataIntegrityViolationException e) {
             // 参照整合性エラーが発生した時はビジネス例外として返す。
-            String message = "この社員は役職がついているか経歴が残っているかユーザ情報" ;
+            String message = "この社員は役職がついているか経歴が残っているかユーザ情報";
             String messageKey = "e.co.fw.2.023";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getEmployeeDetail(form, model, "");

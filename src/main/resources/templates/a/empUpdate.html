@@ -380,21 +380,6 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- 退社日 -->
-                    <tr>
-                        <th class="active table-info">退社日</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('leave_date')} ? 'has-error'">
-                                <input type="date" class="form-control"
-                                    th:field="*{leave_date}" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('leave_date')}"
-                                    th:errors="*{leave_date}">
-                                    leave_date error </span>
-                            </div>
-                        </td>
-                    </tr>
                     <!-- 社員属性ID -->
                     <tr>
                         <th class="active table-info">社員属性</th>

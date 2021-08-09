@@ -1,6 +1,7 @@
 package com.portal.a.employee.domain.service;
 
 import java.util.List;
+
 import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
@@ -25,7 +26,7 @@ public interface EmployeeService {
      * @return EmployeeattributeList
      */
     public List<Employeeattribute> selectManyemployeeattribute();
-    
+
     /**
      * 全件取得用メソッド（組織マスタ）.
      * 
@@ -57,7 +58,7 @@ public interface EmployeeService {
      * @param employeebelongs employeebelongs
      * @return true/false
      */
-    public boolean updateOne(Employee employee,Employeebelongs employeebelongs);
+    public boolean updateOne(Employee employee, Employeebelongs employeebelongs);
 
     /**
      * １件削除用メソッド.
