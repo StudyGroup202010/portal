@@ -234,6 +234,15 @@ public class empController {
             }
         }
 
+        // 年月チェック
+        if (form.getGraduation_date() != null) {
+            if (DateUtils.chkYearMonthFromString(form.getGraduation_date()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
+                return getSignUp(form, model);
+            }
+        }
+
         // 社員マスタinsert用変数
         Employee employee = new Employee();
 
@@ -437,6 +446,15 @@ public class empController {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "入社日：" + form.getJoined_date(), "退社日：" + form.getLeave_date() }));
+                return getEmployeeDetail(form, model, "");
+            }
+        }
+
+        // 年月チェック
+        if (form.getGraduation_date() != null) {
+            if (DateUtils.chkYearMonthFromString(form.getGraduation_date()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
                 return getEmployeeDetail(form, model, "");
             }
         }

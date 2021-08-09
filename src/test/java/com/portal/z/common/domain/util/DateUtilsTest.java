@@ -238,4 +238,40 @@ class DateUtilsTest {
         assertThat(DateUtils.calcDate(datetime, "SS", 1)).isEqualTo("1970-01-01T09:00:01.000");
     }
     
+    //
+    // chkYearMonthFromString
+    //
+    @Test
+    final void dateUtils_chkYearMonthFromString_null入力チェック() {
+        assertThat(DateUtils.chkYearMonthFromString(null)).isFalse();
+    }
+
+    @Test
+    final void dateUtils_chkYearMonthFromString_異常日付入力チェック１() {
+        // フォーマットが異常なデータ
+        assertThat(DateUtils.chkYearMonthFromString("19701")).isFalse();
+    }
+    
+    @Test
+    final void dateUtils_chkYearMonthFromString_異常日付入力チェック２() {
+        // フォーマットが異常なデータ
+        assertThat(DateUtils.chkYearMonthFromString("1970121")).isFalse();
+    }
+    
+    @Test
+    final void dateUtils_chkYearMonthFromString_異常日付入力チェック３() {
+        // フォーマットが異常なデータ
+        assertThat(DateUtils.chkYearMonthFromString("197013")).isFalse();
+    }
+    
+    @Test
+    final void dateUtils_chkYearMonthFromString_異常日付入力チェック４() {
+        // フォーマットが異常なデータ
+        assertThat(DateUtils.chkYearMonthFromString("197000")).isFalse();
+    }
+    
+    @Test
+    final void dateUtils_chkYearMonthFromString_正常日付入力チェック() {
+        assertThat(DateUtils.chkYearMonthFromString("197011")).isTrue();
+    }  
 }
