@@ -65,7 +65,7 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
         row.createCell(27).setCellValue("作成日時");
         row.createCell(28).setCellValue("更新者");
         row.createCell(29).setCellValue("更新日時");
-        
+
         // 指定したシートにデータをセット
         for (int i = 0; i < employeeListCount; i++) {
 
@@ -102,7 +102,10 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
             // 住所２
             row.createCell(14).setCellValue(employeeList.get(i).getStreetaddress2());
             // 生年月日
-            row.createCell(15).setCellValue(employeeList.get(i).getBirthday());
+            if (employeeList.get(i).getBirthday() != null) {
+                String Birthday = DateUtils.getStringFromDateFormat(employeeList.get(i).getBirthday().toLocalDate());
+                row.createCell(15).setCellValue(Birthday);
+            }
             // 最寄駅コード
             row.createCell(16).setCellValue(employeeList.get(i).getNearest_station_code());
             // 最寄駅名
@@ -116,9 +119,17 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
             // メールアドレス
             row.createCell(21).setCellValue(employeeList.get(i).getMail());
             // 入社日
-            row.createCell(22).setCellValue(employeeList.get(i).getJoined_date());
+            if (employeeList.get(i).getJoined_date() != null) {
+                String Joined_date = DateUtils
+                        .getStringFromDateFormat(employeeList.get(i).getJoined_date().toLocalDate());
+                row.createCell(22).setCellValue(Joined_date);
+            }
             // 退社日
-            row.createCell(23).setCellValue(employeeList.get(i).getLeave_date());
+            if (employeeList.get(i).getLeave_date() != null) {
+                String Leave_date = DateUtils
+                        .getStringFromDateFormat(employeeList.get(i).getLeave_date().toLocalDate());
+                row.createCell(23).setCellValue(Leave_date);
+            }
             // 社員属性
             row.createCell(24).setCellValue(employeeList.get(i).getEmployeeattribute_id());
             // 備考
