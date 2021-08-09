@@ -34,42 +34,46 @@
 				th:object="${inputCompanyForm}">
 				<table class="table table-bordered table-hover table-sm">
 					<!-- 会社CDの入力エリア -->
-					<tr>
-						<th class="active table-info">会社CD</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
-								<input type="text" class="form-control" th:field="*{company_cd}"
-									autofocus /> <span class="text-danger"
-									th:if="${#fields.hasErrors('company_cd')}"
-									th:errors="*{company_cd}"> company_cd error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 会社名 -->
-					<tr>
-						<th class="active table-info">会社名</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{company_name}" autofocus /> <span
-									class="text-danger"
-									th:if="${#fields.hasErrors('company_name')}"
-									th:errors="*{company_name}"> company_name error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 備考 -->
-					<tr>
-						<th class="active table-info">備考</th>
-						<td>
-							<div class="form-group">
-								<input type="text" class="form-control" th:field="*{biko}" />
-							</div>
-						</td>
-					</tr>
-				</table>
+                    <tr>
+                        <th class="active table-info">会社CD</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{company_cd}" autofocus />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('company_cd')}"
+                                    th:errors="*{company_cd}">
+                                    company_cd error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 会社名 -->
+                    <tr>
+                        <th class="active table-info">会社名</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{company_name}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('company_name')}"
+                                    th:errors="*{company_name}">
+                                    company_name error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
+                    <tr>
+                        <th class="active table-info">備考</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{biko}" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
 
 				<!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
