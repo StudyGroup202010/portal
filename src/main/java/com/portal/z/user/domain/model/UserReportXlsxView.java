@@ -108,7 +108,7 @@ public class UserReportXlsxView extends AbstractXlsxReportView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 11; i++) {
             sheet.autoSizeColumn(i);
         }
     }

@@ -25,6 +25,8 @@ import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
 import com.portal.a.common.domain.model.Organization;
 import com.portal.a.employee.domain.model.CreateOrder;
+import com.portal.a.employee.domain.model.EmployeeListCsvView;
+import com.portal.a.employee.domain.model.EmployeeListXlsxView;
 import com.portal.a.employee.domain.model.InputEmployeeForm;
 import com.portal.a.employee.domain.model.SelectEmployeeForm;
 import com.portal.a.employee.domain.model.UpdateOrder;
@@ -128,6 +130,50 @@ public class empController {
     }
 
     /**
+     * 社員マスタ一覧のCSV出力用処理.<br>
+     * 
+     * 社員マスタ一覧のCSVファイルを出力する。
+     * 
+     * @param model モデル
+     * @return ResponseEntity(bytes, header, HttpStatus.OK)
+     */
+    @GetMapping("/empList/csv")
+    public EmployeeListCsvView getEmployeeListCsv(EmployeeListCsvView model) {
+
+        // 社員マスタ一覧の生成
+        List<Employee> employeeList = employeeService.selectMany();
+
+        // Modelにユーザーリストを登録
+        model.addStaticAttribute("employeeList", employeeList);
+
+        return model;
+    }
+
+    /**
+     * 社員マスタ一覧のExcel出力用処理.<br>
+     * 
+     * 社員マスタ一覧のEXCELファイルを出力する。
+     * 
+     * @param model モデル
+     * @return model
+     */
+    @RequestMapping("/empList/excel")
+    public EmployeeListXlsxView excel(EmployeeListXlsxView model) {
+
+        // 社員マスタ一覧の生成
+        List<Employee> employeeList = employeeService.selectMany();
+
+        // Modelに社員マスタリストを登録
+        model.addStaticAttribute("employeeList", employeeList);
+
+        // データ件数を取得
+        int count = employeeList.size();
+        model.addStaticAttribute("employeeListCount", count);
+
+        return model;
+    }
+
+    /**
      * 社員マスタ登録画面のGETメソッド用処理.<BR>
      * 
      * 社員情報の新規登録画面を表示する。
@@ -184,6 +230,15 @@ public class empController {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "生年月日：" + form.getBirthday(), "入社日：" + form.getJoined_date() }));
+                return getSignUp(form, model);
+            }
+        }
+
+        // 年月チェック
+        if (form.getGraduation_date() != null) {
+            if (DateUtils.chkYearMonthFromString(form.getGraduation_date()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
                 return getSignUp(form, model);
             }
         }
@@ -391,6 +446,15 @@ public class empController {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "入社日：" + form.getJoined_date(), "退社日：" + form.getLeave_date() }));
+                return getEmployeeDetail(form, model, "");
+            }
+        }
+
+        // 年月チェック
+        if (form.getGraduation_date() != null) {
+            if (DateUtils.chkYearMonthFromString(form.getGraduation_date()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
                 return getEmployeeDetail(form, model, "");
             }
         }
