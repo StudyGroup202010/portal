@@ -23,17 +23,16 @@ import com.portal.z.common.domain.model.AbstractCsvView;
 public class EmployeeListCsvView extends AbstractCsvView {
 
     // ヘッダーを和名で設定
-    String[] Header_J = { "社員ID", "社員CD", "社員名漢字（性）", "社員名漢字（名）", "社員名カナ（性）", "社員名カナ（名）", "性別区分", "郵便番号", "都道府県名CD",
-            "都道府県名１", "都道府県名２", "市区町村名CD", "市区町村名１", "市区町村名２", "住所１", "住所２", "生年月日", "最寄駅コード", "最寄駅名", "最終学歴", "学科",
-            "卒業年月", "メールアドレス", "入社日", "退社日", "社員属性ID", "備考", "作成者", "作成日時", "更新者", "更新日時" };
+    String[] Header_J = { "社員CD", "社員名漢字（性）", "社員名漢字（名）", "社員名カナ（性）", "社員名カナ（名）", "性別区分", "郵便番号", "都道府県名CD", "都道府県名１",
+            "都道府県名２", "市区町村名CD", "市区町村名１", "市区町村名２", "住所１", "住所２", "生年月日", "最寄駅コード", "最寄駅名", "最終学歴", "学科", "卒業年月",
+            "メールアドレス", "入社日", "退社日", "社員属性ID", "備考", "作成者", "作成日時", "更新者", "更新日時" };
 
     // 出力する項目を設定
-    String[] Header = { "employee_id", "employee_cd", "employee_name1_last", "employee_name1_first",
-            "employee_name2_last", "employee_name2_first", "gender_kbn", "postcode", "prefcode", "pref_name1",
-            "pref_name2", "citycode", "city_name1", "city_name2", "streetaddress1", "streetaddress2", "birthday",
-            "nearest_station_code", "nearest_station_name", "final_education", "department", "graduation_date", "mail",
-            "joined_date", "leave_date", "employeeattribute_id", "biko", "insert_user", "insert_date", "update_user",
-            "update_date" };
+    String[] Header = { "employee_cd", "employee_name1_last", "employee_name1_first", "employee_name2_last",
+            "employee_name2_first", "gender_kbn", "postcode", "prefcode", "pref_name1", "pref_name2", "citycode",
+            "city_name1", "city_name2", "streetaddress1", "streetaddress2", "birthday", "nearest_station_code",
+            "nearest_station_name", "final_education", "department", "graduation_date", "mail", "joined_date",
+            "leave_date", "employeeattribute_id", "biko", "insert_user", "insert_date", "update_user", "update_date" };
 
     @Override
     protected void addResponseHeader(Map<String, Object> model, HttpServletRequest request,
