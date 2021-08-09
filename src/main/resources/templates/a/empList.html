@@ -53,11 +53,16 @@
             </form>
         </div>
 		<div class="table-responsive">
-			<div class="col">
-				<!-- 社員登録画面へのリンク -->
-				<a class="btn btn-danger" th:href="@{'/empUpdate'}"
-					sec:authorize="hasRole('ADMIN')">新規登録</a>
-			</div>
+            <div class="col">
+                <!-- CSV出力用のリンク -->
+                <a class="btn btn-primary" th:href="@{'/empList/csv'}">CSV出力</a>
+                <!-- EXCEL出力用のリンク -->
+                <a class="btn btn-primary" th:href="@{'/empList/excel'}">EXCEL出力</a>
+                <!-- 社員登録画面へのリンク -->
+                <a class="btn btn-danger float-right"
+                    th:href="@{'/empUpdate'}"
+                    sec:authorize="hasRole('ADMIN')">新規登録</a>
+            </div>
 
             <!-- 社員一覧の件数 -->
             <label th:text=" '合計：' + ${empListCount} + '件' "></label>

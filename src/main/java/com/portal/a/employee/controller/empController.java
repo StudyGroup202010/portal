@@ -25,6 +25,8 @@ import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
 import com.portal.a.common.domain.model.Organization;
 import com.portal.a.employee.domain.model.CreateOrder;
+import com.portal.a.employee.domain.model.EmployeeListCsvView;
+import com.portal.a.employee.domain.model.EmployeeListXlsxView;
 import com.portal.a.employee.domain.model.InputEmployeeForm;
 import com.portal.a.employee.domain.model.SelectEmployeeForm;
 import com.portal.a.employee.domain.model.UpdateOrder;
@@ -125,6 +127,50 @@ public class empController {
         model.addAttribute("empListCount", count);
 
         return "z/homeLayout";
+    }
+
+    /**
+     * 社員マスタ一覧のCSV出力用処理.<br>
+     * 
+     * 社員マスタ一覧のCSVファイルを出力する。
+     * 
+     * @param model モデル
+     * @return ResponseEntity(bytes, header, HttpStatus.OK)
+     */
+    @GetMapping("/empList/csv")
+    public EmployeeListCsvView getEmployeeListCsv(EmployeeListCsvView model) {
+
+        // 社員マスタ一覧の生成
+        List<Employee> employeeList = employeeService.selectMany();
+
+        // Modelにユーザーリストを登録
+        model.addStaticAttribute("employeeList", employeeList);
+
+        return model;
+    }
+
+    /**
+     * 社員マスタ一覧のExcel出力用処理.<br>
+     * 
+     * 社員マスタ一覧のEXCELファイルを出力する。
+     * 
+     * @param model モデル
+     * @return model
+     */
+    @RequestMapping("/empList/excel")
+    public EmployeeListXlsxView excel(EmployeeListXlsxView model) {
+
+        // 社員マスタ一覧の生成
+        List<Employee> employeeList = employeeService.selectMany();
+
+        // Modelに社員マスタリストを登録
+        model.addStaticAttribute("employeeList", employeeList);
+
+        // データ件数を取得
+        int count = employeeList.size();
+        model.addStaticAttribute("employeeListCount", count);
+
+        return model;
     }
 
     /**
