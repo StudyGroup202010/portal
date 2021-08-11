@@ -12,9 +12,9 @@ import lombok.Data;
 public class Employee {
     private String employee_id;// 社員ID
     private String employee_cd;// 社員CD
-    private String employee_name1_last;// 社員名漢字（性）
+    private String employee_name1_last;// 社員名漢字（姓）
     private String employee_name1_first;// 社員名漢字（名）
-    private String employee_name2_last;// 社員名カナ（性）
+    private String employee_name2_last;// 社員名カナ（姓）
     private String employee_name2_first;// 社員名カナ（名）
     private String gender_kbn;// 性別区分
     private String postcode;// 郵便番号
