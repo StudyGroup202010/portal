@@ -30,10 +30,10 @@
             th:object="${inputEmployeeForm}">
 
             <table
-                class="table table-bordered table-hover table-sm col-md-8">
+                class="table table-bordered table-hover table-sm col-md-5">
                 <!-- 社員CD -->
                 <tr>
-                    <th class="active table-info col-3">社員ＣＤ</th>
+                    <th class="active table-info">社員ＣＤ</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
@@ -48,10 +48,10 @@
                 </tr>
             </table>
             <table
-                class="table table-bordered table-hover table-sm col-sm-8">
+                class="table table-bordered table-hover table-sm col-sm-5">
                 <!-- 社員名漢字（姓） -->
                 <tr>
-                    <th class="active table-info col-3">名前（漢字）</th>
+                    <th class="active table-info">名前（漢字）</th>
                     <td>姓
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
@@ -207,10 +207,10 @@
             </table>
 
             <table
-                class="table table-bordered table-hover table-sm col-sm-8">
+                class="table table-bordered table-hover table-sm col-sm-5">
                 <!-- 郵便番号 -->
                 <tr>
-                    <th class="active table-info col-3">郵便番号</th>
+                    <th class="active table-info">郵便番号</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
@@ -376,10 +376,10 @@
                 </tr>
             </table>
             <table
-                class="table table-bordered table-hover table-sm col-sm-8">
+                class="table table-bordered table-hover table-sm col-sm-5">
                 <!-- 最終学歴 -->
                 <tr>
-                    <th class="active table-info col-3">最終学歴</th>
+                    <th class="active table-info">最終学歴</th>
                     <td>
                         <div class="form-group"
                             th:classappend="${#fields.hasErrors('final_education')} ? 'has-error'">
@@ -422,12 +422,9 @@
                         </div>
                     </td>
                 </tr>
-            </table>
-            <table
-                class="table table-bordered table-hover table-sm col-sm-8">
                 <!-- 備考 -->
                 <tr>
-                    <th class="active table-info col-3">備考</th>
+                    <th class="active table-info">備考</th>
                     <td>
                         <div class="form-group">
                             <textarea class="form-control" rows="3"
