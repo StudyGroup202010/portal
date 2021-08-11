@@ -247,9 +247,9 @@ public class empController {
         Employee employee = new Employee();
 
         employee.setEmployee_cd(form.getEmployee_cd()); // 社員CD
-        employee.setEmployee_name1_last(form.getEmployee_name1_last()); // 社員名漢字（性）
+        employee.setEmployee_name1_last(form.getEmployee_name1_last()); // 社員名漢字（姓）
         employee.setEmployee_name1_first(form.getEmployee_name1_first()); // 社員名漢字（名）
-        employee.setEmployee_name2_last(form.getEmployee_name2_last()); // 社員名カナ（性）
+        employee.setEmployee_name2_last(form.getEmployee_name2_last()); // 社員名カナ（姓）
         employee.setEmployee_name2_first(form.getEmployee_name2_first()); // 社員名カナ（名）
         employee.setGender_kbn(form.getGender_kbn()); // 性別区分
         employee.setPostcode(form.getPostcode()); // 郵便番号
@@ -367,9 +367,9 @@ public class empController {
             // Employeeクラスをフォームクラスに変換
             form.setEmployee_id(employee.getEmployee_id()); // 社員ID
             form.setEmployee_cd(employee.getEmployee_cd()); // 社員CD
-            form.setEmployee_name1_last(employee.getEmployee_name1_last()); // 社員名漢字（性）
+            form.setEmployee_name1_last(employee.getEmployee_name1_last()); // 社員名漢字（姓）
             form.setEmployee_name1_first(employee.getEmployee_name1_first()); // 社員名漢字（名）
-            form.setEmployee_name2_last(employee.getEmployee_name2_last()); // 社員名カナ（性）
+            form.setEmployee_name2_last(employee.getEmployee_name2_last()); // 社員名カナ（姓）
             form.setEmployee_name2_first(employee.getEmployee_name2_first()); // 社員名カナ（名）
             form.setGender_kbn(employee.getGender_kbn()); // 性別区分
             form.setPostcode(employee.getPostcode()); // 郵便番号
@@ -464,9 +464,9 @@ public class empController {
 
         employee.setEmployee_id(form.getEmployee_id()); // 社員ID
         employee.setEmployee_cd(form.getEmployee_cd()); // 社員CD
-        employee.setEmployee_name1_last(form.getEmployee_name1_last()); // 社員名漢字（性）
+        employee.setEmployee_name1_last(form.getEmployee_name1_last()); // 社員名漢字（姓）
         employee.setEmployee_name1_first(form.getEmployee_name1_first()); // 社員名漢字（名）
-        employee.setEmployee_name2_last(form.getEmployee_name2_last()); // 社員名カナ（性）
+        employee.setEmployee_name2_last(form.getEmployee_name2_last()); // 社員名カナ（姓）
         employee.setEmployee_name2_first(form.getEmployee_name2_first()); // 社員名カナ（名）
         employee.setGender_kbn(form.getGender_kbn()); // 性別区分
         employee.setPostcode(form.getPostcode()); // 郵便番号
