@@ -24,12 +24,12 @@ public class InputEmployeeForm {
     private String employee_cd; // 社員CD
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    private String employee_name1_last; // 社員名漢字（性）
+    private String employee_name1_last; // 社員名漢字（姓）
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_name1_first; // 社員名漢字（名）
 
-    private String employee_name2_last;// 社員名カナ（性）
+    private String employee_name2_last;// 社員名カナ（姓）
 
     private String employee_name2_first;// 社員名カナ（名）
 

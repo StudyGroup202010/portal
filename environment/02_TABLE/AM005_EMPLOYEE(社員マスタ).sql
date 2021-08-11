@@ -39,9 +39,9 @@ constraint am005_employee_sk2 unique (employee_cd)
 comment on table am005_employee is '社員マスタ';
 comment on column am005_employee.employee_id is '社員id';
 comment on column am005_employee.employee_cd is '社員cd';
-comment on column am005_employee.employee_name1_last is '社員名漢字（性）';
+comment on column am005_employee.employee_name1_last is '社員名漢字（姓）';
 comment on column am005_employee.employee_name1_first is '社員名漢字（名）';
-comment on column am005_employee.employee_name2_last is '社員名カナ（性）';
+comment on column am005_employee.employee_name2_last is '社員名カナ（姓）';
 comment on column am005_employee.employee_name2_first is '社員名カナ（名）';
 comment on column am005_employee.gender_kbn is '性別区分';
 comment on column am005_employee.postcode is '郵便番号';

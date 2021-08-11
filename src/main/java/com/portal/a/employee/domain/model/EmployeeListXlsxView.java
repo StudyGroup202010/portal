@@ -36,9 +36,9 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
         // 列名をセット
         Row row = sheet.createRow(0);
         row.createCell(0).setCellValue("社員CD");
-        row.createCell(1).setCellValue("社員名漢字（性）");
+        row.createCell(1).setCellValue("社員名漢字（姓）");
         row.createCell(2).setCellValue("社員名漢字（名）");
-        row.createCell(3).setCellValue("社員名カナ（性）");
+        row.createCell(3).setCellValue("社員名カナ（姓）");
         row.createCell(4).setCellValue("社員名カナ（名）");
         row.createCell(5).setCellValue("性別区分");
         row.createCell(6).setCellValue("郵便番号");
@@ -73,11 +73,11 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
             row = sheet.createRow(i + 1);
             // 社員CD
             row.createCell(0).setCellValue(employeeList.get(i).getEmployee_cd());
-            // 社員名漢字（性）
+            // 社員名漢字（姓）
             row.createCell(1).setCellValue(employeeList.get(i).getEmployee_name1_last());
             // 社員名漢字（名）
             row.createCell(2).setCellValue(employeeList.get(i).getEmployee_name1_first());
-            // 社員名カナ（性）
+            // 社員名カナ（姓）
             row.createCell(3).setCellValue(employeeList.get(i).getEmployee_name2_last());
             // 社員名カナ（名）
             row.createCell(4).setCellValue(employeeList.get(i).getEmployee_name2_first());
