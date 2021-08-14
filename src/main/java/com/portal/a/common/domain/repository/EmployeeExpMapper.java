@@ -36,10 +36,4 @@ public interface EmployeeExpMapper {
      * @return EnvList
      */
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
-
-
-
-
-
-
 }

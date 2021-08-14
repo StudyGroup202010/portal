@@ -266,9 +266,6 @@ public class empController {
         }
         employee.setNearest_station_code(form.getNearest_station_code()); // 最寄駅コード
         employee.setNearest_station_name(form.getNearest_station_name()); // 最寄駅名
-        employee.setFinal_education(form.getFinal_education()); // 最終学歴
-        employee.setDepartment(form.getDepartment()); // 学科
-        employee.setGraduation_date(form.getGraduation_date()); // 卒業年月
         employee.setMail(form.getMail()); // メールアドレス
         employee.setJoined_date(Date.valueOf(form.getJoined_date())); // 入社日
         // 退社日は新規登録時は入力しない。
@@ -386,9 +383,6 @@ public class empController {
             }
             form.setNearest_station_code(employee.getNearest_station_code()); // 最寄駅コード
             form.setNearest_station_name(employee.getNearest_station_name()); // 最寄駅名
-            form.setFinal_education(employee.getFinal_education()); // 最終学歴
-            form.setDepartment(employee.getDepartment()); // 学科
-            form.setGraduation_date(employee.getGraduation_date()); // 卒業年月
             form.setMail(employee.getMail()); // メールアドレス
             if (employee.getJoined_date() != null) {
                 form.setJoined_date(employee.getJoined_date().toLocalDate()); // 入社日
@@ -450,15 +444,6 @@ public class empController {
             }
         }
 
-        // 年月チェック
-        if (form.getGraduation_date() != null && !form.getGraduation_date().isEmpty()) {
-            if (DateUtils.chkYearMonthFromString(form.getGraduation_date()) == false) {
-                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
-                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
-                return getEmployeeDetail(form, model, "");
-            }
-        }
-
         // Employeeインスタンスの生成
         Employee employee = new Employee();
 
@@ -483,9 +468,6 @@ public class empController {
         }
         employee.setNearest_station_code(form.getNearest_station_code()); // 最寄駅コード
         employee.setNearest_station_name(form.getNearest_station_name()); // 最寄駅名
-        employee.setFinal_education(form.getFinal_education()); // 最終学歴
-        employee.setDepartment(form.getDepartment()); // 学科
-        employee.setGraduation_date(form.getGraduation_date()); // 卒業年月
         employee.setMail(form.getMail()); // メールアドレス
         if (form.getJoined_date() != null) {
             employee.setJoined_date(Date.valueOf(form.getJoined_date())); // 入社日
@@ -529,7 +511,7 @@ public class empController {
             String message = "社員CD " + employee.getEmployee_cd() + "が既に登録されているか、メールアドレス " + employee.getMail();
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
-            return getSignUp(form, model);
+            return getEmployeeDetail(form, model, "");
         }
 
         // 社員マスタ一覧画面を表示

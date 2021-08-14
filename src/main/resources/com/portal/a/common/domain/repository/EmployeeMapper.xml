@@ -25,9 +25,6 @@
         <result column="birthday" property="birthday" />
         <result column="nearest_station_code" property="nearest_station_code" />
         <result column="nearest_station_name" property="nearest_station_name" />
-        <result column="final_education" property="final_education" />
-        <result column="department" property="department" />
-        <result column="graduation_date" property="graduation_date" />
         <result column="mail" property="mail" />
         <result column="joined_date" property="joined_date" />
         <result column="leave_date" property="leave_date" />
@@ -61,9 +58,6 @@
           ,birthday
           ,nearest_station_code
           ,nearest_station_name
-          ,final_education
-          ,department
-          ,graduation_date
           ,mail
           ,joined_date
           ,leave_date
@@ -94,9 +88,6 @@
           ,#{birthday}
           ,#{nearest_station_code}
           ,#{nearest_station_name}
-          ,#{final_education}
-          ,#{department}
-          ,#{graduation_date}
           ,#{mail}
           ,#{joined_date}
           ,#{leave_date}
@@ -132,9 +123,6 @@
           ,a.birthday
           ,a.nearest_station_code
           ,a.nearest_station_name
-          ,a.final_education
-          ,a.department
-          ,a.graduation_date
           ,a.mail
           ,a.joined_date
           ,a.leave_date
@@ -184,9 +172,6 @@
           ,a.birthday
           ,a.nearest_station_code
           ,a.nearest_station_name
-          ,a.final_education
-          ,a.department
-          ,a.graduation_date
           ,a.mail
           ,a.joined_date
           ,a.leave_date
@@ -228,9 +213,6 @@
           ,birthday             = #{birthday}
           ,nearest_station_code = #{nearest_station_code}
           ,nearest_station_name = #{nearest_station_name}
-          ,final_education      = #{final_education}
-          ,department           = #{department}
-          ,graduation_date      = #{graduation_date}
           ,mail                 = #{mail}
           ,joined_date          = #{joined_date}
           ,leave_date           = #{leave_date}
