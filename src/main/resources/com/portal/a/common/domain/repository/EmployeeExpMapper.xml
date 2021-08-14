@@ -25,9 +25,6 @@
         <result column="birthday" property="birthday" />
         <result column="nearest_station_code" property="nearest_station_code" />
         <result column="nearest_station_name" property="nearest_station_name" />
-        <result column="final_education" property="final_education" />
-        <result column="department" property="department" />
-        <result column="graduation_date" property="graduation_date" />
         <result column="mail" property="mail" />
         <result column="joined_date" property="joined_date" />
         <result column="leave_date" property="leave_date" />
@@ -60,9 +57,6 @@
           ,a.birthday
           ,a.nearest_station_code
           ,a.nearest_station_name
-          ,a.final_education
-          ,a.department
-          ,a.graduation_date
           ,a.mail
           ,a.joined_date
           ,a.leave_date
@@ -106,9 +100,6 @@
           ,a.birthday
           ,a.nearest_station_code
           ,a.nearest_station_name
-          ,a.final_education
-          ,a.department
-          ,a.graduation_date
           ,a.mail
           ,a.joined_date
           ,a.leave_date
@@ -158,9 +149,6 @@
           ,a.birthday
           ,a.nearest_station_code
           ,a.nearest_station_name
-          ,a.final_education
-          ,a.department
-          ,a.graduation_date
           ,a.mail
           ,a.joined_date
           ,a.leave_date
@@ -178,7 +166,4 @@
         order by
           a.employee_cd
     </select>
-
-
-
 </mapper>

@@ -29,9 +29,6 @@ public class Employee {
     private Date birthday;// 生年月日
     private String nearest_station_code;// 最寄駅CD
     private String nearest_station_name;// 最寄駅名
-    private String final_education;// 最終学歴
-    private String department;// 学科
-    private String graduation_date;// 学科卒業年月
     private String mail;// メールアドレス
     private Date joined_date;// 入社日
     private Date leave_date;// 退社日
