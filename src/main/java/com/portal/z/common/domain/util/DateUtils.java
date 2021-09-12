@@ -230,4 +230,31 @@ public final class DateUtils {
         }
         return null;
     }
+    
+    /**
+     * 文字列（YYYYMM）日付チェック処理<BR>
+     * 
+     * 入力した文字列が日付形式かどうかをチェックします。yearmonthがブランクの場合、nullを返します。<BR>
+     * 日付変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
+     * 
+     * @param yearmonth チェック元の文字列（様式はYYYYMM）
+     * @return true:入力した文字列がYYYYMMである。<BR>
+     *         false：様式が間違えている
+     */
+    public static boolean chkYearMonthFromString(String yearmonth) {
+        if (yearmonth == null || yearmonth.isEmpty()) {
+            return false;
+        }
+        // 変換元の文字列のフォーマットを指定します。
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd").withLocale(Locale.JAPANESE)
+                .withResolverStyle(ResolverStyle.STRICT);
+        try {
+            // 日付変換したLocalDate型の値をDate型に変換して返します。
+            LocalDate.parse(yearmonth + "01", formatter);
+            return true;
+        } catch (DateTimeParseException ex) {
+            return false;
+        }
+//        return true;
+    }
 }

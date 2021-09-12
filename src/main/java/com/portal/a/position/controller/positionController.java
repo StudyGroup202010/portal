@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Position;
+import com.portal.a.position.domain.model.CreateOrder;
 import com.portal.a.position.domain.model.InputPositionForm;
 import com.portal.a.position.domain.model.SelectPositionForm;
+import com.portal.a.position.domain.model.UpdateOrder;
 import com.portal.a.position.domain.service.PositionService;
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.domain.util.StrUtils;
 
@@ -128,7 +131,7 @@ public class positionController {
      * @return 遷移先の情報(String)
      */
     @PostMapping("/positionUpdate")
-    public String postSignUp(@ModelAttribute @Validated InputPositionForm form, BindingResult bindingResult,
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputPositionForm form, BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、役職マスタ登録画面に戻る
@@ -136,7 +139,37 @@ public class positionController {
             // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
             return getSignUp(form, model);
         }
+        
+        // 年月チェック_start_yearmonth
+        if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
+                return getSignUp(form, model);
+            }
+        }
+        
+        // 年月チェック_end_yearmonth
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "最終年月" }));
+                return getSignUp(form, model);
+            }
+        }
 
+        // 生年月日チェック(生年月日 <= 入社日）
+        if (form.getEnd_yearmonth() != null) {
+            if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
+            		DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
+                        new String[] { "開始年月：" + form.getStart_yearmonth(), "最終年月：" + form.getEnd_yearmonth() }));
+                return getSignUp(form, model);
+            }
+        }
+        
+        
         // 役職マスタinsert用変数
         Position position = new Position();
 
@@ -237,7 +270,7 @@ public class positionController {
      * @return getPositionList(model)
      */
     @PostMapping(value = "/positionDetail", params = "update")
-    public String postPositionDetailUpdate(@ModelAttribute @Validated InputPositionForm form, BindingResult bindingResult,
+    public String postPositionDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputPositionForm form, BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、役職マスタ詳細画面に戻る
@@ -245,7 +278,36 @@ public class positionController {
             // GETリクエスト用のメソッドを呼び出して、役職マスタ詳細画面に戻ります
             return getPositionDetail(form, model, "");
         }
+        
+        // 年月チェック_start_yearmonth
+        if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
+                return getPositionDetail(form, model, "");
+            }
+        }
+        
+        // 年月チェック_end_yearmonth
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "最終年月" }));
+                return getPositionDetail(form, model, "");
+            }
+        }        
 
+        // 生年月日チェック(生年月日 <= 入社日）
+        if (form.getEnd_yearmonth() != null) {
+            if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
+            		DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
+                        new String[] { "開始年月：" + form.getStart_yearmonth(), "最終年月：" + form.getEnd_yearmonth() }));
+                return getPositionDetail(form, model, "");
+            }
+        }
+        
         // Positionインスタンスの生成
         Position position = new Position();
 

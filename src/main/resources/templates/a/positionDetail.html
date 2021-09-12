@@ -28,7 +28,8 @@
 			<div class="page-header">
 				<h3>役職マスタ詳細</h3>
 			</div>
-
+			<!-- 役職マスタ詳細画面の結果表示 -->
+			<label class="text-danger" th:text="${result}"></label>
 			<form method="post" th:action="@{/positionDetail}"
 				th:object="${inputPositionForm}">
 				<table class="table table-bordered table-hover table-sm">
