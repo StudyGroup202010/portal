@@ -159,7 +159,7 @@ public class positionController {
         }
 
         // 年月チェック(開始年月 <= 最終年月）
-        if (form.getEnd_yearmonth() != null) {
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
             if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
             		DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
@@ -298,7 +298,7 @@ public class positionController {
         }        
 
         // 年月チェック(開始年月 <= 最終年月）
-        if (form.getEnd_yearmonth() != null) {
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
             if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
             		DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
