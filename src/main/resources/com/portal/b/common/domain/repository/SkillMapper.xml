@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.b.common.domain.repository.SkillMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.b.common.domain.model.Skill"
+		id="skill">
+		<id column="employee_id" property="employee_id" />
+		<result column="employee_cd" property="employee_cd" />
+		<result column="employee_name1_last" property="employee_name1_last" />
+		<result column="employee_name1_first" property="employee_name1_first" />
+		<result column="organization_cd" property="organization_cd" />
+		<result column="organization_name" property="organization_name" />
+		<result column="employee_id_skill" property="employee_id_skill" />
+		<result column="final_education" property="final_education" />
+		<result column="department" property="department" />
+		<result column="graduation_date" property="graduation_date" />
+		<result column="notices" property="notices" />
+		<result column="biko" property="biko" />
+	</resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.b.common.domain.model.Skill">
+        insert into
+          bt001_skill (
+           employee_id
+          ,final_education
+          ,department
+          ,graduation_date
+          ,notices
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{employee_id}
+          ,#{final_education}
+          ,#{department}
+          ,#{graduation_date}
+          ,#{notices}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.b.common.domain.model.Skill">
+        select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,b.employee_id as employee_id_skill
+          ,b.final_education
+          ,b.department
+          ,b.graduation_date
+          ,b.notices
+          ,b.biko
+        from
+          am005_employee a
+          left join bt001_skill b
+            on a.employee_id = b.employee_id
+        where
+          a.employee_id = #{employee_id}
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="skill">
+    <![CDATA[
+        select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,c.organization_cd
+          ,e.organization_name
+          ,b.employee_id as employee_id_skill
+          ,b.final_education
+          ,b.department
+          ,b.graduation_date
+          ,b.notices
+          ,b.biko
+        from
+          am005_employee a
+          left join bt001_skill b
+            on a.employee_id = b.employee_id
+          left join am006_employeebelongs c
+            on  c.employee_id = a.employee_id
+            and c.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = c.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+          left join am002_organization e
+            on  e.organization_cd = c.organization_cd
+        order by
+          a.employee_cd
+    ]]>
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.b.common.domain.model.Skill">
+        update
+          bt001_skill
+        set
+           final_education = #{final_education}
+          ,department      = #{department}
+          ,graduation_date = #{graduation_date}
+          ,notices         = #{notices}
+          ,biko            = #{biko}
+          ,update_user     = #{update_user}
+          ,update_date     = NOW()
+        where
+          employee_id      = #{employee_id}
+    </update>
+
+    <!-- 備考で条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="skill">
+    <![CDATA[
+        select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,c.organization_cd
+          ,e.organization_name
+          ,b.employee_id as employee_id_skill
+          ,b.final_education
+          ,b.department
+          ,b.graduation_date
+          ,b.notices
+          ,b.biko
+        from
+          am005_employee a
+          left join bt001_skill b
+            on a.employee_id = b.employee_id
+          left join am006_employeebelongs c
+            on  c.employee_id = a.employee_id
+            and c.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = c.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+          left join am002_organization e
+            on  e.organization_cd = c.organization_cd
+        where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
+          and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
+          and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
+        order by
+          a.employee_cd
+    ]]>
+    </select>
+    
+</mapper>
