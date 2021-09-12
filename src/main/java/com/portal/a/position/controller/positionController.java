@@ -140,7 +140,7 @@ public class positionController {
             return getSignUp(form, model);
         }
         
-        // 年月チェック_start_yearmonth
+        // 年月チェック（start_yearmonth）
         if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
@@ -149,7 +149,7 @@ public class positionController {
             }
         }
         
-        // 年月チェック_end_yearmonth
+        // 年月チェック（end_yearmonth）
         if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
@@ -158,7 +158,7 @@ public class positionController {
             }
         }
 
-        // 生年月日チェック(生年月日 <= 入社日）
+        // 年月チェック(開始年月 <= 最終年月）
         if (form.getEnd_yearmonth() != null) {
             if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
             		DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
@@ -279,7 +279,7 @@ public class positionController {
             return getPositionDetail(form, model, "");
         }
         
-        // 年月チェック_start_yearmonth
+        // 年月チェック（start_yearmonth）
         if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
@@ -288,7 +288,7 @@ public class positionController {
             }
         }
         
-        // 年月チェック_end_yearmonth
+        // 年月チェック（end_yearmonth）
         if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、役職マスタ登録画面に戻ります
@@ -297,7 +297,7 @@ public class positionController {
             }
         }        
 
-        // 生年月日チェック(生年月日 <= 入社日）
+        // 年月チェック(開始年月 <= 最終年月）
         if (form.getEnd_yearmonth() != null) {
             if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
             		DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
