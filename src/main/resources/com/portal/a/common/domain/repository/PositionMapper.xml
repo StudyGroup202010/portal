@@ -107,10 +107,10 @@
           ,biko
         from
           am007_position
-        where position_name               			like CONCAT('%' , #{position_name}  , '%')
-          and COALESCE(start_yearmonth,'')          like CONCAT('%' , #{start_yearmonth} , '%')
-          and COALESCE(end_yearmonth,'')          	like CONCAT('%' , #{end_yearmonth} , '%')
-          and COALESCE(biko,'')          			like CONCAT('%' , #{biko} , '%')
+        where position_name        like CONCAT('%' , #{position_name}  , '%')
+          and start_yearmonth      like CONCAT('%' , #{start_yearmonth} , '%')
+          and end_yearmonth        like CONCAT('%' , #{end_yearmonth} , '%')
+          and biko                 like CONCAT('%' , #{biko} , '%')
         order by
           position_cd
     ]]>

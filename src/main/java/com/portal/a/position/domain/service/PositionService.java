@@ -52,8 +52,10 @@ public interface PositionService {
     /**
      * 条件検索用メソッド.
      * 
-     * @param position_name position_name
-     * @param biko         biko
+     * @param position_name	  position_name
+     * @param start_yearmonth start_yearmonth
+     * @param end_yearmonth   end_yearmonth
+     * @param biko            biko
      * @return PositionList
      */
     public List<Position> selectBy(String position_name, String start_yearmonth, String end_yearmonth, String biko);
