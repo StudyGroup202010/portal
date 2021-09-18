@@ -11,26 +11,26 @@ import lombok.Data;
  */
 @Data
 public class InputPositionForm {
-	// 必須入力
-	@NotBlank(groups = { ValidCreate1.class }, message = "{require_check}")
-	@Size(groups = { ValidCreate2.class }, min = 5, max = 5, message = "{length_check_1}") // 桁数指定
-	private String position_cd; // 役職CD
+    // 必須入力
+    @NotBlank(groups = { ValidCreate1.class }, message = "{require_check}")
+    @Size(groups = { ValidCreate2.class }, min = 5, max = 5, message = "{length_check_1}") // 桁数指定
+    private String position_cd; // 役職CD
 
-	// 必須入力
-	@NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-	@Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 50, message = "{length_check_2}") // 桁数指定
-	private String position_name; // 役職名
+    // 必須入力
+    @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
+    @Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 50, message = "{length_check_2}") // 桁数指定
+    private String position_name; // 役職名
 
-	// 必須入力
-	@NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-	@Size(groups = { ValidCreate2.class, ValidUpdate2.class }, min = 6, max = 6, message = "{length_check_1}") // 桁数指定
-	@Pattern(groups = { ValidCreate2.class, ValidUpdate2.class }, regexp = "[0-9]*", message = "{type_check_2}") // 数字であること
-	private String start_yearmonth; // 開始年月
+    // 必須入力
+    @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
+    @Size(groups = { ValidCreate2.class, ValidUpdate2.class }, min = 6, max = 6, message = "{length_check_1}") // 桁数指定
+    @Pattern(groups = { ValidCreate2.class, ValidUpdate2.class }, regexp = "[0-9]*", message = "{type_check_2}") // 数字であること
+    private String start_yearmonth; // 開始年月
 
-	@Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 6, message = "{length_check_1}") // 桁数指定
-	@Pattern(groups = { ValidCreate2.class, ValidUpdate2.class }, regexp = "[0-9]*", message = "{type_check_2}") // 数字であること
-	private String end_yearmonth; // 最終年月
+    @Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 6, message = "{length_check_1}") // 桁数指定
+    @Pattern(groups = { ValidCreate2.class, ValidUpdate2.class }, regexp = "[0-9]*", message = "{type_check_2}") // 数字であること
+    private String end_yearmonth; // 最終年月
 
-	@Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 100, message = "{length_check_2}")
-	private String biko; // 備考
+    @Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 100, message = "{length_check_2}")
+    private String biko; // 備考
 }
