@@ -38,7 +38,7 @@ public class CompanyListXlsxView extends AbstractXlsxView {
         row.createCell(0).setCellValue("会社CD");
         row.createCell(1).setCellValue("会社名");
         row.createCell(2).setCellValue("備考");
-        
+
         row.createCell(3).setCellValue("作成者");
         row.createCell(4).setCellValue("作成日時");
         row.createCell(5).setCellValue("更新者");

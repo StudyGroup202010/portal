@@ -23,11 +23,11 @@ import com.portal.z.common.domain.model.AbstractCsvView;
 public class CompanyListCsvView extends AbstractCsvView {
 
     // ヘッダーを和名で設定
-	String[] Header_J = { "会社CD", "会社名", "備考", "作成者", "作成日時", "更新者", "更新日時" };
+    String[] Header_J = { "会社CD", "会社名", "備考", "作成者", "作成日時", "更新者", "更新日時" };
 
-	// 出力する項目を設定
-	String[] Header = { "company_cd", "company_name", "biko", "insert_user",
-			"insert_date", "update_user", "update_date" };
+    // 出力する項目を設定
+    String[] Header = { "company_cd", "company_name", "biko", "insert_user", "insert_date", "update_user",
+            "update_date" };
 
     @Override
     protected void addResponseHeader(Map<String, Object> model, HttpServletRequest request,
