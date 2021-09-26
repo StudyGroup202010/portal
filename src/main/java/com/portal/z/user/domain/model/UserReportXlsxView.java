@@ -78,7 +78,7 @@ public class UserReportXlsxView extends AbstractXlsxReportView {
             row.createCell(5).setCellStyle(cellstyle);
             row.getCell(5).setCellValue(userList.get(i).getEmployee_cd());
 
-            // 社員名漢字（性）
+            // 社員名漢字（姓）
             row.createCell(6).setCellStyle(cellstyle);
             row.getCell(6).setCellValue(userList.get(i).getEmployee_name1_last());
 
@@ -108,7 +108,7 @@ public class UserReportXlsxView extends AbstractXlsxReportView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 11; i++) {
             sheet.autoSizeColumn(i);
         }
     }

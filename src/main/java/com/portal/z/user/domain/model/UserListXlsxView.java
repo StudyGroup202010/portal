@@ -67,7 +67,7 @@ public class UserListXlsxView extends AbstractXlsxView {
             row.createCell(4).setCellValue(userList.get(i).isLock_flg());
             // 社員CD
             row.createCell(5).setCellValue(userList.get(i).getEmployee_cd());
-            // 社員名漢字（性）
+            // 社員名漢字（姓）
             row.createCell(6).setCellValue(userList.get(i).getEmployee_name1_last());
             // 有効フラグ
             row.createCell(7).setCellValue(userList.get(i).isEnabled_flg());
@@ -87,7 +87,7 @@ public class UserListXlsxView extends AbstractXlsxView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i <= 11; i++) {
             sheet.autoSizeColumn(i);
         }
     }

@@ -107,9 +107,9 @@
           ,biko
         from
           am999_env
-        where env_id               like CONCAT(#{env_id}  , '%')
-          and COALESCE(env_kbn,'') like CONCAT(#{env_kbn} , '%')
-          and env_txt              like CONCAT(#{env_txt} , '%')
+        where env_id               like CONCAT('%' , #{env_id}  , '%')
+          and COALESCE(env_kbn,'') like CONCAT('%' , #{env_kbn} , '%')
+          and env_txt              like CONCAT('%' , #{env_txt} , '%')
           and COALESCE(biko,'')    like CONCAT('%' , #{biko} , '%')
         order by
           env_id
