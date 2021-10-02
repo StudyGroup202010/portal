@@ -27,7 +27,7 @@ public class CompanyListXlsxView extends AbstractXlsxView {
             HttpServletResponse response) throws Exception {
 
         // データを出力するシートを指定
-        Sheet sheet = workbook.createSheet("ユーザマスタ");
+        Sheet sheet = workbook.createSheet("会社マスタ");
 
         // Controllerから受け取った値をセット
         List<Company> companyList = (List<Company>) model.get("companyList");

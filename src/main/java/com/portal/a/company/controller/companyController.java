@@ -62,7 +62,7 @@ public class companyController {
         // 会社マスタ一覧の生成
         List<Company> companyList = companyService.selectMany();
 
-        // Modelにユーザーリストを登録
+        // Modelに会社リストを登録
         model.addAttribute("companyList", companyList);
 
         // データ件数を取得
@@ -73,7 +73,7 @@ public class companyController {
     }
 
     /**
-     * 会社マスタ一覧画面のユーザー検索用処理.<br>
+     * 会社マスタ一覧画面の検索用処理.<br>
      * 
      * 画面から入力した検索条件で会社マスタ情報を検索する。
      * 
@@ -326,7 +326,7 @@ public class companyController {
         // 会社マスタ一覧の生成
         List<Company> companyList = companyService.selectMany();
 
-        // Modelにユーザーリストを登録
+        // Modelに会社リストを登録
         model.addStaticAttribute("companyList", companyList);
 
         return model;
@@ -346,7 +346,7 @@ public class companyController {
         // 会社マスタ一覧の生成
         List<Company> companyList = companyService.selectMany();
 
-        // Modelにユーザーリストを登録
+        // Modelに会社リストを登録
         model.addStaticAttribute("companyList", companyList);
 
         // データ件数を取得
