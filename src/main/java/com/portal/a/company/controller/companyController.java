@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Company;
+import com.portal.a.company.domain.model.CompanyListCsvView;
+import com.portal.a.company.domain.model.CompanyListXlsxView;
 import com.portal.a.company.domain.model.InputCompanyForm;
 import com.portal.a.company.domain.model.SelectCompanyForm;
 import com.portal.a.company.domain.service.CompanyService;
@@ -60,7 +62,7 @@ public class companyController {
         // 会社マスタ一覧の生成
         List<Company> companyList = companyService.selectMany();
 
-        // Modelにユーザーリストを登録
+        // Modelに会社リストを登録
         model.addAttribute("companyList", companyList);
 
         // データ件数を取得
@@ -71,7 +73,7 @@ public class companyController {
     }
 
     /**
-     * 会社マスタ一覧画面のユーザー検索用処理.<br>
+     * 会社マスタ一覧画面の検索用処理.<br>
      * 
      * 画面から入力した検索条件で会社マスタ情報を検索する。
      * 
@@ -309,4 +311,51 @@ public class companyController {
         // 会社マスタ一覧画面を表示
         return getCompanyList(model);
     }
+    
+    /**
+     * 会社マスタ一覧のCSV出力用処理.<br>
+     * 
+     * 会社マスタ一覧のCSVファイルを出力する。
+     * 
+     * @param model モデル
+     * @return ResponseEntity(bytes, header, HttpStatus.OK)
+     */
+    @GetMapping("/companyList/csv")
+    public CompanyListCsvView getCompanyListCsv(CompanyListCsvView model) {
+
+        // 会社マスタ一覧の生成
+        List<Company> companyList = companyService.selectMany();
+
+        // Modelに会社リストを登録
+        model.addStaticAttribute("companyList", companyList);
+
+        return model;
+    }
+    
+    /**
+     * 会社マスタ一覧のExcel出力用処理.<br>
+     * 
+     * 会社マスタ一覧のEXCELファイルを出力する。
+     * 
+     * @param model モデル
+     * @return model
+     */
+    @RequestMapping("/companyList/excel")
+    public CompanyListXlsxView excel(CompanyListXlsxView model) {
+
+        // 会社マスタ一覧の生成
+        List<Company> companyList = companyService.selectMany();
+
+        // Modelに会社リストを登録
+        model.addStaticAttribute("companyList", companyList);
+
+        // データ件数を取得
+        int count = companyList.size();
+        model.addStaticAttribute("companyListCount", count);
+
+        return model;
+    }
+    
+    
+    
 }
