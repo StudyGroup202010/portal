@@ -29,7 +29,6 @@
             <label class="text-danger" th:text="${result}"></label>
             <form method="post" th:action="@{/skillDetail}"
                 th:object="${inputSkillForm}">
-
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 社員CD -->
                     <tr>
@@ -70,10 +69,12 @@
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('final_education')} ? 'has-error'">
-                                <input type="text" class="form-control" th:field="*{final_education}" />
-                                <span class="text-danger"
+                                <input type="text" class="form-control"
+                                    th:field="*{final_education}" /> <span
+                                    class="text-danger"
                                     th:if="${#fields.hasErrors('final_education')}"
-                                    th:errors="*{final_education}"> final_education error </span>
+                                    th:errors="*{final_education}">
+                                    final_education error </span>
                             </div>
                         </td>
                     </tr>
@@ -83,10 +84,12 @@
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('department')} ? 'has-error'">
-                                <input type="text" class="form-control" th:field="*{department}" />
-                                <span class="text-danger"
+                                <input type="text" class="form-control"
+                                    th:field="*{department}" /> <span
+                                    class="text-danger"
                                     th:if="${#fields.hasErrors('department')}"
-                                    th:errors="*{department}"> department error </span>
+                                    th:errors="*{department}">
+                                    department error </span>
                             </div>
                         </td>
                     </tr>
@@ -96,10 +99,12 @@
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('graduation_date')} ? 'has-error'">
-                                <input type="text" class="form-control" th:field="*{graduation_date}" />
-                                <span class="text-danger"
+                                <input type="text" class="form-control"
+                                    th:field="*{graduation_date}" /> <span
+                                    class="text-danger"
                                     th:if="${#fields.hasErrors('graduation_date')}"
-                                    th:errors="*{graduation_date}"> graduation_date error </span>
+                                    th:errors="*{graduation_date}">
+                                    graduation_date error </span>
                             </div>
                         </td>
                     </tr>
@@ -124,12 +129,14 @@
                         </td>
                     </tr>
                 </table>
-               
+
                 <!-- 社員ID -->
-                <input type="hidden" class="form-control" th:field="*{employee_id}" />
+                <input type="hidden" class="form-control"
+                    th:field="*{employee_id}" />
 
                 <!-- スキル情報社員ID -->
-                <input type="hidden" class="form-control" th:field="*{employee_id_skill}" />
+                <input type="hidden" class="form-control"
+                    th:field="*{employee_id_skill}" />
 
                 <!-- 戻るボタン -->
                 <button class="btn btn-lg btn-primary" type="submit"

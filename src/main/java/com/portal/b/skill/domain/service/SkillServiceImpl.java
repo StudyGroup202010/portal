@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.portal.a.common.domain.repository.EmployeeMapper;
+import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Skill;
+import com.portal.b.common.domain.repository.CareerMapper;
 import com.portal.b.common.domain.repository.SkillMapper;
 
 /**
@@ -22,17 +23,25 @@ public class SkillServiceImpl implements SkillService {
     SkillMapper skillMapper;
 
     @Autowired
-    EmployeeMapper employeeMapper;
+    CareerMapper careerMapper;
 
-    public List<Skill> selectMany() {
+    public List<Skill> selectSkillMany() {
         return skillMapper.selectMany();
     }
 
-    public Skill selectOne(String employee_id) {
+    public Skill selectSkillOne(String employee_id) {
         return skillMapper.selectOne(employee_id);
     }
 
-    public boolean updateOne(Skill skill) {
+    public Career selectCareerOne(String employee_id, String certification_no) {
+        return careerMapper.selectOne(employee_id, certification_no);
+    }
+
+    public boolean insertCareerOne(Career career) {
+        return careerMapper.insertOne(career);
+    }
+
+    public boolean updateSkillOne(Skill skill) {
 
         boolean result = false;
 
@@ -48,7 +57,35 @@ public class SkillServiceImpl implements SkillService {
         return result;
     }
 
-    public List<Skill> selectBy(String employee_cd, String employee_name1_last, String biko) {
+    public boolean updateCareerOne(Career career) {
+
+        boolean result = false;
+
+        // 業務経歴情報を更新する。
+        result = careerMapper.updateOne(career);
+
+        // 業務経歴更新結果の判定
+        if (result != true) {
+            // 更新できなかったときは追加する
+            result = careerMapper.insertOne(career);
+        }
+
+        return result;
+    }
+
+    public boolean deleteCareerOne(String employee_id, String certification_no) {
+        return careerMapper.deleteOne(employee_id, certification_no);
+    }
+
+    public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String biko) {
         return skillMapper.selectBy(employee_cd, employee_name1_last, biko);
+    }
+
+    public List<Career> selectCareerBy1(String employee_id, String business_content, String biko) {
+        return careerMapper.selectBy1(employee_id, business_content, biko);
+    }
+
+    public List<Career> selectCareerBy2(String employee_id) {
+        return careerMapper.selectBy2(employee_id);
     }
 }

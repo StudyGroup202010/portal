@@ -1,7 +1,11 @@
 package com.portal.b.skill.domain.model;
 
+import java.util.List;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.portal.b.common.domain.model.Career;
 
 import lombok.Data;
 
@@ -17,9 +21,10 @@ public class InputSkillForm {
     private String employee_id_skill;// スキル情報社員ID
     private String final_education;// 最終学歴
     private String department;// 学科
-    @Size(max = 6, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
-    @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 英数字であること
+    @Size(max = 6, groups = { ValidUpdate1.class }, message = "{length_check}")
+    @Pattern(regexp = "[0-9]*", groups = { ValidUpdate1.class }, message = "{numerical_check}") // 数字であること
     private String graduation_date;// 卒業年月
     private String notices; // 特記事項
     private String biko; // 備考
+    private List<Career> careerlist;
 }

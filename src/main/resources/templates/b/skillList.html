@@ -64,17 +64,23 @@
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（姓）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">組織</p></th>
-                        <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　備考　　　　　　　　　</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　備考　　　　　　　　　　　　</p></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="skill : ${skillList}">
-                        <td align="center"><a class="btn btn-primary"
-                            th:href="@{'/skillDetail/' + ${skill.employee_id}}">詳細</a></td>
+                        <td align="left"><a
+                            class="btn btn-primary"
+                            th:href="@{'/skillDetail/' + ${skill.employee_id}}">詳細</a><a
+                            class="btn btn-primary"
+                            th:href="@{'/careerList/' + ${skill.employee_id}}">経歴</a></td>
                         <td align="left" th:text="${skill.employee_cd}"></td>
-                        <td align="left" th:text="${skill.employee_name1_last}"></td>
-                        <td align="left" th:text="${skill.employee_name1_first}"></td>
-                        <td align="left" th:text="${skill.organization_name}"></td>
+                        <td align="left"
+                            th:text="${skill.employee_name1_last}"></td>
+                        <td align="left"
+                            th:text="${skill.employee_name1_first}"></td>
+                        <td align="left"
+                            th:text="${skill.organization_name}"></td>
                         <td align="left" th:text="${skill.biko}"></td>
                     </tr>
                 </tbody>

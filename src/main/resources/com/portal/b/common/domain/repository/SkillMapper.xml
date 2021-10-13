@@ -69,7 +69,7 @@
         where
           a.employee_id = #{employee_id}
     </select>
-
+    
     <!-- 全件検索 -->
     <select id="selectMany" resultMap="skill">
     <![CDATA[
@@ -159,6 +159,5 @@
         order by
           a.employee_cd
     ]]>
-    </select>
-    
+    </select>  
 </mapper>
