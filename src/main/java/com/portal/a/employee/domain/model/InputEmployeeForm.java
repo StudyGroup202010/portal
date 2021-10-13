@@ -37,7 +37,7 @@ public class InputEmployeeForm {
     private String gender_kbn;// 性別区分
 
     @Size(max = 7, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
-    @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 英数字であること
+    @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
     private String postcode;// 郵便番号
 
     @Size(max = 2, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
@@ -65,14 +65,6 @@ public class InputEmployeeForm {
     private String nearest_station_code;// 最寄駅コード
 
     private String nearest_station_name;// 最寄駅名
-
-    private String final_education;// 最終学歴
-
-    private String department;// 学科
-
-    @Size(max = 6, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
-    @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 英数字であること
-    private String graduation_date;// 卒業年月
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @Email(groups = { ValidCreate2.class, ValidUpdate2.class })

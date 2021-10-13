@@ -34,16 +34,19 @@
 					<!-- 社員CD -->
 					<tr>
 						<th class="active table-info">社員ＣＤ</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{employee_cd}" autofocus /> <span
-									class="text-danger" th:if="${#fields.hasErrors('employee_cd')}"
-									th:errors="*{employee_cd}"> employee_cd error </span>
-							</div>
-						</td>
-					</tr>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_cd}"
+                                    placeholder="英数字を入力してください" autofocus />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_cd')}"
+                                    th:errors="*{employee_cd}">
+                                    employee_cd error </span>
+                            </div>
+                        </td>
+                    </tr>
 				</table>
 				<table class="table table-bordered table-hover table-sm">
 					<!-- 社員名漢字（姓） -->
@@ -205,16 +208,19 @@
 					<!-- 都道府県名CD -->
 					<tr>
 						<th class="active table-info">都道府県名ＣＤ</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('prefcode')} ? 'has-error'">
-								<input type="text" class="form-control" th:field="*{prefcode}" />
-								<span class="text-danger"
-									th:if="${#fields.hasErrors('prefcode')}"
-									th:errors="*{prefcode}"> prefcode error </span>
-							</div>
-						</td>
-					</tr>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('prefcode')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{prefcode}"
+                                    placeholder="数字２桁を入力してください" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('prefcode')}"
+                                    th:errors="*{prefcode}">
+                                    prefcode error </span>
+                            </div>
+                        </td>
+                    </tr>
 					<!-- 都道府県名１ -->
 					<tr>
 						<th class="active table-info">都道府県名（漢字）</th>
@@ -244,16 +250,19 @@
 					<!-- 市区町村名CD -->
 					<tr>
 						<th class="active table-info">市区町村名ＣＤ</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('citycode')} ? 'has-error'">
-								<input type="text" class="form-control" th:field="*{citycode}" />
-								<span class="text-danger"
-									th:if="${#fields.hasErrors('citycode')}"
-									th:errors="*{citycode}"> citycode error </span>
-							</div>
-						</td>
-					</tr>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('citycode')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{citycode}"
+                                    placeholder="数字３桁を入力してください" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('citycode')}"
+                                    th:errors="*{citycode}">
+                                    citycode error </span>
+                            </div>
+                        </td>
+                    </tr>
 					<!-- 市区町村名１ -->
 					<tr>
 						<th class="active table-info">市区町村名（漢字）</th>
@@ -310,18 +319,19 @@
 					<!-- 最寄駅コード -->
 					<tr>
 						<th class="active table-info">最寄駅ＣＤ</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('nearest_station_code')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{nearest_station_code}" /> <span
-									class="text-danger"
-									th:if="${#fields.hasErrors('nearest_station_code')}"
-									th:errors="*{nearest_station_code}">
-									nearest_station_code error </span>
-							</div>
-						</td>
-					</tr>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('nearest_station_code')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{nearest_station_code}"
+                                    placeholder="数字１０桁を入力してください" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('nearest_station_code')}"
+                                    th:errors="*{nearest_station_code}">
+                                    nearest_station_code error </span>
+                            </div>
+                        </td>
+                    </tr>
 					<!-- 最寄駅名 -->
 					<tr>
 						<th class="active table-info">最寄駅名</th>
