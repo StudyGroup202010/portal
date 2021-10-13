@@ -40,7 +40,8 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{company_cd}" autofocus />
+                                    th:field="*{company_cd}"
+                                    placeholder="英数字を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('company_cd')}"
                                     th:errors="*{company_cd}">

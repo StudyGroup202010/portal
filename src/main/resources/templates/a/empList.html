@@ -78,6 +78,7 @@
 						<th scope="col"><p class="text-nowrap text-center">社員CD</p></th>
 						<th scope="col"><p class="text-nowrap text-center">社員名漢字（姓）</p></th>
 						<th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">組織</p></th>
                         <th scope="col"><p class="text-nowrap text-center">社員属性名</p></th>
                         <th scope="col"><p class="text-nowrap text-center">メールアドレス</p></th>
                         <th scope="col"><p class="text-nowrap text-center">性別</p></th>
@@ -93,6 +94,7 @@
                         <td align="left" th:text="${emp.employee_cd}"></td>
                         <td align="left" th:text="${emp.employee_name1_last}"></td>
                         <td align="left" th:text="${emp.employee_name1_first}"></td>
+                        <td align="left" th:text="${emp.organization_name}"></td>
                         <td align="left" th:text="${emp.employeeattribute_name}"></td>
                         <td align="left" th:text="${emp.mail}"></td>
                         <td align="center" th:text="${emp.gender_kbn}"></td>

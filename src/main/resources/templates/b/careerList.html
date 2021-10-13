@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrapの設定 -->
+    
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    
+
+    
+    
+    <title>CareerList</title>
+</head>
+<body>
+    <div th:fragment="careerList_contents">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h3>業務経歴一覧</h3>
+            </div>
+            <div class="container-fluid border bg-light">
+                <!-- 業務経歴一覧画面の結果表示 -->
+                <form method="post" th:action="@{/careerList}"
+                    th:object="${selectCareerForm}">
+                    <div class="row">
+                        <h4>
+                            <label
+                                th:text="${selected_employee_cd} + ' ' + ${selected_employee_name1_last} + ' ' +  ${selected_employee_name1_first}"></label>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <!-- 社員ID -->
+                        <input type="hidden" class="form-control"
+                            th:field="*{employee_id}" />
+                        <div class="col-sm-2">
+                            業務内容<input type="search"
+                                class="form-control" autofocus
+                                th:field="*{business_content}" />
+                        </div>
+                        <div class="col-sm-5">
+                            備考<input type="search" class="form-control"
+                                th:field="*{biko}" />
+                        </div>
+                        <div class="col-sm-5">
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg float-right">検索</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <div class="col">
+                            <!-- 業務経歴登録画面へのリンク -->
+                            <a class="btn btn-danger float-right"
+                                th:href="@{'/careerUpdate/'+ *{employee_id}}">新規登録</a>
+                        </div>
+
+                        <!-- 業務経歴一覧の件数 -->
+                        <label
+                            th:text=" '合計：' + ${careerListCount} + '件' "></label>
+
+                        <table
+                            class="table table-bordered table-hover table-striped table-sm">
+
+                            <thead>
+                                <tr class="table-info">
+                                    <th scope="col"></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">ＮＯ</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">作業期間</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">業務内容</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">機種／OS</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">言語／ﾂｰﾙ</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">DB／DC</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">担当工程</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">
+                                            　　　　　　　　　　備考　　　　　　　　　　</p></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="career : ${careerList}">
+                                    <td align="left"><a
+                                        class="btn btn-primary"
+                                        th:href="@{'/careerDetail/' + ${career.employee_id} + '/' + ${career.certification_no}}">編集</a></td>
+                                    <td align="left"
+                                        th:text="${career.disp_order}"></td>
+                                    <td align="left"
+                                        th:text="${career.start_yearmonth} + '～' + ${career.end_yearmonth}"></td>
+                                    <td align="left"
+                                        th:text="${career.business_content}"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="left"
+                                        th:text="${career.biko}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 戻るボタン -->
+                    <button class="btn btn-lg btn-primary" type="submit"
+                        name="back">戻る</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -94,7 +94,7 @@ class DateUtilsTest {
     }
 
     @Test
-    final void dateUtils_getDateFromString_異常日付入力チェック() {
+    final void dateUtils_getDateFromString_異常日付入力チェック1() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
         try {
             DateUtils.getDateFromString("700101");
@@ -102,6 +102,79 @@ class DateUtilsTest {
         } catch (final Exception e) {
             assertThat(e.toString())
                     .isEqualTo("java.time.format.DateTimeParseException: Text '700101' could not be parsed at index 6");
+        }
+    }
+    
+    @Test
+    final void dateUtils_getDateFromString_異常日付入力チェック2() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("20211240");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '20211240' could not be parsed: Invalid value for DayOfMonth (valid values 1 - 28/31): 40");
+        }
+    }
+    
+    @Test
+    final void dateUtils_getDateFromString_異常日付入力チェック3() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("202112011");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '202112011' could not be parsed at index 0");
+        }
+    }
+    
+    //
+    // getDateFromStringmonth
+    //
+    @Test
+    final void dateUtils_getDateFromStringmonth_null入力チェック() {
+        assertThat(DateUtils.getDateFromString(null)).isNull();
+    }
+
+    @Test
+    final void dateUtils_getDateFromStringmonth_通常日付入力チェック() {
+        assertThat(DateUtils.getDateFromStringmonth("197001")).isEqualTo("1970-01-01");
+    }
+
+    @Test
+    final void dateUtils_getDateFromStringmonth_異常日付入力チェック1() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("20211");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '20211' could not be parsed at index 4");
+        }
+    }
+    
+    @Test
+    final void dateUtils_getDateFromStringmonth_異常日付入力チェック2() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("20213");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '20213' could not be parsed at index 4");
+        }
+    }
+    
+    @Test
+    final void dateUtils_getDateFromStringmonth_異常日付入力チェック3() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("202121");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '202121' could not be parsed at index 6");
         }
     }
 

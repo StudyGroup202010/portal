@@ -132,6 +132,27 @@ public final class DateUtils {
     }
 
     /**
+     * 文字列（YYYYMM）⇒日付変換処理<BR>
+     * 
+     * 月初日を追加してdateに該当する日付を取得します。 dateがブランクの場合、nullを返します。<BR>
+     * 日付変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
+     * 
+     * @param date 変換元の文字列（様式はYYYYMM）
+     * @return Date型に変換したdate
+     * @throws DateTimeParseException 日付に変換できなかったとき
+     */
+    public static LocalDate getDateFromStringmonth(String date) {
+        if (date == null || date.isEmpty()) {
+            return null;
+        }
+        // 変換元の文字列のフォーマットを指定します。
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMdd").withLocale(Locale.JAPANESE)
+                .withResolverStyle(ResolverStyle.STRICT);
+        // 月初日を追加して日付変換したLocalDate型の値をDate型に変換して返します。
+        return LocalDate.parse(date + "01", formatter);
+    }
+
+    /**
      * 初期日付値設定処理<BR>
      * 
      * dateがnullの場合に日付の初期値を設定します。 dateがnullではない場合、そのまま返します。
@@ -230,7 +251,7 @@ public final class DateUtils {
         }
         return null;
     }
-    
+
     /**
      * 文字列（YYYYMM）日付チェック処理<BR>
      * 
