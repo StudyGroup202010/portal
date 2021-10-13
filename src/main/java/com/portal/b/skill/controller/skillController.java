@@ -397,7 +397,6 @@ public class skillController {
         Career career = new Career();
 
         career.setEmployee_id(form.getEmployee_id()); // 社員ID
-//        career.setCertification_no(form.getCertification_no()); // 経歴番号
         career.setDisp_order(form.getDisp_order()); // 表示順
         career.setStart_yearmonth(form.getStart_yearmonth()); // 開始年月
         career.setEnd_yearmonth(form.getEnd_yearmonth()); // 終了年月
@@ -511,6 +510,36 @@ public class skillController {
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、業務経歴詳細画面に戻ります
             return getCareerDetail(careerform, model, careerform.getEmployee_id(), careerform.getCertification_no());
+        }
+
+        // 開始年月チェック
+        if (careerform.getStart_yearmonth() != null && !careerform.getStart_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(careerform.getStart_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
+                return getCareerUpdate(careerform, model, careerform.getEmployee_id());
+            }
+        }
+
+        // 終了年月チェック
+        if (careerform.getEnd_yearmonth() != null && !careerform.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(careerform.getEnd_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "終了年月" }));
+                return getCareerUpdate(careerform, model, careerform.getEmployee_id());
+            }
+        }
+
+        // 年月チェック(開始年月 <= 終了年月）
+        if (careerform.getEnd_yearmonth() != null && !careerform.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.compareDateTime(
+                    DateUtils.getDateFromStringmonth(careerform.getStart_yearmonth()).atStartOfDay(),
+                    DateUtils.getDateFromStringmonth(careerform.getEnd_yearmonth()).atStartOfDay()) == 1) {
+                // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻りますに戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022", new String[] {
+                        "開始年月：" + careerform.getStart_yearmonth(), "終了年月：" + careerform.getEnd_yearmonth() }));
+                return getCareerUpdate(careerform, model, careerform.getEmployee_id());
+            }
         }
 
         // 業務経歴インスタンスの生成
