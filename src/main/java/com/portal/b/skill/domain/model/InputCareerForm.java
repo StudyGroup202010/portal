@@ -12,6 +12,9 @@ import lombok.Data;
 @Data
 public class InputCareerForm {
     private String employee_id;// 社員ID
+    private String employee_cd;// 社員CD
+    private String employee_name1_last;// 社員名漢字（姓）
+    private String employee_name1_first;// 社員名漢字（名）
     private String certification_no; // 経歴番号
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @Size(max = 9, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")

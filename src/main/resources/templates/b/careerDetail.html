@@ -31,6 +31,39 @@
 				th:object="${inputCareerForm}">
 
 				<table class="table table-bordered table-hover table-sm">
+                    <!-- 社員CD -->
+                    <tr>
+                        <th class="active table-info">社員ＣＤ</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_cd}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員名漢字（姓）  -->
+                    <tr>
+                        <th class="active table-info">姓</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_last}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員名漢字（名）  -->
+                    <tr>
+                        <th class="active table-info">名</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_first}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
                     <!-- 表示順 -->
                     <tr>
                         <th class="active table-info">ＮＯ</th>
