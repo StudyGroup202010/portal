@@ -469,7 +469,8 @@ public class skillController {
         model.addAttribute("contents", "b/careerDetail :: careerDetail_contents");
 
         // 社員IDのチェック
-        if (employee_id != null && StrUtils.getStrLength(certification_no) > 0) {
+        if ((employee_id != null) && (StrUtils.getStrLength(employee_id) > 0) && (certification_no != null)
+                && ((StrUtils.getStrLength(certification_no) > 0))) {
 
             // 業務経歴を取得
             Career career = skillService.selectCareerOne(employee_id, certification_no);
@@ -509,7 +510,7 @@ public class skillController {
         // 入力チェックに引っかかった場合、業務経歴詳細画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、業務経歴詳細画面に戻ります
-            return getCareerDetail(careerform, model, careerform.getEmployee_id(), careerform.getCertification_no());
+            return getCareerDetail(careerform, model, "", "");
         }
 
         // 開始年月チェック
@@ -517,7 +518,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(careerform.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
-                return getCareerUpdate(careerform, model, careerform.getEmployee_id());
+                return getCareerDetail(careerform, model, "", "");
             }
         }
 
@@ -526,7 +527,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(careerform.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "終了年月" }));
-                return getCareerUpdate(careerform, model, careerform.getEmployee_id());
+                return getCareerDetail(careerform, model, "", "");
             }
         }
 
@@ -538,7 +539,7 @@ public class skillController {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻りますに戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022", new String[] {
                         "開始年月：" + careerform.getStart_yearmonth(), "終了年月：" + careerform.getEnd_yearmonth() }));
-                return getCareerUpdate(careerform, model, careerform.getEmployee_id());
+                return getCareerDetail(careerform, model, "", "");
             }
         }
 
