@@ -338,7 +338,18 @@ public class skillController {
 
         // 社員IDのチェック
         if (employee_id != null && StrUtils.getStrLength(employee_id) > 0) {
+
+            // スキル情報を取得
+            Skill skill = skillService.selectSkillOne(employee_id);
+
+            // スキル情報とか必要な情報をここで取得してモデルに入れる
+
+            // Skillクラスをフォームクラスに変換
             form.setEmployee_id(employee_id); // 社員ID
+            form.setEmployee_cd(skill.getEmployee_cd()); // 社員CD
+            form.setEmployee_name1_last(skill.getEmployee_name1_last()); // 社員名漢字（姓）
+            form.setEmployee_name1_first(skill.getEmployee_name1_first()); // 社員名漢字（名）
+
             // Modelに登録
             model.addAttribute("InputCareerForm", form);
         }
@@ -472,13 +483,19 @@ public class skillController {
         if ((employee_id != null) && (StrUtils.getStrLength(employee_id) > 0) && (certification_no != null)
                 && ((StrUtils.getStrLength(certification_no) > 0))) {
 
+            // スキル情報を取得
+            Skill skill = skillService.selectSkillOne(employee_id);
+
+            // Skillクラスをフォームクラスに変換
+            Careerform.setEmployee_id(employee_id); // 社員ID
+            Careerform.setEmployee_cd(skill.getEmployee_cd()); // 社員CD
+            Careerform.setEmployee_name1_last(skill.getEmployee_name1_last()); // 社員名漢字（姓）
+            Careerform.setEmployee_name1_first(skill.getEmployee_name1_first()); // 社員名漢字（名）
+
             // 業務経歴を取得
             Career career = skillService.selectCareerOne(employee_id, certification_no);
 
-            // 業務経歴とか必要な情報をここで取得してモデルに入れる
-
             // Careerクラスをフォームクラスに変換
-            Careerform.setEmployee_id(employee_id); // 社員ID
             Careerform.setCertification_no(certification_no); // 経歴番号
             Careerform.setDisp_order(career.getDisp_order()); // 表示順
             Careerform.setStart_yearmonth(career.getStart_yearmonth());// 開始年月
