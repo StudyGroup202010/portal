@@ -342,8 +342,6 @@ public class skillController {
             // スキル情報を取得
             Skill skill = skillService.selectSkillOne(employee_id);
 
-            // スキル情報とか必要な情報をここで取得してモデルに入れる
-
             // Skillクラスをフォームクラスに変換
             form.setEmployee_id(employee_id); // 社員ID
             form.setEmployee_cd(skill.getEmployee_cd()); // 社員CD

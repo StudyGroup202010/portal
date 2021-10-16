@@ -16,6 +16,9 @@
         <result column="end_yearmonth" property="end_yearmonth" />
         <result column="business_content" property="business_content" />
         <result column="biko" property="biko" />
+        <result column="technology_Lang" property="technology_Lang" />
+        <result column="technology_OS" property="technology_OS" />
+        <result column="technology_DB" property="technology_DB" />
     </resultMap>
     
     <!-- １件insert -->
@@ -102,14 +105,45 @@
           ,b.end_yearmonth
           ,b.business_content
           ,b.biko
+          ,string_agg(
+             case d.technology_kbn 
+               when '01' then d.technology_name --技術区分
+               else           null
+             end,',' order by d.technology_name) as technology_Lang
+          ,string_agg(
+             case d.technology_kbn 
+               when '02' then d.technology_name --技術区分
+               else           null
+             end,',' order by d.technology_name) as technology_OS
+          ,string_agg(
+             case d.technology_kbn 
+               when '03' then d.technology_name --技術区分
+               else           null
+             end,',' order by d.technology_name) as technology_DB
         from
           am005_employee a
           inner join bt003_career b
             on a.employee_id = b.employee_id
+          left join bt004_careertechnology c
+            on b.employee_id = c.employee_id
+           and b.certification_no = c.certification_no
+          left join bm002_technology d
+            on c.technology_id = d.technology_id  
         where 
               a.employee_id = #{employee_id}
           and COALESCE(b.business_content ,'') like CONCAT('%' , #{business_content} , '%')
           and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
+        group by
+          a.employee_id
+         ,a.employee_cd
+         ,a.employee_name1_last
+         ,a.employee_name1_first
+         ,b.certification_no
+         ,b.disp_order
+         ,b.start_yearmonth
+         ,b.end_yearmonth
+         ,b.business_content
+         ,b.biko
         order by
           b.disp_order
          ,b.start_yearmonth
@@ -128,12 +162,43 @@
           ,b.end_yearmonth
           ,b.business_content
           ,b.biko
+          ,string_agg(
+             case d.technology_kbn 
+               when '01' then d.technology_name --技術区分
+               else           null
+             end,',' order by d.technology_name) as technology_Lang
+          ,string_agg(
+             case d.technology_kbn 
+               when '02' then d.technology_name --技術区分
+               else           null
+             end,',' order by d.technology_name) as technology_OS
+          ,string_agg(
+             case d.technology_kbn 
+               when '03' then d.technology_name --技術区分
+               else           null
+             end,',' order by d.technology_name) as technology_DB
         from
           am005_employee a
           inner join bt003_career b
             on a.employee_id = b.employee_id
+          left join bt004_careertechnology c
+            on b.employee_id = c.employee_id
+           and b.certification_no = c.certification_no
+          left join bm002_technology d
+            on c.technology_id = d.technology_id  
         where
           a.employee_id = #{employee_id}
+        group by
+          a.employee_id
+         ,a.employee_cd
+         ,a.employee_name1_last
+         ,a.employee_name1_first
+         ,b.certification_no
+         ,b.disp_order
+         ,b.start_yearmonth
+         ,b.end_yearmonth
+         ,b.business_content
+         ,b.biko
         order by
           b.disp_order
          ,b.start_yearmonth
