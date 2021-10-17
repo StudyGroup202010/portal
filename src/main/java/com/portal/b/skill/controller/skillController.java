@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Skill;
+import com.portal.b.common.domain.model.Technology;
 import com.portal.b.skill.domain.model.CreateOrder;
 import com.portal.b.skill.domain.model.InputCareerForm;
 import com.portal.b.skill.domain.model.InputSkillForm;
@@ -350,6 +351,12 @@ public class skillController {
 
             // Modelに登録
             model.addAttribute("InputCareerForm", form);
+
+            // 技術マスタ情報を取得
+            List<Technology> technologyList = skillService.selectTechnologyBy("02");
+            // Modelに登録
+            model.addAttribute("technologyList", technologyList);
+
         }
         // 業務経歴画面に画面遷移
         return "z/homeLayout";

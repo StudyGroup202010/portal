@@ -86,7 +86,7 @@
     </delete>
     
     <!-- 条件検索 -->
-    <select id="selectBy1" parameterType="string" resultMap="technology">
+    <select id="selectBy" parameterType="string" resultMap="technology">
         select
            technology_id
           ,technology_name

@@ -121,6 +121,20 @@
                             </div>
                         </td>
                     </tr>
+                    <!-- 機種／OS -->
+                    <tr>
+                        <th class="active table-info">機種／OS</th>
+                        <td>
+                            <div class="form-check form-check-inline"
+                                th:each="item : ${technologyList}">
+                                <input class="form-check-input"
+                                    type="checkbox" name="technology_id"
+                                    th:field="*{technology_id}"
+                                    th:value="${item.technology_id}"
+                                    th:text="${item.technology_name}" />
+                            </div>
+                        </td>
+                    </tr>
                     <!-- 備考 -->
                     <tr>
                         <th class="active table-info">備考</th>

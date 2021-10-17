@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Skill;
+import com.portal.b.common.domain.model.Technology;
 
 /**
  * SkillService
@@ -97,4 +98,12 @@ public interface SkillService {
      * @return CareerList
      */
     public List<Career> selectCareerBy2(String employee_id);
+
+    /**
+     * 技術マスタ条件検索用メソッド.
+     * 
+     * @param technology_kbn technology_kbn
+     * @return Technology
+     */
+    public List<Technology> selectTechnologyBy(String technology_kbn);
 }

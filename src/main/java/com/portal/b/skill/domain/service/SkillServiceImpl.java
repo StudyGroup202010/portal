@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Skill;
+import com.portal.b.common.domain.model.Technology;
 import com.portal.b.common.domain.repository.CareerMapper;
 import com.portal.b.common.domain.repository.SkillMapper;
+import com.portal.b.common.domain.repository.TechnologyMapper;
 
 /**
  * SkillServiceImpl
@@ -24,6 +26,9 @@ public class SkillServiceImpl implements SkillService {
 
     @Autowired
     CareerMapper careerMapper;
+
+    @Autowired
+    TechnologyMapper technologyMapper;
 
     public List<Skill> selectSkillMany() {
         return skillMapper.selectMany();
@@ -87,5 +92,9 @@ public class SkillServiceImpl implements SkillService {
 
     public List<Career> selectCareerBy2(String employee_id) {
         return careerMapper.selectBy2(employee_id);
+    }
+
+    public List<Technology> selectTechnologyBy(String technology_kbn) {
+        return technologyMapper.selectBy(technology_kbn);
     }
 }
