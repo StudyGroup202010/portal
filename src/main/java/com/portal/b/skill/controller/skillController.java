@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Careertechnology;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
 import com.portal.b.skill.domain.model.CreateOrder;
@@ -413,6 +414,8 @@ public class skillController {
         Career career = new Career();
 
         career.setEmployee_id(form.getEmployee_id()); // 社員ID
+        String next_certification_no = skillService.selectCareerBy3().getCertification_no();// 経歴番号
+        career.setCertification_no(next_certification_no);
         career.setDisp_order(form.getDisp_order()); // 表示順
         career.setStart_yearmonth(form.getStart_yearmonth()); // 開始年月
         career.setEnd_yearmonth(form.getEnd_yearmonth()); // 終了年月
@@ -425,18 +428,47 @@ public class skillController {
 
         career.setInsert_user(user_auth.getUsername()); // 作成者
 
-        // 業務経歴登録処理(career)
         try {
-            boolean result = skillService.insertCareerOne(career);
+            // 業務経歴登録処理(career)
+            boolean result1 = skillService.insertCareerOne(career);
 
             // 業務経歴登録結果の判定
-            if (result == true) {
+            if (result1 == true) {
+
+                // 機種／OSを選択した場合
+                if (0 < form.getTechnology_id().length) {
+
+                    // 機種／OS用変数を定義
+                    String[] getTechnology_id = form.getTechnology_id();
+
+                    // 業務経歴技術insert用変数
+                    Careertechnology careertechnology = new Careertechnology();
+
+                    for (int i = 0; i < getTechnology_id.length; i++) {
+                        careertechnology.setEmployee_id(form.getEmployee_id());// 社員ID
+                        careertechnology.setCertification_no(next_certification_no);// 経歴番号
+                        careertechnology.setTechnology_id(getTechnology_id[i].toString()); // 技術ID
+                        careertechnology.setBiko(form.getBiko());// 備考
+                        careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                        boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                        if (result2 == true) {
+                            model.addAttribute("result", "登録成功");
+                            log.info("登録成功");
+                        } else {
+                            model.addAttribute("result", "登録失敗");
+                            log.error("登録失敗");
+                        }
+                    }
+                }
                 model.addAttribute("result", "登録成功");
                 log.info("登録成功");
             } else {
                 model.addAttribute("result", "登録失敗");
                 log.error("登録失敗");
             }
+
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生したとき。
             String message = "経歴番号 " + String.valueOf(career.getCertification_no());
@@ -611,10 +643,12 @@ public class skillController {
     @PostMapping(value = "/careerDetail", params = "delete")
     public String postCareerDetaiDelete(@ModelAttribute InputCareerForm form, Model model) {
 
-        // 削除実行
-        boolean result = skillService.deleteCareerOne(form.getEmployee_id(), form.getCertification_no());
+        // 業務経歴技術削除実行
+        boolean result1 = skillService.deleteCareertechnologyOne(form.getEmployee_id(), form.getCertification_no());
+        // 業務経歴削除実行
+        boolean result2 = skillService.deleteCareerOne(form.getEmployee_id(), form.getCertification_no());
 
-        if (result == true) {
+        if (result1 == true && result2 == true) {
             model.addAttribute("result", "削除成功");
             log.info("削除成功");
         } else {
