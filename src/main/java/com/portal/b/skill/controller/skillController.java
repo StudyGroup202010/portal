@@ -668,7 +668,6 @@ public class skillController {
             model.addAttribute("result", "更新失敗");
             log.error("更新失敗");
         }
-
         // 業務経歴一覧画面を表示
         return getCareerList(model, careerform.getEmployee_id());
     }
