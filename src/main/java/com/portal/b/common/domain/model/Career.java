@@ -18,6 +18,9 @@ public class Career {
     private String start_yearmonth;// 開始年月
     private String end_yearmonth;// 終了年月
     private String business_content;// 業務内容
+    private String technology_Lang; // 技術区分_開発言語
+    private String technology_OS; // 技術区分_OS
+    private String technology_DB; // 技術区分_DB
     private String biko; // 備考
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時
