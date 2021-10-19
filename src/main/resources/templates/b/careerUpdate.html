@@ -128,8 +128,8 @@
                             <div class="form-check form-check-inline"
                                 th:each="item : ${technologyList}">
                                 <input class="form-check-input"
-                                    type="checkbox" name="technology_id"
-                                    th:field="*{technology_id}"
+                                    type="checkbox"
+                                    th:name="technology_id"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}" />
                             </div>

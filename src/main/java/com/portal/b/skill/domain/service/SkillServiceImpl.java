@@ -111,6 +111,11 @@ public class SkillServiceImpl implements SkillService {
     }
 
     // 業務経歴技術
+    public List<Careertechnology> selectCareertechnologyBy(String employee_id, String certification_no,
+            String technology_kbn) {
+        return careertechnologyMapper.selectBy(employee_id, certification_no, technology_kbn);
+    }
+
     public boolean insertCareertechnologyOne(Careertechnology careertechnology) {
         return careertechnologyMapper.insertOne(careertechnology);
     }

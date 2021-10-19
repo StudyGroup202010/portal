@@ -114,11 +114,22 @@ public interface SkillService {
      * 技術マスタ条件検索用メソッド.
      * 
      * @param technology_kbn technology_kbn
-     * @return Technology
+     * @return TechnologyList
      */
     public List<Technology> selectTechnologyBy(String technology_kbn);
 
     // 業務経歴技術
+    /**
+     * 業務経歴技術条件検索用メソッド.
+     * 
+     * @param employee_id      employee_id
+     * @param certification_no certification_no
+     * @param technology_kbn   technology_kbn
+     * @return CareertechnologyList
+     */
+    public List<Careertechnology> selectCareertechnologyBy(String employee_id, String certification_no,
+            String technology_kbn);
+
     /**
      * 業務経歴技術登録用メソッド
      * 
