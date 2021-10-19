@@ -49,18 +49,36 @@ public final class Constants {
      * ・初期値は１０桁。
      */
     public static final int SECRET_LEN = 10;
-    
+
     /**
      * 性別区分<BR>
      * ・性別（男）を指定する値<BR>
      */
     public static String GENDER_KBN_MAN = "M";
-    
+
     /**
      * 性別区分<BR>
      * ・性別（女）を指定する値<BR>
      */
     public static String GENDER_KBN_WOMAN = "W";
+
+    /**
+     * 技術区分<BR>
+     * ・開発言語<BR>
+     */
+    public static String TECHNOLOGY_KBN_LANG = "01";
+
+    /**
+     * 技術区分<BR>
+     * ・OS<BR>
+     */
+    public static String TECHNOLOGY_KBN_OS = "02";
+
+    /**
+     * 技術区分<BR>
+     * ・DB<BR>
+     */
+    public static String TECHNOLOGY_KBN_DB = "03";
 
     /**
      * アプリケーションURL<BR>

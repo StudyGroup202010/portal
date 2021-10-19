@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Careertechnology;
 import com.portal.b.common.domain.model.Skill;
+import com.portal.b.common.domain.model.Technology;
 import com.portal.b.skill.domain.model.CreateOrder;
 import com.portal.b.skill.domain.model.InputCareerForm;
 import com.portal.b.skill.domain.model.InputSkillForm;
@@ -25,9 +27,9 @@ import com.portal.b.skill.domain.model.SelectSkillForm;
 import com.portal.b.skill.domain.model.UpdateOrder;
 import com.portal.b.skill.domain.service.SkillService;
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
-import com.portal.z.common.domain.util.StrUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -124,7 +126,7 @@ public class skillController {
         model.addAttribute("contents", "b/skillDetail :: skillDetail_contents");
 
         // 社員IDのチェック
-        if (employee_id != null && StrUtils.getStrLength(employee_id) > 0) {
+        if (employee_id != null && !employee_id.isEmpty()) {
 
             // スキル情報を取得
             Skill skill = skillService.selectSkillOne(employee_id);
@@ -240,7 +242,7 @@ public class skillController {
         model.addAttribute("contents", "b/careerList :: careerList_contents");
 
         // 社員IDのチェック
-        if (employee_id != null && StrUtils.getStrLength(employee_id) > 0) {
+        if (employee_id != null && !employee_id.isEmpty()) {
 
             // 検索条件に値をセット
             SelectCareerForm form = new SelectCareerForm();
@@ -262,7 +264,6 @@ public class skillController {
             // データ件数を登録
             int count = careerList.size();
             model.addAttribute("careerListCount", count);
-
         }
 
         return "z/homeLayout";
@@ -337,12 +338,10 @@ public class skillController {
         model.addAttribute("contents", "b/careerUpdate :: careerUpdate_contents");
 
         // 社員IDのチェック
-        if (employee_id != null && StrUtils.getStrLength(employee_id) > 0) {
+        if (employee_id != null && !employee_id.isEmpty()) {
 
             // スキル情報を取得
             Skill skill = skillService.selectSkillOne(employee_id);
-
-            // スキル情報とか必要な情報をここで取得してモデルに入れる
 
             // Skillクラスをフォームクラスに変換
             form.setEmployee_id(employee_id); // 社員ID
@@ -352,6 +351,12 @@ public class skillController {
 
             // Modelに登録
             model.addAttribute("InputCareerForm", form);
+
+            // 技術マスタ情報を取得（開発言語）
+            List<Technology> technologyList = skillService.selectTechnologyBy(Constants.TECHNOLOGY_KBN_OS);
+            // Modelに登録
+            model.addAttribute("technologyList", technologyList);
+
         }
         // 業務経歴画面に画面遷移
         return "z/homeLayout";
@@ -408,6 +413,8 @@ public class skillController {
         Career career = new Career();
 
         career.setEmployee_id(form.getEmployee_id()); // 社員ID
+        String next_certification_no = skillService.selectCareerBy3().getCertification_no();// 経歴番号
+        career.setCertification_no(next_certification_no);
         career.setDisp_order(form.getDisp_order()); // 表示順
         career.setStart_yearmonth(form.getStart_yearmonth()); // 開始年月
         career.setEnd_yearmonth(form.getEnd_yearmonth()); // 終了年月
@@ -420,18 +427,50 @@ public class skillController {
 
         career.setInsert_user(user_auth.getUsername()); // 作成者
 
-        // 業務経歴登録処理(career)
         try {
-            boolean result = skillService.insertCareerOne(career);
+            // 業務経歴登録処理(career)
+            boolean result1 = skillService.insertCareerOne(career);
 
             // 業務経歴登録結果の判定
-            if (result == true) {
-                model.addAttribute("result", "登録成功");
-                log.info("登録成功");
+            if (result1 == true) {
+
+                // 機種／OSを選択した場合
+                if (form.getTechnology_id() != null) {
+                    if (0 < form.getTechnology_id().length) {
+
+                        // 機種／OS用変数を定義
+                        String[] getTechnology_id = form.getTechnology_id();
+
+                        // 業務経歴技術insert用変数
+                        Careertechnology careertechnology = new Careertechnology();
+
+                        for (int i = 0; i < getTechnology_id.length; i++) {
+                            careertechnology.setEmployee_id(form.getEmployee_id());// 社員ID
+                            careertechnology.setCertification_no(next_certification_no);// 経歴番号
+                            careertechnology.setTechnology_id(getTechnology_id[i]); // 技術ID
+                            careertechnology.setBiko(form.getBiko());// 備考
+                            careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                            boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                            if (result2 == true) {
+                                model.addAttribute("result", "登録成功");
+                                log.info("登録成功");
+                            } else {
+                                model.addAttribute("result", "登録失敗");
+                                log.error("登録失敗");
+                            }
+                        }
+                    }
+                } else {
+                    model.addAttribute("result", "登録成功");
+                    log.info("登録成功");
+                }
             } else {
                 model.addAttribute("result", "登録失敗");
                 log.error("登録失敗");
             }
+
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生したとき。
             String message = "経歴番号 " + String.valueOf(career.getCertification_no());
@@ -480,8 +519,8 @@ public class skillController {
         model.addAttribute("contents", "b/careerDetail :: careerDetail_contents");
 
         // 社員IDのチェック
-        if ((employee_id != null) && (StrUtils.getStrLength(employee_id) > 0) && (certification_no != null)
-                && ((StrUtils.getStrLength(certification_no) > 0))) {
+        if ((employee_id != null) && (!employee_id.isEmpty()) && (certification_no != null)
+                && (!certification_no.isEmpty())) {
 
             // スキル情報を取得
             Skill skill = skillService.selectSkillOne(employee_id);
@@ -505,6 +544,12 @@ public class skillController {
 
             // Modelに登録
             model.addAttribute("inputCareerForm", Careerform);
+
+            // 技術マスタ情報を取得（開発言語）
+            List<Careertechnology> careertechnologyList = skillService.selectCareertechnologyBy(employee_id,
+                    certification_no, Constants.TECHNOLOGY_KBN_OS);
+            // Modelに登録
+            model.addAttribute("careertechnologyList", careertechnologyList);
         }
 
         return "z/homeLayout";
@@ -583,8 +628,42 @@ public class skillController {
         boolean result = skillService.updateCareerOne(career);
 
         if (result == true) {
-            model.addAttribute("result", "更新成功");
-            log.info("更新成功");
+
+            // 業務経歴技術削除実行
+            // こちらは空振りする場合もあるので結果の評価はしない。
+            skillService.deleteCareertechnologyOne(careerform.getEmployee_id(), careerform.getCertification_no());
+
+            // 機種／OSを選択した場合
+            if ((careerform.getTechnology_id() != null) && (0 < careerform.getTechnology_id().length)) {
+
+                // 機種／OS用変数を定義
+                String[] getCareertechnology_id = careerform.getTechnology_id();
+
+                // 業務経歴技術insert用変数
+                Careertechnology careertechnology = new Careertechnology();
+
+                for (int i = 0; i < getCareertechnology_id.length; i++) {
+                    careertechnology.setEmployee_id(careerform.getEmployee_id());// 社員ID
+                    careertechnology.setCertification_no(careerform.getCertification_no());// 経歴番号
+                    careertechnology.setTechnology_id(getCareertechnology_id[i]); // 技術ID
+                    careertechnology.setBiko(careerform.getBiko());// 備考
+                    careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                    // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
+                    boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                    if (result2 == true) {
+                        model.addAttribute("result", "更新成功");
+                        log.info("更新成功");
+                    } else {
+                        model.addAttribute("result", "更新失敗");
+                        log.error("更新失敗");
+                    }
+                }
+            } else {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            }
         } else {
             model.addAttribute("result", "更新失敗");
             log.error("更新失敗");
@@ -606,10 +685,13 @@ public class skillController {
     @PostMapping(value = "/careerDetail", params = "delete")
     public String postCareerDetaiDelete(@ModelAttribute InputCareerForm form, Model model) {
 
-        // 削除実行
-        boolean result = skillService.deleteCareerOne(form.getEmployee_id(), form.getCertification_no());
+        // 業務経歴技術削除実行
+        // こちらは空振りする場合もあるので結果の評価はしない。
+        skillService.deleteCareertechnologyOne(form.getEmployee_id(), form.getCertification_no());
+        // 業務経歴削除実行
+        boolean result2 = skillService.deleteCareerOne(form.getEmployee_id(), form.getCertification_no());
 
-        if (result == true) {
+        if (result2 == true) {
             model.addAttribute("result", "削除成功");
             log.info("削除成功");
         } else {

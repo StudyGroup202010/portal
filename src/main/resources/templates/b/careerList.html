@@ -64,7 +64,8 @@
                         <!-- 業務経歴一覧の件数 -->
                         <label
                             th:text=" '合計：' + ${careerListCount} + '件' "></label>
-
+                        <!-- 更新・削除処理の結果表示用 -->
+                        <label class="text-danger" th:text="${result}">結果表示</label><br />
                         <table
                             class="table table-bordered table-hover table-striped table-sm">
 
@@ -101,9 +102,12 @@
                                         th:text="${career.start_yearmonth} + '～' + ${career.end_yearmonth}"></td>
                                     <td align="left"
                                         th:text="${career.business_content}"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td align="left"
+                                        th:text="${career.technology_OS}"></td>
+                                    <td align="left"
+                                        th:text="${career.technology_Lang}"></td>
+                                    <td align="left"
+                                        th:text="${career.technology_DB}"></td>
                                     <td></td>
                                     <td align="left"
                                         th:text="${career.biko}"></td>
