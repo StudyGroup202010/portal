@@ -24,6 +24,7 @@ import com.portal.b.skill.domain.model.InputCareerForm;
 import com.portal.b.skill.domain.model.InputSkillForm;
 import com.portal.b.skill.domain.model.SelectCareerForm;
 import com.portal.b.skill.domain.model.SelectSkillForm;
+import com.portal.b.skill.domain.model.SkillListXlsxView;
 import com.portal.b.skill.domain.model.UpdateOrder;
 import com.portal.b.skill.domain.service.SkillService;
 import com.portal.z.common.domain.model.AppUserDetails;
@@ -106,6 +107,34 @@ public class skillController {
         model.addAttribute("skillListCount", count);
 
         return "z/homeLayout";
+    }
+
+    /**
+     * スキル一覧のExcel出力用処理.<br>
+     * 
+     * スキル一覧のEXCELファイルを出力する。
+     * 
+     * @param form          SelectSkillForm
+     * @param bindingResult bindingResult
+     * @param model         SkillListXlsxView
+     * @return model
+     */
+    @RequestMapping(value = "/skillList", params = "excel")
+    public SkillListXlsxView excel(@ModelAttribute SelectSkillForm form, BindingResult bindingResult,
+            SkillListXlsxView model) {
+
+        // スキル情報を取得
+        List<Skill> skillList = skillService.selectSkillByExcel(form.getEmployee_cd(), form.getEmployee_name1_last(),
+                form.getBiko());
+
+        // Modelにユーザーリストを登録
+        model.addStaticAttribute("skillList", skillList);
+
+        // データ件数を取得
+        int count = skillList.size();
+        model.addStaticAttribute("skillListCount", count);
+
+        return model;
     }
 
     /**

@@ -21,6 +21,18 @@ public class Skill {
     private String graduation_date;// 卒業年月
     private String notices;// 特記事項
     private String biko; // 備考
+    // 業務経歴
+    private String disp_order; // 表示順
+    private String certification_no; // 経歴番号
+    private String start_yearmonth;// 開始年月
+    private String end_yearmonth;// 終了年月
+    private String business_content;// 業務内容
+    private String careerbiko; // 備考
+    // 業務経歴技術
+    private String technology_Lang; // 技術名（開発言語）
+    private String technology_OS; // 技術名（OS）
+    private String technology_DB; // 技術名（DB）
+
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時
     private String update_user; // 更新者

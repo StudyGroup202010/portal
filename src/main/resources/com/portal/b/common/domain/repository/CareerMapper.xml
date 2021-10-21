@@ -147,6 +147,7 @@
         order by
           b.disp_order
          ,b.start_yearmonth
+         ,b.end_yearmonth
     </select>
 
     <!-- 条件検索 -->
@@ -202,6 +203,7 @@
         order by
           b.disp_order
          ,b.start_yearmonth
+         ,b.end_yearmonth
     </select>
     
     <!-- 条件検索 -->

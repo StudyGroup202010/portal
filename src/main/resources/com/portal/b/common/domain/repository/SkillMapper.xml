@@ -18,6 +18,16 @@
 		<result column="graduation_date" property="graduation_date" />
 		<result column="notices" property="notices" />
 		<result column="biko" property="biko" />
+		<result column="certification_no" property="certification_no" />
+		<result column="disp_order" property="disp_order" />
+		<result column="start_yearmonth" property="start_yearmonth" />
+		<result column="end_yearmonth" property="end_yearmonth" />
+		<result column="business_content" property="business_content" />
+		<result column="careerbiko" property="careerbiko" />
+		<result column="business_content" property="business_content" />
+		<result column="technology_Lang" property="technology_Lang" />
+		<result column="technology_OS" property="technology_OS" />
+		<result column="technology_DB" property="technology_DB" />
 	</resultMap>
     
     <!-- １件insert -->
@@ -159,5 +169,95 @@
         order by
           a.employee_cd
     ]]>
-    </select>  
+    </select>
+    <!-- 備考で条件検索EXCEL -->
+    <select id="selectByExcel" parameterType="string" resultMap="skill">
+    <![CDATA[
+        select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,c.organization_cd
+          ,e.organization_name
+          ,b.employee_id as employee_id_skill
+          ,b.final_education
+          ,b.department
+          ,b.graduation_date
+          ,b.notices
+          ,b.biko
+          ,f.certification_no
+          ,f.disp_order
+          ,f.start_yearmonth
+          ,f.end_yearmonth
+          ,f.business_content
+          ,f.biko as careerbiko
+          
+          ,string_agg(
+             case h.technology_kbn 
+               when '01' then h.technology_name --技術区分
+               else           null
+             end,',' order by h.technology_name) as technology_Lang
+          ,string_agg(
+             case h.technology_kbn 
+               when '02' then h.technology_name --技術区分
+               else           null
+             end,',' order by h.technology_name) as technology_OS
+          ,string_agg(
+             case h.technology_kbn 
+               when '03' then h.technology_name --技術区分
+               else           null
+             end,',' order by h.technology_name) as technology_DB
+        from
+          am005_employee a
+          left join bt001_skill b
+            on a.employee_id = b.employee_id
+          left join am006_employeebelongs c
+            on  c.employee_id = a.employee_id
+            and c.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = c.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+          left join am002_organization e
+            on  e.organization_cd = c.organization_cd
+          left join bt003_career f
+            on  b.employee_id = f.employee_id
+          left join bt004_careertechnology g
+            on  f.employee_id      = g.employee_id
+           and  f.certification_no = g.certification_no
+          left join bm002_technology h
+            on  g.technology_id    = h.technology_id
+            
+        where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
+          and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
+          and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
+        group by
+          a.employee_id
+         ,a.employee_cd
+         ,a.employee_name1_last
+         ,a.employee_name1_first
+         ,c.organization_cd
+         ,e.organization_name
+         ,b.employee_id
+         ,b.final_education
+         ,b.department
+         ,b.graduation_date
+         ,b.notices
+         ,b.biko
+         ,f.certification_no
+         ,f.disp_order
+         ,f.start_yearmonth
+         ,f.end_yearmonth
+         ,f.business_content
+         ,f.biko
+        order by
+          a.employee_cd
+         ,f.disp_order
+         ,f.start_yearmonth
+         ,f.end_yearmonth
+    ]]>
+    </select>
 </mapper>
