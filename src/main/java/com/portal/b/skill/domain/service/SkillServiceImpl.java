@@ -64,6 +64,10 @@ public class SkillServiceImpl implements SkillService {
         return skillMapper.selectBy(employee_cd, employee_name1_last, biko);
     }
 
+    public List<Skill> selectSkillByExcel(String employee_cd, String employee_name1_last, String biko) {
+        return skillMapper.selectByExcel(employee_cd, employee_name1_last, biko);
+    }
+
     // 業務経歴
     public Career selectCareerOne(String employee_id, String certification_no) {
         return careerMapper.selectOne(employee_id, certification_no);
