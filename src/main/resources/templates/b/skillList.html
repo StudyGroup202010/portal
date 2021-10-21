@@ -36,14 +36,19 @@
                         社員名漢字（姓）<input type="search" class="form-control"
                             th:field="*{employee_name1_last}" />
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         備考<input type="search" class="form-control"
                             th:field="*{biko}" />
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <!-- 検索実行 -->
                         <button type="submit" name="selectby"
                             class="btn btn-primary btn-lg float-right">検索</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- EXCEL -->
+                        <button type="submit" name="excel"
+                            class="btn btn-primary btn-lg">EXCEL出力</button>
                     </div>
                 </div>
             </form>
