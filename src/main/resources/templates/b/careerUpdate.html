@@ -126,10 +126,10 @@
                         <th class="active table-info">機種／OS</th>
                         <td>
                             <div class="form-check form-check-inline"
-                                th:each="item : ${technologyList}">
+                                th:each="item : ${technologyList_OS}">
                                 <input class="form-check-input"
                                     type="checkbox"
-                                    th:name="technology_id"
+                                    th:name="technology_id_OS"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}" />
                             </div>
