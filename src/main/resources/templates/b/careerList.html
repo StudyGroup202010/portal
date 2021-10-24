@@ -79,21 +79,20 @@
                                     <th scope="col"><p
                                             class="text-nowrap text-center">業務内容</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">機種／OS</p></th>
+                                            class="text-nowrap text-center">　　機種／OS　　</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">言語／ﾂｰﾙ</p></th>
+                                            class="text-nowrap text-center">　　言語／ﾂｰﾙ　　</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">DB／DC</p></th>
+                                            class="text-nowrap text-center">　　DB／DC　　</p></th>
                                     <th scope="col"><p
                                             class="text-nowrap text-center">担当工程</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">
-                                            　　　　　　　　　　備考　　　　　　　　　　</p></th>
+                                            class="text-nowrap text-center">　　備考　　</p></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="career : ${careerList}">
-                                    <td align="left"><a
+                                    <td align="center"><a
                                         class="btn btn-primary"
                                         th:href="@{'/careerDetail/' + ${career.employee_id} + '/' + ${career.certification_no}}">編集</a></td>
                                     <td align="left"

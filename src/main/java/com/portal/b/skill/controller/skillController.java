@@ -424,6 +424,16 @@ public class skillController {
             // Modelに登録
             model.addAttribute("technologyList_OS", technologyList_OS);
 
+            // 技術マスタ情報を取得（開発言語）
+            List<Technology> technologyList_Lang = skillService.selectTechnologyBy(Constants.TECHNOLOGY_KBN_LANG);
+            // Modelに登録
+            model.addAttribute("technologyList_Lang", technologyList_Lang);
+
+            // 技術マスタ情報を取得（DB）
+            List<Technology> technologyList_DB = skillService.selectTechnologyBy(Constants.TECHNOLOGY_KBN_DB);
+            // Modelに登録
+            model.addAttribute("technologyList_DB", technologyList_DB);
+
         }
         // 業務経歴画面に画面遷移
         return "z/homeLayout";
@@ -533,6 +543,73 @@ public class skillController {
                     model.addAttribute("result", "登録成功");
                     log.info("登録成功");
                 }
+
+                // 言語／ﾂｰﾙを選択した場合
+                if (form.getTechnology_id_Lang() != null) {
+                    if (0 < form.getTechnology_id_Lang().length) {
+
+                        // 機種／OS用変数を定義
+                        String[] getTechnology_id_Lang = form.getTechnology_id_Lang();
+
+                        // 業務経歴技術insert用変数
+                        Careertechnology careertechnology = new Careertechnology();
+
+                        for (int i = 0; i < getTechnology_id_Lang.length; i++) {
+                            careertechnology.setEmployee_id(form.getEmployee_id());// 社員ID
+                            careertechnology.setCertification_no(next_certification_no);// 経歴番号
+                            careertechnology.setTechnology_id(getTechnology_id_Lang[i]); // 技術ID
+                            careertechnology.setBiko(form.getBiko());// 備考
+                            careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                            boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                            if (result2 == true) {
+                                model.addAttribute("result", "登録成功");
+                                log.info("登録成功");
+                            } else {
+                                model.addAttribute("result", "登録失敗");
+                                log.error("登録失敗");
+                            }
+                        }
+                    }
+                } else {
+                    model.addAttribute("result", "登録成功");
+                    log.info("登録成功");
+                }
+
+                // DBを選択した場合
+                if (form.getTechnology_id_DB() != null) {
+                    if (0 < form.getTechnology_id_DB().length) {
+
+                        // 機種／OS用変数を定義
+                        String[] getTechnology_id_DB = form.getTechnology_id_DB();
+
+                        // 業務経歴技術insert用変数
+                        Careertechnology careertechnology = new Careertechnology();
+
+                        for (int i = 0; i < getTechnology_id_DB.length; i++) {
+                            careertechnology.setEmployee_id(form.getEmployee_id());// 社員ID
+                            careertechnology.setCertification_no(next_certification_no);// 経歴番号
+                            careertechnology.setTechnology_id(getTechnology_id_DB[i]); // 技術ID
+                            careertechnology.setBiko(form.getBiko());// 備考
+                            careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                            boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                            if (result2 == true) {
+                                model.addAttribute("result", "登録成功");
+                                log.info("登録成功");
+                            } else {
+                                model.addAttribute("result", "登録失敗");
+                                log.error("登録失敗");
+                            }
+                        }
+                    }
+                } else {
+                    model.addAttribute("result", "登録成功");
+                    log.info("登録成功");
+                }
+
             } else {
                 model.addAttribute("result", "登録失敗");
                 log.error("登録失敗");
@@ -617,6 +694,18 @@ public class skillController {
                     certification_no, Constants.TECHNOLOGY_KBN_OS);
             // Modelに登録
             model.addAttribute("careertechnologyList_OS", careertechnologyList_OS);
+
+            // 技術マスタ情報を取得（開発言語）
+            List<Careertechnology> careertechnologyList_Lang = skillService.selectCareertechnologyBy(employee_id,
+                    certification_no, Constants.TECHNOLOGY_KBN_LANG);
+            // Modelに登録
+            model.addAttribute("careertechnologyList_Lang", careertechnologyList_Lang);
+
+            // 技術マスタ情報を取得（DB）
+            List<Careertechnology> careertechnologyList_DB = skillService.selectCareertechnologyBy(employee_id,
+                    certification_no, Constants.TECHNOLOGY_KBN_DB);
+            // Modelに登録
+            model.addAttribute("careertechnologyList_DB", careertechnologyList_DB);
         }
 
         return "z/homeLayout";
@@ -731,6 +820,71 @@ public class skillController {
                 model.addAttribute("result", "更新成功");
                 log.info("更新成功");
             }
+
+            // 言語／ﾂｰﾙを選択した場合
+            if ((careerform.getTechnology_id_Lang() != null) && (0 < careerform.getTechnology_id_Lang().length)) {
+
+                // 開発言語用変数を定義
+                String[] getCareertechnology_id_Lang = careerform.getTechnology_id_Lang();
+
+                // 業務経歴技術insert用変数
+                Careertechnology careertechnology = new Careertechnology();
+
+                for (int i = 0; i < getCareertechnology_id_Lang.length; i++) {
+                    careertechnology.setEmployee_id(careerform.getEmployee_id());// 社員ID
+                    careertechnology.setCertification_no(careerform.getCertification_no());// 経歴番号
+                    careertechnology.setTechnology_id(getCareertechnology_id_Lang[i]); // 技術ID
+                    careertechnology.setBiko(careerform.getBiko());// 備考
+                    careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                    // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
+                    boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                    if (result2 == true) {
+                        model.addAttribute("result", "更新成功");
+                        log.info("更新成功");
+                    } else {
+                        model.addAttribute("result", "更新失敗");
+                        log.error("更新失敗");
+                    }
+                }
+            } else {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            }
+
+            // DBを選択した場合
+            if ((careerform.getTechnology_id_DB() != null) && (0 < careerform.getTechnology_id_DB().length)) {
+
+                // DB用変数を定義
+                String[] getCareertechnology_id_DB = careerform.getTechnology_id_DB();
+
+                // 業務経歴技術insert用変数
+                Careertechnology careertechnology = new Careertechnology();
+
+                for (int i = 0; i < getCareertechnology_id_DB.length; i++) {
+                    careertechnology.setEmployee_id(careerform.getEmployee_id());// 社員ID
+                    careertechnology.setCertification_no(careerform.getCertification_no());// 経歴番号
+                    careertechnology.setTechnology_id(getCareertechnology_id_DB[i]); // 技術ID
+                    careertechnology.setBiko(careerform.getBiko());// 備考
+                    careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
+
+                    // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
+                    boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                    if (result2 == true) {
+                        model.addAttribute("result", "更新成功");
+                        log.info("更新成功");
+                    } else {
+                        model.addAttribute("result", "更新失敗");
+                        log.error("更新失敗");
+                    }
+                }
+            } else {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            }
+
         } else {
             model.addAttribute("result", "更新失敗");
             log.error("更新失敗");
