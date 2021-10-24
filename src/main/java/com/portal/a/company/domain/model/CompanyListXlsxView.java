@@ -60,14 +60,14 @@ public class CompanyListXlsxView extends AbstractXlsxView {
             row.createCell(3).setCellValue(companyList.get(i).getInsert_user());
             // 作成日時
             String Insert_date = DateUtils
-                    .getStringFromDateTimeFormat(companyList.get(i).getInsert_date().toLocalDateTime());
+                    .getStringFromDateTimeFormat1(companyList.get(i).getInsert_date().toLocalDateTime());
             row.createCell(4).setCellValue(Insert_date);
             // 更新者
             row.createCell(5).setCellValue(companyList.get(i).getUpdate_user());
             // 更新日時
             if (companyList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
-                        .getStringFromDateTimeFormat(companyList.get(i).getUpdate_date().toLocalDateTime());
+                        .getStringFromDateTimeFormat1(companyList.get(i).getUpdate_date().toLocalDateTime());
                 row.createCell(6).setCellValue(Update_date);
             }
         }

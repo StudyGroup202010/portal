@@ -419,10 +419,10 @@ public class skillController {
             // Modelに登録
             model.addAttribute("InputCareerForm", form);
 
-            // 技術マスタ情報を取得（開発言語）
-            List<Technology> technologyList = skillService.selectTechnologyBy(Constants.TECHNOLOGY_KBN_OS);
+            // 技術マスタ情報を取得（OS）
+            List<Technology> technologyList_OS = skillService.selectTechnologyBy(Constants.TECHNOLOGY_KBN_OS);
             // Modelに登録
-            model.addAttribute("technologyList", technologyList);
+            model.addAttribute("technologyList_OS", technologyList_OS);
 
         }
         // 業務経歴画面に画面遷移
@@ -502,19 +502,19 @@ public class skillController {
             if (result1 == true) {
 
                 // 機種／OSを選択した場合
-                if (form.getTechnology_id() != null) {
-                    if (0 < form.getTechnology_id().length) {
+                if (form.getTechnology_id_OS() != null) {
+                    if (0 < form.getTechnology_id_OS().length) {
 
                         // 機種／OS用変数を定義
-                        String[] getTechnology_id = form.getTechnology_id();
+                        String[] getTechnology_id_OS = form.getTechnology_id_OS();
 
                         // 業務経歴技術insert用変数
                         Careertechnology careertechnology = new Careertechnology();
 
-                        for (int i = 0; i < getTechnology_id.length; i++) {
+                        for (int i = 0; i < getTechnology_id_OS.length; i++) {
                             careertechnology.setEmployee_id(form.getEmployee_id());// 社員ID
                             careertechnology.setCertification_no(next_certification_no);// 経歴番号
-                            careertechnology.setTechnology_id(getTechnology_id[i]); // 技術ID
+                            careertechnology.setTechnology_id(getTechnology_id_OS[i]); // 技術ID
                             careertechnology.setBiko(form.getBiko());// 備考
                             careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
 
@@ -612,11 +612,11 @@ public class skillController {
             // Modelに登録
             model.addAttribute("inputCareerForm", Careerform);
 
-            // 技術マスタ情報を取得（開発言語）
-            List<Careertechnology> careertechnologyList = skillService.selectCareertechnologyBy(employee_id,
+            // 技術マスタ情報を取得（OS）
+            List<Careertechnology> careertechnologyList_OS = skillService.selectCareertechnologyBy(employee_id,
                     certification_no, Constants.TECHNOLOGY_KBN_OS);
             // Modelに登録
-            model.addAttribute("careertechnologyList", careertechnologyList);
+            model.addAttribute("careertechnologyList_OS", careertechnologyList_OS);
         }
 
         return "z/homeLayout";
@@ -701,18 +701,18 @@ public class skillController {
             skillService.deleteCareertechnologyOne(careerform.getEmployee_id(), careerform.getCertification_no());
 
             // 機種／OSを選択した場合
-            if ((careerform.getTechnology_id() != null) && (0 < careerform.getTechnology_id().length)) {
+            if ((careerform.getTechnology_id_OS() != null) && (0 < careerform.getTechnology_id_OS().length)) {
 
                 // 機種／OS用変数を定義
-                String[] getCareertechnology_id = careerform.getTechnology_id();
+                String[] getCareertechnology_id_OS = careerform.getTechnology_id_OS();
 
                 // 業務経歴技術insert用変数
                 Careertechnology careertechnology = new Careertechnology();
 
-                for (int i = 0; i < getCareertechnology_id.length; i++) {
+                for (int i = 0; i < getCareertechnology_id_OS.length; i++) {
                     careertechnology.setEmployee_id(careerform.getEmployee_id());// 社員ID
                     careertechnology.setCertification_no(careerform.getCertification_no());// 経歴番号
-                    careertechnology.setTechnology_id(getCareertechnology_id[i]); // 技術ID
+                    careertechnology.setTechnology_id(getCareertechnology_id_OS[i]); // 技術ID
                     careertechnology.setBiko(careerform.getBiko());// 備考
                     careertechnology.setInsert_user(user_auth.getUsername()); // 作成者
 

@@ -31,6 +31,6 @@ public class InputCareerForm {
     private String end_yearmonth;// 終了年月
 
     private String business_content;// 業務内容
-    private String[] technology_id;// 技術区分_開発言語
+    private String[] technology_id_OS;// 技術区分_OS
     private String biko; // 備考
 }

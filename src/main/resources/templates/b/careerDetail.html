@@ -72,7 +72,7 @@
                                 th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{disp_order}"
-                                    placeholder="数字を入力してください" autofocus />
+                                    placeholder="数字を入力してください" />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('disp_order')}"
                                     th:errors="*{disp_order}">
@@ -125,10 +125,10 @@
                         <th class="active table-info">機種／OS</th>
                         <td>
                             <div class="form-check form-check-inline"
-                                th:each="item : ${careertechnologyList}">
+                                th:each="item : ${careertechnologyList_OS}">
                                 <input type="checkbox"
                                     class="form-check-input"
-                                    th:name="technology_id"
+                                    th:name="technology_id_OS"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}"
                                     th:checked="${item.technology_id == item.careertechnology_id}" />
@@ -152,7 +152,7 @@
                 <input type="hidden" class="form-control" th:field="*{certification_no}" />
 
 				<!-- 戻るボタン -->
-				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
+				<button class="btn btn-lg btn-primary" type="submit" name="back" autofocus>戻る</button>
 				<!-- 更新ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"
 					data-toggle="modal" data-target="#Modalupdate"
