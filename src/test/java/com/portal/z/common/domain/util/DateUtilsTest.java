@@ -67,17 +67,31 @@ class DateUtilsTest {
     }
 
     //
-    // getStringFromDateTimeFormat
+    // getStringFromDateTimeFormat1
     //
     @Test
-    final void dateUtils_getStringFromDateTimeFormat_null入力チェック() {
-        assertThat(DateUtils.getStringFromDateTimeFormat(null)).isEqualTo(null);
+    final void dateUtils_getStringFromDateTimeFormat1_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateTimeFormat1(null)).isEqualTo(null);
     }
 
     @Test
-    final void dateUtils_getStringFromDateTimeFormat_通常日付入力チェック() {
-        assertThat(DateUtils.getStringFromDateTimeFormat(LocalDateTime.of(1970, 01, 01, 12, 31, 51)))
+    final void dateUtils_getStringFromDateTimeFormat1_通常日付入力チェック() {
+        assertThat(DateUtils.getStringFromDateTimeFormat1(LocalDateTime.of(1970, 01, 01, 12, 31, 51)))
                 .isEqualTo("1970/01/01 12:31:51");
+    }
+
+    //
+    // getStringFromDateTimeFormat2
+    //
+    @Test
+    final void dateUtils_getStringFromDateTimeFormat2_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateTimeFormat2(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getStringFromDateTimeFormat2_通常日付入力チェック() {
+        assertThat(DateUtils.getStringFromDateTimeFormat2(LocalDateTime.of(1970, 01, 01, 12, 31, 51)))
+                .isEqualTo("19700101123151");
     }
 
     //
@@ -104,7 +118,7 @@ class DateUtilsTest {
                     .isEqualTo("java.time.format.DateTimeParseException: Text '700101' could not be parsed at index 6");
         }
     }
-    
+
     @Test
     final void dateUtils_getDateFromString_異常日付入力チェック2() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
@@ -112,11 +126,11 @@ class DateUtilsTest {
             DateUtils.getDateFromString("20211240");
             fail();
         } catch (final Exception e) {
-            assertThat(e.toString())
-                    .isEqualTo("java.time.format.DateTimeParseException: Text '20211240' could not be parsed: Invalid value for DayOfMonth (valid values 1 - 28/31): 40");
+            assertThat(e.toString()).isEqualTo(
+                    "java.time.format.DateTimeParseException: Text '20211240' could not be parsed: Invalid value for DayOfMonth (valid values 1 - 28/31): 40");
         }
     }
-    
+
     @Test
     final void dateUtils_getDateFromString_異常日付入力チェック3() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
@@ -124,11 +138,11 @@ class DateUtilsTest {
             DateUtils.getDateFromString("202112011");
             fail();
         } catch (final Exception e) {
-            assertThat(e.toString())
-                    .isEqualTo("java.time.format.DateTimeParseException: Text '202112011' could not be parsed at index 0");
+            assertThat(e.toString()).isEqualTo(
+                    "java.time.format.DateTimeParseException: Text '202112011' could not be parsed at index 0");
         }
     }
-    
+
     //
     // getDateFromStringmonth
     //
@@ -153,7 +167,7 @@ class DateUtilsTest {
                     .isEqualTo("java.time.format.DateTimeParseException: Text '20211' could not be parsed at index 4");
         }
     }
-    
+
     @Test
     final void dateUtils_getDateFromStringmonth_異常日付入力チェック2() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
@@ -165,7 +179,7 @@ class DateUtilsTest {
                     .isEqualTo("java.time.format.DateTimeParseException: Text '20213' could not be parsed at index 4");
         }
     }
-    
+
     @Test
     final void dateUtils_getDateFromStringmonth_異常日付入力チェック3() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
@@ -218,12 +232,12 @@ class DateUtilsTest {
         LocalDateTime date_1 = LocalDateTime.now();
         assertThat(DateUtils.compareDateTime(date_1, null)).isEqualTo(1);
     }
-    
+
     @Test
     final void dateUtils_compareDate_nullチェック3() {
         assertThat(DateUtils.compareDateTime(null, null)).isEqualTo(0);
     }
-    
+
     @Test
     final void dateUtils_compareDate_等しいチェック() {
         LocalDateTime date_1 = LocalDateTime.now();
@@ -256,7 +270,7 @@ class DateUtilsTest {
     final void dateUtils_calcDate_引数チェック1() {
         assertThat(DateUtils.calcDate(null, "YYYY", 1)).isNull();
     }
-    
+
     @Test
     final void dateUtils_calcDate_引数エラーチェック_様式() {
         LocalDateTime date = LocalDateTime.now();
@@ -310,7 +324,7 @@ class DateUtilsTest {
         LocalDateTime datetime = LocalDateTime.of(date, time);
         assertThat(DateUtils.calcDate(datetime, "SS", 1)).isEqualTo("1970-01-01T09:00:01.000");
     }
-    
+
     //
     // chkYearMonthFromString
     //
@@ -324,27 +338,27 @@ class DateUtilsTest {
         // フォーマットが異常なデータ
         assertThat(DateUtils.chkYearMonthFromString("19701")).isFalse();
     }
-    
+
     @Test
     final void dateUtils_chkYearMonthFromString_異常日付入力チェック２() {
         // フォーマットが異常なデータ
         assertThat(DateUtils.chkYearMonthFromString("1970121")).isFalse();
     }
-    
+
     @Test
     final void dateUtils_chkYearMonthFromString_異常日付入力チェック３() {
         // フォーマットが異常なデータ
         assertThat(DateUtils.chkYearMonthFromString("197013")).isFalse();
     }
-    
+
     @Test
     final void dateUtils_chkYearMonthFromString_異常日付入力チェック４() {
         // フォーマットが異常なデータ
         assertThat(DateUtils.chkYearMonthFromString("197000")).isFalse();
     }
-    
+
     @Test
     final void dateUtils_chkYearMonthFromString_正常日付入力チェック() {
         assertThat(DateUtils.chkYearMonthFromString("197011")).isTrue();
-    }  
+    }
 }

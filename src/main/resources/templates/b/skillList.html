@@ -33,7 +33,8 @@
                             autofocus th:field="*{employee_cd}" />
                     </div>
                     <div class="col-sm-2">
-                        社員名漢字（姓）<input type="search" class="form-control"
+                        社員名漢字（姓）<input type="search"
+                            class="form-control"
                             th:field="*{employee_name1_last}" />
                     </div>
                     <div class="col-sm-6">
@@ -58,27 +59,35 @@
             <label th:text=" '合計：' + ${skillListCount} + '件' "></label>
             <!-- 更新・削除処理の結果表示用 -->
             <label class="text-danger" th:text="${result}">結果表示</label><br />
-
             <table
                 class="table table-bordered table-hover table-striped table-sm">
 
                 <thead>
                     <tr class="table-info">
                         <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                         <th scope="col"><p class="text-nowrap text-center">社員CD</p></th>
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（姓）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">組織</p></th>
-                        <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　備考　　　　　　　　　　　　</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　　　　　　　備考　　　　　　　　　　　　　　　　　　</p></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="skill : ${skillList}">
-                        <td align="left"><a
+                        <td align="center"><a
                             class="btn btn-primary"
-                            th:href="@{'/skillDetail/' + ${skill.employee_id}}">詳細</a><a
+                            th:href="@{'/skillDetail/' + ${skill.employee_id}}">詳細</a>
+                        </td>
+                        <td align="center"><a
                             class="btn btn-primary"
-                            th:href="@{'/careerList/' + ${skill.employee_id}}">経歴</a></td>
+                            th:href="@{'/careerList/' + ${skill.employee_id}}">経歴</a>
+                        </td>
+                        <td align="center"><a
+                            class="btn btn-primary"
+                            th:href="@{'/skillreport/' + ${skill.employee_id}}">帳票</a>
+                        </td>
                         <td align="left" th:text="${skill.employee_cd}"></td>
                         <td align="left"
                             th:text="${skill.employee_name1_last}"></td>

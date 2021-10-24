@@ -107,17 +107,17 @@
           ,b.biko
           ,string_agg(
              case d.technology_kbn 
-               when '01' then d.technology_name --技術区分
+               when '01' then d.technology_name --技術区分（開発言語）
                else           null
              end,',' order by d.technology_name) as technology_Lang
           ,string_agg(
              case d.technology_kbn 
-               when '02' then d.technology_name --技術区分
+               when '02' then d.technology_name --技術区分（OS）
                else           null
              end,',' order by d.technology_name) as technology_OS
           ,string_agg(
              case d.technology_kbn 
-               when '03' then d.technology_name --技術区分
+               when '03' then d.technology_name --技術区分（DB）
                else           null
              end,',' order by d.technology_name) as technology_DB
         from
@@ -165,17 +165,17 @@
           ,b.biko
           ,string_agg(
              case d.technology_kbn 
-               when '01' then d.technology_name --技術区分
+               when '01' then d.technology_name --技術区分（開発言語）
                else           null
              end,',' order by d.technology_name) as technology_Lang
           ,string_agg(
              case d.technology_kbn 
-               when '02' then d.technology_name --技術区分
+               when '02' then d.technology_name --技術区分（OS）
                else           null
              end,',' order by d.technology_name) as technology_OS
           ,string_agg(
              case d.technology_kbn 
-               when '03' then d.technology_name --技術区分
+               when '03' then d.technology_name --技術区分（DB）
                else           null
              end,',' order by d.technology_name) as technology_DB
         from
