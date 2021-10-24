@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careertechnology;
 import com.portal.b.common.domain.model.Skill;
@@ -25,6 +26,7 @@ import com.portal.b.skill.domain.model.InputSkillForm;
 import com.portal.b.skill.domain.model.SelectCareerForm;
 import com.portal.b.skill.domain.model.SelectSkillForm;
 import com.portal.b.skill.domain.model.SkillListXlsxView;
+import com.portal.b.skill.domain.model.SkillReportXlsxView;
 import com.portal.b.skill.domain.model.UpdateOrder;
 import com.portal.b.skill.domain.service.SkillService;
 import com.portal.z.common.domain.model.AppUserDetails;
@@ -133,6 +135,42 @@ public class skillController {
         // データ件数を取得
         int count = skillList.size();
         model.addStaticAttribute("skillListCount", count);
+
+        return model;
+    }
+
+    /**
+     * 技術者業務経歴書のExcel帳票出力用処理.<br>
+     * 
+     * 技術者業務経歴書の帳票を出力する。
+     * 
+     * @param form          SelectSkillForm
+     * @param bindingResult bindingResult
+     * @param model         SkillReportXlsxView
+     * @param employee_id   employee_id
+     * @return model
+     */
+    @RequestMapping("/skillreport/{id}")
+    public SkillReportXlsxView report(@ModelAttribute SelectSkillForm form, BindingResult bindingResult,
+            SkillReportXlsxView model, @PathVariable("id") String employee_id) {
+
+        // 社員マスタ情報を取得
+        Employee employee = skillService.selectEmployeeOne(employee_id);
+        // Modelに社員マスタ情報を登録
+        model.addStaticAttribute("employeeDetail", employee);
+
+        // スキル情報を取得
+        Skill skill = skillService.selectSkillOne(employee_id);
+        // Modelにスキル情報を登録
+        model.addStaticAttribute("skillDetail", skill);
+
+        // 業務経歴情報を取得
+        List<Career> careerList = skillService.selectCareerBy2(employee_id);
+        // Modelに業務経歴情報を登録
+        model.addStaticAttribute("careerList", careerList);
+
+        // エクセルテンプレートファイルを指定
+        model.addStaticAttribute("template", "skillreport.xlsx");
 
         return model;
     }
@@ -287,7 +325,7 @@ public class skillController {
             // 業務経歴情報を取得
             List<Career> careerList = skillService.selectCareerBy2(employee_id);
 
-            // Modelにスキルリストを登録
+            // Modelに業務経歴情報を登録
             model.addAttribute("careerList", careerList);
 
             // データ件数を登録
