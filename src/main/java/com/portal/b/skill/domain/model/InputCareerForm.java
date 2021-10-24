@@ -32,5 +32,7 @@ public class InputCareerForm {
 
     private String business_content;// 業務内容
     private String[] technology_id_OS;// 技術区分_OS
+    private String[] technology_id_Lang;// 技術区分_Lang
+    private String[] technology_id_DB;// 技術区分_DB
     private String biko; // 備考
 }
