@@ -2,6 +2,7 @@ package com.portal.b.skill.domain.service;
 
 import java.util.List;
 
+import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careertechnology;
 import com.portal.b.common.domain.model.Skill;
@@ -156,4 +157,13 @@ public interface SkillService {
      * @return true/false
      */
     public boolean deleteCareertechnologyOne(String employee_id, String certification_no);
+
+    // 社員情報
+    /**
+     * １件取得用メソッド.
+     * 
+     * @param employee_id employee_id
+     * @return employee
+     */
+    public Employee selectEmployeeOne(String employee_id);
 }

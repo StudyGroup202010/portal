@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.portal.a.common.domain.model.Employee;
+import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careertechnology;
 import com.portal.b.common.domain.model.Skill;
@@ -34,6 +36,9 @@ public class SkillServiceImpl implements SkillService {
 
     @Autowired
     CareertechnologyMapper careertechnologyMapper;
+
+    @Autowired
+    EmployeeMapper employeeMapper;
 
     // スキル情報
     public List<Skill> selectSkillMany() {
@@ -126,5 +131,10 @@ public class SkillServiceImpl implements SkillService {
 
     public boolean deleteCareertechnologyOne(String employee_id, String certification_no) {
         return careertechnologyMapper.deleteOne(employee_id, certification_no);
+    }
+
+    // 社員情報
+    public Employee selectEmployeeOne(String employee_id) {
+        return employeeMapper.selectOne(employee_id);
     }
 }

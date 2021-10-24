@@ -129,14 +129,14 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
             row.createCell(23).setCellValue(employeeList.get(i).getInsert_user());
             // 作成日時
             String Insert_date = DateUtils
-                    .getStringFromDateTimeFormat(employeeList.get(i).getInsert_date().toLocalDateTime());
+                    .getStringFromDateTimeFormat1(employeeList.get(i).getInsert_date().toLocalDateTime());
             row.createCell(24).setCellValue(Insert_date);
             // 更新者
             row.createCell(25).setCellValue(employeeList.get(i).getUpdate_user());
             // 更新日時
             if (employeeList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
-                        .getStringFromDateTimeFormat(employeeList.get(i).getUpdate_date().toLocalDateTime());
+                        .getStringFromDateTimeFormat1(employeeList.get(i).getUpdate_date().toLocalDateTime());
                 row.createCell(26).setCellValue(Update_date);
             }
         }

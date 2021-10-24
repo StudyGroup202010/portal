@@ -17,8 +17,8 @@ create table am005_employee(
      streetaddress1 varchar(100),
      streetaddress2 varchar(100),
      birthday date,
-     department varchar(50),
-     graduation_date varchar(6),
+     nearest_station_code varchar(10) default '0000000000' not null,
+     nearest_station_name varchar(50),
      mail varchar(50) not null,
      joined_date date not null,
      leave_date date default '2099/12/31',
@@ -51,8 +51,8 @@ comment on column am005_employee.city_name2 is '市区町村名２';
 comment on column am005_employee.streetaddress1 is '住所１';
 comment on column am005_employee.streetaddress2 is '住所２';
 comment on column am005_employee.birthday is '生年月日';
-comment on column am005_employee.department is '学科';
-comment on column am005_employee.graduation_date is '卒業年月';
+comment on column am005_employee.nearest_station_code is '最寄駅コード';
+comment on column am005_employee.nearest_station_name is '最寄駅名';
 comment on column am005_employee.mail is 'メールアドレス';
 comment on column am005_employee.joined_date is '入社日';
 comment on column am005_employee.leave_date is '退社日';

@@ -53,7 +53,7 @@ public final class DateUtils {
     /**
      * 日付（年月日）⇒文字列(YYYY/MM/DD)変換処理<BR>
      * 
-     * 入力したdateに該当する文字列を取得します。（様式はYYYYMMDD） <BR>
+     * 入力したdateに該当する文字列を取得します。（様式はYYYY/MM/DD） <BR>
      * dateがブランクの場合、nullを返します。<BR>
      * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
      * 
@@ -93,19 +93,39 @@ public final class DateUtils {
     /**
      * 日付（年月日時分秒）⇒文字列(YYYY/MM/DD HH:mm:ss)変換処理<BR>
      * 
-     * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDD HHmmss） <BR>
+     * 入力したdatetimeに該当する文字列を取得します。（様式はYYYY/MM/DD HH:mm:ss） <BR>
      * datetimeがブランクの場合、nullを返します。<BR>
      * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
      * 
      * @param datetime 変換元の日時
      * @return String型に変換したdatetime
      */
-    public static String getStringFromDateTimeFormat(LocalDateTime datetime) {
+    public static String getStringFromDateTimeFormat1(LocalDateTime datetime) {
         if (datetime == null) {
             return null;
         }
         // 変換する文字列のフォーマットを決めます。
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss").withLocale(Locale.JAPANESE)
+                .withResolverStyle(ResolverStyle.STRICT);
+        return formatter.format(datetime);
+    }
+
+    /**
+     * 日付（年月日時分秒）⇒文字列(YYYYMMDDHHmmss)変換処理<BR>
+     * 
+     * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDDHHmmss） <BR>
+     * datetimeがブランクの場合、nullを返します。<BR>
+     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
+     * 
+     * @param datetime 変換元の日時
+     * @return String型に変換したdatetime
+     */
+    public static String getStringFromDateTimeFormat2(LocalDateTime datetime) {
+        if (datetime == null) {
+            return null;
+        }
+        // 変換する文字列のフォーマットを決めます。
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMMddHHmmss").withLocale(Locale.JAPANESE)
                 .withResolverStyle(ResolverStyle.STRICT);
         return formatter.format(datetime);
     }
