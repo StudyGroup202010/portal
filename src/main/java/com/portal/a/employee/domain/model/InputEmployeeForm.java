@@ -20,7 +20,7 @@ public class InputEmployeeForm {
     private String employee_id; // 社員ID
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    @Size(min = 1, max = 15, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(min = 1, max = 15, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_3}")
     private String employee_cd; // 社員CD
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
@@ -36,18 +36,18 @@ public class InputEmployeeForm {
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String gender_kbn;// 性別区分
 
-    @Size(max = 7, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(max = 7, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
     @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
     private String postcode;// 郵便番号
 
-    @Size(max = 2, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(max = 2, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
     private String prefcode;// 都道府県名CD
 
     private String pref_name1;// 都道府県名１
 
     private String pref_name2;// 都道府県名２
 
-    @Size(max = 3, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(max = 3, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
     private String citycode;// 市区町村名CD
 
     private String city_name1;// 市区町村名１
@@ -61,7 +61,7 @@ public class InputEmployeeForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;// 生年月日
 
-    @Size(max = 10, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(max = 10, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
     private String nearest_station_code;// 最寄駅コード
 
     private String nearest_station_name;// 最寄駅名
