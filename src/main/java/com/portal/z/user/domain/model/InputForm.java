@@ -21,7 +21,7 @@ public class InputForm {
 
     // 必須入力
     @NotBlank(groups = { ValidCreate1.class }, message = "{require_check}")
-    @Size(min = 5, max = 50, groups = { ValidCreate2.class }, message = "{length_check}")
+    @Size(min = 5, max = 50, groups = { ValidCreate2.class }, message = "{length_check_3}")
     @Pattern(regexp = "[a-zA-Z0-9]*", groups = { ValidCreate2.class }, message = "{type_check}") // 英数字であること
     private String user_id; // ユーザーID
 

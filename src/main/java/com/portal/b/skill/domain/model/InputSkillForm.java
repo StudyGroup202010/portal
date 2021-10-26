@@ -21,7 +21,7 @@ public class InputSkillForm {
     private String employee_id_skill;// スキル情報社員ID
     private String final_education;// 最終学歴
     private String department;// 学科
-    @Size(max = 6, groups = { ValidUpdate1.class }, message = "{length_check}")
+    @Size(max = 6, groups = { ValidUpdate1.class }, message = "{length_check_1}")
     @Pattern(regexp = "[0-9]*", groups = { ValidUpdate1.class }, message = "{numerical_check}") // 数字であること
     private String graduation_date;// 卒業年月
     private String notices; // 特記事項
