@@ -17,16 +17,16 @@ public class InputCareerForm {
     private String employee_name1_first;// 社員名漢字（名）
     private String certification_no; // 経歴番号
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    @Size(max = 9, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(max = 9, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
     @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
     private String disp_order; // 表示順
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
-    @Size(min = 6, max = 6, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(min = 6, max = 6, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_1}")
     @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
     private String start_yearmonth;// 開始年月
 
-    @Size(max = 6, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check}")
+    @Size(max = 6, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_1}")
     @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
     private String end_yearmonth;// 終了年月
 
