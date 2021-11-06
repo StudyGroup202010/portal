@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.portal.a.common.domain.model.Employee;
+import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.exception.ApplicationException;
 import com.portal.z.pwreissue.domain.model.PwreissueForm;
@@ -29,7 +31,7 @@ public class PwreissueController {
 
     @Autowired
     PwreissueService pwreissueService;
-    
+
     @Autowired
     private MassageUtils massageUtils;
 
@@ -64,9 +66,33 @@ public class PwreissueController {
             return getPwreissue(form, model);
         }
 
+        // ユーザIDに紐ついたメールアドレスを取得する。
+        // ユーザー情報を取得
+        User user = pwreissueService.selectOne_user(form.getUser_id());
+        // 入力したユーザIDが存在しなかった場合、パスワード再設定画面に戻る
+        if (user == null) {
+            model.addAttribute("result1",
+                    massageUtils.getMsg("e.co.fw.2.004", new String[] { "ユーザID " + form.getUser_id() }));
+            return getPwreissue(form, model);
+        }
+        // 社員マスタ情報を取得
+        Employee employee = pwreissueService.selectOne_employee(user.getEmployee_id());
+        // 社員情報が存在しなかった場合、パスワード再設定画面に戻る
+        if (employee == null) {
+            model.addAttribute("result1",
+                    massageUtils.getMsg("e.co.fw.2.004", new String[] { "ユーザID " + form.getUser_id() + " の社員情報" }));
+            return getPwreissue(form, model);
+        }
+        // メール情報が存在しなかった場合、パスワード再設定画面に戻る
+        if (employee.getMail() == null || employee.getMail().isEmpty() || employee.getMail().isBlank()) {
+            model.addAttribute("result1",
+                    massageUtils.getMsg("e.co.fw.2.004", new String[] { "ユーザID " + form.getUser_id() + " のメールアドレス" }));
+            return getPwreissue(form, model);
+        }
+
         try {
             // パスワード再発行情報を登録する。
-            String result = pwreissueService.insertPwreissueinfo(form.getUser_id());
+            String result = pwreissueService.insertPwreissueinfo(form.getUser_id(), employee.getMail());
             model.addAttribute("result1", massageUtils.getMsg("i.co.pr.0.001", null));
             model.addAttribute("result2", massageUtils.getMsg("i.co.pr.0.002", null));
             model.addAttribute("result3", "仮パスワード：" + result);
@@ -80,7 +106,7 @@ public class PwreissueController {
 
         return getPwreissue(form, model);
     }
-    
+
     /**
      * 戻る処理.<BR>
      * 

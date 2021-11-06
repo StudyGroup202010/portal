@@ -13,6 +13,7 @@ import com.portal.a.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.repository.PwreissueinfoMapper;
 import com.portal.z.common.domain.repository.RoleMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.repository.UserroleMapper;
@@ -37,6 +38,9 @@ public class UserSharedServiceImpl implements UserSharedService {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    PwreissueinfoMapper pwreissueinfoMapper;
 
     @Autowired
     private EnvSharedService envSharedService;
@@ -79,9 +83,11 @@ public class UserSharedServiceImpl implements UserSharedService {
     public boolean deleteOne(String user_id) {
 
         // 削除実行
+        pwreissueinfoMapper.deleteOneByUserid(user_id);
         boolean result_1 = userroleMapper.deleteOne(user_id);
         boolean result_2 = userMapper.deleteOne(user_id);
 
+        // ZT001_PWREISSUEINFO(パスワード再発行情報)は存在しない可能性があるので結果を評価しない。
         if (result_1 == true && result_2 == true) {
             return true;
         } else {

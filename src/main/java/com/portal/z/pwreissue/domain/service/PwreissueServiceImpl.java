@@ -18,10 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Env;
 import com.portal.z.common.domain.model.Pwreissueinfo;
+import com.portal.z.common.domain.model.User;
+import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.a.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.repository.PwreissueinfoMapper;
+import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.MailSendSharedService;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
@@ -52,9 +56,15 @@ public class PwreissueServiceImpl implements PwreissueService {
     private EnvMapper envMapper;
 
     @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    EmployeeMapper employeeMapper;
+
+    @Autowired
     private MassageUtils massageUtils;
 
-    public String insertPwreissueinfo(String user_id) throws MessagingException {
+    public String insertPwreissueinfo(String user_id, String mail_to) throws MessagingException {
 
         // トークンを生成
         String token = UUID.randomUUID().toString();
@@ -93,10 +103,18 @@ public class PwreissueServiceImpl implements PwreissueService {
         }
 
         // パスワード再設定画面のURLをメールで送信する。
-        Pwreissuemailsendregister(user_id, pwreissueinfo.getToken());
+        Pwreissuemailsendregister(mail_to, pwreissueinfo.getToken());
 
         return rowSecret;
 
+    }
+
+    public User selectOne_user(String user_id) {
+        return userMapper.selectOne(user_id);
+    }
+
+    public Employee selectOne_employee(String employee_id) {
+        return employeeMapper.selectOne(employee_id);
     }
 
     /**
