@@ -18,10 +18,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Env;
 import com.portal.z.common.domain.model.Pwreissueinfo;
+import com.portal.z.common.domain.model.User;
+import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.a.common.domain.repository.EnvMapper;
 import com.portal.z.common.domain.repository.PwreissueinfoMapper;
+import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.MailSendSharedService;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
@@ -52,9 +56,15 @@ public class PwreissueServiceImpl implements PwreissueService {
     private EnvMapper envMapper;
 
     @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    EmployeeMapper employeeMapper;
+
+    @Autowired
     private MassageUtils massageUtils;
 
-    public String insertPwreissueinfo(String user_id) throws MessagingException {
+    public String insertPwreissueinfo(String user_id, String mail_to) throws MessagingException {
 
         // トークンを生成
         String token = UUID.randomUUID().toString();
@@ -93,20 +103,28 @@ public class PwreissueServiceImpl implements PwreissueService {
         }
 
         // パスワード再設定画面のURLをメールで送信する。
-        Pwreissuemailsendregister(user_id, pwreissueinfo.getToken());
+        Pwreissuemailsendregister(mail_to, pwreissueinfo.getToken());
 
         return rowSecret;
 
     }
 
+    public User selectOne_user(String user_id) {
+        return userMapper.selectOne(user_id);
+    }
+
+    public Employee selectOne_employee(String employee_id) {
+        return employeeMapper.selectOne(employee_id);
+    }
+
     /**
      * パスワード再設定画面のURLをメール送信
      * 
-     * @param user_id 送信先メールアドレス
+     * @param mail_to 送信先メールアドレス
      * @param token   token
      * @throws MessagingException MessagingException
      */
-    private void Pwreissuemailsendregister(String user_id, String token) throws MessagingException {
+    private void Pwreissuemailsendregister(String mail_to, String token) throws MessagingException {
 
         // アプリケーションURLの初期値
         String APPLICATION_URL = Constants.APPLICATION_URL;
@@ -125,7 +143,7 @@ public class PwreissueServiceImpl implements PwreissueService {
         String passwordResetUrl = uriBuilder.build().encode().toUriString();
 
         // メール本文を作成
-        String text = user_id + "　様\n" + "お世話になっております。システム担当者です。\n\n" + "ご依頼いただきましたパスワード再設定画面のURLは下記の通りです。\n"
+        String text = mail_to + "　様\n" + "お世話になっております。システム担当者です。\n\n" + "ご依頼いただきましたパスワード再設定画面のURLは下記の通りです。\n"
                 + "リンクをクリックして、パスワード再設定画面からパスワードの再設定をお願いします。\n\n" + "【注意】URLの有効期間は約" + Constants.EXPIRYDATE_NXT
                 + "分間です。有効期間を過ぎた場合は再手続きをお願いします。\n\n" + "---------------------------\n" + "パスワード再設定画面のURL:\n "
                 + passwordResetUrl + "\n" + "\n---------------------------";
@@ -149,6 +167,6 @@ public class PwreissueServiceImpl implements PwreissueService {
         }
 
         // パスワード再設定画面のURLをメールで送信する。
-        mailSendSharedService.mailsendregister(sendFrom.getEnv_txt(), user_id, Subject.getEnv_txt(), text);
+        mailSendSharedService.mailsendregister(sendFrom.getEnv_txt(), mail_to, Subject.getEnv_txt(), text);
     }
 }
