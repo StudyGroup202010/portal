@@ -23,23 +23,99 @@
 <body>
     <!-- ポイント：th:fragment -->
     <div th:fragment="home_contents">
-    
         <div class="page-header">
-            <h3>ホーム画面</h3>
-            <h5>本日の天気予報</h5>
-            <img id = "forecastImage" src=""> 
+            <h3>ホーム</h3>
         </div>
-        
         <div class="page-body">
-            <h5>ここには以下のような情報を載せます</h5>
-            <h6>・会社からのお知らせ</h6>
-            <h6>・就業規則など</h6>
-            <h6>・社員教育の資料など</h6>
+            <div class="row">
+                <div class="col-sm-9">
+                    <article>
+                        <h2>会社からのお知らせ</h2>
+                        <ul>
+                            <li>勤怠の提出について</li>
+                            <li>健康診断の予約について</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2>社員教育</h2>
+                        <ul>
+                            <li>社員教育コンテンツへのリンク</li>
+                        </ul>
+
+                        <hr>
+
+                    </article>
+
+                    <article>
+                        <h2>就業規則など</h2>
+                        <ul>
+                            <li>交通費精算について</li>
+                            <li>セキュリティポリシーについて</li>
+                        </ul>
+
+                    </article>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="container-fluid border bg-light">
+                        <h4>
+                            <label th:text="${today}"></label>
+                        </h4>
+                        <h5>本日の名古屋の天気予報</h5>
+                        <img id="forecastImage" src="">
+                        <div id="forecastDetail"></div>
+                        <BR>
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">最高℃</th>
+                                    <th scope="col">最低℃</th>
+                                    <th scope="col">午前</th>
+                                    <th scope="col">午後</th>
+                                    <th scope="col">夜間</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="text-danger"
+                                            id="forecastTempMax"></div>
+                                    </th>
+                                    <td><div class="text-primary"
+                                            id="forecastTempMin"></div>
+                                    </td>
+                                    <td><div
+                                            id="forecastChanceOfRainAM"></div></td>
+                                    <td><div
+                                            id="forecastChanceOfRainPM"></div></td>
+                                    <td><div
+                                            id="forecastChanceOfRainNT"></div></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <!-- 岐阜の天気予報の表示(画像) ※下のDIVの外に出すと無効になります -->
-        <script th:inline="javascript"  nonce="c3R1ZHlwb3J0YWwyMDIw">
+        <!-- 天気予報の表示 ※下のDIVの外に出すと無効になります -->
+        <script th:inline="javascript" nonce="c3R1ZHlwb3J0YWwyMDIw">
             $(document).ready(function(){
                 getWeatherImageUrl();
+                getWeatherDetail();
+                getWeatherTempMax();
+                getWeatherTempMin();
+                getWeatherChanceOfRainAM();
+                getWeatherChanceOfRainPM();
+                getWeatherChanceOfRainNT();
             });
         </script>
     </div>
