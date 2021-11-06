@@ -14,7 +14,7 @@
     <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <!-- portalのJSファイル -->
-    <script th:src="@{/js/portal.js}"></script>
+    <script th:src="@{/js/weather.js}"></script>
 
     <!-- CSSの読込 -->
     <link th:href="@{/css/portal.css}" rel="stylesheet"></link>
@@ -83,10 +83,13 @@
                     th:href="@{'/contact'}">問い合わせ</a></li>
 
             </ul>
-            <form method="post" th:action="@{/logout}">
-                <button class="btn btn-link navbar-brand" type="submit">ログアウト</button>
-            </form>
         </div>
+        <p class="btn navbar-brand">
+            ユーザID：<span sec:authentication="name"></span>
+        </p>
+        <form method="post" th:action="@{/logout}">
+            <button class="btn btn-danger" type="submit">ログアウト</button>
+        </form>
     </nav>
 
     <!-- ===== ボディー  =====  -->
