@@ -60,9 +60,9 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
 
         // 性別
         String gender = employeeDetail.getGender_kbn();
-        if (gender.equals(Constants.GENDER_KBN_MAN)) {
+        if (Constants.GENDER_KBN_MAN.equals(gender)) {
             gender = "男";
-        } else if (gender.equals(Constants.GENDER_KBN_WOMAN)) {
+        } else if (Constants.GENDER_KBN_WOMAN.equals(gender)) {
             gender = "女";
         } else {
             gender = "";
