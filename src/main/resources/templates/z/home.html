@@ -56,55 +56,49 @@
 
                     </article>
 
+                    <article>
+                        <!-- コンテンツを増やす場合はここに追加する。 -->
+                    </article>
+
                 </div>
                 <div class="col-sm-3">
                     <div class="container-fluid border bg-light">
-                        <h4>
-                            <label th:text="${today}"></label>
-                        </h4>
-                        <h5>本日の名古屋の天気予報</h5>
-                        <img id="forecastImage" src="">
-                        <div id="forecastDetail"></div>
-                        <BR>
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">最高℃</th>
-                                    <th scope="col">最低℃</th>
-                                    <th scope="col">午前</th>
-                                    <th scope="col">午後</th>
-                                    <th scope="col">夜間</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <div class="text-danger"
-                                            id="forecastTempMax"></div>
-                                    </th>
-                                    <td><div class="text-primary"
-                                            id="forecastTempMin"></div>
-                                    </td>
-                                    <td><div
-                                            id="forecastChanceOfRainAM"></div></td>
-                                    <td><div
-                                            id="forecastChanceOfRainPM"></div></td>
-                                    <td><div
-                                            id="forecastChanceOfRainNT"></div></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <label th:text="${today}"></label>
+                    </div>
+                    <div class="container-fluid border bg-light">
+                        <p>
+                            天気予報（岐阜 <label id="publicTimeFormatted"></label>）
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img id="forecastImage" src="">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="text-danger"
+                                        id="forecastTempMax"></div>
+                                    <div class="text-primary"
+                                        id="forecastTempMin"></div>
+                                </div>
+                                <div class="row">
+                                    午前
+                                    <div id="forecastChanceOfRainAM"></div>
+                                    午後
+                                    <div id="forecastChanceOfRainPM"></div>
+                                    夜間
+                                    <div id="forecastChanceOfRainNT"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            今日の天気：<label id="forecastDetail"></label>
+                        </p>
+                    </div>
+                    <div class="container-fluid border bg-light">
+                        <!-- コンテンツを増やす場合はここに追加する。 -->
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- 天気予報の表示 ※下のDIVの外に出すと無効になります -->
         <script th:inline="javascript" nonce="c3R1ZHlwb3J0YWwyMDIw">
@@ -116,6 +110,7 @@
                 getWeatherChanceOfRainAM();
                 getWeatherChanceOfRainPM();
                 getWeatherChanceOfRainNT();
+                getWeatherTime();
             });
         </script>
     </div>

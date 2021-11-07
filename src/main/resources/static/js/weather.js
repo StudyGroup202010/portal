@@ -1,6 +1,6 @@
-// 名古屋の天気の画像を取得する
+// 天気の画像を取得する
 async function getWeatherImageUrl() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -13,9 +13,9 @@ async function getWeatherImageUrl() {
     elem.src = data;
 }
 
-// 名古屋の天気の詳細を取得する
+// 天気の詳細を取得する
 async function getWeatherDetail() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -28,9 +28,9 @@ async function getWeatherDetail() {
     elem.innerHTML = data;
 }
 
-// 名古屋の天気の最高気温を取得する
+// 天気の最高気温を取得する
 async function getWeatherTempMax() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -43,9 +43,9 @@ async function getWeatherTempMax() {
     elem.innerHTML = data;
 }
 
-// 名古屋の天気の最低気温を取得する
+// 天気の最低気温を取得する
 async function getWeatherTempMin() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -58,9 +58,9 @@ async function getWeatherTempMin() {
     elem.innerHTML = data;
 }
 
-// 名古屋の天気の降水確率（午前）を取得する
+// 天気の降水確率（午前）を取得する
 async function getWeatherChanceOfRainAM() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -73,9 +73,9 @@ async function getWeatherChanceOfRainAM() {
     elem.innerHTML = data;
 }
 
-// 名古屋の天気の降水確率（午後）を取得する
+// 天気の降水確率（午後）を取得する
 async function getWeatherChanceOfRainPM() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -88,9 +88,9 @@ async function getWeatherChanceOfRainPM() {
     elem.innerHTML = data;
 }
 
-// 名古屋の天気の降水確率（夜）を取得する
+// 天気の降水確率（夜）を取得する
 async function getWeatherChanceOfRainNT() {
-    var url =  'https://weather.tsukumijima.net/api/forecast/city/230010'; //230010が名古屋
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
     let data =  await fetch(url)
         .then(function (data) {
             return data.json();
@@ -102,3 +102,19 @@ async function getWeatherChanceOfRainNT() {
     var elem = document.getElementById("forecastChanceOfRainNT");
     elem.innerHTML = data;
 }
+
+// 予報の発表日時を取得する
+async function getWeatherTime() {
+    var url =  'https://weather.tsukumijima.net/api/forecast/city/210010'; //210010が岐阜
+    let data =  await fetch(url)
+        .then(function (data) {
+            return data.json();
+        })
+    .then(function (json) {
+        return json.publicTimeFormatted;
+    });
+    
+    var elem = document.getElementById("publicTimeFormatted");
+    elem.innerHTML = data;
+}
+
