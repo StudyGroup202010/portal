@@ -94,20 +94,21 @@
                             今日の天気：<label id="forecastDetail"></label>
                         </p>
                     </div>
-                    <div class="container-fluid border bg-light">
-                        <!-- コンテンツを増やす場合はここに追加する。 -->
-                        <div class="card">
-                            <div class="card-header text-center">スキル管理システム</div>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    スキル情報はこちらからメンテナンスしてください。ご意見やご要望、不具合などがありましたら、「問い合わせ」よりお知らせ下さい。
-                                    <a
-                                        class="btn btn-success btn-block btn-lg"
-                                        th:href="@{'/skillList'}"
-                                        role="button">開始する</a>
-                            </div>
+                    <!-- コンテンツを増やす場合はここに追加する。 -->
+                    <div class="card">
+                        <div class="card-header text-center">スキル管理システム</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                スキル情報はこちらからメンテナンスしてください。ご意見やご要望、不具合などがありましたら、「問い合わせ」よりお知らせ下さい。
+                                <a
+                                    class="btn btn-success btn-block btn-lg"
+                                    th:href="@{'/skillList'}"
+                                    role="button">開始する</a>
                         </div>
                     </div>
+                    <!-- コンテンツを増やす場合はここに追加する。 -->
+                    <a class="btn btn-success btn-block btn-lg"
+                        th:href="@{'/contact'}" role="button">問い合わせ</a>
                 </div>
         </div>
         <!-- 天気予報の表示 ※下のDIVの外に出すと無効になります -->
