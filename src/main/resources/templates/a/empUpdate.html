@@ -39,7 +39,7 @@
                                 th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{employee_cd}"
-                                    placeholder="英数字を入力してください" autofocus />
+                                    placeholder="１５桁以内の英数記号を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('employee_cd')}"
                                     th:errors="*{employee_cd}">
