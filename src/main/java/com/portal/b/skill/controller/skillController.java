@@ -239,7 +239,7 @@ public class skillController {
         // 入力チェックに引っかかった場合、スキル情報詳細画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、スキル情報詳細画面に戻ります
-            return getSkillDetail(skillform, model, "", "");
+            return getSkillDetail(skillform, model, skillform.getEmployee_id(), skillform.getFrom());
         }
 
         // 卒業年月チェック
@@ -247,7 +247,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(skillform.getGraduation_date()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
-                return getSkillDetail(skillform, model, "", "");
+                return getSkillDetail(skillform, model, skillform.getEmployee_id(), skillform.getFrom());
             }
         }
 
@@ -490,7 +490,7 @@ public class skillController {
         // 入力チェックに引っかかった場合、業務経歴登録画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
-            return getCareerUpdate(form, model, form.getEmployee_id(), "");
+            return getCareerUpdate(form, model, form.getEmployee_id(), form.getFrom());
         }
 
         // 開始年月チェック
@@ -498,7 +498,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
-                return getCareerUpdate(form, model, form.getEmployee_id(), "");
+                return getCareerUpdate(form, model, form.getEmployee_id(), form.getFrom());
             }
         }
 
@@ -507,7 +507,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "終了年月" }));
-                return getCareerUpdate(form, model, form.getEmployee_id(), "");
+                return getCareerUpdate(form, model, form.getEmployee_id(), form.getFrom());
             }
         }
 
@@ -518,7 +518,7 @@ public class skillController {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻りますに戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "開始年月：" + form.getStart_yearmonth(), "終了年月：" + form.getEnd_yearmonth() }));
-                return getCareerUpdate(form, model, form.getEmployee_id(), "");
+                return getCareerUpdate(form, model, form.getEmployee_id(), form.getFrom());
             }
         }
 
@@ -769,7 +769,8 @@ public class skillController {
         // 入力チェックに引っかかった場合、業務経歴詳細画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、業務経歴詳細画面に戻ります
-            return getCareerDetail(careerform, model, "", "", "");
+            return getCareerDetail(careerform, model, careerform.getEmployee_id(), careerform.getCertification_no(),
+                    careerform.getFrom());
         }
 
         // 開始年月チェック
@@ -777,7 +778,8 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(careerform.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
-                return getCareerDetail(careerform, model, "", "", "");
+                return getCareerDetail(careerform, model, careerform.getEmployee_id(), careerform.getCertification_no(),
+                        careerform.getFrom());
             }
         }
 
@@ -786,7 +788,8 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(careerform.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "終了年月" }));
-                return getCareerDetail(careerform, model, "", "", "");
+                return getCareerDetail(careerform, model, careerform.getEmployee_id(), careerform.getCertification_no(),
+                        careerform.getFrom());
             }
         }
 
@@ -798,7 +801,8 @@ public class skillController {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻りますに戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022", new String[] {
                         "開始年月：" + careerform.getStart_yearmonth(), "終了年月：" + careerform.getEnd_yearmonth() }));
-                return getCareerDetail(careerform, model, "", "", "");
+                return getCareerDetail(careerform, model, careerform.getEmployee_id(), careerform.getCertification_no(),
+                        careerform.getFrom());
             }
         }
 
