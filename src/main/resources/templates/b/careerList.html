@@ -53,12 +53,15 @@
                             <button type="submit" name="selectby"
                                 class="btn btn-primary btn-lg float-right">検索</button>
                         </div>
+                        <!-- 遷移元画面 -->
+                        <input type="hidden" class="form-control"
+                            th:field="*{from}" />
                     </div>
                     <div class="table-responsive">
                         <div class="col">
                             <!-- 業務経歴登録画面へのリンク -->
                             <a class="btn btn-danger float-right"
-                                th:href="@{'/careerUpdate/'+ *{employee_id}}">新規登録</a>
+                                th:href="@{'/careerUpdate/'+ *{employee_id} + '/' + *{from}}">新規登録</a>
                         </div>
 
                         <!-- 業務経歴一覧の件数 -->
@@ -94,7 +97,7 @@
                                 <tr th:each="career : ${careerList}">
                                     <td align="center"><a
                                         class="btn btn-primary"
-                                        th:href="@{'/careerDetail/' + ${career.employee_id} + '/' + ${career.certification_no}}">編集</a></td>
+                                        th:href="@{'/careerDetail/' + ${career.employee_id} + '/' + ${career.certification_no}} + '/' + *{from} ">編集</a></td>
                                     <td align="left"
                                         th:text="${career.disp_order}"></td>
                                     <td align="left"

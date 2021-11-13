@@ -180,18 +180,21 @@
                 
                 <!-- 経歴番号 -->
                 <input type="hidden" class="form-control" th:field="*{certification_no}" />
+                
+                <!-- 遷移元画面 -->
+                <input type="hidden" class="form-control" th:field="*{from}" />
 
 				<!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back" autofocus>戻る</button>
-				<!-- 更新ボタン -->
-				<button class="btn btn-lg btn-danger float-right" type="button"
-					data-toggle="modal" data-target="#Modalupdate"
-					sec:authorize="hasRole('ADMIN')">更新</button>
-				<!-- 削除ボタン -->
-				<button class="btn btn-lg btn-danger float-right" type="button"
-					data-toggle="modal" data-target="#Modaldelete"
-					sec:authorize="hasRole('ADMIN')">削除</button>
-				<!-- 更新Modal -->
+                <!-- 更新ボタン -->
+                <button class="btn btn-lg btn-danger float-right"
+                    type="button" data-toggle="modal"
+                    data-target="#Modalupdate">更新</button>
+                <!-- 削除ボタン -->
+                <button class="btn btn-lg btn-danger float-right"
+                    type="button" data-toggle="modal"
+                    data-target="#Modaldelete">削除</button>
+                <!-- 更新Modal -->
 				<div class="modal" data-backdrop="static" data-keyboard="false"
 					id="Modalupdate" tabindex="-1" role="dialog"
 					aria-labelledby="ModalUpdateTitle" aria-hidden="true">

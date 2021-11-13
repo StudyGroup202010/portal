@@ -27,4 +27,5 @@ public class InputSkillForm {
     private String notices; // 特記事項
     private String biko; // 備考
     private List<Career> careerlist;
+    private String from; // 遷移元画面
 }
