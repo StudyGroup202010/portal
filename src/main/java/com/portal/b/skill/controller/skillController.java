@@ -280,7 +280,7 @@ public class skillController {
         }
 
         if (skillform.getFrom() != null && skillform.getFrom().isEmpty() == false) {
-            if (skillform.getFrom().equals("list")) {
+            if ("list".equals(skillform.getFrom())) {
                 // 社員マスタ一覧画面を表示
                 return getSkillList(model);
             }
@@ -294,14 +294,15 @@ public class skillController {
      * 
      * スキル一覧画面に戻る。
      * 
-     * @param model モデル
+     * @param Skillform Skillform
+     * @param model     モデル
      * @return getskillList(model)
      */
     @PostMapping(value = "/skillDetail", params = "back")
     public String postSkillDetailback(@ModelAttribute InputSkillForm Skillform, Model model) {
 
         if (Skillform.getFrom() != null && Skillform.getFrom().isEmpty() == false) {
-            if (Skillform.getFrom().equals("list")) {
+            if ("list".equals(Skillform.getFrom())) {
                 // スキル情報一覧画面を表示
                 return getSkillList(model);
             }
@@ -318,6 +319,7 @@ public class skillController {
      * 
      * @param model       モデル
      * @param employee_id 詳細情報を表示するemployee_id
+     * @param from        遷移元画面
      * @return z/homeLayout
      */
     @GetMapping("/careerList/{id}/{from}")
@@ -399,14 +401,15 @@ public class skillController {
      * 
      * スキル一覧画面に戻る。
      * 
-     * @param model モデル
+     * @param Careerform Careerform
+     * @param model      モデル
      * @return getskillList(model)
      */
     @PostMapping(value = "/careerList", params = "back")
     public String postCareerListback(@ModelAttribute SelectCareerForm Careerform, Model model) {
 
         if (Careerform.getFrom() != null && Careerform.getFrom().isEmpty() == false) {
-            if (Careerform.getFrom().equals("list")) {
+            if ("list".equals(Careerform.getFrom())) {
                 // スキル情報一覧画面を表示
                 return getSkillList(model);
             }
@@ -421,9 +424,10 @@ public class skillController {
      * 
      * 業務経歴情報の新規登録画面を表示する。
      * 
-     * @param form        入力用のform
+     * @param Careerform  Careerform
      * @param model       モデル
      * @param employee_id employee_id
+     * @param from        遷移元画面
      * @return z/homeLayout
      */
     @GetMapping("/careerUpdate/{id}/{from}")
@@ -685,6 +689,7 @@ public class skillController {
      * @param model            モデル
      * @param employee_id      詳細情報を表示するemployee_id
      * @param certification_no 詳細情報を表示するcertification_no
+     * @param from             遷移元画面
      * @return z/homeLayout
      */
     @GetMapping("/careerDetail/{id}/{no}/{from}")
