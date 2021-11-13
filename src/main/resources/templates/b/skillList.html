@@ -78,11 +78,11 @@
                     <tr th:each="skill : ${skillList}">
                         <td align="center"><a
                             class="btn btn-primary"
-                            th:href="@{'/skillDetail/' + ${skill.employee_id}}">詳細</a>
+                            th:href="@{'/skillDetail/' + ${skill.employee_id}} + '/list'">詳細</a>
                         </td>
                         <td align="center"><a
                             class="btn btn-primary"
-                            th:href="@{'/careerList/' + ${skill.employee_id}}">経歴</a>
+                            th:href="@{'/careerList/' + ${skill.employee_id}} + '/list'">経歴</a>
                         </td>
                         <td align="center"><a
                             class="btn btn-primary"
