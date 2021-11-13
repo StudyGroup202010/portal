@@ -183,14 +183,18 @@ public class skillController {
      * @param Skillform   入力用form
      * @param model       モデル
      * @param employee_id 詳細情報を表示するemployee_id
+     * @param from        遷移元画面
      * @return z/homeLayout
      */
-    @GetMapping("/skillDetail/{id}")
+    @GetMapping("/skillDetail/{id}/{from}")
     public String getSkillDetail(@ModelAttribute InputSkillForm Skillform, Model model,
-            @PathVariable("id") String employee_id) {
+            @PathVariable("id") String employee_id, @PathVariable("from") String from) {
 
         // コンテンツ部分にスキル情報詳細を表示するための文字列を登録
         model.addAttribute("contents", "b/skillDetail :: skillDetail_contents");
+
+        // 遷移元画面を登録
+        Skillform.setFrom(from);
 
         // 社員IDのチェック
         if (employee_id != null && !employee_id.isEmpty()) {
@@ -235,7 +239,7 @@ public class skillController {
         // 入力チェックに引っかかった場合、スキル情報詳細画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、スキル情報詳細画面に戻ります
-            return getSkillDetail(skillform, model, "");
+            return getSkillDetail(skillform, model, "", "");
         }
 
         // 卒業年月チェック
@@ -243,7 +247,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(skillform.getGraduation_date()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
-                return getSkillDetail(skillform, model, "");
+                return getSkillDetail(skillform, model, "", "");
             }
         }
 
@@ -275,8 +279,14 @@ public class skillController {
             log.error("更新失敗");
         }
 
-        // 社員マスタ一覧画面を表示
-        return getSkillList(model);
+        if (skillform.getFrom() != null && skillform.getFrom().isEmpty() == false) {
+            if (skillform.getFrom().equals("list")) {
+                // 社員マスタ一覧画面を表示
+                return getSkillList(model);
+            }
+        }
+        // 社員個人画面を表示
+        return "redirect:/empPerson";
     }
 
     /**
@@ -288,9 +298,17 @@ public class skillController {
      * @return getskillList(model)
      */
     @PostMapping(value = "/skillDetail", params = "back")
-    public String postSkillDetailback(Model model) {
-        // スキル情報一覧画面を表示
-        return getSkillList(model);
+    public String postSkillDetailback(@ModelAttribute InputSkillForm Skillform, Model model) {
+
+        if (Skillform.getFrom() != null && Skillform.getFrom().isEmpty() == false) {
+            if (Skillform.getFrom().equals("list")) {
+                // スキル情報一覧画面を表示
+                return getSkillList(model);
+            }
+        }
+        // 社員個人画面を表示
+        // return getEmployeePerson(Skillform, model);
+        return "redirect:/empPerson";
     }
 
     /**
@@ -302,8 +320,9 @@ public class skillController {
      * @param employee_id 詳細情報を表示するemployee_id
      * @return z/homeLayout
      */
-    @GetMapping("/careerList/{id}")
-    public String getCareerList(Model model, @PathVariable("id") String employee_id) {
+    @GetMapping("/careerList/{id}/{from}")
+    public String getCareerList(Model model, @PathVariable("id") String employee_id,
+            @PathVariable("from") String from) {
 
         // コンテンツ部分に業務経歴一覧を表示するための文字列を登録
         model.addAttribute("contents", "b/careerList :: careerList_contents");
@@ -312,9 +331,11 @@ public class skillController {
         if (employee_id != null && !employee_id.isEmpty()) {
 
             // 検索条件に値をセット
-            SelectCareerForm form = new SelectCareerForm();
-            form.setEmployee_id(employee_id);
-            model.addAttribute("selectCareerForm", form);
+            SelectCareerForm careerform = new SelectCareerForm();
+            careerform.setEmployee_id(employee_id);
+            // 遷移元画面を登録
+            careerform.setFrom(from);
+            model.addAttribute("selectCareerForm", careerform);
 
             // 選択したユーザ情報をセット
             Skill skill = skillService.selectSkillOne(employee_id);
@@ -382,9 +403,17 @@ public class skillController {
      * @return getskillList(model)
      */
     @PostMapping(value = "/careerList", params = "back")
-    public String postCareerListback(Model model) {
-        // スキル情報一覧画面を表示
-        return getSkillList(model);
+    public String postCareerListback(@ModelAttribute SelectCareerForm Careerform, Model model) {
+
+        if (Careerform.getFrom() != null && Careerform.getFrom().isEmpty() == false) {
+            if (Careerform.getFrom().equals("list")) {
+                // スキル情報一覧画面を表示
+                return getSkillList(model);
+            }
+        }
+        // 社員個人画面を表示
+        // return getEmployeePerson(Skillform, model);
+        return "redirect:/empPerson";
     }
 
     /**
@@ -397,12 +426,15 @@ public class skillController {
      * @param employee_id employee_id
      * @return z/homeLayout
      */
-    @GetMapping("/careerUpdate/{id}")
-    public String getCareerUpdate(@ModelAttribute InputCareerForm form, Model model,
-            @PathVariable("id") String employee_id) {
+    @GetMapping("/careerUpdate/{id}/{from}")
+    public String getCareerUpdate(@ModelAttribute InputCareerForm Careerform, Model model,
+            @PathVariable("id") String employee_id, @PathVariable("from") String from) {
 
         // コンテンツ部分に業務経歴登録を表示するための文字列を登録
         model.addAttribute("contents", "b/careerUpdate :: careerUpdate_contents");
+
+        // 遷移元画面を登録
+        Careerform.setFrom(from);
 
         // 社員IDのチェック
         if (employee_id != null && !employee_id.isEmpty()) {
@@ -411,13 +443,13 @@ public class skillController {
             Skill skill = skillService.selectSkillOne(employee_id);
 
             // Skillクラスをフォームクラスに変換
-            form.setEmployee_id(employee_id); // 社員ID
-            form.setEmployee_cd(skill.getEmployee_cd()); // 社員CD
-            form.setEmployee_name1_last(skill.getEmployee_name1_last()); // 社員名漢字（姓）
-            form.setEmployee_name1_first(skill.getEmployee_name1_first()); // 社員名漢字（名）
+            Careerform.setEmployee_id(employee_id); // 社員ID
+            Careerform.setEmployee_cd(skill.getEmployee_cd()); // 社員CD
+            Careerform.setEmployee_name1_last(skill.getEmployee_name1_last()); // 社員名漢字（姓）
+            Careerform.setEmployee_name1_first(skill.getEmployee_name1_first()); // 社員名漢字（名）
 
             // Modelに登録
-            model.addAttribute("InputCareerForm", form);
+            model.addAttribute("InputCareerForm", Careerform);
 
             // 技術マスタ情報を取得（OS）
             List<Technology> technologyList_OS = skillService.selectTechnologyBy(Constants.TECHNOLOGY_KBN_OS);
@@ -454,7 +486,7 @@ public class skillController {
         // 入力チェックに引っかかった場合、業務経歴登録画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
-            return getCareerUpdate(form, model, form.getEmployee_id());
+            return getCareerUpdate(form, model, form.getEmployee_id(), "");
         }
 
         // 開始年月チェック
@@ -462,7 +494,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
-                return getCareerUpdate(form, model, form.getEmployee_id());
+                return getCareerUpdate(form, model, form.getEmployee_id(), "");
             }
         }
 
@@ -471,7 +503,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "終了年月" }));
-                return getCareerUpdate(form, model, form.getEmployee_id());
+                return getCareerUpdate(form, model, form.getEmployee_id(), "");
             }
         }
 
@@ -482,7 +514,7 @@ public class skillController {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻りますに戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "開始年月：" + form.getStart_yearmonth(), "終了年月：" + form.getEnd_yearmonth() }));
-                return getCareerUpdate(form, model, form.getEmployee_id());
+                return getCareerUpdate(form, model, form.getEmployee_id(), "");
             }
         }
 
@@ -620,11 +652,11 @@ public class skillController {
             String message = "経歴番号 " + String.valueOf(career.getCertification_no());
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
-            return getCareerUpdate(form, model, form.getEmployee_id());
+            return getCareerUpdate(form, model, form.getEmployee_id(), "");
         }
 
         // 業務経歴一覧画面を表示
-        return getCareerList(model, form.getEmployee_id());
+        return getCareerList(model, form.getEmployee_id(), form.getFrom());
     }
 
     /**
@@ -641,7 +673,7 @@ public class skillController {
     public String postCareerUpdateback(@ModelAttribute @Validated InputCareerForm form, BindingResult bindingResult,
             Model model) {
         // 業務経歴一覧画面を表示
-        return getCareerList(model, form.getEmployee_id());
+        return getCareerList(model, form.getEmployee_id(), form.getFrom());
     }
 
     /**
@@ -655,12 +687,16 @@ public class skillController {
      * @param certification_no 詳細情報を表示するcertification_no
      * @return z/homeLayout
      */
-    @GetMapping("/careerDetail/{id}/{no}")
+    @GetMapping("/careerDetail/{id}/{no}/{from}")
     public String getCareerDetail(@ModelAttribute InputCareerForm Careerform, Model model,
-            @PathVariable("id") String employee_id, @PathVariable("no") String certification_no) {
+            @PathVariable("id") String employee_id, @PathVariable("no") String certification_no,
+            @PathVariable("from") String from) {
 
         // コンテンツ部分にスキル情報詳細を表示するための文字列を登録
         model.addAttribute("contents", "b/careerDetail :: careerDetail_contents");
+
+        // 遷移元画面を登録
+        Careerform.setFrom(from);
 
         // 社員IDのチェック
         if ((employee_id != null) && (!employee_id.isEmpty()) && (certification_no != null)
@@ -728,7 +764,7 @@ public class skillController {
         // 入力チェックに引っかかった場合、業務経歴詳細画面に戻る
         if (bindingResult.hasErrors()) {
             // GETリクエスト用のメソッドを呼び出して、業務経歴詳細画面に戻ります
-            return getCareerDetail(careerform, model, "", "");
+            return getCareerDetail(careerform, model, "", "", "");
         }
 
         // 開始年月チェック
@@ -736,7 +772,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(careerform.getStart_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
-                return getCareerDetail(careerform, model, "", "");
+                return getCareerDetail(careerform, model, "", "", "");
             }
         }
 
@@ -745,7 +781,7 @@ public class skillController {
             if (DateUtils.chkYearMonthFromString(careerform.getEnd_yearmonth()) == false) {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "終了年月" }));
-                return getCareerDetail(careerform, model, "", "");
+                return getCareerDetail(careerform, model, "", "", "");
             }
         }
 
@@ -757,7 +793,7 @@ public class skillController {
                 // GETリクエスト用のメソッドを呼び出して、業務経歴登録画面に戻りますに戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022", new String[] {
                         "開始年月：" + careerform.getStart_yearmonth(), "終了年月：" + careerform.getEnd_yearmonth() }));
-                return getCareerDetail(careerform, model, "", "");
+                return getCareerDetail(careerform, model, "", "", "");
             }
         }
 
@@ -890,7 +926,7 @@ public class skillController {
             log.error("更新失敗");
         }
         // 業務経歴一覧画面を表示
-        return getCareerList(model, careerform.getEmployee_id());
+        return getCareerList(model, careerform.getEmployee_id(), careerform.getFrom());
     }
 
     /**
@@ -919,7 +955,7 @@ public class skillController {
             log.error("削除失敗");
         }
         // 業務経歴一覧画面を表示
-        return getCareerList(model, form.getEmployee_id());
+        return getCareerList(model, form.getEmployee_id(), form.getFrom());
     }
 
     /**
@@ -936,7 +972,7 @@ public class skillController {
     public String postCareerDetailback(@ModelAttribute @Validated InputCareerForm form, BindingResult bindingResult,
             Model model) {
         // 業務経歴一覧画面を表示
-        return getCareerList(model, form.getEmployee_id());
+        return getCareerList(model, form.getEmployee_id(), form.getFrom());
     }
 
 }

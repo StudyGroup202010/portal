@@ -15,6 +15,8 @@ import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.a.common.domain.repository.EmployeeattributeMapper;
 import com.portal.a.common.domain.repository.EmployeebelongsMapper;
 import com.portal.a.common.domain.repository.OrganizationMapper;
+import com.portal.z.common.domain.model.User;
+import com.portal.z.common.domain.repository.UserMapper;
 
 /**
  * EmployeeServiceImpl
@@ -38,6 +40,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     OrganizationMapper organizationMapper;
+    
+    @Autowired
+    UserMapper userMapper;
 
     public List<Employee> selectMany() {
         return employeeMapper.selectMany();
@@ -115,5 +120,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko) {
         return employeeExpMapper.selectBy(employee_cd, employee_name1_last, mail, biko);
+    }
+    
+    public User selectUserOne(String user_id) {
+        return userMapper.selectOne(user_id);
     }
 }

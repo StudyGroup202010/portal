@@ -32,6 +32,7 @@ import com.portal.a.employee.domain.model.SelectEmployeeForm;
 import com.portal.a.employee.domain.model.UpdateOrder;
 import com.portal.a.employee.domain.service.EmployeeService;
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
@@ -558,4 +559,101 @@ public class empController {
         // 社員マスタ一覧画面を表示
         return getEmployeeList(model);
     }
+    
+    /**
+     * 社員マスタ個人画面のGETメソッド用処理.<BR>
+     * 
+     * 社員マスタ個人画面を表示する。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return z/homeLayout
+     */
+    @GetMapping("/empPerson")
+    public String getEmployeePerson(@ModelAttribute InputEmployeeForm form, Model model) {
+
+        // コンテンツ部分に社員マスタ詳細を表示するための文字列を登録
+        model.addAttribute("contents", "a/empPerson :: empPerson_contents");
+
+        // ラジオボタンのMapを初期化してModelに登録
+        model.addAttribute("radioGender_kbn", initRadioGender_kbn());
+
+        // 社員属性一覧の生成
+        List<Employeeattribute> employeeattributeList = employeeService.selectManyemployeeattribute();
+        // Modelに社員属性リストを登録
+        model.addAttribute("employeeattributeList", employeeattributeList);
+
+        // 組織一覧の生成
+        List<Organization> organizationList = employeeService.selectManyorganization();
+        // Modelに組織リストを登録
+        model.addAttribute("organizationList", organizationList);
+
+        // 社員IDを取得
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        String user_id = user_auth.getUsername();
+        User user = employeeService.selectUserOne(user_id);
+
+        // 社員IDのチェック
+        if (user.getEmployee_id() != null && StrUtils.getStrLength(user.getEmployee_id()) > 0) {
+
+            // 社員マスタ情報を取得
+            Employee employee = employeeService.selectOne(user.getEmployee_id());
+
+            // Employeeクラスをフォームクラスに変換
+            form.setEmployee_id(employee.getEmployee_id()); // 社員ID
+            form.setEmployee_cd(employee.getEmployee_cd()); // 社員CD
+            form.setEmployee_name1_last(employee.getEmployee_name1_last()); // 社員名漢字（姓）
+            form.setEmployee_name1_first(employee.getEmployee_name1_first()); // 社員名漢字（名）
+            form.setEmployee_name2_last(employee.getEmployee_name2_last()); // 社員名カナ（姓）
+            form.setEmployee_name2_first(employee.getEmployee_name2_first()); // 社員名カナ（名）
+            form.setGender_kbn(employee.getGender_kbn()); // 性別区分
+            form.setPostcode(employee.getPostcode()); // 郵便番号
+            form.setPrefcode(employee.getPrefcode()); // 都道府県名CD
+            form.setPref_name1(employee.getPref_name1()); // 都道府県名１
+            form.setPref_name2(employee.getPref_name2()); // 都道府県名２
+            form.setCitycode(employee.getCitycode()); // 市区町村名CD
+            form.setCity_name1(employee.getCity_name1()); // 市区町村名１
+            form.setCity_name2(employee.getCity_name2()); // 市区町村名２
+            form.setStreetaddress1(employee.getStreetaddress1()); // 住所１
+            form.setStreetaddress2(employee.getStreetaddress2()); // 住所２
+            if (employee.getBirthday() != null) {
+                form.setBirthday(employee.getBirthday().toLocalDate()); // 生年月日
+            }
+            form.setNearest_station_code(employee.getNearest_station_code()); // 最寄駅コード
+            form.setNearest_station_name(employee.getNearest_station_name()); // 最寄駅名
+            form.setMail(employee.getMail()); // メールアドレス
+            if (employee.getJoined_date() != null) {
+                form.setJoined_date(employee.getJoined_date().toLocalDate()); // 入社日
+            }
+            if (employee.getLeave_date() != null) {
+                form.setLeave_date(employee.getLeave_date().toLocalDate()); // 退社日
+            }
+            form.setEmployeeattribute_id(employee.getEmployeeattribute_id()); // 社員属性ID
+            form.setOrganization_cd(employee.getOrganization_cd()); // 組織CD
+            form.setStart_yearmonth(employee.getStart_yearmonth()); // 開始年月
+            form.setBiko(employee.getBiko()); // 備考
+
+            // Modelに登録
+            model.addAttribute("inputEmployeeForm", form);
+        }
+
+        return "z/homeLayout";
+    }
+
+    /**
+     * 社員マスタ個人画面の戻る処理.<BR>
+     * 
+     * home画面に戻る。
+     * 
+     * @param model モデル
+     * @return redirect:/home
+     */
+    @PostMapping(value = "/empPerson", params = "back")
+    public String postEmployeePersonback(Model model) {
+        // ホーム画面に遷移
+        return "redirect:/home";
+    }
+    
 }

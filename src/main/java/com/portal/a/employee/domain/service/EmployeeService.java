@@ -6,6 +6,7 @@ import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
 import com.portal.a.common.domain.model.Organization;
+import com.portal.z.common.domain.model.User;
 
 /**
  * EmployeeService
@@ -78,4 +79,12 @@ public interface EmployeeService {
      * @return EmployeeList
      */
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
+    
+    /**
+     * １件取得用メソッド.
+     * 
+     * @param user_id user
+     * @return User
+     */
+    public User selectUserOne(String user_id);
 }
