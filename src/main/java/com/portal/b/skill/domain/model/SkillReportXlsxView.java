@@ -115,7 +115,7 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
             // 表示順
             row.getCell(0).setCellValue(career.getDisp_order());
             // 開始年月
-            row.getCell(1).setCellValue(career.getStart_yearmonth());
+            row.getCell(1).setCellValue(DateUtils.getDateFromStringmonth(career.getStart_yearmonth()).atStartOfDay());
             // 業務内容
             row.getCell(6).setCellValue(career.getBusiness_content());
             // 機種／OS
@@ -130,7 +130,7 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
             row.setHeightInPoints(Constants.SKILLREPORT_CAREER_HEIGHT);
 
             if (career.getEnd_yearmonth().length() != 0) {
-                row.getCell(1).setCellValue(career.getEnd_yearmonth());
+                row.getCell(1).setCellValue(DateUtils.getDateFromStringmonth(career.getEnd_yearmonth()).atStartOfDay());
             } else {
                 // 終了年月が未入力の時
                 row.getCell(1).setCellValue(Constants.SKILLREPORT_END_YEARMONTH);
