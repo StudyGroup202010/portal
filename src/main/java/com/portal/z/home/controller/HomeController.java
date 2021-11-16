@@ -1,11 +1,16 @@
 package com.portal.z.home.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.DateUtils;
 
 /**
  * home用のController
@@ -26,6 +31,14 @@ public class HomeController {
 
         // コンテンツ部分にユーザー詳細を表示するための文字列を登録
         model.addAttribute("contents", "z/home :: home_contents");
+
+        // 本日日付を取得
+        model.addAttribute("today", DateUtils.getStringFromDateFormat2(LocalDate.now()));
+
+        // ログインユーザー情報の取得
+        AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        model.addAttribute("userid", user_auth.getUsername());
 
         return "z/homeLayout";
     }

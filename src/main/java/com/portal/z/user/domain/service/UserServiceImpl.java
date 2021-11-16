@@ -18,10 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.a.common.domain.model.Employee;
+import com.portal.a.common.domain.repository.EmployeeExpMapper;
 import com.portal.z.common.domain.model.AppUserDetails;
-import com.portal.z.common.domain.model.Employee;
 import com.portal.z.common.domain.model.User;
-import com.portal.z.common.domain.repository.EmployeeMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.service.SqlSharedService;
 import com.portal.z.common.domain.service.UserSharedService;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
-    EmployeeMapper employeeMapper;
+    EmployeeExpMapper employeeExpMapper;
 
     @Autowired
     private MassageUtils massageUtils;
@@ -64,8 +64,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectMany();
     }
 
-    public List<Employee> selectManyEmployee() {
-        return employeeMapper.selectMany();
+    public List<Employee> selectManyExceptRetireeEmployee() {
+        return employeeExpMapper.selectManyExceptRetiree();
     }
 
     public User selectOne(String user_id) {

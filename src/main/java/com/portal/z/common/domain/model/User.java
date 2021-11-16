@@ -18,7 +18,7 @@ public class User {
     private boolean lock_flg; // ロック状態
     private String employee_id; // 社員ID
     private String employee_cd; // 社員CD
-    private String employee_name1_last; // 社員名漢字（性）
+    private String employee_name1_last; // 社員名漢字（姓）
     private boolean enabled_flg; // 有効フラグ
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時

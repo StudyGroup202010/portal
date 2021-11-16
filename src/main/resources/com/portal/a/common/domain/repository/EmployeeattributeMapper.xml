@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+    namespace="com.portal.a.common.domain.repository.EmployeeattributeMapper">
+    <!-- マッピング定義 -->
+    <resultMap type="com.portal.a.common.domain.model.Employeeattribute" id="employeeattribute">
+        <id column="employeeattribute_id" property="employeeattribute_id" />
+        <result column="employeeattribute_name" property="employeeattribute_name" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    
+    <!-- 全件検索 -->
+    <select id="selectManyemployeeattribute" resultMap="employeeattribute">
+         select
+           employeeattribute_id
+          ,employeeattribute_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am008_employeeattribute
+        order by
+          employeeattribute_id
+    </select>
+</mapper>
