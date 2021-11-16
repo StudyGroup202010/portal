@@ -93,12 +93,10 @@ public interface UserMapper {
     public List<User> selectBy(String user_id, String user_due_date_from, String user_due_date_to);
 
     /**
-     * 失敗回数をリセット(0回に更新)するメソッド<br>
-     * 更新者=ログインユーザとして、AOPで設定される更新者を条件に使います。
+     * 失敗回数をリセット(0回に更新)するメソッド
      * 
-     * @param user ユーザーマスタクラス
+     * @param user_id user_id
      * @return 成功ならtrue/失敗ならfalse
      */
-    public boolean updateLoginMissTimes(User user);
-
+    public boolean updateLoginMissTimes(String user_id);
 }

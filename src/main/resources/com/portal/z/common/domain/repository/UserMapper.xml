@@ -178,15 +178,16 @@
     </select>
     
     <!-- ログイン失敗回数を0に更新 -->
-    <!-- 更新者=ログインしたユーザー で修正したがこれでよいか？ -->
-    <update id="updateLoginMissTimes" parameterType="com.portal.z.common.domain.model.User">
+    <!-- ログイン失敗時のリセット処理は、共通処理の対象外 -->
+    <!-- https://github.com/StudyGroup202010/portal/issues/144 -->
+    <update id="updateLoginMissTimes" parameterType="string">
         update
           zm001_user
         set
            login_miss_times = 0
-          ,update_user = #{update_user}
-          ,update_date = #{update_date}
+          ,update_user = #{user_id}
+          ,update_date = NOW()
         where
-          user_id = #{update_user}
+          user_id = #{user_id}
     </update>
 </mapper>
