@@ -10,10 +10,12 @@ import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careertechnology;
+import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
 import com.portal.b.common.domain.repository.CareerMapper;
 import com.portal.b.common.domain.repository.CareertechnologyMapper;
+import com.portal.b.common.domain.repository.EmpcertificationMapper;
 import com.portal.b.common.domain.repository.SkillMapper;
 import com.portal.b.common.domain.repository.TechnologyMapper;
 
@@ -39,6 +41,9 @@ public class SkillServiceImpl implements SkillService {
 
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    EmpcertificationMapper empcertificationMapper;
 
     // スキル情報
     public List<Skill> selectSkillMany() {
@@ -136,5 +141,18 @@ public class SkillServiceImpl implements SkillService {
     // 社員情報
     public Employee selectEmployeeOne(String employee_id) {
         return employeeMapper.selectOne(employee_id);
+    }
+
+    // 社員資格
+    public List<Empcertification> selectEmpcertificationBy(String employee_id) {
+        return empcertificationMapper.selectBy(employee_id);
+    }
+
+    public boolean deleteEmpcertificationOne(String employee_id) {
+        return empcertificationMapper.deleteOne(employee_id);
+    }
+
+    public boolean insertEmpcertificationOne(Empcertification empcertification) {
+        return empcertificationMapper.insertOne(empcertification);
     }
 }

@@ -1,5 +1,6 @@
 package com.portal.b.skill.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careertechnology;
+import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
 import com.portal.b.skill.domain.model.CreateOrder;
@@ -217,6 +219,12 @@ public class skillController {
 
             // Modelに登録
             model.addAttribute("inputSkillForm", Skillform);
+
+            // 社員資格情報を取得
+            List<Empcertification> empcertificationList = skillService.selectEmpcertificationBy(employee_id);
+
+            // Modelに登録
+            model.addAttribute("empcertificationList", empcertificationList);
         }
 
         return "z/homeLayout";
@@ -272,8 +280,47 @@ public class skillController {
         boolean result = skillService.updateSkillOne(skill);
 
         if (result == true) {
-            model.addAttribute("result", "更新成功");
-            log.info("更新成功");
+
+            // 社員資格削除実行
+            // こちらは空振りする場合もあるので結果の評価はしない。
+            skillService.deleteEmpcertificationOne(skillform.getEmployee_id());
+
+            // 資格を選択した場合
+            if ((skillform.getCertification_id() != null) && (0 < skillform.getCertification_id().length)) {
+
+                // 資格用変数を定義
+                String[] getCertification_id = skillform.getCertification_id();
+
+                // 社員資格insert用変数
+                Empcertification empcertification = new Empcertification();
+
+                for (int i = 0; i < getCertification_id.length; i++) {
+                    empcertification.setEmployee_id(skillform.getEmployee_id());// 社員ID
+                    empcertification.setCertification_id(getCertification_id[i]); // 資格ID
+                    if (skillform.getAcquisition_date()[i] != null) {
+                        empcertification.setAcquisition_date(Date.valueOf(skillform.getAcquisition_date()[i])); // 資格取得日
+                    } else {
+                        empcertification.setAcquisition_date(null);
+                    }
+                    empcertification.setBiko(skillform.getBiko());// 備考
+                    empcertification.setInsert_user(user_auth.getUsername()); // 作成者
+
+                    // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
+                    boolean result1 = skillService.insertEmpcertificationOne(empcertification);
+
+                    if (result1 == true) {
+                        model.addAttribute("result", "更新成功");
+                        log.info("更新成功");
+                    } else {
+                        model.addAttribute("result", "更新失敗");
+                        log.error("更新失敗");
+                    }
+                }
+            } else {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            }
+
         } else {
             model.addAttribute("result", "更新失敗");
             log.error("更新失敗");

@@ -5,6 +5,7 @@ import java.util.List;
 import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careertechnology;
+import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
 
@@ -166,4 +167,29 @@ public interface SkillService {
      * @return employee
      */
     public Employee selectEmployeeOne(String employee_id);
+
+    // 社員資格
+    /**
+     * 社員資格検索用メソッド.
+     * 
+     * @param employee_id      employee_id
+     * @return CareertechnologyList
+     */
+    public List<Empcertification> selectEmpcertificationBy(String employee_id);
+
+    /**
+     * 社員資格削除用メソッド
+     * 
+     * @param employee_id employee_id
+     * @return true/false
+     */
+    public boolean deleteEmpcertificationOne(String employee_id);
+
+    /**
+     * 社員資格登録用メソッド
+     * 
+     * @param empcertification empcertification
+     * @return true/false
+     */
+    public boolean insertEmpcertificationOne(Empcertification empcertification);
 }

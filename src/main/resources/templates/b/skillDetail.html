@@ -32,7 +32,7 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 社員CD -->
                     <tr>
-                        <th class="active table-info">社員ＣＤ</th>
+                        <th class="active table-info col-3">社員ＣＤ</th>
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
@@ -118,6 +118,31 @@
                             </div>
                         </td>
                     </tr>
+                    <!-- 資格 -->
+                    <tr>
+                        <th class="active table-info">資格</th>
+                        <td>
+                            <div class="form-check form-check-inline"
+                                th:each="item : ${empcertificationList}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <input type="checkbox"
+                                            class="form-check-input"
+                                            th:name="certification_id"
+                                            th:value="${item.certification_id}"
+                                            th:text="${item.certification_name}"
+                                            th:checked="${item.certification_id == item.careercertification_id}" />
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="date"
+                                            class="form-control"
+                                            th:name="acquisition_date"
+                                            th:value="${item.acquisition_date}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <!-- 備考 -->
                     <tr>
                         <th class="table-info">備考</th>
@@ -129,7 +154,6 @@
                         </td>
                     </tr>
                 </table>
-
                 <!-- 社員ID -->
                 <input type="hidden" class="form-control"
                     th:field="*{employee_id}" />
