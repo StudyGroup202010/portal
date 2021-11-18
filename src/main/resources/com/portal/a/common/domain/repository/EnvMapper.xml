@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.portal.a.common.domain.repository.EnvMapper">
+<mapper namespace="com.portal.a.common.domain.repository.EnvMapper">
 	<!-- マッピング定義 -->
 	<resultMap type="com.portal.a.common.domain.model.Env"
 		id="env">
@@ -108,9 +107,9 @@
           ,biko
         from
           am999_env
-        where env_id               like CONCAT(#{env_id}  , '%')
-          and COALESCE(env_kbn,'') like CONCAT(#{env_kbn} , '%')
-          and env_txt              like CONCAT(#{env_txt} , '%')
+        where env_id               like CONCAT('%' , #{env_id}  , '%')
+          and COALESCE(env_kbn,'') like CONCAT('%' , #{env_kbn} , '%')
+          and env_txt              like CONCAT('%' , #{env_txt} , '%')
           and COALESCE(biko,'')    like CONCAT('%' , #{biko} , '%')
         order by
           env_id

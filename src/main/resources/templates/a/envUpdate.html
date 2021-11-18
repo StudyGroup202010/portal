@@ -37,8 +37,9 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_id')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_id}" autofocus /> <span
-                                    class="text-danger"
+                                    th:field="*{env_id}"
+                                    placeholder="英数字を入力してください" autofocus />
+                                <span class="text-danger"
                                     th:if="${#fields.hasErrors('env_id')}"
                                     th:errors="*{env_id}"> env_id
                                     error </span>
@@ -51,7 +52,8 @@
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_kbn}" />
+                                    th:field="*{env_kbn}"
+                                    placeholder="英数字を入力してください" />
                             </div>
                         </td>
                     </tr>
@@ -66,7 +68,7 @@
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('env_num')}"
                                     th:errors="*{env_num}">
-                                    env_txt error </span>
+                                    env_num error </span>
                             </div>
                         </td>
                     </tr>
@@ -99,7 +101,7 @@
 
                 <!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
-				<!-- ユーザー登録ボタン -->
+				<!-- 登録ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"
 					data-toggle="modal" data-target="#Modalinsert">登録</button>
 				<!-- 登録Modal -->

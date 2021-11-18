@@ -8,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.portal.z.common.domain.model.Employee;
+import com.portal.a.common.domain.model.Employee;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.exception.ApplicationException;
 
@@ -26,11 +26,11 @@ public interface UserService {
     public List<User> selectMany();
 
     /**
-     * 全件取得用メソッド.
+     * 全件取得用メソッド（退職者を除く）.
      * 
      * @return Employee
      */
-    public List<Employee> selectManyEmployee();
+    public List<Employee> selectManyExceptRetireeEmployee();
 
     /**
      * １件取得用メソッド.
