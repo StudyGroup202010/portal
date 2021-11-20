@@ -34,7 +34,7 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 社員CD -->
                     <tr>
-                        <th class="active table-info">社員ＣＤ</th>
+                        <th class="active table-info col-4">社員ＣＤ</th>
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
@@ -47,14 +47,12 @@
                     <tr>
                         <th class="active table-info">名前</th>
                         <td>
-                            <!-- 社員名漢字（姓）  -->
                             <div class="form-group form-check-inline">
+                                <!-- 社員名漢字（姓）  -->
                                 <input type="text" class="form-control"
                                     th:field="*{employee_name1_last}"
                                     readonly="readonly" />
-                            </div> 
-                            <!-- 社員名漢字（名）  -->
-                            <div class="form-group form-check-inline">
+                                <!-- 社員名漢字（名）  -->
                                 <input type="text" class="form-control"
                                     th:field="*{employee_name1_first}"
                                     readonly="readonly" />

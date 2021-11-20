@@ -114,12 +114,12 @@
                     </tr>
                     <!-- 資格 -->
                     <tr>
-                        <th class="active table-info">資格</th>
+                        <th class="active table-info">資格（取得日）</th>
                         <td>
-                            <div class="form-check form-check-inline"
+                            <div class="form-group form-check"
                                 th:each="item : ${empcertificationList}">
-                                <div class="row">
-                                    <div class="col-sm-12">
+                                <div class="form-row">
+                                    <div class="col">
                                         <input type="checkbox"
                                             class="form-check-input"
                                             th:name="certification_id"
@@ -127,7 +127,7 @@
                                             th:text="${item.certification_name}"
                                             th:checked="${item.certification_id == item.careercertification_id}" />
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-5">
                                         <input type="date"
                                             class="form-control"
                                             th:name="acquisition_date"
