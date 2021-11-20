@@ -34,6 +34,7 @@ public class InputCareerForm {
     private String[] technology_id_OS;// 技術区分_OS
     private String[] technology_id_Lang;// 技術区分_Lang
     private String[] technology_id_DB;// 技術区分_DB
+    private String[] process_id;// 工程
     private String biko; // 備考
     private String from; // 遷移元画面
 }

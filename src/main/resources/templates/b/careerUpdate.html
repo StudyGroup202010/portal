@@ -23,7 +23,7 @@
 </head>
 <body>
     <div th:fragment="careerUpdate_contents">
-        <div class="col-sm-5">
+        <div class="col-sm-6">
             <div class="page-header">
                 <h3>業務経歴登録</h3>
             </div>
@@ -34,7 +34,7 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 社員CD -->
                     <tr>
-                        <th class="active table-info">社員ＣＤ</th>
+                        <th class="active table-info col-4">社員ＣＤ</th>
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
@@ -45,20 +45,14 @@
                     </tr>
                     <!-- 社員名漢字（姓）  -->
                     <tr>
-                        <th class="active table-info">姓</th>
+                        <th class="active table-info">名前</th>
                         <td>
-                            <div class="form-group">
+                            <div class="form-group form-check-inline">
+                                <!-- 社員名漢字（姓）  -->
                                 <input type="text" class="form-control"
                                     th:field="*{employee_name1_last}"
                                     readonly="readonly" />
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 社員名漢字（名）  -->
-                    <tr>
-                        <th class="active table-info">名</th>
-                        <td>
-                            <div class="form-group">
+                                <!-- 社員名漢字（名）  -->
                                 <input type="text" class="form-control"
                                     th:field="*{employee_name1_first}"
                                     readonly="readonly" />
@@ -125,7 +119,7 @@
                     <tr>
                         <th class="active table-info">機種／OS</th>
                         <td>
-                            <div class="form-check form-check-inline"
+                            <div class="form-group form-check-inline"
                                 th:each="item : ${technologyList_OS}">
                                 <input class="form-check-input"
                                     type="checkbox"
@@ -139,7 +133,7 @@
                     <tr>
                         <th class="active table-info">言語／ツール</th>
                         <td>
-                            <div class="form-check form-check-inline"
+                            <div class="form-group form-check-inline"
                                 th:each="item : ${technologyList_Lang}">
                                 <input class="form-check-input"
                                     type="checkbox"
@@ -153,13 +147,27 @@
                     <tr>
                         <th class="active table-info">DB／DC</th>
                         <td>
-                            <div class="form-check form-check-inline"
+                            <div class="form-group form-check-inline"
                                 th:each="item : ${technologyList_DB}">
                                 <input class="form-check-input"
                                     type="checkbox"
                                     th:name="technology_id_DB"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 工程 -->
+                    <tr>
+                        <th class="active table-info">工程</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:each="item : ${processList}">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    th:name="process_id"
+                                    th:value="${item.process_id}"
+                                    th:text="${item.process_name}" />
                             </div>
                         </td>
                     </tr>

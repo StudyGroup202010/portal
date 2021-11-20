@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.z.common.domain.model.AbstractXlsxReportView;
 import com.portal.z.common.domain.util.Constants;
@@ -45,6 +46,7 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         Row row_6 = sheet.getRow(5); // 最終学歴、特記事項
         Row row_7 = sheet.getRow(6); // 学科
         Row row_8 = sheet.getRow(7); // 卒業年月
+        Row row_9 = sheet.getRow(8); // 社員資格
         Row row_113 = sheet.getRow(112); // 備考
 
         // Controllerから受け取った社員マスタ情報をセット
@@ -95,6 +97,23 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         // 特記事項
         row_6.getCell(12).setCellValue(skillDetail.getNotices());
 
+        // 社員資格
+        String empcertification = "";
+        String commma = ""; // 仕切り文字をセット
+
+        // Controllerから受け取った社員資格情報をセット
+        List<Empcertification> empcertificationList = (List<Empcertification>) model.get("empcertificationLisｔ");
+        for (int i = 0; i < empcertificationList.size(); i++) {
+            // セットする社員資格情報
+            Empcertification certification = empcertificationList.get(i);
+            if (certification.getCareercertification_id() != null
+                    && !certification.getCareercertification_id().isEmpty()) {
+                empcertification = empcertification.concat(commma + certification.getCertification_name());
+                commma = "、";
+            }
+        }
+        row_9.getCell(3).setCellValue(empcertification);
+
         // 備考
         row_113.getCell(5).setCellValue(skillDetail.getBiko());
 
@@ -124,7 +143,8 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
             row.getCell(14).setCellValue(career.getTechnology_Lang());
             // DB／DC
             row.getCell(16).setCellValue(career.getTechnology_DB());
-
+            // 工程
+            row.getCell(18).setCellValue(career.getProcess_name());
             // 終了年月
             row = sheet.getRow(Constants.SKILLREPORT_CAREER_START + (i * 2));
             row.setHeightInPoints(Constants.SKILLREPORT_CAREER_HEIGHT);

@@ -1,5 +1,6 @@
 package com.portal.b.skill.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Careerprocess;
 import com.portal.b.common.domain.model.Careertechnology;
+import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
 import com.portal.b.skill.domain.model.CreateOrder;
@@ -164,8 +167,13 @@ public class skillController {
         // Modelにスキル情報を登録
         model.addStaticAttribute("skillDetail", skill);
 
+        // 社員資格情報を取得
+        List<Empcertification> empcertificationList = skillService.selectEmpcertificationBy(employee_id);
+        // Modelに社員資格情報を登録
+        model.addStaticAttribute("empcertificationLisｔ", empcertificationList);
+
         // 業務経歴情報を取得
-        List<Career> careerList = skillService.selectCareerBy2(employee_id);
+        List<Career> careerList = skillService.selectCareerBy1(employee_id, "", "");
         // Modelに業務経歴情報を登録
         model.addStaticAttribute("careerList", careerList);
 
@@ -217,6 +225,12 @@ public class skillController {
 
             // Modelに登録
             model.addAttribute("inputSkillForm", Skillform);
+
+            // 社員資格情報を取得
+            List<Empcertification> empcertificationList = skillService.selectEmpcertificationBy(employee_id);
+
+            // Modelに登録
+            model.addAttribute("empcertificationList", empcertificationList);
         }
 
         return "z/homeLayout";
@@ -272,8 +286,47 @@ public class skillController {
         boolean result = skillService.updateSkillOne(skill);
 
         if (result == true) {
-            model.addAttribute("result", "更新成功");
-            log.info("更新成功");
+
+            // 社員資格削除実行
+            // こちらは空振りする場合もあるので結果の評価はしない。
+            skillService.deleteEmpcertificationOne(skillform.getEmployee_id());
+
+            // 資格を選択した場合
+            if ((skillform.getCertification_id() != null) && (0 < skillform.getCertification_id().length)) {
+
+                // 資格用変数を定義
+                String[] getCertification_id = skillform.getCertification_id();
+
+                // 社員資格insert用変数
+                Empcertification empcertification = new Empcertification();
+
+                for (int i = 0; i < getCertification_id.length; i++) {
+                    empcertification.setEmployee_id(skillform.getEmployee_id());// 社員ID
+                    empcertification.setCertification_id(getCertification_id[i]); // 資格ID
+                    if (skillform.getAcquisition_date()[i] != null) {
+                        empcertification.setAcquisition_date(Date.valueOf(skillform.getAcquisition_date()[i])); // 資格取得日
+                    } else {
+                        empcertification.setAcquisition_date(null);
+                    }
+                    empcertification.setBiko(skillform.getBiko());// 備考
+                    empcertification.setInsert_user(user_auth.getUsername()); // 作成者
+
+                    // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
+                    boolean result1 = skillService.insertEmpcertificationOne(empcertification);
+
+                    if (result1 == true) {
+                        model.addAttribute("result", "更新成功");
+                        log.info("更新成功");
+                    } else {
+                        model.addAttribute("result", "更新失敗");
+                        log.error("更新失敗");
+                    }
+                }
+            } else {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            }
+
         } else {
             model.addAttribute("result", "更新失敗");
             log.error("更新失敗");
@@ -346,7 +399,7 @@ public class skillController {
             model.addAttribute("selected_employee_name1_first", skill.getEmployee_name1_first());
 
             // 業務経歴情報を取得
-            List<Career> careerList = skillService.selectCareerBy2(employee_id);
+            List<Career> careerList = skillService.selectCareerBy1(employee_id, "", "");
 
             // Modelに業務経歴情報を登録
             model.addAttribute("careerList", careerList);
@@ -470,6 +523,11 @@ public class skillController {
             // Modelに登録
             model.addAttribute("technologyList_DB", technologyList_DB);
 
+            // 工程マスタ情報を取得（DB）
+            List<Process> processList = skillService.selectProcessMany();
+            // Modelに登録
+            model.addAttribute("processList", processList);
+
         }
         // 業務経歴画面に画面遷移
         return "z/homeLayout";
@@ -526,7 +584,7 @@ public class skillController {
         Career career = new Career();
 
         career.setEmployee_id(form.getEmployee_id()); // 社員ID
-        String next_certification_no = skillService.selectCareerBy3().getCertification_no();// 経歴番号
+        String next_certification_no = skillService.selectCareerBy2().getCertification_no();// 経歴番号
         career.setCertification_no(next_certification_no);
         career.setDisp_order(form.getDisp_order()); // 表示順
         career.setStart_yearmonth(form.getStart_yearmonth()); // 開始年月
@@ -646,6 +704,39 @@ public class skillController {
                     log.info("登録成功");
                 }
 
+                // 工程を選択した場合
+                if (form.getProcess_id() != null) {
+                    if (0 < form.getProcess_id().length) {
+
+                        // 工程用変数を定義
+                        String[] getProcess_id = form.getProcess_id();
+
+                        // 業務経歴工程insert用変数
+                        Careerprocess careerprocess = new Careerprocess();
+
+                        for (int i = 0; i < getProcess_id.length; i++) {
+                            careerprocess.setEmployee_id(form.getEmployee_id());// 社員ID
+                            careerprocess.setCertification_no(next_certification_no);// 経歴番号
+                            careerprocess.setProcess_id(getProcess_id[i]); // 工程ID
+                            careerprocess.setBiko(form.getBiko());// 備考
+                            careerprocess.setInsert_user(user_auth.getUsername()); // 作成者
+
+                            boolean result2 = skillService.insertCareerprocessOne(careerprocess);
+
+                            if (result2 == true) {
+                                model.addAttribute("result", "登録成功");
+                                log.info("登録成功");
+                            } else {
+                                model.addAttribute("result", "登録失敗");
+                                log.error("登録失敗");
+                            }
+                        }
+                    }
+                } else {
+                    model.addAttribute("result", "登録成功");
+                    log.info("登録成功");
+                }
+
             } else {
                 model.addAttribute("result", "登録失敗");
                 log.error("登録失敗");
@@ -747,6 +838,11 @@ public class skillController {
                     certification_no, Constants.TECHNOLOGY_KBN_DB);
             // Modelに登録
             model.addAttribute("careertechnologyList_DB", careertechnologyList_DB);
+
+            // 工程マスタ情報を取得
+            List<Careerprocess> careerprocessList = skillService.selectCareerprocessBy(employee_id, certification_no);
+            // Modelに登録
+            model.addAttribute("careerprocessList", careerprocessList);
         }
 
         return "z/homeLayout";
@@ -833,6 +929,7 @@ public class skillController {
             // 業務経歴技術削除実行
             // こちらは空振りする場合もあるので結果の評価はしない。
             skillService.deleteCareertechnologyOne(careerform.getEmployee_id(), careerform.getCertification_no());
+            skillService.deleteCareerprocessOne(careerform.getEmployee_id(), careerform.getCertification_no());
 
             // 機種／OSを選択した場合
             if ((careerform.getTechnology_id_OS() != null) && (0 < careerform.getTechnology_id_OS().length)) {
@@ -916,6 +1013,38 @@ public class skillController {
 
                     // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
                     boolean result2 = skillService.insertCareertechnologyOne(careertechnology);
+
+                    if (result2 == true) {
+                        model.addAttribute("result", "更新成功");
+                        log.info("更新成功");
+                    } else {
+                        model.addAttribute("result", "更新失敗");
+                        log.error("更新失敗");
+                    }
+                }
+            } else {
+                model.addAttribute("result", "更新成功");
+                log.info("更新成功");
+            }
+
+            // 工程を選択した場合
+            if ((careerform.getProcess_id() != null) && (0 < careerform.getProcess_id().length)) {
+
+                // 工程用変数を定義
+                String[] getCareerprocess_id = careerform.getProcess_id();
+
+                // 業務経歴工程insert用変数
+                Careerprocess careerprocess = new Careerprocess();
+
+                for (int i = 0; i < getCareerprocess_id.length; i++) {
+                    careerprocess.setEmployee_id(careerform.getEmployee_id());// 社員ID
+                    careerprocess.setCertification_no(careerform.getCertification_no());// 経歴番号
+                    careerprocess.setProcess_id(getCareerprocess_id[i]); // 工程ID
+                    careerprocess.setBiko(careerform.getBiko());// 備考
+                    careerprocess.setInsert_user(user_auth.getUsername()); // 作成者
+
+                    // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
+                    boolean result2 = skillService.insertCareerprocessOne(careerprocess);
 
                     if (result2 == true) {
                         model.addAttribute("result", "更新成功");

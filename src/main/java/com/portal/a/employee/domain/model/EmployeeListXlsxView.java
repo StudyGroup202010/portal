@@ -141,7 +141,7 @@ public class EmployeeListXlsxView extends AbstractXlsxView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 26; i++) {
+        for (int i = 0; i <= employeeListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }

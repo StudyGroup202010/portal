@@ -21,6 +21,7 @@ public class Career {
     private String technology_Lang; // 技術区分_開発言語
     private String technology_OS; // 技術区分_OS
     private String technology_DB; // 技術区分_DB
+    private String process_name; // 工程
     private String biko; // 備考
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時
