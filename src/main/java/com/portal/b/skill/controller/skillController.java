@@ -166,6 +166,11 @@ public class skillController {
         // Modelにスキル情報を登録
         model.addStaticAttribute("skillDetail", skill);
 
+        // 社員資格情報を取得
+        List<Empcertification> empcertificationList = skillService.selectEmpcertificationBy(employee_id);
+        // Modelに社員資格情報を登録
+        model.addStaticAttribute("empcertificationLisｔ", empcertificationList);
+
         // 業務経歴情報を取得
         List<Career> careerList = skillService.selectCareerBy2(employee_id);
         // Modelに業務経歴情報を登録
