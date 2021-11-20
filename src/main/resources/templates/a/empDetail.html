@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div th:fragment="empDetail_contents">
-		<div class="col-sm-5">
+		<div class="col-sm-6">
 			<div class="page-header">
 				<h3>社員マスタ詳細</h3>
 			</div>
@@ -38,74 +38,65 @@
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
 								<input type="text" class="form-control"
-									th:field="*{employee_cd}" /> <span
+									th:field="*{employee_cd}" autofocus/> <span
 									class="text-danger" th:if="${#fields.hasErrors('employee_cd')}"
 									th:errors="*{employee_cd}"> employee_cd error </span>
 							</div>
 						</td>
 					</tr>
-
-				</table>
-				<table class="table table-bordered table-hover table-sm">
-					<!-- 社員名漢字 -->
-					<tr>
-                        <!-- 社員名漢字（姓） -->
-						<th class="active table-info">名前（漢字）</th>
-						<td>姓
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{employee_name1_last}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('employee_name1_last')}"
-									th:errors="*{employee_name1_last}"> employee_name1_last
-									error </span>
-							</div>
-						</td>
-						<!-- 社員名漢字（名） -->
-						<td>名
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('employee_name1_first')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{employee_name1_first}" /> <span
-									class="text-danger"
-									th:if="${#fields.hasErrors('employee_name1_first')}"
-									th:errors="*{employee_name1_first}">
-									employee_name1_first error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 社員名カナ -->
-					<tr>
-                        <!-- 社員名カナ（姓） -->
-						<th class="active table-info">名前（フリガナ）</th>
-						<td>セイ
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('employee_name2_last')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{employee_name2_last}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('employee_name2_last')}"
-									th:errors="*{employee_name2_last}"> employee_name2_last
-									error </span>
-							</div>
-						</td>
-						<!-- 社員名カナ（名） -->
-						<td>メイ
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('employee_name2_first')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{employee_name2_first}" /> <span
-									class="text-danger"
-									th:if="${#fields.hasErrors('employee_name2_first')}"
-									th:errors="*{employee_name2_first}">
-									employee_name2_first error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 性別区分 -->
+                    <!-- 社員名漢字 -->
+                    <tr>
+                        <th class="active table-info">名前（漢字）</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_last}" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_name1_last')}"
+                                    th:errors="*{employee_name1_last}">
+                                    employee_name1_last error </span>
+                            </div>
+                            <div class="form-group form-check-inline"
+                                th:classappend="${#fields.hasErrors('employee_name1_first')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_first}" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_name1_first')}"
+                                    th:errors="*{employee_name1_first}">
+                                    employee_name1_first error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員名カナ -->
+                    <tr>
+                        <th class="active table-info">名前（フリガナ）</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:classappend="${#fields.hasErrors('employee_name2_last')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name2_last}" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_name2_last')}"
+                                    th:errors="*{employee_name2_last}">
+                                    employee_name2_last error </span>
+                            </div>
+                            <div class="form-group form-check-inline"
+                                th:classappend="${#fields.hasErrors('employee_name2_first')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name2_first}" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('employee_name2_first')}"
+                                    th:errors="*{employee_name2_first}">
+                                    employee_name2_first error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 性別区分 -->
 					<tr>
 						<th class="active table-info">性別</th>
 						<td>
-							<div class="form-group form-check-inline ">
+							<div class="form-group form-check-inline">
 								<div th:each="item : ${radioGender_kbn}">
 									<input type="radio" name="gender_kbn" th:text="${item.key}"
 										th:value="${item.value}" th:field="*{gender_kbn}">
@@ -203,10 +194,6 @@
 							</div>
 						</td>
 					</tr>
-				</table>
-
-				<table class="table table-bordered table-hover table-sm">
-
 					<!-- 郵便番号 -->
 					<tr>
 						<th class="active table-info">郵便番号</th>
@@ -373,7 +360,7 @@
 					th:field="*{start_yearmonth}" />
 
 				<!-- 戻るボタン -->
-				<button class="btn btn-lg btn-primary" type="submit" name="back" autofocus>戻る</button>
+				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
 				<!-- 更新ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"
 					data-toggle="modal" data-target="#Modalupdate"
