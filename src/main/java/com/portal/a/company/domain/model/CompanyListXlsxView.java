@@ -72,7 +72,7 @@ public class CompanyListXlsxView extends AbstractXlsxView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 6; i++) {
+        for (int i = 0; i <= companyListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }

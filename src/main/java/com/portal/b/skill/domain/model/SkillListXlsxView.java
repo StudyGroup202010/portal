@@ -94,7 +94,7 @@ public class SkillListXlsxView extends AbstractXlsxView {
 
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 15; i++) {
+        for (int i = 0; i <= skillListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }
