@@ -52,6 +52,7 @@ public class SkillListXlsxView extends AbstractXlsxView {
         row.createCell(13).setCellValue("開発言語");
         row.createCell(14).setCellValue("OS");
         row.createCell(15).setCellValue("DB");
+        row.createCell(16).setCellValue("工程");
 
         // 指定したシートにデータをセット
         for (int i = 0; i < skillListCount; i++) {
@@ -91,10 +92,12 @@ public class SkillListXlsxView extends AbstractXlsxView {
             row.createCell(14).setCellValue(skillList.get(i).getTechnology_OS());
             // 技術名（DB）
             row.createCell(15).setCellValue(skillList.get(i).getTechnology_DB());
+            // 工程
+            row.createCell(16).setCellValue(skillList.get(i).getProcess_name());
 
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 15; i++) {
+        for (int i = 0; i <= skillListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }

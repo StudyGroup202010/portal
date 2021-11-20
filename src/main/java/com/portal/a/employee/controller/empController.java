@@ -62,8 +62,8 @@ public class empController {
         Map<String, String> radio = new LinkedHashMap<>();
 
         // 男、女をMapに格納
-        radio.put("男", Constants.GENDER_KBN_MAN);
-        radio.put("女", Constants.GENDER_KBN_WOMAN);
+        radio.put("男　", Constants.GENDER_KBN_MAN);
+        radio.put("女　", Constants.GENDER_KBN_WOMAN);
 
         return radio;
     }

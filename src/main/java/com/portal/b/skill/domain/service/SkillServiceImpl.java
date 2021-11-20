@@ -9,11 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Careerprocess;
 import com.portal.b.common.domain.model.Careertechnology;
+import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
 import com.portal.b.common.domain.repository.CareerMapper;
+import com.portal.b.common.domain.repository.CareerprocessMapper;
 import com.portal.b.common.domain.repository.CareertechnologyMapper;
+import com.portal.b.common.domain.repository.EmpcertificationMapper;
+import com.portal.b.common.domain.repository.ProcessMapper;
 import com.portal.b.common.domain.repository.SkillMapper;
 import com.portal.b.common.domain.repository.TechnologyMapper;
 
@@ -38,7 +43,16 @@ public class SkillServiceImpl implements SkillService {
     CareertechnologyMapper careertechnologyMapper;
 
     @Autowired
+    ProcessMapper processMapper;
+
+    @Autowired
+    CareerprocessMapper careerprocessMapper;
+
+    @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    EmpcertificationMapper empcertificationMapper;
 
     // スキル情報
     public List<Skill> selectSkillMany() {
@@ -106,12 +120,8 @@ public class SkillServiceImpl implements SkillService {
         return careerMapper.selectBy1(employee_id, business_content, biko);
     }
 
-    public List<Career> selectCareerBy2(String employee_id) {
-        return careerMapper.selectBy2(employee_id);
-    }
-
-    public Career selectCareerBy3() {
-        return careerMapper.selectBy3();
+    public Career selectCareerBy2() {
+        return careerMapper.selectBy2();
     }
 
     // 技術マスタ
@@ -133,8 +143,39 @@ public class SkillServiceImpl implements SkillService {
         return careertechnologyMapper.deleteOne(employee_id, certification_no);
     }
 
+    // 工程マスタ
+    public List<Process> selectProcessMany() {
+        return processMapper.selectMany();
+    }
+
+    // 業務経歴工程
+    public List<Careerprocess> selectCareerprocessBy(String employee_id, String certification_no) {
+        return careerprocessMapper.selectBy(employee_id, certification_no);
+    }
+
+    public boolean insertCareerprocessOne(Careerprocess careerprocess) {
+        return careerprocessMapper.insertOne(careerprocess);
+    }
+
+    public boolean deleteCareerprocessOne(String employee_id, String certification_no) {
+        return careerprocessMapper.deleteOne(employee_id, certification_no);
+    }
+
     // 社員情報
     public Employee selectEmployeeOne(String employee_id) {
         return employeeMapper.selectOne(employee_id);
+    }
+
+    // 社員資格
+    public List<Empcertification> selectEmpcertificationBy(String employee_id) {
+        return empcertificationMapper.selectBy(employee_id);
+    }
+
+    public boolean deleteEmpcertificationOne(String employee_id) {
+        return empcertificationMapper.deleteOne(employee_id);
+    }
+
+    public boolean insertEmpcertificationOne(Empcertification empcertification) {
+        return empcertificationMapper.insertOne(empcertification);
     }
 }

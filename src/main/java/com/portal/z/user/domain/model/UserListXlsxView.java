@@ -87,7 +87,7 @@ public class UserListXlsxView extends AbstractXlsxView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 11; i++) {
+        for (int i = 0; i <= userListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }
