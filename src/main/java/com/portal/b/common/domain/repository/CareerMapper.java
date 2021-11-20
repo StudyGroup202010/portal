@@ -60,18 +60,10 @@ public interface CareerMapper {
     /**
      * 条件検索用メソッド
      * 
-     * @param employee_id employee_id
-     * @return CareerList
-     */
-    public List<Career> selectBy2(String employee_id);
-
-    /**
-     * 条件検索用メソッド
-     * 
      * bt003_careerに追加するときに使うcertification_noの値を取得する。
      * 業務経歴を追加するときに、業務経歴技術や業務経歴産業分類、業務経歴工程も追加するのでここで取得したcertification_noを使う。
      * 
      * @return Career
      */
-    public Career selectBy3();
+    public Career selectBy2();
 }

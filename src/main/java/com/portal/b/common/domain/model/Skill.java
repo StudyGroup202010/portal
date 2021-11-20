@@ -32,7 +32,8 @@ public class Skill {
     private String technology_Lang; // 技術名（開発言語）
     private String technology_OS; // 技術名（OS）
     private String technology_DB; // 技術名（DB）
-
+    // 業務経歴工程
+    private String process_name; // 工程
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時
     private String update_user; // 更新者

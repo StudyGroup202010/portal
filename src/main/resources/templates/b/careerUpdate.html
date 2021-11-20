@@ -157,6 +157,20 @@
                             </div>
                         </td>
                     </tr>
+                    <!-- 工程 -->
+                    <tr>
+                        <th class="active table-info">工程</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:each="item : ${processList}">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    th:name="process_id"
+                                    th:value="${item.process_id}"
+                                    th:text="${item.process_name}" />
+                            </div>
+                        </td>
+                    </tr>
                     <!-- 備考 -->
                     <tr>
                         <th class="active table-info">備考</th>

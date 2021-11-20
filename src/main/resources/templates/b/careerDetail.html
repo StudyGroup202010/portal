@@ -159,6 +159,21 @@
                             </div>
                         </td>
                     </tr>
+                    <!-- 工程 -->
+                    <tr>
+                        <th class="active table-info">工程</th>
+                        <td>
+                            <div class="form-group form-check form-check-inline"
+                                th:each="item : ${careerprocessList}">
+                                <input type="checkbox"
+                                    class="form-check-input"
+                                    th:name="process_id"
+                                    th:value="${item.process_id}"
+                                    th:text="${item.process_name}"
+                                    th:checked="${item.process_id == item.careerprocess_id}" />
+                            </div>
+                        </td>
+                    </tr>
                     <!-- 備考 -->
 					<tr>
 						<th class="table-info">備考</th>

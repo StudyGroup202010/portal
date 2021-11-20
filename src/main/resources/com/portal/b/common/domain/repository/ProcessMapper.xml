@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.b.common.domain.repository.ProcessMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.b.common.domain.model.Process"
+        id="process">
+        <id column="process_id" property="process_id" />
+        <result column="process_name" property="process_name" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.b.common.domain.model.Process">
+        insert into
+          bm004_process (
+           process_id
+          ,process_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{process_id}
+          ,#{process_name}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+    
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultMap="process">
+        select
+           a.process_id
+          ,a.process_name
+          ,a.biko
+        from
+          bm004_process a
+        where 
+              a.process_id = #{process_id}
+    </select>
+    
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="process">
+        select
+           process_id
+          ,process_name
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          bm004_process
+        order by
+          process_id
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.b.common.domain.model.Process">
+        update
+          bm004_process
+           process_name  = #{process_name}
+          ,biko          = #{biko}
+          ,update_user   = #{update_user}
+          ,update_date   = NOW()
+        where process_id = #{process_id}
+    </update>
+    
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from bm004_process
+        where process_id = #{process_id}
+    </delete>
+</mapper>

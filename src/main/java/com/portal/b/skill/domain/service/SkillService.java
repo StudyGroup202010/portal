@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.portal.a.common.domain.model.Employee;
 import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Careerprocess;
 import com.portal.b.common.domain.model.Careertechnology;
 import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
@@ -107,19 +108,11 @@ public interface SkillService {
     public List<Career> selectCareerBy1(String employee_id, String business_content, String biko);
 
     /**
-     * 詳細情報取得用メソッド.
-     * 
-     * @param employee_id employee_id
-     * @return CareerList
-     */
-    public List<Career> selectCareerBy2(String employee_id);
-
-    /**
      * 経歴番号取得用メソッド.
      * 
      * @return Career
      */
-    public Career selectCareerBy3();
+    public Career selectCareerBy2();
 
     // 技術マスタ
     /**
@@ -159,6 +152,41 @@ public interface SkillService {
      */
     public boolean deleteCareertechnologyOne(String employee_id, String certification_no);
 
+    // 工程マスタ
+    /**
+     * 工程マスタ条件検索用メソッド.
+     * 
+     * @return TechnologyList
+     */
+    public List<Process> selectProcessMany();
+
+    // 業務経歴工程
+    /**
+     * 業務経歴工程条件検索用メソッド.
+     * 
+     * @param employee_id      employee_id
+     * @param certification_no certification_no
+     * @return CareerprocessList
+     */
+    public List<Careerprocess> selectCareerprocessBy(String employee_id, String certification_no);
+
+    /**
+     * 業務経歴工程登録用メソッド
+     * 
+     * @param careerprocess careerprocess
+     * @return true/false
+     */
+    public boolean insertCareerprocessOne(Careerprocess careerprocess);
+
+    /**
+     * 業務経歴工程削除用メソッド
+     * 
+     * @param employee_id      employee_id
+     * @param certification_no certification_no
+     * @return true/false
+     */
+    public boolean deleteCareerprocessOne(String employee_id, String certification_no);
+
     // 社員情報
     /**
      * １件取得用メソッド.
@@ -172,7 +200,7 @@ public interface SkillService {
     /**
      * 社員資格検索用メソッド.
      * 
-     * @param employee_id      employee_id
+     * @param employee_id employee_id
      * @return CareertechnologyList
      */
     public List<Empcertification> selectEmpcertificationBy(String employee_id);
