@@ -61,8 +61,9 @@
 
                 </table>
                 <table class="table table-bordered table-hover table-sm">
-                    <!-- 社員名漢字（姓） -->
+                    <!-- 社員名漢字 -->
                     <tr>
+                        <!-- 社員名漢字（姓） -->
                         <th class="active table-info">名前（漢字）</th>
                         <td>姓
                             <div class="form-group"
@@ -90,8 +91,9 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- 社員名カナ（姓） -->
+                    <!-- 社員名カナ -->
                     <tr>
+                        <!-- 社員名カナ（姓） -->
                         <th class="active table-info">名前（フリガナ）</th>
                         <td>セイ
                             <div class="form-group"
@@ -123,7 +125,7 @@
                     <tr>
                         <th class="active table-info">性別</th>
                         <td>
-                            <div class="form-group">
+                            <div class="form-group form-check-inline ">
                                 <div th:each="item : ${radioGender_kbn}">
                                     <input type="radio"
                                         name="gender_kbn"
