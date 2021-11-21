@@ -48,7 +48,7 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         Row row_7 = sheet.getRow(6); // 学科
         Row row_8 = sheet.getRow(7); // 卒業年月
         Row row_9 = sheet.getRow(8); // 社員資格
-        Row row_113 = sheet.getRow(112); // 備考
+        Row row_115 = sheet.getRow(114); // 備考
 
         // Controllerから受け取った社員マスタ情報をセット
         Employee employeeDetail = (Employee) model.get("employeeDetail");
@@ -124,7 +124,7 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         row_9.getCell(3).setCellValue(empcertification);
 
         // 備考
-        row_113.getCell(5).setCellValue(skillDetail.getBiko());
+        row_115.getCell(5).setCellValue(skillDetail.getBiko());
 
         // Controllerから受け取った業務経歴情報をセット
         List<Career> careerList = (List<Career>) model.get("careerList");
