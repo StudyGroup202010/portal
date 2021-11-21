@@ -132,21 +132,29 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- Mail関係 -->
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>jakarta.mail</artifactId>
 		</dependency>
+		<!-- セキュリティ関係 -->
 		<dependency>
 			<groupId>org.passay</groupId>
 			<artifactId>passay</artifactId>
 			<version>1.6.0</version>
 		</dependency>
+		<!-- CSV出力関係 -->
 		<dependency>
 			<groupId>com.github.mygreen</groupId>
 			<artifactId>super-csv-annotation</artifactId>
 			<version>2.2</version>
 		</dependency>
-
+		<!-- カナ変換関係 -->
+        <dependency>
+    		<groupId>com.ibm.icu</groupId>
+    		<artifactId>icu4j</artifactId>
+    		<version>69.1</version>
+    	</dependency>
 	</dependencies>
 
 	<build>

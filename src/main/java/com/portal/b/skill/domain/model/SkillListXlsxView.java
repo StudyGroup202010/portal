@@ -41,18 +41,19 @@ public class SkillListXlsxView extends AbstractXlsxView {
         row.createCell(4).setCellValue("学科");
         row.createCell(5).setCellValue("卒業年月");
         row.createCell(6).setCellValue("特記事項");
-        row.createCell(7).setCellValue("備考");
+        row.createCell(7).setCellValue("資格");
+        row.createCell(8).setCellValue("備考");
 
-        row.createCell(8).setCellValue("表示順");
-        row.createCell(9).setCellValue("開始年月");
-        row.createCell(10).setCellValue("終了年月");
-        row.createCell(11).setCellValue("業務内容");
-        row.createCell(12).setCellValue("業務経歴備考");
+        row.createCell(9).setCellValue("表示順");
+        row.createCell(10).setCellValue("開始年月");
+        row.createCell(11).setCellValue("終了年月");
+        row.createCell(12).setCellValue("業務内容");
+        row.createCell(13).setCellValue("業務経歴備考");
 
-        row.createCell(13).setCellValue("開発言語");
-        row.createCell(14).setCellValue("OS");
-        row.createCell(15).setCellValue("DB");
-        row.createCell(16).setCellValue("工程");
+        row.createCell(14).setCellValue("開発言語");
+        row.createCell(15).setCellValue("OS");
+        row.createCell(16).setCellValue("DB");
+        row.createCell(17).setCellValue("工程");
 
         // 指定したシートにデータをセット
         for (int i = 0; i < skillListCount; i++) {
@@ -73,27 +74,29 @@ public class SkillListXlsxView extends AbstractXlsxView {
             row.createCell(5).setCellValue(skillList.get(i).getGraduation_date());
             // 特記事項
             row.createCell(6).setCellValue(skillList.get(i).getNotices());
+            // 資格
+            row.createCell(7).setCellValue(skillList.get(i).getCertification_name());
             // 備考
-            row.createCell(7).setCellValue(skillList.get(i).getBiko());
+            row.createCell(8).setCellValue(skillList.get(i).getBiko());
 
             // 表示順
-            row.createCell(8).setCellValue(skillList.get(i).getDisp_order());
+            row.createCell(9).setCellValue(skillList.get(i).getDisp_order());
             // 開始年月
-            row.createCell(9).setCellValue(skillList.get(i).getStart_yearmonth());
+            row.createCell(10).setCellValue(skillList.get(i).getStart_yearmonth());
             // 終了年月
-            row.createCell(10).setCellValue(skillList.get(i).getEnd_yearmonth());
+            row.createCell(11).setCellValue(skillList.get(i).getEnd_yearmonth());
             // 業務内容
-            row.createCell(11).setCellValue(skillList.get(i).getBusiness_content());
+            row.createCell(12).setCellValue(skillList.get(i).getBusiness_content());
             // 業務経歴備考
-            row.createCell(12).setCellValue(skillList.get(i).getCareerbiko());
+            row.createCell(13).setCellValue(skillList.get(i).getCareerbiko());
             // 技術名（開発言語）
-            row.createCell(13).setCellValue(skillList.get(i).getTechnology_Lang());
+            row.createCell(14).setCellValue(skillList.get(i).getTechnology_Lang());
             // 技術名（OS）
-            row.createCell(14).setCellValue(skillList.get(i).getTechnology_OS());
+            row.createCell(15).setCellValue(skillList.get(i).getTechnology_OS());
             // 技術名（DB）
-            row.createCell(15).setCellValue(skillList.get(i).getTechnology_DB());
+            row.createCell(16).setCellValue(skillList.get(i).getTechnology_DB());
             // 工程
-            row.createCell(16).setCellValue(skillList.get(i).getProcess_name());
+            row.createCell(17).setCellValue(skillList.get(i).getProcess_name());
 
         }
         // カラム幅を自動調整
