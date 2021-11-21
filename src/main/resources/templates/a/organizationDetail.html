@@ -105,9 +105,15 @@
 					<tr>
 						<th class="table-info">備考</th>
 						<td>
-							<div class="form-group">
-								<input type="text" class="form-control" th:field="*{biko}" />
-							</div>
+							<div class="form-group"
+                                th:classappend="${#fields.hasErrors('biko')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{biko}" />　<span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('biko')}"
+                                    th:errors="*{biko}">
+                                    biko　error </span>
+                            </div>
 						</td>
 					</tr>
 				</table>

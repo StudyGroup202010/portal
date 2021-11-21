@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Company;
-import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Organization;
+import com.portal.a.organization.domain.model.CreateOrder;
 import com.portal.a.organization.domain.model.InputOrganizationForm;
 import com.portal.a.organization.domain.model.SelectOrganizationForm;
+import com.portal.a.organization.domain.model.UpdateOrder;
 import com.portal.a.organization.domain.service.OrganizationService;
 import com.portal.z.common.domain.model.AppUserDetails;
+import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
 import com.portal.z.common.domain.util.StrUtils;
 
@@ -137,7 +139,7 @@ public class organizationController {
      * @return 遷移先の情報(String)
      */
     @PostMapping("/organizationUpdate")
-    public String postSignUp(@ModelAttribute @Validated InputOrganizationForm form, BindingResult bindingResult,
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputOrganizationForm form, BindingResult bindingResult,
             Model model) {
 
         // 入力チェックに引っかかった場合、組織マスタ登録画面に戻る
@@ -145,6 +147,36 @@ public class organizationController {
             // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
             return getSignUp(form, model);
         }
+
+        // 年月チェック（start_yearmonth）
+        if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
+                return getSignUp(form, model);
+            }
+        }
+        
+        // 年月チェック（end_yearmonth）
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "最終年月" }));
+                return getSignUp(form, model);
+            }
+        }
+
+        // 年月チェック(開始年月 <= 最終年月）
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
+                    DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
+                // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
+                        new String[] { "開始年月：" + form.getStart_yearmonth(), "最終年月：" + form.getEnd_yearmonth() }));
+                return getSignUp(form, model);
+            }
+        }
+        
 
         // 組織マスタinsert用変数
         Organization organization = new Organization();
@@ -257,7 +289,7 @@ public class organizationController {
      * @return getOrganizationList(model)
      */
     @PostMapping(value = "/organizationDetail", params = "update")
-    public String postOrganizationDetailUpdate(@ModelAttribute @Validated InputOrganizationForm form,
+    public String postOrganizationDetailUpdate(@ModelAttribute @Validated(UpdateOrder.class) InputOrganizationForm form,
             BindingResult bindingResult, Model model) {
 
         // 入力チェックに引っかかった場合、組織マスタ詳細画面に戻る
@@ -265,7 +297,36 @@ public class organizationController {
             // GETリクエスト用のメソッドを呼び出して、組織マスタ詳細画面に戻ります
             return getOrganizationDetail(form, model, "");
         }
+        
+        // 年月チェック（start_yearmonth）
+        if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "開始年月" }));
+                return getOrganizationDetail(form, model, "");
+            }
+        }
+        
+        // 年月チェック（end_yearmonth）
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
+                // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "最終年月" }));
+                return getOrganizationDetail(form, model, "");
+            }
+        }        
 
+        // 年月チェック(開始年月 <= 最終年月）
+        if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
+            if (DateUtils.compareDateTime(DateUtils.getDateFromString(form.getStart_yearmonth() + "01").atStartOfDay(),
+                    DateUtils.getDateFromString(form.getEnd_yearmonth() + "01").atStartOfDay()) == 1) {
+                // GETリクエスト用のメソッドを呼び出して、組織マスタ登録画面に戻ります
+                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
+                        new String[] { "開始年月：" + form.getStart_yearmonth(), "最終年月：" + form.getEnd_yearmonth() }));
+                return getOrganizationDetail(form, model, "");
+            }
+        }
+        
         // Organizationインスタンスの生成
         Organization organization = new Organization();
 
