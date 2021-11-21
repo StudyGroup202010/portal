@@ -21,6 +21,7 @@ import com.portal.b.common.domain.model.Skill;
 import com.portal.z.common.domain.model.AbstractXlsxReportView;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
+import com.portal.z.common.domain.util.StrUtils;
 
 /**
  * 技術者業務経歴書出力用.
@@ -53,12 +54,20 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         Employee employeeDetail = (Employee) model.get("employeeDetail");
 
         // フリガナ
-        row_3.getCell(3)
-                .setCellValue(employeeDetail.getEmployee_name2_last() + ' ' + employeeDetail.getEmployee_name2_first());
+        // 個人情報保護のため出力しない
 
         // 氏名
-        row_4.getCell(3)
-                .setCellValue(employeeDetail.getEmployee_name1_last() + ' ' + employeeDetail.getEmployee_name1_first());
+        // 氏名をイニシャルに変換する
+        String last_name = StrUtils.getSubstring(StrUtils.getLatinFromFullkana(employeeDetail.getEmployee_name2_last()),
+                0, 1);
+        String first_name = StrUtils
+                .getSubstring(StrUtils.getLatinFromFullkana(employeeDetail.getEmployee_name2_first()), 0, 1);
+
+        String initial_name = "";
+        if (last_name != null && !last_name.isEmpty() && first_name != null && !first_name.isEmpty()) {
+            initial_name = String.join(".", last_name, first_name);
+        }
+        row_4.getCell(3).setCellValue(initial_name);
 
         // 性別
         String gender = employeeDetail.getGender_kbn();
