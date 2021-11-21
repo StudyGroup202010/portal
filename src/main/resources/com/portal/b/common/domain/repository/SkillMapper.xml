@@ -17,6 +17,7 @@
 		<result column="department" property="department" />
 		<result column="graduation_date" property="graduation_date" />
 		<result column="notices" property="notices" />
+		<result column="certification_name" property="certification_name" />
 		<result column="biko" property="biko" />
 		<result column="certification_no" property="certification_no" />
 		<result column="disp_order" property="disp_order" />
@@ -132,7 +133,7 @@
           employee_id      = #{employee_id}
     </update>
 
-    <!-- 備考で条件検索 -->
+    <!-- 条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="skill">
     <![CDATA[
         select
@@ -170,7 +171,7 @@
           a.employee_cd
     ]]>
     </select>
-    <!-- 備考で条件検索EXCEL -->
+    <!-- 条件検索EXCEL -->
     <select id="selectByExcel" parameterType="string" resultMap="skill">
     <![CDATA[
         select
@@ -185,6 +186,7 @@
           ,b.department
           ,b.graduation_date
           ,b.notices
+          ,j.certification_name --社員資格
           ,b.biko
           ,f.certification_no
           ,f.disp_order
@@ -192,22 +194,10 @@
           ,f.end_yearmonth
           ,f.business_content
           ,f.biko as careerbiko
-          
-          ,string_agg(
-             case h.technology_kbn 
-               when '01' then h.technology_name --技術区分
-               else           null
-             end,',' order by h.technology_name) as technology_Lang
-          ,string_agg(
-             case h.technology_kbn 
-               when '02' then h.technology_name --技術区分
-               else           null
-             end,',' order by h.technology_name) as technology_OS
-          ,string_agg(
-             case h.technology_kbn 
-               when '03' then h.technology_name --技術区分
-               else           null
-             end,',' order by h.technology_name) as technology_DB
+          ,g.technology_Lang --技術区分（開発言語）
+          ,g.technology_OS   --技術区分（OS）
+          ,g.technology_DB   --技術区分（DB）
+          ,h.process_name    --業務経歴工程
         from
           am005_employee a
           left join bt001_skill b
@@ -225,34 +215,66 @@
             on  e.organization_cd = c.organization_cd
           left join bt003_career f
             on  b.employee_id = f.employee_id
-          left join bt004_careertechnology g
-            on  f.employee_id      = g.employee_id
-           and  f.certification_no = g.certification_no
-          left join bm002_technology h
-            on  g.technology_id    = h.technology_id
-            
+          left join (
+            select 
+               a.employee_id 
+              ,a.certification_no 
+              ,string_agg(
+                 case b.technology_kbn 
+                   when '01' then b.technology_name --技術区分（開発言語）
+                   else           null
+                 end,',' order by b.technology_name) as technology_Lang
+              ,string_agg(
+                 case b.technology_kbn 
+                   when '02' then b.technology_name --技術区分（OS）
+                   else           null
+                 end,',' order by b.technology_name) as technology_OS
+              ,string_agg(
+                 case b.technology_kbn 
+                   when '03' then b.technology_name --技術区分（DB）
+                   else           null
+                 end,',' order by b.technology_name) as technology_DB
+            from 
+              bt004_careertechnology a
+              left join bm002_technology b
+                on a.technology_id = b.technology_id
+            group by 
+               a.employee_id 
+              ,a.certification_no 
+          ) g
+            on f.employee_id      = g.employee_id
+           and f.certification_no = g.certification_no
+          left join (
+            select 
+              a.employee_id
+             ,a.certification_no
+             --業務経歴工程
+             ,string_agg(b.process_name ,',' order by b.process_name ) as process_name
+            from 
+              bt006_careerprocess a
+              left join bm004_process b
+                on a.process_id = b.process_id
+            group by 
+               a.employee_id 
+              ,a.certification_no 
+          ) h
+            on f.employee_id      = h.employee_id
+           and f.certification_no = h.certification_no
+          left join (
+            select 
+              a.employee_id
+             ,string_agg(b.certification_name ,',' order by b.certification_name ) as certification_name
+            from 
+              bt002_empcertification a
+              left join bm001_certification b
+                on a.certification_id = b.certification_id
+            group by 
+               a.employee_id
+          ) j
+            on a.employee_id = j.employee_id
         where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
           and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
           and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
-        group by
-          a.employee_id
-         ,a.employee_cd
-         ,a.employee_name1_last
-         ,a.employee_name1_first
-         ,c.organization_cd
-         ,e.organization_name
-         ,b.employee_id
-         ,b.final_education
-         ,b.department
-         ,b.graduation_date
-         ,b.notices
-         ,b.biko
-         ,f.certification_no
-         ,f.disp_order
-         ,f.start_yearmonth
-         ,f.end_yearmonth
-         ,f.business_content
-         ,f.biko
         order by
           a.employee_cd
          ,f.disp_order
