@@ -120,14 +120,12 @@
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careertechnologyList_OS}">
-                                <div class="col">
                                 <input type="checkbox"
                                     class="form-check-input"
                                     th:name="technology_id_OS"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}"
                                     th:checked="${item.technology_id == item.careertechnology_id}" />
-                                    </div>
                             </div>
                         </td>
                     </tr>
@@ -137,14 +135,12 @@
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careertechnologyList_Lang}">
-                                <div class="col">
                                 <input type="checkbox"
                                     class="form-check-input"
                                     th:name="technology_id_Lang"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}"
                                     th:checked="${item.technology_id == item.careertechnology_id}" />
-                                    </div>
                             </div>
                         </td>
                     </tr>
@@ -154,14 +150,12 @@
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careertechnologyList_DB}">
-                                <div class="col">
                                 <input type="checkbox"
                                     class="form-check-input"
                                     th:name="technology_id_DB"
                                     th:value="${item.technology_id}"
                                     th:text="${item.technology_name}"
                                     th:checked="${item.technology_id == item.careertechnology_id}" />
-                                    </div>
                             </div>
                         </td>
                     </tr>
@@ -171,14 +165,12 @@
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careerprocessList}">
-                                <div class="col">
                                 <input type="checkbox"
                                     class="form-check-input"
                                     th:name="process_id"
                                     th:value="${item.process_id}"
                                     th:text="${item.process_name}"
                                     th:checked="${item.process_id == item.careerprocess_id}" />
-                                    </div>
                             </div>
                         </td>
                     </tr>
