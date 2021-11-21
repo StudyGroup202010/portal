@@ -20,6 +20,7 @@ public class Skill {
     private String department;// 学科
     private String graduation_date;// 卒業年月
     private String notices;// 特記事項
+    private String certification_name;// 資格
     private String biko; // 備考
     // 業務経歴
     private String disp_order; // 表示順
