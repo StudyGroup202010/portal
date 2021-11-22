@@ -33,7 +33,7 @@
 				<table class="table table-bordered table-hover table-sm">
                     <!-- 社員CD -->
                     <tr>
-                        <th class="active table-info col-4">社員ＣＤ</th>
+                        <th class="active table-info">社員ＣＤ</th>
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
@@ -118,14 +118,17 @@
                     <tr>
                         <th class="active table-info">機種／OS</th>
                         <td>
-                            <div class="form-group form-check form-check-inline"
-                                th:each="item : ${careertechnologyList_OS}">
-                                <input type="checkbox"
-                                    class="form-check-input"
-                                    th:name="technology_id_OS"
-                                    th:value="${item.technology_id}"
-                                    th:text="${item.technology_name}"
-                                    th:checked="${item.technology_id == item.careertechnology_id}" />
+                            <div class="contener col-9">
+                                <div
+                                    class="form-group form-check form-check-inline"
+                                    th:each="item : ${careertechnologyList_OS}">
+                                    <input type="checkbox"
+                                        class="form-check-input"
+                                        th:name="technology_id_OS"
+                                        th:value="${item.technology_id}"
+                                        th:text="${item.technology_name}"
+                                        th:checked="${item.technology_id == item.careertechnology_id}" />
+                                </div>
                             </div>
                         </td>
                     </tr>

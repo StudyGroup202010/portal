@@ -34,7 +34,7 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 社員CD -->
                     <tr>
-                        <th class="active table-info col-4">社員ＣＤ</th>
+                        <th class="active table-info">社員ＣＤ</th>
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
@@ -117,7 +117,7 @@
                     </tr>
                     <!-- 機種／OS -->
                     <tr>
-                        <th class="active table-info">機種／OS</th>
+                        <th class="active table-info col-2">機種／OS</th>
                         <td>
                             <div class="form-group form-check-inline"
                                 th:each="item : ${technologyList_OS}">
@@ -131,7 +131,7 @@
                     </tr>
                     <!-- 言語／ツール -->
                     <tr>
-                        <th class="active table-info">言語／ツール</th>
+                        <th class="active table-info col-2">言語／ツール</th>
                         <td>
                             <div class="form-group form-check-inline"
                                 th:each="item : ${technologyList_Lang}">
@@ -145,7 +145,7 @@
                     </tr>
                     <!-- DB／DC -->
                     <tr>
-                        <th class="active table-info">DB／DC</th>
+                        <th class="active table-info col-2">DB／DC</th>
                         <td>
                             <div class="form-group form-check-inline"
                                 th:each="item : ${technologyList_DB}">
@@ -159,7 +159,7 @@
                     </tr>
                     <!-- 工程 -->
                     <tr>
-                        <th class="active table-info">工程</th>
+                        <th class="active table-info col-2">工程</th>
                         <td>
                             <div class="form-group form-check-inline"
                                 th:each="item : ${processList}">
