@@ -57,32 +57,38 @@
 						</td>
 					</tr>
 					<!-- 開始年月 -->
-					<tr>
-						<th class="table-info">開始年月</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{start_yearmonth}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('start_yearmonth')}"
-									th:errors="*{start_yearmonth}"> start_yearmonth error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 最終年月 -->
-					<tr>
-						<th class="table-info">最終年月</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{end_yearmonth}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('end_yearmonth')}"
-									th:errors="*{end_yearmonth}"> end_yearmonth error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 備考 -->
+                    <tr>
+                        <th class="table-info">開始年月</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{start_yearmonth}"
+                                    placeholder="YYYYMM" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('start_yearmonth')}"
+                                    th:errors="*{start_yearmonth}">
+                                    start_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 最終年月 -->
+                    <tr>
+                        <th class="table-info">最終年月</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{end_yearmonth}"
+                                    placeholder="YYYYMM" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('end_yearmonth')}"
+                                    th:errors="*{end_yearmonth}">
+                                    end_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
 					<tr>
 						<th class="table-info">備考</th>
 						<td>

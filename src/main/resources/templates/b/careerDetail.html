@@ -60,7 +60,7 @@
                     </tr>
                     <!-- 表示順 -->
                     <tr>
-                        <th class="active table-info">ＮＯ</th>
+                        <th class="active table-info">ＮＯ*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
@@ -76,12 +76,13 @@
                     </tr>
                     <!-- 開始年月 -->
                     <tr>
-                        <th class="active table-info">開始年月</th>
+                        <th class="active table-info">開始年月*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{start_yearmonth}" /> <span
+                                    th:field="*{start_yearmonth}"
+                                    placeholder="YYYYMM" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('start_yearmonth')}"
                                     th:errors="*{start_yearmonth}">
@@ -96,7 +97,8 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{end_yearmonth}" /> <span
+                                    th:field="*{end_yearmonth}"
+                                    placeholder="YYYYMM" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('end_yearmonth')}"
                                     th:errors="*{end_yearmonth}">
@@ -116,7 +118,7 @@
                     </tr>
                     <!-- 機種／OS -->
                     <tr>
-                        <th class="active table-info">機種／OS</th>
+                        <th class="active table-info col-2">機種／OS</th>
                         <td>
                             <div
                                 class="form-group form-check form-check-inline"
@@ -132,7 +134,7 @@
                     </tr>
                     <!-- 言語／ツール -->
                     <tr>
-                        <th class="active table-info">言語／ツール</th>
+                        <th class="active table-info col-2">言語／ツール</th>
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careertechnologyList_Lang}">
@@ -147,7 +149,7 @@
                     </tr>
                     <!-- DB／DC -->
                     <tr>
-                        <th class="active table-info">DB／DC</th>
+                        <th class="active table-info col-2">DB／DC</th>
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careertechnologyList_DB}">
@@ -162,7 +164,7 @@
                     </tr>
                     <!-- 工程 -->
                     <tr>
-                        <th class="active table-info">工程</th>
+                        <th class="active table-info col-2">工程</th>
                         <td>
                             <div class="form-group form-check form-check-inline"
                                 th:each="item : ${careerprocessList}">

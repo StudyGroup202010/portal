@@ -184,19 +184,22 @@
 						</td>
 					</tr>
 					<!-- 郵便番号 -->
-					<tr>
-						<th class="active table-info">郵便番号</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
-								<input type="text" class="form-control" th:field="*{postcode}" />
-								<span class="text-danger"
-									th:if="${#fields.hasErrors('postcode')}"
-									th:errors="*{postcode}"> postcode error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 都道府県名CD -->
+                    <tr>
+                        <th class="active table-info">郵便番号</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{postcode}"
+                                    placeholder="9999999" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('postcode')}"
+                                    th:errors="*{postcode}">
+                                    postcode error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 都道府県名CD -->
 					<tr>
 						<th class="active table-info">都道府県名ＣＤ</th>
                         <td>

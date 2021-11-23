@@ -32,7 +32,7 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 環境IDの入力エリア -->
                     <tr>
-                        <th class="active table-info">環境ID</th>
+                        <th class="active table-info">環境ID*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_id')} ? 'has-error'">
@@ -59,12 +59,12 @@
                     </tr>
                     <!-- 環境連番 -->
                     <tr>
-                        <th class="active table-info">環境連番</th>
+                        <th class="active table-info">環境連番*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_num')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_num}" /> <span
+                                    th:field="*{env_num}" placeholder="数字を入力してください"/> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('env_num')}"
                                     th:errors="*{env_num}">
@@ -74,7 +74,7 @@
                     </tr>
                     <!-- 環境値 -->
                     <tr>
-                        <th class="active table-info">環境値</th>
+                        <th class="active table-info">環境値*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_txt')} ? 'has-error'">

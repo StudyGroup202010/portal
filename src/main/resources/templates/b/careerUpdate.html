@@ -61,7 +61,7 @@
                     </tr>
                     <!-- 表示順 -->
                     <tr>
-                        <th class="active table-info">ＮＯ</th>
+                        <th class="active table-info">ＮＯ*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
@@ -77,12 +77,13 @@
                     </tr>
                     <!-- 開始年月 -->
                     <tr>
-                        <th class="active table-info">開始年月</th>
+                        <th class="active table-info">開始年月*</th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{start_yearmonth}" /> <span
+                                    th:field="*{start_yearmonth}"
+                                    placeholder="YYYYMM" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('start_yearmonth')}"
                                     th:errors="*{start_yearmonth}">
@@ -97,7 +98,8 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{end_yearmonth}" /> <span
+                                    th:field="*{end_yearmonth}"
+                                    placeholder="YYYYMM" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('end_yearmonth')}"
                                     th:errors="*{end_yearmonth}">
