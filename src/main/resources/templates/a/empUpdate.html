@@ -32,15 +32,17 @@
 
 				<table class="table table-bordered table-hover table-sm">
 					<!-- 社員CD -->
-					<tr>
-						<th class="active table-info">社員ＣＤ</th>
+                    <tr>
+                        <th class="active table-info">社員ＣＤ<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{employee_cd}"
-                                    placeholder="１５桁以内の英数記号を入力してください" autofocus />
-                                <span class="text-danger"
+                                    placeholder="１５桁以内の英数記号を入力してください"
+                                    autofocus /> <span
+                                    class="text-danger"
                                     th:if="${#fields.hasErrors('employee_cd')}"
                                     th:errors="*{employee_cd}">
                                     employee_cd error </span>
@@ -49,7 +51,8 @@
                     </tr>
                     <!-- 社員名漢字（姓） -->
                     <tr>
-                        <th class="active table-info">名前（漢字）</th>
+                        <th class="active table-info">名前（漢字）<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group form-check-inline"
                                 th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
@@ -96,47 +99,58 @@
                         </td>
                     </tr>
                     <!-- 性別区分 -->
-					<tr>
-						<th class="active table-info">性別</th>
-						<td>
-							<div class="form-group form-check-inline">
-								<div th:each="item : ${radioGender_kbn}">
-									<input type="radio" name="radiogender_kbn"
-										th:text="${item.key}" th:value="${item.value}"
-										th:field="*{gender_kbn}">
-								</div>
-								<span class="text-danger"
-									th:if="${#fields.hasErrors('gender_kbn')}"
-									th:errors="*{gender_kbn}"> gender_kbn error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- メールアドレス -->
-					<tr>
-						<th class="active table-info">メールアドレス</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('mail')} ? 'has-error'">
-								<input type="email" class="form-control" th:field="*{mail}" />
-								<span class="text-danger" th:if="${#fields.hasErrors('mail')}"
-									th:errors="*{mail}"> mail error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 入社日 -->
-					<tr>
-						<th class="active table-info">入社日</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('joined_date')} ? 'has-error'">
-								<input type="date" class="form-control"
-									th:field="*{joined_date}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('joined_date')}"
-									th:errors="*{joined_date}"> joined_date error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 社員属性ID -->
+                    <tr>
+                        <th class="active table-info">性別<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group form-check-inline">
+                                <div th:each="item : ${radioGender_kbn}">
+                                    <input type="radio"
+                                        name="radiogender_kbn"
+                                        th:text="${item.key}"
+                                        th:value="${item.value}"
+                                        th:field="*{gender_kbn}">
+                                </div>
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('gender_kbn')}"
+                                    th:errors="*{gender_kbn}">
+                                    gender_kbn error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- メールアドレス -->
+                    <tr>
+                        <th class="active table-info">メールアドレス<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('mail')} ? 'has-error'">
+                                <input type="email" class="form-control"
+                                    th:field="*{mail}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('mail')}"
+                                    th:errors="*{mail}"> mail
+                                    error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 入社日 -->
+                    <tr>
+                        <th class="active table-info">入社日<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('joined_date')} ? 'has-error'">
+                                <input type="date" class="form-control"
+                                    th:field="*{joined_date}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('joined_date')}"
+                                    th:errors="*{joined_date}">
+                                    joined_date error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員属性ID -->
 					<tr>
 						<th class="active table-info">社員属性</th>
 						<td>

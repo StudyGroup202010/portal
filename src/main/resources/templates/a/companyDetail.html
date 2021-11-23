@@ -43,19 +43,22 @@
 						</td>
 					</tr>
 					<!-- 会社名 -->
-					<tr>
-						<th class="table-info">会社名</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{company_name}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('company_name')}"
-									th:errors="*{company_name}"> company_name error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 備考 -->
+                    <tr>
+                        <th class="table-info">会社名<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{company_name}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('company_name')}"
+                                    th:errors="*{company_name}">
+                                    company_name error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
 					<tr>
 						<th class="table-info">備考</th>
 						<td>

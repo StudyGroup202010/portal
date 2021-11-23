@@ -35,7 +35,8 @@
 				<table class="table table-bordered table-hover table-sm">
 					<!-- 会社CDの入力エリア -->
                     <tr>
-                        <th class="active table-info">会社CD</th>
+                        <th class="active table-info">会社CD<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
@@ -51,7 +52,8 @@
                     </tr>
                     <!-- 会社名 -->
                     <tr>
-                        <th class="active table-info">会社名</th>
+                        <th class="active table-info">会社名<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">

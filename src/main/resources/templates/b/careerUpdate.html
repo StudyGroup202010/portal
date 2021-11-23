@@ -61,7 +61,8 @@
                     </tr>
                     <!-- 表示順 -->
                     <tr>
-                        <th class="active table-info">ＮＯ*</th>
+                        <th class="active table-info">ＮＯ<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
@@ -77,7 +78,8 @@
                     </tr>
                     <!-- 開始年月 -->
                     <tr>
-                        <th class="active table-info">開始年月*</th>
+                        <th class="active table-info">開始年月<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">

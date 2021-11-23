@@ -60,13 +60,14 @@
                     </tr>
                     <!-- 表示順 -->
                     <tr>
-                        <th class="active table-info">ＮＯ*</th>
+                        <th class="active table-info">ＮＯ<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{disp_order}"
-                                    placeholder="数字を入力してください" autofocus/>
+                                    placeholder="数字を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('disp_order')}"
                                     th:errors="*{disp_order}">
@@ -76,7 +77,8 @@
                     </tr>
                     <!-- 開始年月 -->
                     <tr>
-                        <th class="active table-info">開始年月*</th>
+                        <th class="active table-info">開始年月<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
