@@ -45,7 +45,8 @@
                     </tr>
                     <!-- ユーザ有効期限 -->
                     <tr>
-                        <th class="table-info">ユーザ有効期限</th>
+                        <th class="table-info">ユーザ有効期限<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">
@@ -60,7 +61,8 @@
                     </tr>
                     <!-- パスワード有効期限 -->
                     <tr>
-                        <th class="table-info">パスワード有効期限</th>
+                        <th class="table-info">パスワード有効期限<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('pass_update')} ? 'has-error'">
@@ -75,7 +77,8 @@
                     </tr>
                     <!-- ログイン失敗回数 -->
                     <tr>
-                        <th class="table-info">ログイン失敗回数</th>
+                        <th class="table-info">ログイン失敗回数<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('login_miss_times')} ? 'has-error'">

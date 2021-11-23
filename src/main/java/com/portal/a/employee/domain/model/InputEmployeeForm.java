@@ -29,8 +29,10 @@ public class InputEmployeeForm {
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_name1_first; // 社員名漢字（名）
 
+    @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_name2_last;// 社員名カナ（姓）
-
+    
+    @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_name2_first;// 社員名カナ（名）
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
