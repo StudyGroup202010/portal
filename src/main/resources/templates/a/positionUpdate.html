@@ -68,13 +68,14 @@
                     <!-- 開始年月 -->
                     <tr>
                         <th class="active table-info">開始年月<BR>
-                        <img th:src="@{/image/required.png}"></th>
+                            <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{start_yearmonth}"
-                                    placeholder="YYYYMM" autofocus /> <span
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" autofocus /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('start_yearmonth')}"
                                     th:errors="*{start_yearmonth}">
