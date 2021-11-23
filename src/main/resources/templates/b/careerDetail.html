@@ -67,8 +67,9 @@
                                 th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{disp_order}"
-                                    placeholder="数字を入力してください" autofocus />
-                                <span class="text-danger"
+                                    placeholder="数字を入力してください"
+                                    inputmode="numeric" autofocus /> <span
+                                    class="text-danger"
                                     th:if="${#fields.hasErrors('disp_order')}"
                                     th:errors="*{disp_order}">
                                     disp_order error </span>
@@ -78,13 +79,14 @@
                     <!-- 開始年月 -->
                     <tr>
                         <th class="active table-info">開始年月<BR>
-                        <img th:src="@{/image/required.png}"></th>
+                            <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{start_yearmonth}"
-                                    placeholder="YYYYMM" /> <span
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('start_yearmonth')}"
                                     th:errors="*{start_yearmonth}">
@@ -100,7 +102,8 @@
                                 th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{end_yearmonth}"
-                                    placeholder="YYYYMM" /> <span
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('end_yearmonth')}"
                                     th:errors="*{end_yearmonth}">
