@@ -52,7 +52,7 @@ public final class StrUtils {
      *         startInd = endIndexのときは""
      */
     public static String getSubstring(String str, int startIndex, int endIndex) {
-        if (str == null || str.isEmpty()) {
+        if (str == null) {
             return null;
         }
 
@@ -97,7 +97,7 @@ public final class StrUtils {
      * 
      */
     public static String getLatinFromFullkana(String str) {
-        if (str == null || str.isEmpty()) {
+        if (str == null) {
             return null;
         }
         if (isFullkana(str) == false) {
@@ -122,7 +122,7 @@ public final class StrUtils {
      * @return 変換した文字列 null:引数がnull
      */
     public static String gethalfwidthdigitfromfullwidthdigit(String str) {
-        if (str == null || str.isEmpty()) {
+        if (str == null) {
             return null;
         }
         StringBuilder sb = new StringBuilder(str);
