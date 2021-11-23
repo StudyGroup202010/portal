@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div th:fragment="empUpdate_contents">
-		<div class="col-sm-6">
+		<div class="col-sm-7">
 			<div class="page-header">
 				<h3>社員マスタ登録</h3>
 			</div>
@@ -76,7 +76,8 @@
                     </tr>
                     <!-- 社員名カナ（姓） -->
                     <tr>
-                        <th class="active table-info">名前（フリガナ）</th>
+                        <th class="active table-info">名前（フリガナ）<BR>
+                            <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group form-check-inline"
                                 th:classappend="${#fields.hasErrors('employee_name2_last')} ? 'has-error'">
