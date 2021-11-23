@@ -91,7 +91,8 @@
                                 th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{end_yearmonth}"
-                                    placeholder="YYYYMM" autofocus /> <span
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" autofocus /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('end_yearmonth')}"
                                     th:errors="*{end_yearmonth}">

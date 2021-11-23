@@ -95,7 +95,8 @@
                                 th:classappend="${#fields.hasErrors('graduation_date')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{graduation_date}"
-                                    placeholder="YYYYMM" /> <span
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('graduation_date')}"
                                     th:errors="*{graduation_date}">

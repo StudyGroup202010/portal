@@ -83,7 +83,8 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('login_miss_times')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{login_miss_times}" /> <span
+                                    th:field="*{login_miss_times}"
+                                    inputmode="numeric" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('login_miss_times')}"
                                     th:errors="*{login_miss_times}">
