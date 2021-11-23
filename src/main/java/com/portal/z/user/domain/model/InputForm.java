@@ -22,14 +22,14 @@ public class InputForm {
     // 必須入力
     @NotBlank(groups = { ValidCreate1.class }, message = "{require_check}")
     @Size(min = 5, max = 50, groups = { ValidCreate2.class }, message = "{length_check_3}")
-    @Pattern(regexp = "[a-zA-Z0-9]*", groups = { ValidCreate2.class }, message = "{type_check_1}") // 英数字であること
+    @Pattern(regexp = "[-_a-zA-Z0-9]*", groups = { ValidCreate2.class }, message = "{Alphanumericsymbols_check}") // 英数字記号であること
     private String user_id; // ユーザーID
 
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate user_due_date; // ユーザ有効期限
-    
+
     // 必須入力
     @NotNull(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -42,7 +42,7 @@ public class InputForm {
     private int login_miss_times; // ログイン失敗回数
 
     private boolean lock_flg; // ロック状態
-    
+
     // 必須入力
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_id; // 社員ID

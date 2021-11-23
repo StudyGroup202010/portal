@@ -35,13 +35,15 @@
 					<!-- 役職CDの入力エリア -->
                     <tr>
                         <th class="active table-info">役職CD<BR>
-                        <img th:src="@{/image/required.png}"></th>
+                            <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('position_cd')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{position_cd}" autofocus />
-                                <span class="text-danger"
+                                    th:field="*{position_cd}"
+                                    placeholder="英数記号（-か_）を入力してください"
+                                    autofocus /> <span
+                                    class="text-danger"
                                     th:if="${#fields.hasErrors('position_cd')}"
                                     th:errors="*{position_cd}">
                                     position_cd error </span>
