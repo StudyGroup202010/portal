@@ -18,9 +18,10 @@ import lombok.Data;
 @Data
 public class InputEmployeeForm {
     private String employee_id; // 社員ID
-
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     @Size(min = 1, max = 15, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_3}")
+    @Pattern(regexp = "^[-_0-9a-zA-Z]+$", groups = { ValidCreate2.class,
+            ValidUpdate2.class }, message = "{Alphanumericsymbols_check}") // 英数記号であること
     private String employee_cd; // 社員CD
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
@@ -31,7 +32,7 @@ public class InputEmployeeForm {
 
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_name2_last;// 社員名カナ（姓）
-    
+
     @NotBlank(groups = { ValidCreate1.class, ValidUpdate1.class }, message = "{require_check}")
     private String employee_name2_first;// 社員名カナ（名）
 
@@ -39,7 +40,7 @@ public class InputEmployeeForm {
     private String gender_kbn;// 性別区分
 
     @Size(max = 7, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
-    @Pattern(regexp = "[0-9]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
+    @Pattern(regexp = "[0-9 ０-９]*", groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{numerical_check}") // 数字であること
     private String postcode;// 郵便番号
 
     @Size(max = 2, groups = { ValidCreate2.class, ValidUpdate2.class }, message = "{length_check_2}")
@@ -80,9 +81,9 @@ public class InputEmployeeForm {
     private LocalDate leave_date;// 退社日
 
     private String employeeattribute_id;// 社員属性ID
-    
+
     private String organization_cd;// 組織CD
-    
+
     private String start_yearmonth;// 開始年月
 
     private String biko; // 備考

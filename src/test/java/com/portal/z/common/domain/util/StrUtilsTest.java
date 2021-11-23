@@ -126,11 +126,39 @@ class StrUtilsTest {
 
     @Test
     final void dateUtils_getLatinFromFullkana_文字列チェック2() {
-        assertThat(StrUtils.getLatinFromFullkana("アイうえお")).isEqualTo(null);
+        assertThat(StrUtils.getLatinFromFullkana("アイうえお")).isEqualTo("");
     }
 
     @Test
     final void dateUtils_getLatinFromFullkana_文字列チェック3() {
         assertThat(StrUtils.getLatinFromFullkana("アイウエオ")).isEqualTo("AIUEO");
+    }
+
+    //
+    // gethalfwidthdigitfromfullwidthdigit
+    //
+    @Test
+    final void dateUtils_gethalfwidthdigitfromfullwidthdigit_null入力チェック1() {
+        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_gethalfwidthdigitfromfullwidthdigit_文字列チェック1() {
+        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("")).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_gethalfwidthdigitfromfullwidthdigit_文字列チェック2() {
+        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("ab345")).isEqualTo("ab345");
+    }
+
+    @Test
+    final void dateUtils_gethalfwidthdigitfromfullwidthdigit_文字列チェック3() {
+        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("１２３あ")).isEqualTo("123あ");
+    }
+
+    @Test
+    final void dateUtils_gethalfwidthdigitfromfullwidthdigit_文字列チェック4() {
+        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("１２３")).isEqualTo("123");
     }
 }

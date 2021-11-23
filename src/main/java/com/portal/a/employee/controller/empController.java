@@ -244,7 +244,7 @@ public class empController {
         employee.setEmployee_name2_last(form.getEmployee_name2_last()); // 社員名カナ（姓）
         employee.setEmployee_name2_first(form.getEmployee_name2_first()); // 社員名カナ（名）
         employee.setGender_kbn(form.getGender_kbn()); // 性別区分
-        employee.setPostcode(form.getPostcode()); // 郵便番号
+        employee.setPostcode(StrUtils.gethalfwidthdigitfromfullwidthdigit(form.getPostcode())); // 郵便番号
         employee.setPrefcode(form.getPrefcode()); // 都道府県名CD
         employee.setPref_name1(form.getPref_name1()); // 都道府県名１
         employee.setPref_name2(form.getPref_name2()); // 都道府県名２
@@ -361,7 +361,7 @@ public class empController {
             form.setEmployee_name2_last(employee.getEmployee_name2_last()); // 社員名カナ（姓）
             form.setEmployee_name2_first(employee.getEmployee_name2_first()); // 社員名カナ（名）
             form.setGender_kbn(employee.getGender_kbn()); // 性別区分
-            form.setPostcode(employee.getPostcode()); // 郵便番号
+            form.setPostcode(StrUtils.gethalfwidthdigitfromfullwidthdigit(employee.getPostcode())); // 郵便番号
             form.setPrefcode(employee.getPrefcode()); // 都道府県名CD
             form.setPref_name1(employee.getPref_name1()); // 都道府県名１
             form.setPref_name2(employee.getPref_name2()); // 都道府県名２
@@ -559,7 +559,7 @@ public class empController {
         // 社員マスタ一覧画面を表示
         return getEmployeeList(model);
     }
-    
+
     /**
      * 社員マスタ個人画面のGETメソッド用処理.<BR>
      * 
@@ -655,5 +655,5 @@ public class empController {
         // ホーム画面に遷移
         return "redirect:/home";
     }
-    
+
 }
