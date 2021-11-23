@@ -39,8 +39,18 @@ class StrUtilsTest {
     // getSubstring
     //
     @Test
-    final void dateUtils_getSubstring_null入力チェック() {
+    final void dateUtils_getSubstring_null入力チェック1() {
         assertThat(StrUtils.getSubstring(null, 0, 0)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getSubstring_null入力チェック2() {
+        assertThat(StrUtils.getSubstring("", 0, 0)).isEqualTo("");
+    }
+
+    @Test
+    final void dateUtils_getSubstring_null入力チェック3() {
+        assertThat(StrUtils.getSubstring("", 0, 2)).isEqualTo("");
     }
 
     @Test
@@ -121,7 +131,7 @@ class StrUtilsTest {
 
     @Test
     final void dateUtils_getLatinFromFullkana_文字列チェック1() {
-        assertThat(StrUtils.getLatinFromFullkana("")).isEqualTo(null);
+        assertThat(StrUtils.getLatinFromFullkana("")).isEqualTo("");
     }
 
     @Test
@@ -144,7 +154,7 @@ class StrUtilsTest {
 
     @Test
     final void dateUtils_gethalfwidthdigitfromfullwidthdigit_文字列チェック1() {
-        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("")).isEqualTo(null);
+        assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("")).isEqualTo("");
     }
 
     @Test
