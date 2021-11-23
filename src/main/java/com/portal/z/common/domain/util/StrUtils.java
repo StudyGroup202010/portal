@@ -75,10 +75,10 @@ public final class StrUtils {
     }
 
     /**
-     * 全て全角カナかどうかをチェックする<BR>
+     * 全角カナかどうかをチェックする<BR>
      * 
      * @param str str
-     * @return true：全て全角カタカナ false：全角カタカナ以外の文字が含まれている
+     * @return true：全ての文字が全角カナ false：全角カナ以外の文字が含まれている
      */
     public static boolean isFullkana(String str) {
         if (str == null || str.isEmpty()) {
@@ -91,8 +91,10 @@ public final class StrUtils {
     /**
      * 全角カナをローマ字（大文字）に変換する。<BR>
      * 
-     * @param str str
-     * @return 変換したローマ字（大文字） null:引数がnullもしくは全角カナではない。
+     * @param str 全角カナ
+     * @return 変換したローマ字（大文字） null:引数がnull<BR>
+     *         引数が全角カナでなければ空文字
+     * 
      */
     public static String getLatinFromFullkana(String str) {
         if (str == null || str.isEmpty()) {
@@ -100,7 +102,7 @@ public final class StrUtils {
         }
         if (isFullkana(str) == false) {
             // 全角カナでなければ処理をしない。
-            return null;
+            return "";
         }
 
         // ローマ字に変換
@@ -113,4 +115,23 @@ public final class StrUtils {
         return trans.transliterate(str);
     }
 
+    /**
+     * 全角数字を半角数字に変換する。<BR>
+     * 
+     * @param str 全角数字を含んだ文字列
+     * @return 変換した文字列 null:引数がnull
+     */
+    public static String gethalfwidthdigitfromfullwidthdigit(String str) {
+        if (str == null || str.isEmpty()) {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder(str);
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if ('０' <= c && c <= '９') {
+                sb.setCharAt(i, (char) (c - '０' + '0'));
+            }
+        }
+        return sb.toString();
+    }
 }

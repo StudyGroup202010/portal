@@ -35,13 +35,14 @@
 				<table class="table table-bordered table-hover table-sm">
 					<!-- 会社CDの入力エリア -->
                     <tr>
-                        <th class="active table-info">会社CD</th>
+                        <th class="active table-info">会社CD<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{company_cd}"
-                                    placeholder="英数字を入力してください" autofocus />
+                                    placeholder="英数記号（-か_）を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('company_cd')}"
                                     th:errors="*{company_cd}">
@@ -51,7 +52,8 @@
                     </tr>
                     <!-- 会社名 -->
                     <tr>
-                        <th class="active table-info">会社名</th>
+                        <th class="active table-info">会社名<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">

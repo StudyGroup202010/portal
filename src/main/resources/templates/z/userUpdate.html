@@ -34,13 +34,14 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- ユーザーIDの入力エリア -->
                     <tr>
-                        <th class="active table-info">ユーザID</th>
+                        <th class="active table-info">ユーザID<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{user_id}"
-                                    placeholder="英数字を入力してください" autofocus />
+                                    placeholder="英数記号(-か_)を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('user_id')}"
                                     th:errors="*{user_id}">
@@ -50,7 +51,8 @@
                     </tr>
                     <!-- ユーザ有効期限の入力エリア -->
                     <tr>
-                        <th class="active table-info">ユーザ有効期限</th>
+                        <th class="active table-info">ユーザ有効期限<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">

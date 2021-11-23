@@ -53,7 +53,8 @@
                     </tr>
                     <!-- 環境連番 -->
                     <tr>
-                        <th class="table-info">環境連番</th>
+                        <th class="table-info">環境連番<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_num')} ? 'has-error'">
@@ -68,7 +69,8 @@
                     </tr>
                     <!-- 環境値 -->
                     <tr>
-                        <th class="table-info">環境値</th>
+                        <th class="table-info">環境値<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_txt')} ? 'has-error'">
