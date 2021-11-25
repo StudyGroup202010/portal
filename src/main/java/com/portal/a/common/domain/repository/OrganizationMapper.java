@@ -63,6 +63,9 @@ public interface OrganizationMapper {
      * 条件検索用メソッド
      * 
      * @param organization_name organization_name
+     * @param company_cd        company_cd
+     * @param start_yearmonth   start_yearmonth
+     * @param end_yearmonth     end_yearmonth
      * @param biko              biko
      * @return OrganizationList
      */

@@ -28,7 +28,9 @@
 			<div class="page-header">
 				<h3>組織マスタ詳細</h3>
 			</div>
-
+            <!-- 組織マスタ登録画面の結果表示 -->
+            <!-- この下のobject指定がinputEnvFormとなっていたため、該当ファイル内の切り方に合わせました。 -->
+            <label class="text-danger" th:text="${result}"></label>
 			<form method="post" th:action="@{/organizationDetail}"
 				th:object="${inputOrganizationForm}">
 				<table class="table table-bordered table-hover table-sm">

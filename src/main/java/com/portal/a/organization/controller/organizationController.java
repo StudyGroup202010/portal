@@ -19,6 +19,7 @@ import com.portal.a.common.domain.model.Company;
 import com.portal.a.common.domain.model.Organization;
 import com.portal.a.organization.domain.model.CreateOrder;
 import com.portal.a.organization.domain.model.InputOrganizationForm;
+import com.portal.a.organization.domain.model.OrganizationListXlsxView;
 import com.portal.a.organization.domain.model.SelectOrganizationForm;
 import com.portal.a.organization.domain.model.UpdateOrder;
 import com.portal.a.organization.domain.service.OrganizationService;
@@ -398,48 +399,28 @@ public class organizationController {
         return getOrganizationList(model);
     }
 
-//    /**
-//     * 組織マスタ一覧のCSV出力用処理.<br>
-//     * 
-//     * 組織マスタ一覧のCSVファイルを出力する。
-//     * 
-//     * @param model モデル
-//     * @return ResponseEntity(bytes, header, HttpStatus.OK)
-//     */
-//    @GetMapping("/organizationList/csv")
-//    public OrganizationListCsvView getOrganizationListCsv(OrganizationListCsvView model) {
-//
-//        // 組織マスタ一覧の生成
-//        List<Organization> organizationList = organizationService.selectMany();
-//
-//        // Modelに組織リストを登録
-//        model.addStaticAttribute("organizationList", organizationList);
-//
-//        return model;
-//    }
+    /**
+     * 組織マスタ一覧のExcel出力用処理.<br>
+     * 
+     * 組織マスタ一覧のEXCELファイルを出力する。
+     * 
+     * @param model モデル
+     * @return model
+     */
+    @RequestMapping("/organizationList/excel")
+    public OrganizationListXlsxView excel(OrganizationListXlsxView model) {
 
-//    /**
-//     * 組織マスタ一覧のExcel出力用処理.<br>
-//     * 
-//     * 組織マスタ一覧のEXCELファイルを出力する。
-//     * 
-//     * @param model モデル
-//     * @return model
-//     */
-//    @RequestMapping("/organizationList/excel")
-//    public OrganizationListXlsxView excel(OrganizationListXlsxView model) {
-//
-//        // 組織マスタ一覧の生成
-//        List<Organization> organizationList = organizationService.selectMany();
-//
-//        // Modelに組織リストを登録
-//        model.addStaticAttribute("organizationList", organizationList);
-//
-//        // データ件数を取得
-//        int count = organizationList.size();
-//        model.addStaticAttribute("organizationListCount", count);
-//
-//        return model;
-//    }
+        // 組織マスタ一覧の生成
+        List<Organization> organizationList = organizationService.selectMany();
+
+        // Modelに組織リストを登録
+        model.addStaticAttribute("organizationList", organizationList);
+
+        // データ件数を取得
+        int count = organizationList.size();
+        model.addStaticAttribute("organizationListCount", count);
+
+        return model;
+    }
 
 }
