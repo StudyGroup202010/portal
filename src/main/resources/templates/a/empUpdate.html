@@ -194,10 +194,10 @@
                     <tr>
                         <th class="active table-info">郵便番号</th>
                         <td>
-                            <div class="form-group"
+                            <div class="form-group form-check-inline"
                                 th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{postcode}"
+                                    id="zipcode" th:field="*{postcode}"
                                     placeholder="9999999"
                                     autocomplete="postal-code"
                                     inputmode="numeric" /> <span
@@ -205,22 +205,9 @@
                                     th:if="${#fields.hasErrors('postcode')}"
                                     th:errors="*{postcode}">
                                     postcode error </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 都道府県名CD -->
-					<tr>
-						<th class="active table-info">都道府県名ＣＤ</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('prefcode')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{prefcode}"
-                                    placeholder="数字２桁を入力してください" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('prefcode')}"
-                                    th:errors="*{prefcode}">
-                                    prefcode error </span>
+                                <input type="button"
+                                    class="btn btn-primary"
+                                    id="getAddressBtn" value="住所検索" />
                             </div>
                         </td>
                     </tr>
@@ -232,6 +219,7 @@
                                 th:classappend="${#fields.hasErrors('pref_name1')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{pref_name1}"
+                                    id= "address1"
                                     autocomplete="address-level1" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('pref_name1')}"
@@ -241,31 +229,17 @@
                         </td>
                     </tr>
                     <!-- 都道府県名２ -->
-					<tr>
-						<th class="active table-info">都道府県名（フリガナ）</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('pref_name2')} ? 'has-error'">
-								<input type="text" class="form-control" th:field="*{pref_name2}" />
-								<span class="text-danger"
-									th:if="${#fields.hasErrors('pref_name2')}"
-									th:errors="*{pref_name2}"> pref_name2 error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 市区町村名CD -->
-					<tr>
-						<th class="active table-info">市区町村名ＣＤ</th>
+                    <tr>
+                        <th class="active table-info">都道府県名（フリガナ）</th>
                         <td>
                             <div class="form-group"
-                                th:classappend="${#fields.hasErrors('citycode')} ? 'has-error'">
+                                th:classappend="${#fields.hasErrors('pref_name2')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{citycode}"
-                                    placeholder="数字３桁を入力してください" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('citycode')}"
-                                    th:errors="*{citycode}">
-                                    citycode error </span>
+                                    th:field="*{pref_name2}" id="kana1" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('pref_name2')}"
+                                    th:errors="*{pref_name2}">
+                                    pref_name2 error </span>
                             </div>
                         </td>
                     </tr>
@@ -277,6 +251,7 @@
                                 th:classappend="${#fields.hasErrors('city_name1')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{city_name1}"
+                                    id="address2"
                                     autocomplete="address-level2" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('city_name1')}"
@@ -286,19 +261,21 @@
                         </td>
                     </tr>
                     <!-- 市区町村名２ -->
-					<tr>
-						<th class="active table-info">市区町村名（フリガナ）</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('city_name2')} ? 'has-error'">
-								<input type="text" class="form-control" th:field="*{city_name2}" />
-								<span class="text-danger"
-									th:if="${#fields.hasErrors('city_name2')}"
-									th:errors="*{city_name2}"> city_name2 error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 住所１ -->
+                    <tr>
+                        <th class="active table-info">市区町村名（フリガナ）</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('city_name2')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{city_name2}" id="kana2" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('city_name2')}"
+                                    th:errors="*{city_name2}">
+                                    city_name2 error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 住所１ -->
                     <tr>
                         <th class="active table-info">住所（漢字）</th>
                         <td>
@@ -306,6 +283,7 @@
                                 th:classappend="${#fields.hasErrors('streetaddress1')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{streetaddress1}"
+                                    id="address3"
                                     autocomplete="address-line1" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('streetaddress1')}"
@@ -315,20 +293,23 @@
                         </td>
                     </tr>
                     <!-- 住所２ -->
-					<tr>
-						<th class="active table-info">住所（フリガナ）</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('streetaddress2')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{streetaddress2}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('streetaddress2')}"
-									th:errors="*{streetaddress2}"> streetaddress2 error </span>
-							</div>
-						</td>
-					</tr>
+                    <tr>
+                        <th class="active table-info">住所（フリガナ）</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('streetaddress2')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{streetaddress2}"
+                                    id="kana3" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('streetaddress2')}"
+                                    th:errors="*{streetaddress2}">
+                                    streetaddress2 error </span>
+                            </div>
+                        </td>
+                    </tr>
 
-					<!-- 最寄駅コード -->
+                    <!-- 最寄駅コード -->
 					<tr>
 						<th class="active table-info">最寄駅ＣＤ</th>
                         <td>
@@ -372,6 +353,12 @@
 
 				<!--社員ID -->
 				<input type="hidden" class="form-control" th:field="*{employee_id}" />
+                <!-- 都道府県名ＣＤ -->
+                <input type="hidden" class="form-control"
+                    th:field="*{prefcode}" />
+                <!-- 市区町村名ＣＤ -->
+                <input type="hidden" class="form-control"
+                    th:field="*{citycode}" />
 
 				<!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>

@@ -83,9 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // nonce-c3R1ZHlwb3J0YWwyMDIwをつけるとインラインのJavaScriptが実行できる。
         // https://weather.tsukumijima.net からデータの取得を有効にする。
         // https://www.jma.go.jp から画像の取得を有効にする。
-        //http.headers().contentSecurityPolicy("default-src 'self'");
+        // http.headers().contentSecurityPolicy("default-src 'self'");
         http.headers().contentSecurityPolicy(
-                "default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw';script-src 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net ");
+                "default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw' https://zipcloud.ibsnet.co.jp ;script-src 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net");
 
         // ログイン処理
         http.formLogin().loginProcessingUrl("/login") // ログイン処理のパス（login.htmlの（action="/login"）と一致させること
@@ -116,7 +116,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 認証プロバイダの設定(setHideUserNotFoundExceptionsをfalseにするため)
-        auth.authenticationProvider(daoAuthenticationProvider());  
+        auth.authenticationProvider(daoAuthenticationProvider());
     }
 
     /**
@@ -129,7 +129,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     protected AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
-        impl.setUserDetailsService(userDetailsService); 
+        impl.setUserDetailsService(userDetailsService);
         impl.setPasswordEncoder(passwordEncoder()); // ログイン時のパスワードの復号
         impl.setHideUserNotFoundExceptions(false);
         return impl;
