@@ -308,23 +308,6 @@
                             </div>
                         </td>
                     </tr>
-
-                    <!-- 最寄駅コード -->
-					<tr>
-						<th class="active table-info">最寄駅ＣＤ</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('nearest_station_code')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{nearest_station_code}"
-                                    placeholder="数字１０桁を入力してください" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('nearest_station_code')}"
-                                    th:errors="*{nearest_station_code}">
-                                    nearest_station_code error </span>
-                            </div>
-                        </td>
-                    </tr>
 					<!-- 最寄駅名 -->
 					<tr>
 						<th class="active table-info">最寄駅名</th>
@@ -359,6 +342,9 @@
                 <!-- 市区町村名ＣＤ -->
                 <input type="hidden" class="form-control"
                     th:field="*{citycode}" />
+                <!-- 最寄駅ＣＤ -->
+                <input type="hidden" class="form-control"
+                    th:field="*{nearest_station_code}" />
 
 				<!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
