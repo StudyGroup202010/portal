@@ -1,7 +1,10 @@
 package com.portal.z.common.domain.util;
 
 import java.text.Normalizer;
+import java.util.Map;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.icu.text.Transliterator;
 
 /**
@@ -133,5 +136,33 @@ public final class StrUtils {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Json文字列をMapに変換する。<BR>
+     * 
+     * @param json Json形式で登録された文字列
+     * @return MAP変換後のJson文字列
+     */
+    public static Map<String, Object> getMapFromjsonString(String json) {
+
+        if (json == null) {
+            return null;
+        }
+
+        Map<String, Object> map = null;
+
+        // com.fasterxml.jackson.databind.ObjectMapperを使います
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            // キーがString、値がObjectのマップに読み込みます。
+            map = mapper.readValue(json, new TypeReference<Map<String, Object>>() {
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return map;
     }
 }

@@ -33,6 +33,7 @@ import com.portal.a.employee.domain.model.UpdateOrder;
 import com.portal.a.employee.domain.service.EmployeeService;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
+import com.portal.z.common.domain.service.RestSharedService;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
@@ -53,6 +54,9 @@ public class empController {
 
     @Autowired
     private MassageUtils massageUtils;
+
+    @Autowired
+    RestSharedService restSharedService;
 
     /**
      * ラジオボタンの初期化メソッド.
@@ -231,6 +235,21 @@ public class empController {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "生年月日：" + form.getBirthday(), "入社日：" + form.getJoined_date() }));
+                return getSignUp(form, model);
+            }
+        }
+
+        // 郵便番号チェック（入力した郵便番号が実在しなかったとき）
+        if (form.getPostcode() != null && StrUtils.getStrLength(form.getPostcode()) > 0) {
+            /** 郵便番号検索API リクエストURL */
+            String url = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + form.getPostcode();
+            // 郵便番号検索APIサービス呼び出し
+            String getAddress = restSharedService.restget(url);
+
+            if (StrUtils.getMapFromjsonString(getAddress).get("results") == null) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result",
+                        massageUtils.getMsg("e.co.fw.2.004", new String[] { "郵便番号：" + form.getPostcode() }));
                 return getSignUp(form, model);
             }
         }
@@ -432,6 +451,21 @@ public class empController {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "入社日：" + form.getJoined_date(), "退社日：" + form.getLeave_date() }));
+                return getEmployeeDetail(form, model, "");
+            }
+        }
+
+        // 郵便番号チェック（入力した郵便番号が実在しなかったとき）
+        if (form.getPostcode() != null && StrUtils.getStrLength(form.getPostcode()) > 0) {
+            /** 郵便番号検索API リクエストURL */
+            String url = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + form.getPostcode();
+            // 郵便番号検索APIサービス呼び出し
+            String getAddress = restSharedService.restget(url);
+
+            if (StrUtils.getMapFromjsonString(getAddress).get("results") == null) {
+                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
+                model.addAttribute("result",
+                        massageUtils.getMsg("e.co.fw.2.004", new String[] { "郵便番号：" + form.getPostcode() }));
                 return getEmployeeDetail(form, model, "");
             }
         }
