@@ -15,7 +15,6 @@ $(function() {
     // 郵便番号検索
     $('#getAddressBtn').on('click', function() {
         let zip = $('#zipcode').val();
-
         if (!zip) {
             // 空の時はなにもしない
         } else {
