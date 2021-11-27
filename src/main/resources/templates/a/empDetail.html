@@ -206,7 +206,7 @@
                                 th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     id="zipcode" th:field="*{postcode}"
-                                    placeholder="9999999"
+                                    placeholder="数字７桁"
                                     autocomplete="postal-code"
                                     inputmode="numeric" /> <span
                                     class="text-danger"
