@@ -81,8 +81,8 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         row_4.getCell(9).setCellValue(gender);
 
         // 住所
-        String address = employeeDetail.getPostcode() + ' ' + employeeDetail.getPref_name1() + ' '
-                + employeeDetail.getCity_name1() + ' ' + employeeDetail.getStreetaddress1();
+        String address = employeeDetail.getPref_name1() + ' ' + employeeDetail.getCity_name1() + ' '
+                + employeeDetail.getStreetaddress1();
         row_3.getCell(12).setCellValue(address);
 
         // 生年月日
