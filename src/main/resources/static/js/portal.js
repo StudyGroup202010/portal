@@ -25,7 +25,16 @@ $(function() {
                 dataType: "JSONP"
             })
                 .done(function(value) {
-                    if (value.message == null) {
+                    if (value.results == null) {
+                        alert("入力された郵便番号に対する住所がありません。");
+                        $("#prefcode").val("");
+                        $("#address1").val("");
+                        $("#address2").val("");
+                        $("#address3").val("");
+                        $("#kana1").val("");
+                        $("#kana2").val("");
+                        $("#kana3").val("");
+                    } else {
                         let result = value.results[0];
                         $("#prefcode").val(result.prefcode);
                         $("#address1").val(result.address1);
@@ -34,8 +43,6 @@ $(function() {
                         $("#kana1").val(result.kana1);
                         $("#kana2").val(result.kana2);
                         $("#kana3").val(result.kana3);
-                    } else {
-                        alert("入力された郵便番号に対する住所がありません");
                     }
                 })
                 .fail(function() {
