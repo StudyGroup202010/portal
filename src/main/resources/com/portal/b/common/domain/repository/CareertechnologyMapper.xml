@@ -34,8 +34,8 @@
           ,#{biko}
           ,#{insert_user}
           ,NOW()
-          ,NULL
-          ,NULL
+          ,#{insert_user}
+          ,NOW()
           )
     </insert>
 
