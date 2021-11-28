@@ -170,22 +170,4 @@ class StrUtilsTest {
     final void dateUtils_gethalfwidthdigitfromfullwidthdigit_文字列チェック4() {
         assertThat(StrUtils.gethalfwidthdigitfromfullwidthdigit("１２３")).isEqualTo("123");
     }
-
-    //
-    // jsonStringToMap
-    //
-    @Test
-    final void dateUtils_jsonStringToMap_null入力チェック1() {
-        assertThat(StrUtils.getMapFromjsonString(null)).isEqualTo(null);
-    }
-
-    @Test
-    final void dateUtils_jsonStringToMap_文字列チェック1() {
-        assertThat(StrUtils.getMapFromjsonString("")).isEqualTo(null);
-    }
-
-    @Test
-    final void dateUtils_jsonStringToMap_文字列チェック2() {
-        assertThat(StrUtils.getMapFromjsonString("アイうえお")).isEqualTo(null);
-    }
 }
