@@ -50,4 +50,16 @@ $(function() {
                 });
         }
     });
+
+    // 都道府県検索
+    $('#address1').on('change', function() {
+        //　検索後は他項目を初期化します。
+        $("#zipcode").val("");
+        $("#prefcode").val("");
+        $("#address2").val("");
+        $("#address3").val("");
+        $("#kana1").val("");
+        $("#kana2").val("");
+        $("#kana3").val("");
+    });
 });
