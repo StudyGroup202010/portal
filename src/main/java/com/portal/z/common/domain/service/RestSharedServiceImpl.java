@@ -1,5 +1,6 @@
 package com.portal.z.common.domain.service;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,9 +11,10 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class RestSharedServiceImpl implements RestSharedService {
 
-    public String restget(String url) {
+    public JSONObject restget(String url) {
+        
         RestTemplate restTemplate = new RestTemplate();
 
-        return restTemplate.getForObject(url, String.class);
+        return new JSONObject(restTemplate.getForObject(url, String.class));
     }
 }
