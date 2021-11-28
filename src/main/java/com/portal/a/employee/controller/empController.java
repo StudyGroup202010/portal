@@ -2,10 +2,13 @@ package com.portal.a.employee.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
@@ -24,6 +27,7 @@ import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
 import com.portal.a.common.domain.model.Organization;
+import com.portal.a.common.domain.model.Prefecture;
 import com.portal.a.employee.domain.model.CreateOrder;
 import com.portal.a.employee.domain.model.EmployeeListCsvView;
 import com.portal.a.employee.domain.model.EmployeeListXlsxView;
@@ -206,6 +210,25 @@ public class empController {
         // Modelに組織リストを登録
         model.addAttribute("organizationList", organization);
 
+        // 都道府県一覧の生成
+        List<Prefecture> prefectureList = new ArrayList<>();
+
+        // 都道府県検索API
+        String url = "https://apis.postcode-jp.com/api/v4/prefectures";
+        JSONObject prefecturesjson = restSharedService.restget(url);
+        JSONArray prefecturesjsonlist = prefecturesjson.getJSONArray("data");
+
+        for (int i = 0; i < prefecturesjsonlist.length(); i++) {
+            Prefecture prefecture = new Prefecture();
+            prefecture.setPrefCode(prefecturesjson.getJSONArray("data").getJSONObject(i).getString("prefCode"));
+            prefecture.setPref(prefecturesjson.getJSONArray("data").getJSONObject(i).getString("pref"));
+            prefecture
+                    .setFullWidthKana(prefecturesjson.getJSONArray("data").getJSONObject(i).getString("fullWidthKana"));
+            prefectureList.add(prefecture);
+        }
+        // Modelに都道府県リストを登録
+        model.addAttribute("prefecturesList", prefectureList);
+
         // 社員マスタ登録画面に画面遷移
         return "z/homeLayout";
     }
@@ -244,9 +267,9 @@ public class empController {
             /** 郵便番号検索API リクエストURL */
             String url = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + form.getPostcode();
             // 郵便番号検索APIサービス呼び出し
-            String getAddress = restSharedService.restget(url);
+            JSONObject getAddress = restSharedService.restget(url);
 
-            if (StrUtils.getMapFromjsonString(getAddress).get("results") == null) {
+            if (getAddress.isNull("results")) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result",
                         massageUtils.getMsg("e.co.fw.2.004", new String[] { "郵便番号：" + form.getPostcode() }));
@@ -366,6 +389,25 @@ public class empController {
         // Modelに組織リストを登録
         model.addAttribute("organizationList", organizationList);
 
+        // 都道府県一覧の生成
+        List<Prefecture> prefectureList = new ArrayList<>();
+
+        // 都道府県検索API
+        String url = "https://apis.postcode-jp.com/api/v4/prefectures";
+        JSONObject prefecturesjson = restSharedService.restget(url);
+        JSONArray prefecturesjsonlist = prefecturesjson.getJSONArray("data");
+
+        for (int i = 0; i < prefecturesjsonlist.length(); i++) {
+            Prefecture prefecture = new Prefecture();
+            prefecture.setPrefCode(prefecturesjson.getJSONArray("data").getJSONObject(i).getString("prefCode"));
+            prefecture.setPref(prefecturesjson.getJSONArray("data").getJSONObject(i).getString("pref"));
+            prefecture
+                    .setFullWidthKana(prefecturesjson.getJSONArray("data").getJSONObject(i).getString("fullWidthKana"));
+            prefectureList.add(prefecture);
+        }
+        // Modelに都道府県リストを登録
+        model.addAttribute("prefecturesList", prefectureList);
+
         // 社員IDのチェック
         if (employee_id != null && StrUtils.getStrLength(employee_id) > 0) {
 
@@ -460,9 +502,9 @@ public class empController {
             /** 郵便番号検索API リクエストURL */
             String url = "http://zipcloud.ibsnet.co.jp/api/search?zipcode=" + form.getPostcode();
             // 郵便番号検索APIサービス呼び出し
-            String getAddress = restSharedService.restget(url);
+            JSONObject getAddress = restSharedService.restget(url);
 
-            if (StrUtils.getMapFromjsonString(getAddress).get("results") == null) {
+            if (getAddress.isNull("results")) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result",
                         massageUtils.getMsg("e.co.fw.2.004", new String[] { "郵便番号：" + form.getPostcode() }));
