@@ -14,7 +14,7 @@ public class InputPositionForm {
     // 必須入力
     @NotBlank(groups = { ValidCreate1.class }, message = "{require_check}")
     @Size(groups = { ValidCreate2.class }, min = 5, max = 5, message = "{length_check_1}") // 桁数指定
-    @Pattern(groups = { ValidCreate1.class,
+    @Pattern(groups = { ValidCreate2.class,
             ValidUpdate1.class }, regexp = "^[-_0-9a-zA-Z]+$", message = "{Alphanumericsymbols_check}") // 英数記号であること
     private String position_cd; // 役職CD
 
