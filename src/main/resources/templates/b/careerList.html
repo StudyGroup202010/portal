@@ -80,7 +80,9 @@
                                     <th scope="col"><p
                                             class="text-nowrap text-center">担当工程</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">　　備考　　</p></th>
+                                            class="text-nowrap text-center">　　　　備考　　　　</p></th>
+                                    <th scope="col"><p
+                                            class="text-nowrap text-center">更新日</p></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,6 +106,8 @@
                                         th:text="${career.process_name}"></td>
                                     <td align="left"
                                         th:text="${career.biko}"></td>
+                                    <td align="center"
+                                        th:text="${#dates.format(career.update_date, 'yyyy/MM/dd HH:mm:ss')}"></td>
                                 </tr>
                             </tbody>
                         </table>

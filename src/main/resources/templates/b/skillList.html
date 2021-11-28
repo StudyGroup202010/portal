@@ -62,6 +62,7 @@
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">組織</p></th>
                         <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　　　　　　　備考　　　　　　　　　　　　　　　　　　</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">更新日</p></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +87,7 @@
                         <td align="left"
                             th:text="${skill.organization_name}"></td>
                         <td align="left" th:text="${skill.biko}"></td>
+                        <td align="center" th:text="${#dates.format(skill.update_date, 'yyyy/MM/dd HH:mm:ss')}"></td>
                     </tr>
                 </tbody>
             </table>

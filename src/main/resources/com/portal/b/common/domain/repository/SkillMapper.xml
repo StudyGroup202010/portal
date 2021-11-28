@@ -29,6 +29,7 @@
 		<result column="technology_Lang" property="technology_Lang" />
 		<result column="technology_OS" property="technology_OS" />
 		<result column="technology_DB" property="technology_DB" />
+		<result column="update_date" property="update_date" />
 	</resultMap>
     
     <!-- １件insert -->
@@ -55,8 +56,8 @@
           ,#{biko}
           ,#{insert_user}
           ,NOW()
-          ,NULL
-          ,NULL
+          ,#{insert_user}
+          ,NOW()
           )
     </insert>
 
@@ -97,6 +98,7 @@
           ,b.graduation_date
           ,b.notices
           ,b.biko
+          ,b.update_date
         from
           am005_employee a
           left join bt001_skill b
