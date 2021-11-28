@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div th:fragment="empDetail_contents">
-		<div class="col-sm-7">
+		<div class="col-sm-6">
 			<div class="page-header">
 				<h3>社員マスタ詳細</h3>
 			</div>
@@ -217,38 +217,24 @@
                                     class="btn btn-primary"
                                     id="getAddressBtn" value="住所検索" />
                             </div>
-                        </td>
-                    </tr>
-					<!-- 都道府県名１ -->
-                    <tr>
-                        <th class="active table-info">都道府県名（漢字）</th>
-                        <td>
-                            <div class="form-group"
+                            <!-- 都道府県名１ -->
+                            <div class="form-group form-check-inline"
                                 th:classappend="${#fields.hasErrors('pref_name1')} ? 'has-error'">
-                                <input type="text" class="form-control"
+                                <select class="form-control"
                                     th:field="*{pref_name1}"
-                                    id= "address1"
-                                    autocomplete="address-level1" /> <span
-                                    class="text-danger"
+                                    id="address1">
+                                    <option value="" selected>都道府県選択</option>
+                                    <option
+                                        th:each="prefecturesList : ${prefecturesList}"
+                                        th:value="${prefecturesList.pref}"
+                                        th:text="${prefecturesList.pref}"
+                                        th:selected="${prefecturesList.pref}"></option>
+                                </select> <span class="text-danger"
                                     th:if="${#fields.hasErrors('pref_name1')}"
                                     th:errors="*{pref_name1}">
                                     pref_name1 error </span>
                             </div>
-                        </td>
-                    </tr>
-                    <!-- 都道府県名２ -->
-					<tr>
-						<th class="active table-info">都道府県名（フリガナ）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('pref_name2')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{pref_name2}" id="kana1" />
-                                <span class="text-danger"
-                                    th:if="${#fields.hasErrors('pref_name2')}"
-                                    th:errors="*{pref_name2}">
-                                    pref_name2 error </span>
-                            </div>
+                            
                         </td>
                     </tr>
 					<!-- 市区町村名１ -->
@@ -346,6 +332,10 @@
                 <!-- 都道府県名ＣＤ -->
                 <input type="hidden" class="form-control"
                     th:field="*{prefcode}" />
+                <!-- 都道府県名（フリガナ） -->
+                <input type="hidden"
+                    class="form-control" th:field="*{pref_name2}"
+                    id="kana1" />
                 <!-- 市区町村名ＣＤ -->
                 <input type="hidden" class="form-control"
                     th:field="*{citycode}" />
