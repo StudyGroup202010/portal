@@ -20,6 +20,7 @@
         <result column="technology_OS" property="technology_OS" />
         <result column="technology_DB" property="technology_DB" />
         <result column="process_name" property="process_name" />
+        <result column="update_date" property="update_date" />
     </resultMap>
     
     <!-- １件insert -->
@@ -106,6 +107,7 @@
           ,b.end_yearmonth
           ,b.business_content
           ,b.biko
+          ,b.update_date
           ,c.technology_Lang --技術区分（開発言語）
           ,c.technology_OS   --技術区分（OS）
           ,c.technology_DB   --技術区分（DB）
