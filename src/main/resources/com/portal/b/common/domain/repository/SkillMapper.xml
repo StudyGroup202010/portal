@@ -168,6 +168,7 @@
             on  e.organization_cd = c.organization_cd
         where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
           and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
+          and e.organization_name   like CONCAT('%' , #{organization_name} , '%')
           and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
         order by
           a.employee_cd
@@ -276,6 +277,7 @@
             on a.employee_id = j.employee_id
         where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
           and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
+          and e.organization_name   like CONCAT('%' , #{organization_name} , '%')
           and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
         order by
           a.employee_cd
