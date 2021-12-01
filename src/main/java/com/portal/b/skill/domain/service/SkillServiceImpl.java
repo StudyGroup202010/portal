@@ -79,12 +79,14 @@ public class SkillServiceImpl implements SkillService {
         return result;
     }
 
-    public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String biko) {
-        return skillMapper.selectBy(employee_cd, employee_name1_last, biko);
+    public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String organization_name,
+            String biko) {
+        return skillMapper.selectBy(employee_cd, employee_name1_last, organization_name, biko);
     }
 
-    public List<Skill> selectSkillByExcel(String employee_cd, String employee_name1_last, String biko) {
-        return skillMapper.selectByExcel(employee_cd, employee_name1_last, biko);
+    public List<Skill> selectSkillByExcel(String employee_cd, String employee_name1_last, String organization_name,
+            String biko) {
+        return skillMapper.selectByExcel(employee_cd, employee_name1_last, organization_name, biko);
     }
 
     // 業務経歴
