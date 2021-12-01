@@ -35,24 +35,15 @@
                     <!-- 社員CD -->
                     <tr>
                         <th class="active table-info">社員ＣＤ</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('employee_cd')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{employee_cd}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('employee_cd')}"
-                                    th:errors="*{employee_cd}">
-                                    employee_cd error </span>
-                            </div>
-                        </td>
+                        <td><input type="text" class="form-control"
+                            th:field="*{employee_cd}"
+                            readonly="readonly" /></td>
                     </tr>
                     <!-- 社員名漢字 -->
                     <tr>
                         <th class="active table-info">名前（漢字）</th>
                         <td>
-                            <div class="form-group form-check-inline">
+                            <div class="form-inline">
                                 <!-- 社員名漢字（姓） -->
                                 <input type="text" class="form-control"
                                     th:field="*{employee_name1_last}"
@@ -68,7 +59,7 @@
                     <tr>
                         <th class="active table-info">名前（フリガナ）</th>
                         <td>
-                            <div class="form-group form-check-inline">
+                            <div class="form-inline">
                                 <!-- 社員名カナ（姓） -->
                                 <input type="text" class="form-control"
                                     th:field="*{employee_name2_last}"
@@ -93,157 +84,51 @@
                                         th:field="*{gender_kbn}"
                                         readonly="readonly">
                                 </div>
-                                <span class="text-danger"
-                                    th:if="${#fields.hasErrors('gender_kbn')}"
-                                    th:errors="*{gender_kbn}">
-                                    gender_kbn error </span>
                             </div>
                         </td>
                     </tr>
                     <!-- 生年月日 -->
                     <tr>
                         <th class="active table-info">生年月日</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('birthday')} ? 'has-error'">
-                                <input type="date" class="form-control"
-                                    th:field="*{birthday}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('birthday')}"
-                                    th:errors="*{birthday}">
-                                    birthday error </span>
-                            </div>
+                        <td><input type="date" class="form-control"
+                            th:field="*{birthday}" readonly="readonly" />
+
                         </td>
                     </tr>
                     <!-- 郵便番号 -->
                     <tr>
                         <th class="active table-info">郵便番号</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{postcode}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('postcode')}"
-                                    th:errors="*{postcode}">
-                                    postcode error </span>
-                            </div>
+                        <td><input type="text" class="form-control"
+                            th:field="*{postcode}" readonly="readonly" />
                         </td>
                     </tr>
                     <!-- 都道府県名１ -->
                     <tr>
                         <th class="active table-info">都道府県名（漢字）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('pref_name1')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{pref_name1}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('pref_name1')}"
-                                    th:errors="*{pref_name1}">
-                                    pref_name1 error </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 都道府県名２ -->
-                    <tr>
-                        <th class="active table-info">都道府県名（フリガナ）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('pref_name2')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{pref_name2}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('pref_name2')}"
-                                    th:errors="*{pref_name2}">
-                                    pref_name2 error </span>
-                            </div>
+                        <td><input type="text" class="form-control"
+                            th:field="*{pref_name1}" readonly="readonly" />
                         </td>
                     </tr>
                     <!-- 市区町村名１ -->
                     <tr>
                         <th class="active table-info">市区町村名（漢字）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('city_name1')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{city_name1}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('city_name1')}"
-                                    th:errors="*{city_name1}">
-                                    city_name1 error </span>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- 市区町村名２ -->
-                    <tr>
-                        <th class="active table-info">市区町村名（フリガナ）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('city_name2')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{city_name2}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('city_name2')}"
-                                    th:errors="*{city_name2}">
-                                    city_name2 error </span>
-                            </div>
+                        <td><input type="text" class="form-control"
+                            th:field="*{city_name1}" readonly="readonly" />
                         </td>
                     </tr>
                     <!-- 住所１ -->
                     <tr>
                         <th class="active table-info">住所（漢字）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('streetaddress1')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{streetaddress1}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('streetaddress1')}"
-                                    th:errors="*{streetaddress1}">
-                                    streetaddress1 error </span>
-                            </div>
-                        </td>
+                        <td><input type="text" class="form-control"
+                            th:field="*{streetaddress1}"
+                            readonly="readonly" /></td>
                     </tr>
-                    <!-- 住所２ -->
-                    <tr>
-                        <th class="active table-info">住所（フリガナ）</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('streetaddress2')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{streetaddress2}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('streetaddress2')}"
-                                    th:errors="*{streetaddress2}">
-                                    streetaddress2 error </span>
-                            </div>
-                        </td>
-                    </tr>
-
                     <!-- 最寄駅名 -->
                     <tr>
                         <th class="active table-info">最寄駅名</th>
-                        <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('nearest_station_name')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{nearest_station_name}"
-                                    readonly="readonly" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('nearest_station_name')}"
-                                    th:errors="*{nearest_station_name}">
-                                    nearest_station_name error </span>
-                            </div>
-                        </td>
+                        <td><input type="text" class="form-control"
+                            th:field="*{nearest_station_name}"
+                            readonly="readonly" /></td>
                     </tr>
                 </table>
                 <!-- 社員ID -->
