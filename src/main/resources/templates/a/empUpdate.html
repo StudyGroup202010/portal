@@ -44,25 +44,30 @@
                         <th class="active table-info">名前（漢字）<BR>
                             <img th:src="@{/image/required.png}"></th>
                         <td>
-                            <div class="form-group form-check-inline"
-                                th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{employee_name1_last}"
-                                    autocomplete="family-name" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('employee_name1_last')}"
-                                    th:errors="*{employee_name1_last}">
-                                    employee_name1_last error </span>
-                            </div> <!-- 社員名漢字（名） -->
-                            <div class="form-group form-check-inline"
-                                th:classappend="${#fields.hasErrors('employee_name1_first')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{employee_name1_first}"
-                                    autocomplete="given-name" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('employee_name1_first')}"
-                                    th:errors="*{employee_name1_first}">
-                                    employee_name1_first error </span>
+                            <div class="form-inline">
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
+                                    <input type="text"
+                                        class="form-control"
+                                        th:field="*{employee_name1_last}"
+                                        autocomplete="family-name" /> <span
+                                        class="text-danger"
+                                        th:if="${#fields.hasErrors('employee_name1_last')}"
+                                        th:errors="*{employee_name1_last}">
+                                        employee_name1_last error </span>
+                                </div>
+                                <!-- 社員名漢字（名） -->
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('employee_name1_first')} ? 'has-error'">
+                                    <input type="text"
+                                        class="form-control"
+                                        th:field="*{employee_name1_first}"
+                                        autocomplete="given-name" /> <span
+                                        class="text-danger"
+                                        th:if="${#fields.hasErrors('employee_name1_first')}"
+                                        th:errors="*{employee_name1_first}">
+                                        employee_name1_first error </span>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -71,23 +76,28 @@
                         <th class="active table-info">名前（フリガナ）<BR>
                             <img th:src="@{/image/required.png}"></th>
                         <td>
-                            <div class="form-group form-check-inline"
-                                th:classappend="${#fields.hasErrors('employee_name2_last')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{employee_name2_last}"/>
-                                <span class="text-danger"
-                                    th:if="${#fields.hasErrors('employee_name2_last')}"
-                                    th:errors="*{employee_name2_last}">
-                                    employee_name2_last error </span>
-                            </div> <!-- 社員名カナ（名） -->
-                            <div class="form-group form-check-inline"
-                                th:classappend="${#fields.hasErrors('employee_name2_first')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{employee_name2_first}"/>
-                                <span class="text-danger"
-                                    th:if="${#fields.hasErrors('employee_name2_first')}"
-                                    th:errors="*{employee_name2_first}">
-                                    employee_name2_first error </span>
+                            <div class="form-inline">
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('employee_name2_last')} ? 'has-error'">
+                                    <input type="text"
+                                        class="form-control"
+                                        th:field="*{employee_name2_last}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('employee_name2_last')}"
+                                        th:errors="*{employee_name2_last}">
+                                        employee_name2_last error </span>
+                                </div>
+                                <!-- 社員名カナ（名） -->
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('employee_name2_first')} ? 'has-error'">
+                                    <input type="text"
+                                        class="form-control"
+                                        th:field="*{employee_name2_first}" />
+                                    <span class="text-danger"
+                                        th:if="${#fields.hasErrors('employee_name2_first')}"
+                                        th:errors="*{employee_name2_first}">
+                                        employee_name2_first error </span>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -192,26 +202,31 @@
 					</tr>
 					<!-- 郵便番号 -->
                     <tr>
-                        <th class="active table-info">郵便番号</th>
+                        <th class="active table-info">郵便番号<a
+                            href="https://www.post.japanpost.jp/zipcode/"
+                            target="_blank" rel="noopener noreferrer"
+                            class="btn btn-primary">検索</a></th>
                         <td>
-                            <div class="form-group form-check-inline"
-                                th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    id="zipcode" th:field="*{postcode}"
-                                    placeholder="数字７桁"
-                                    autocomplete="postal-code"
-                                    inputmode="numeric" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('postcode')}"
-                                    th:errors="*{postcode}">
-                                    postcode error </span>
-                                <input type="button"
-                                    class="btn btn-primary"
-                                    id="getAddressBtn" value="住所検索" />
-                            </div>
-                            <!-- 都道府県名１ -->
-                            <div class="form-group form-check-inline"
-                                th:classappend="${#fields.hasErrors('pref_name1')} ? 'has-error'">
+                            <div class="form-inline">
+                                <div class="form-group"
+                                    th:classappend="${#fields.hasErrors('postcode')} ? 'has-error'">
+                                    <input type="text"
+                                        class="form-control"
+                                        id="zipcode"
+                                        th:field="*{postcode}"
+                                        placeholder="数字７桁"
+                                        autocomplete="postal-code"
+                                        inputmode="numeric" /> <span
+                                        class="text-danger"
+                                        th:if="${#fields.hasErrors('postcode')}"
+                                        th:errors="*{postcode}">
+                                        postcode error </span> 
+                                    <input
+                                        type="button"
+                                        class="btn btn-primary"
+                                        id="getAddressBtn" value="住所検索" />
+                                </div>
+                                <!-- 都道府県名１ -->
                                 <select class="form-control"
                                     th:field="*{pref_name1}"
                                     id="address1">
@@ -263,14 +278,11 @@
                                     <option value="宮崎県">宮崎県</option>
                                     <option value="鹿児島県">鹿児島県</option>
                                     <option value="沖縄県">沖縄県</option>
-                                </select> <span class="text-danger"
-                                    th:if="${#fields.hasErrors('pref_name1')}"
-                                    th:errors="*{pref_name1}">
-                                    pref_name1 error </span>
+                                </select>
                             </div>
                         </td>
                     </tr>
-					<!-- 市区町村名１ -->
+                    <!-- 市区町村名１ -->
                     <tr>
                         <th class="active table-info">市区町村名（漢字）</th>
                         <td>
