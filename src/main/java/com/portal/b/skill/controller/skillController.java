@@ -102,7 +102,7 @@ public class skillController {
 
         // スキル情報を取得
         List<Skill> skillList = skillService.selectSkillBy(form.getEmployee_cd(), form.getEmployee_name1_last(),
-                form.getBiko());
+                form.getOrganization_name(), form.getBiko());
 
         // Modelにスキルリストを登録
         model.addAttribute("skillList", skillList);
@@ -130,7 +130,7 @@ public class skillController {
 
         // スキル情報を取得
         List<Skill> skillList = skillService.selectSkillByExcel(form.getEmployee_cd(), form.getEmployee_name1_last(),
-                form.getBiko());
+                form.getOrganization_name(), form.getBiko());
 
         // Modelにユーザーリストを登録
         model.addStaticAttribute("skillList", skillList);

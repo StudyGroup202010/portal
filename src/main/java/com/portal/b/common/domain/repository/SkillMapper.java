@@ -49,18 +49,21 @@ public interface SkillMapper {
      * 
      * @param employee_cd         employee_cd
      * @param employee_name1_last employee_name1_last
+     * @param organization_name   organization_name
      * @param biko                biko
      * @return SkillList
      */
-    public List<Skill> selectBy(String employee_cd, String employee_name1_last, String biko);
+    public List<Skill> selectBy(String employee_cd, String employee_name1_last, String organization_name, String biko);
 
     /**
      * 条件検索用EXCELメソッド
      * 
      * @param employee_cd         employee_cd
      * @param employee_name1_last employee_name1_last
+     * @param organization_name   organization_name
      * @param biko                biko
      * @return SkillList
      */
-    public List<Skill> selectByExcel(String employee_cd, String employee_name1_last, String biko);
+    public List<Skill> selectByExcel(String employee_cd, String employee_name1_last, String organization_name,
+            String biko);
 }

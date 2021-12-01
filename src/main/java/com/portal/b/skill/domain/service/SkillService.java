@@ -47,20 +47,24 @@ public interface SkillService {
      * 
      * @param employee_cd         employee_cd
      * @param employee_name1_last employee_name1_last
+     * @param organization_name   organization_name
      * @param biko                biko
      * @return SkillList
      */
-    public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String biko);
+    public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String organization_name,
+            String biko);
 
     /**
      * スキル情報条件検索用EXCELメソッド.
      * 
      * @param employee_cd         employee_cd
      * @param employee_name1_last employee_name1_last
+     * @param organization_name   organization_name
      * @param biko                biko
      * @return SkillList
      */
-    public List<Skill> selectSkillByExcel(String employee_cd, String employee_name1_last, String biko);
+    public List<Skill> selectSkillByExcel(String employee_cd, String employee_name1_last, String organization_name,
+            String biko);
 
     // 業務経歴
     /**
