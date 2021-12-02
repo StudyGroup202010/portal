@@ -79,7 +79,7 @@ public interface EmployeeService {
      * @return EmployeeList
      */
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
-    
+
     /**
      * １件取得用メソッド.
      * 
@@ -87,4 +87,12 @@ public interface EmployeeService {
      * @return User
      */
     public User selectUserOne(String user_id);
+
+    /**
+     * ユーザマスタ存在確認用メソッド.
+     * 
+     * @param employee_id employee_id
+     * @return User
+     */
+    public User selectByEmployeeid(String employee_id);
 }

@@ -570,11 +570,18 @@ public class empController {
             }
 
         } catch (DataIntegrityViolationException e) {
-            
-            
-            
+
+            // ユーザマスタ登録確認
+            User selectByEmployeeid = employeeService.selectByEmployeeid(form.getEmployee_id());
+            if (selectByEmployeeid != null) {
+                String message = "この社員はユーザ情報";
+                String messageKey = "e.co.fw.2.023";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getEmployeeDetail(form, model, "");
+            }
+
             // 参照整合性エラーが発生した時はビジネス例外として返す。
-            String message = "この社員は役職がついているか経歴が残っているかユーザ情報";
+            String message = "この社員は役職がついているか経歴";
             String messageKey = "e.co.fw.2.023";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getEmployeeDetail(form, model, "");

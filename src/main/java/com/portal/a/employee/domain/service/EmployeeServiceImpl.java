@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     OrganizationMapper organizationMapper;
-    
+
     @Autowired
     UserMapper userMapper;
 
@@ -121,8 +121,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko) {
         return employeeExpMapper.selectBy(employee_cd, employee_name1_last, mail, biko);
     }
-    
+
     public User selectUserOne(String user_id) {
         return userMapper.selectOne(user_id);
+    }
+
+    public User selectByEmployeeid(String employee_id) {
+        return userMapper.selectByEmployeeid(employee_id);
     }
 }
