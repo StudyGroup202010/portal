@@ -45,6 +45,7 @@
                             <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-inline">
+                                <!-- 社員名漢字（姓） -->
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('employee_name1_last')} ? 'has-error'">
                                     <input type="text"
@@ -77,6 +78,7 @@
                             <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-inline">
+                                <!-- 社員名カナ（姓） -->
                                 <div class="form-group"
                                     th:classappend="${#fields.hasErrors('employee_name2_last')} ? 'has-error'">
                                     <input type="text"
