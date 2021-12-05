@@ -21,7 +21,6 @@ public class InputOrganizationForm {
     @Size(groups = { ValidCreate2.class, ValidUpdate2.class }, max = 50, message = "{length_check_2}") // 桁数指定
     private String organization_name; // 組織名
     
-    // 必須入力
     private String company_cd; // 会社CD
     
     // 必須入力

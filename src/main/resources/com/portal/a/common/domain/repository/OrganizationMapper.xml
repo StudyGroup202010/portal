@@ -106,12 +106,12 @@
           am002_organization
         set
            organization_name   = #{organization_name}
-          ,company_cd     = #{company_cd}
+          ,company_cd          = #{company_cd}
           ,start_yearmonth     = #{start_yearmonth}
           ,end_yearmonth       = #{end_yearmonth}
-          ,biko           = #{biko}
-          ,update_user    = #{update_user}
-          ,update_date    = NOW()
+          ,biko                = #{biko}
+          ,update_user         = #{update_user}
+          ,update_date         = NOW()
         where
           organization_cd      = #{organization_cd}
     </update>

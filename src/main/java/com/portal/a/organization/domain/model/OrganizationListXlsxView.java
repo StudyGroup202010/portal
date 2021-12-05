@@ -81,7 +81,7 @@ public class OrganizationListXlsxView extends AbstractXlsxView {
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 9; i++) {
+        for (int i = 0; i <= organizationListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }

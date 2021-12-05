@@ -8,22 +8,12 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrapの設定 -->
-
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
-	rel="stylesheet"></link>
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-
-
 
 <title>OrganizationDetail</title>
 </head>
 <body>
 	<div th:fragment="organizationDetail_contents">
-		<div class="col-sm-5">
+		<div class="col-sm-6">
 
 			<div class="page-header">
 				<h3>組織マスタ詳細</h3>
@@ -45,12 +35,13 @@
 					</tr>
 					<!-- 組織名 -->
 					<tr>
-						<th class="table-info">組織名</th>
+						<th class="table-info">組織名<BR>
+                        <img th:src="@{/image/required.png}"></th>
 						<td>
 							<div class="form-group"
 								th:classappend="${#fields.hasErrors('organization_name')} ? 'has-error'">
 								<input type="text" class="form-control"
-									th:field="*{organization_name}" /> <span class="text-danger"
+									th:field="*{organization_name}" autofocus/> <span class="text-danger"
 									th:if="${#fields.hasErrors('organization_name')}"
 									th:errors="*{organization_name}"> organization_name error </span>
 							</div>
@@ -78,12 +69,16 @@
                     </tr>
                     <!-- 開始年月 -->
                     <tr>
-                        <th class="table-info">開始年月</th>
+                        <th class="table-info">開始年月<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{start_yearmonth}" /> <span class="text-danger"
+                                    th:field="*{start_yearmonth}" 
+                                    placeholder="YYYYMM" 
+                                    inputmode="numeric" 
+                                    /> <span class="text-danger"
                                     th:if="${#fields.hasErrors('start_yearmonth')}"
                                     th:errors="*{start_yearmonth}"> start_yearmonth error </span>
                             </div>
@@ -96,7 +91,10 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{end_yearmonth}" /> <span class="text-danger"
+                                    th:field="*{end_yearmonth}" 
+                                    placeholder="YYYYMM" 
+                                    inputmode="numeric"
+                                    /> <span class="text-danger"
                                     th:if="${#fields.hasErrors('end_yearmonth')}"
                                     th:errors="*{end_yearmonth}"> end_yearmonth error </span>
                             </div>
@@ -121,7 +119,7 @@
 
 				<!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back"
-					autofocus>戻る</button>
+					>戻る</button>
 				<!-- 更新ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"
 					data-toggle="modal" data-target="#Modalupdate"
