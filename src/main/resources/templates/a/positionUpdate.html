@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>PositionUpdate</title>
+</head>
+<body>
+	<div th:fragment="positionUpdate_contents">
+		<div class="col-xl-6">
+			<div class="page-header">
+				<h3>役職マスタ登録</h3>
+			</div>
+			<!-- 役職マスタ登録画面の結果表示 -->
+			<label class="text-danger" th:text="${result}"></label>
+			<form method="post" th:action="@{/positionUpdate}"
+				th:object="${inputPositionForm}">
+				<table class="table table-bordered table-hover table-sm">
+					<!-- 役職CDの入力エリア -->
+                    <tr>
+                        <th class="active table-info">役職CD<BR>
+                            <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('position_cd')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{position_cd}"
+                                    placeholder="英数記号（-か_）を入力してください"
+                                    autofocus /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('position_cd')}"
+                                    th:errors="*{position_cd}">
+                                    position_cd error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 役職名 -->
+                    <tr>
+                        <th class="active table-info">役職名<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('position_name')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{position_name}"
+                                    autofocus /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('position_name')}"
+                                    th:errors="*{position_name}">
+                                    position_name error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 開始年月 -->
+                    <tr>
+                        <th class="active table-info">開始年月<BR>
+                            <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{start_yearmonth}"
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" autofocus /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('start_yearmonth')}"
+                                    th:errors="*{start_yearmonth}">
+                                    start_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 最終年月 -->
+                    <tr>
+                        <th class="active table-info">最終年月</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{end_yearmonth}"
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" autofocus /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('end_yearmonth')}"
+                                    th:errors="*{end_yearmonth}">
+                                    end_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
+					<tr>
+						<th class="active table-info">備考</th>
+						<td>
+							<div class="form-group"
+							    th:classappend="${#fields.hasErrors('biko')} ? 'has-error'">
+								<input type="text" class="form-control"
+									th:field="*{biko}" autofocus /> <span
+									class="text-danger"
+									th:if="${#fields.hasErrors('biko')}"
+									th:errors="*{biko}"> biko error </span>
+							</div>
+						</td>
+					</tr>
+				</table>
+
+				<!-- 戻るボタン -->
+				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
+				<!-- ユーザー登録ボタン -->
+				<button class="btn btn-lg btn-danger float-right" type="button"
+					data-toggle="modal" data-target="#Modalinsert">登録</button>
+				<!-- 登録Modal -->
+				<div class="modal" data-backdrop="static" data-keyboard="false"
+					id="Modalinsert" tabindex="-1" role="dialog"
+					aria-labelledby="ModalInsertTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-sm"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6 class="modal-title" id="ModalInsertTitle">確認</h6>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">登録してもよろしいでしょうか？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-lg btn-primary"
+									data-dismiss="modal">戻る</button>
+								<button type="submit" name="insert"
+									class="btn btn-lg btn-danger">実行</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

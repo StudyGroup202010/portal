@@ -1,0 +1,2 @@
+insert into bt001_skill( employee_id ,biko, insert_user , insert_date)
+VALUES('00001','備考００００１', 'HAND',NOW())

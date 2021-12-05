@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+    namespace="com.portal.a.common.domain.repository.EmployeeMapper">
+    <!-- マッピング定義 -->
+    <resultMap type="com.portal.a.common.domain.model.Employee" id="employee">
+        <id column="employee_id" property="employee_id" />
+        <result column="employee_cd" property="employee_cd" />
+        <result column="employee_name1_last" property="employee_name1_last" />
+        <result column="employee_name1_first" property="employee_name1_first" />
+        <result column="employee_name2_last" property="employee_name2_last" />
+        <result column="employee_name2_first" property="employee_name2_first" />
+        <result column="gender_kbn" property="gender_kbn" />
+        <result column="postcode" property="postcode" />
+        <result column="prefcode" property="prefcode" />
+        <result column="pref_name1" property="pref_name1" />
+        <result column="pref_name2" property="pref_name2" />
+        <result column="citycode" property="citycode" />
+        <result column="city_name1" property="city_name1" />
+        <result column="city_name2" property="city_name2" />
+        <result column="streetaddress1" property="streetaddress1" />
+        <result column="streetaddress2" property="streetaddress2" />
+        <result column="birthday" property="birthday" />
+        <result column="nearest_station_code" property="nearest_station_code" />
+        <result column="nearest_station_name" property="nearest_station_name" />
+        <result column="mail" property="mail" />
+        <result column="joined_date" property="joined_date" />
+        <result column="leave_date" property="leave_date" />
+        <result column="employeeattribute_id" property="employeeattribute_id" />
+        <result column="employeeattribute_name" property="employeeattribute_name" />
+        <result column="organization_cd" property="organization_cd" />
+        <result column="organization_name" property="organization_name" />
+        <result column="start_yearmonth" property="start_yearmonth" />
+        <result column="biko" property="biko" />
+    </resultMap>
+
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.a.common.domain.model.Employee">
+        insert into
+          am005_employee (
+           employee_id
+          ,employee_cd
+          ,employee_name1_last
+          ,employee_name1_first
+          ,employee_name2_last
+          ,employee_name2_first
+          ,gender_kbn
+          ,postcode
+          ,prefcode
+          ,pref_name1
+          ,pref_name2
+          ,citycode
+          ,city_name1
+          ,city_name2
+          ,streetaddress1
+          ,streetaddress2
+          ,birthday
+          ,nearest_station_code
+          ,nearest_station_name
+          ,mail
+          ,joined_date
+          ,leave_date
+          ,employeeattribute_id
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           nextval('employee_id_seq')
+          ,#{employee_cd}
+          ,#{employee_name1_last}
+          ,#{employee_name1_first}
+          ,#{employee_name2_last}
+          ,#{employee_name2_first}
+          ,#{gender_kbn}
+          ,#{postcode}
+          ,#{prefcode}
+          ,#{pref_name1}
+          ,#{pref_name2}
+          ,#{citycode}
+          ,#{city_name1}
+          ,#{city_name2}
+          ,#{streetaddress1}
+          ,#{streetaddress2}
+          ,#{birthday}
+          ,#{nearest_station_code}
+          ,#{nearest_station_name}
+          ,#{mail}
+          ,#{joined_date}
+          ,#{leave_date}
+          ,#{employeeattribute_id}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,#{insert_user}
+          ,NOW()
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Employee">
+    <![CDATA[
+        select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,a.employee_name2_last
+          ,a.employee_name2_first
+          ,a.gender_kbn
+          ,a.postcode
+          ,a.prefcode
+          ,a.pref_name1
+          ,a.pref_name2
+          ,a.citycode
+          ,a.city_name1
+          ,a.city_name2
+          ,a.streetaddress1
+          ,a.streetaddress2
+          ,a.birthday
+          ,a.nearest_station_code
+          ,a.nearest_station_name
+          ,a.mail
+          ,a.joined_date
+          ,a.leave_date
+          ,a.employeeattribute_id
+          ,b.organization_cd
+          ,b.start_yearmonth
+          ,a.biko
+          ,a.insert_user
+          ,a.insert_date
+          ,a.update_user
+          ,a.update_date
+        from
+          am005_employee a
+          left join am006_employeebelongs b
+            on  b.employee_id = a.employee_id
+            and b.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = b.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+        where
+              a.employee_id = #{employee_id}
+    ]]>
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="employee">
+    <![CDATA[
+         select
+           a.employee_id
+          ,a.employee_cd
+          ,a.employee_name1_last
+          ,a.employee_name1_first
+          ,a.employee_name2_last
+          ,a.employee_name2_first
+          ,a.gender_kbn
+          ,a.postcode
+          ,a.prefcode
+          ,a.pref_name1
+          ,a.pref_name2
+          ,a.citycode
+          ,a.city_name1
+          ,a.city_name2
+          ,a.streetaddress1
+          ,a.streetaddress2
+          ,a.birthday
+          ,a.nearest_station_code
+          ,a.nearest_station_name
+          ,a.mail
+          ,a.joined_date
+          ,a.leave_date
+          ,a.employeeattribute_id
+          ,b.employeeattribute_name as employeeattribute_name
+          ,c.organization_cd
+          ,e.organization_name
+          ,a.biko
+          ,a.insert_user
+          ,a.insert_date
+          ,a.update_user
+          ,a.update_date
+        from
+          am005_employee a
+          left join am008_employeeattribute b
+            on b.employeeattribute_id = a.employeeattribute_id
+          left join am006_employeebelongs c
+            on  c.employee_id = a.employee_id
+            and c.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = c.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+          left join am002_organization e
+            on  e.organization_cd = c.organization_cd
+        order by
+          a.employee_cd
+    ]]>
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.a.common.domain.model.Employee">
+        update
+          am005_employee
+        set
+           employee_cd          = #{employee_cd}
+          ,employee_name1_last  = #{employee_name1_last}
+          ,employee_name1_first = #{employee_name1_first}
+          ,employee_name2_last  = #{employee_name2_last}
+          ,employee_name2_first = #{employee_name2_first}
+          ,gender_kbn           = #{gender_kbn}
+          ,postcode             = #{postcode}
+          ,prefcode             = #{prefcode}
+          ,pref_name1           = #{pref_name1}
+          ,pref_name2           = #{pref_name2}
+          ,citycode             = #{citycode}
+          ,city_name1           = #{city_name1}
+          ,city_name2           = #{city_name2}
+          ,streetaddress1       = #{streetaddress1}
+          ,streetaddress2       = #{streetaddress2}
+          ,birthday             = #{birthday}
+          ,nearest_station_code = #{nearest_station_code}
+          ,nearest_station_name = #{nearest_station_name}
+          ,mail                 = #{mail}
+          ,joined_date          = #{joined_date}
+          ,leave_date           = #{leave_date}
+          ,employeeattribute_id = #{employeeattribute_id}
+          ,biko                 = #{biko}
+          ,update_user          = #{update_user}
+          ,update_date          = NOW()
+        where
+          employee_id           = #{employee_id}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from am005_employee where employee_id = #{employee_id}
+    </delete>
+
+</mapper>

@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +13,7 @@ import com.portal.a.common.domain.service.EnvSharedService;
 import com.portal.z.common.domain.model.Role;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.model.Userrole;
+import com.portal.z.common.domain.repository.PwreissueinfoMapper;
 import com.portal.z.common.domain.repository.RoleMapper;
 import com.portal.z.common.domain.repository.UserMapper;
 import com.portal.z.common.domain.repository.UserroleMapper;
@@ -38,6 +38,9 @@ public class UserSharedServiceImpl implements UserSharedService {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    PwreissueinfoMapper pwreissueinfoMapper;
 
     @Autowired
     private EnvSharedService envSharedService;
@@ -66,31 +69,25 @@ public class UserSharedServiceImpl implements UserSharedService {
         userrole.setRole_id(role.getRole_id()); // ロールID
 
         // 登録実行
-        try {
-            boolean result_1 = userMapper.insertOne(user);
-            boolean result_2 = userroleMapper.insertOne(userrole);
+        boolean result_1 = userMapper.insertOne(user);
+        boolean result_2 = userroleMapper.insertOne(userrole);
 
-            // ユーザー登録結果の判定
-            if (result_1 == true && result_2 == true) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (DuplicateKeyException e) {
-            // 一意制約エラーが発生した時はビジネス例外として返す。
-            String messageKey = "e.co.fw.2.003";
-            throw new ApplicationException(messageKey,
-                    massageUtils.getMsg(messageKey, new String[] { user.getUser_id() }), e);
+        // ユーザー登録結果の判定
+        if (result_1 == true && result_2 == true) {
+            return true;
+        } else {
+            return false;
         }
     }
 
     public boolean deleteOne(String user_id) {
 
         // 削除実行
+        pwreissueinfoMapper.deleteOneByUserid(user_id);
         boolean result_1 = userroleMapper.deleteOne(user_id);
         boolean result_2 = userMapper.deleteOne(user_id);
 
+        // ZT001_PWREISSUEINFO(パスワード再発行情報)は存在しない可能性があるので結果を評価しない。
         if (result_1 == true && result_2 == true) {
             return true;
         } else {

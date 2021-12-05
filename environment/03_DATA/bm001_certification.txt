@@ -1,0 +1,4 @@
+insert into bm001_certification(certification_id , certification_name , insert_user , insert_date)
+VALUES('001','資格A','HAND',NOW())
+,('002','資格B','HAND',NOW())
+,('003','資格名称がとても長い場合です','HAND',NOW())

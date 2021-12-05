@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>EmpPerson</title>
+</head>
+<body>
+	<div th:fragment="empPerson_contents">
+		<div class="col-xl-6">
+			<div class="page-header">
+				<h3>社員情報</h3>
+			</div>
+
+            <!-- 社員マスタ登録画面の結果表示 -->
+			<label class="text-danger" th:text="${result}"></label>
+            <form method="post" th:action="@{/empPerson}"
+                th:object="${inputEmployeeForm}">
+
+                <!-- スキル詳細ボタン -->
+                <a class="btn btn-lg btn-primary"
+                    th:href="@{'/skillDetail/' + *{employee_id}} + '/person'">スキル</a>
+                <!-- 業務経歴ボタン -->
+                <a class="btn btn-lg btn-primary"
+                    th:href="@{'/careerList/' + *{employee_id}} + '/person'">経歴</a>
+                <!-- 帳票ボタン -->
+                <a class="btn btn-lg btn-primary float-right"
+                    th:href="@{'/skillreport/' + *{employee_id}}">経歴書出力</a>
+
+                <table class="table table-bordered table-hover table-sm">
+                    <!-- 社員CD -->
+                    <tr>
+                        <th class="active table-info">社員ＣＤ</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{employee_cd}"
+                            readonly="readonly" /></td>
+                    </tr>
+                    <!-- 社員名漢字 -->
+                    <tr>
+                        <th class="active table-info">名前</th>
+                        <td>
+                            <div class="form-inline">
+                                <!-- 社員名漢字（姓） -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_last}"
+                                    readonly="readonly" />
+                                <!-- 社員名漢字（名） -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_first}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員名カナ -->
+                    <tr>
+                        <th class="active table-info">フリガナ</th>
+                        <td>
+                            <div class="form-inline">
+                                <!-- 社員名カナ（姓） -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name2_last}"
+                                    readonly="readonly" />
+                                <!-- 社員名カナ（名） -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name2_first}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 性別区分 -->
+                    <tr>
+                        <th class="active table-info">性別</th>
+                        <td>
+                            <div class="form-group form-check-inline ">
+                                <div th:each="item : ${radioGender_kbn}">
+                                    <input type="radio"
+                                        name="gender_kbn"
+                                        th:text="${item.key}"
+                                        th:value="${item.value}"
+                                        th:field="*{gender_kbn}"
+                                        readonly="readonly">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 生年月日 -->
+                    <tr>
+                        <th class="active table-info">生年月日</th>
+                        <td><input type="date" class="form-control"
+                            th:field="*{birthday}" readonly="readonly" />
+
+                        </td>
+                    </tr>
+                    <!-- 郵便番号 -->
+                    <tr>
+                        <th class="active table-info">郵便番号</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{postcode}" readonly="readonly" />
+                        </td>
+                    </tr>
+                    <!-- 都道府県名１ -->
+                    <tr>
+                        <th class="active table-info">都道府県</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{pref_name1}" readonly="readonly" />
+                        </td>
+                    </tr>
+                    <!-- 市区町村名１ -->
+                    <tr>
+                        <th class="active table-info">市区町村</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{city_name1}" readonly="readonly" />
+                        </td>
+                    </tr>
+                    <!-- 住所１ -->
+                    <tr>
+                        <th class="active table-info">住所</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{streetaddress1}"
+                            readonly="readonly" /></td>
+                    </tr>
+                    <!-- 最寄駅名 -->
+                    <tr>
+                        <th class="active table-info">最寄駅名</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{nearest_station_name}"
+                            readonly="readonly" /></td>
+                    </tr>
+                </table>
+                <!-- 社員ID -->
+                <input type="hidden" class="form-control"
+                    th:field="*{employee_id}" />
+
+                <!-- 組織所属開始年月 -->
+                <input type="hidden" class="form-control"
+                    th:field="*{start_yearmonth}" />
+            </form>
+        </div>
+	</div>
+</body>
+</html>

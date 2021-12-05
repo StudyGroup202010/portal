@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.a.common.domain.repository.PositionMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.a.common.domain.model.Position"
+		id="position">
+		<id column="position_cd" property="position_cd" />
+		<result column="position_name" property="position_name" />
+		<result column="start_yearmonth" property="start_yearmonth" />
+		<result column="end_yearmonth" property="end_yearmonth" />
+		<result column="biko" property="biko" />
+	</resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.a.common.domain.model.Position">
+        insert into
+          am007_position (
+           position_cd
+          ,position_name
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{position_cd}
+          ,#{position_name}
+          ,#{start_yearmonth}
+          ,#{end_yearmonth}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,#{insert_user}
+          ,NOW()
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Position">
+        select
+           position_cd
+          ,position_name
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am007_position
+        where
+          position_cd = #{position_cd}
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="position">
+        select
+           position_cd
+          ,position_name
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am007_position
+        order by
+          position_cd
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.a.common.domain.model.Position">
+        update
+          am007_position
+        set
+           position_name   	 = #{position_name}
+          ,start_yearmonth   = #{start_yearmonth}
+          ,end_yearmonth     = #{end_yearmonth}
+          ,biko              = #{biko}
+          ,update_user       = #{update_user}
+          ,update_date       = NOW()
+        where
+          position_cd      	 = #{position_cd}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from am007_position where position_cd = #{position_cd}
+    </delete>
+    
+    <!-- 役職名で条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="position">
+    <![CDATA[
+        select
+           position_cd
+          ,position_name
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+        from
+          am007_position
+        where position_name        like CONCAT('%' , #{position_name}  , '%')
+          and start_yearmonth      like CONCAT('%' , #{start_yearmonth} , '%')
+          and end_yearmonth        like CONCAT('%' , #{end_yearmonth} , '%')
+          and COALESCE(biko,'')    like CONCAT('%' , #{biko} , '%')
+        order by
+          position_cd
+    ]]>
+    </select>
+    
+</mapper>

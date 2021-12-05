@@ -15,7 +15,7 @@
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
     <!-- portalのJSファイル -->
     <script th:src="@{/js/portal.js}"></script>
-
+    <script th:src="@{/js/weather.js}"></script>
     <!-- CSSの読込 -->
     <link th:href="@{/css/portal.css}" rel="stylesheet"></link>
     <link th:href="@{/css/jpn.css}" rel="stylesheet"></link>
@@ -33,8 +33,7 @@
             data-toggle="collapse" data-target="#menu"
             aria-controls="menu" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"><img
-                src="icons\menu.jpg" class="img-fluid"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
@@ -44,7 +43,8 @@
                 </li>
 
                 <li class="nav-item active"><a class="nav-link"
-                    th:href="@{'/general'}">スキル管理システム（未）</a></li>
+                    sec:authorize="hasRole('ADMIN')"
+                    th:href="@{'/skillList'}">スキル管理システム</a></li>
 
                 <li class="nav-item dropdown active"><a
                     class="nav-link dropdown-toggle"
@@ -71,19 +71,25 @@
                     <div class="dropdown-menu"
                         aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" th:href="@{'/envList'}">環境マスタ</a>
-                        <a class="dropdown-item" th:href="@{'/admin'}">要素１（サンプル）</a>
+                        <a class="dropdown-item"
+                            th:href="@{'/companyList'}">会社マスタ</a> <a
+                            class="dropdown-item"
+                            th:href="@{'/positionList'}">役職マスタ</a> <a
+                            class="dropdown-item"
+                            th:href="@{'/empList'}">社員マスタ</a> <a
+                            class="dropdown-item" th:href="@{'/admin'}">要素１（サンプル）</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" th:href="@{'/admin'}">要素２（サンプル）</a>
                     </div></li>
-
-                <li class="nav-item active"><a class="nav-link"
-                    th:href="@{'/contact'}">問い合わせ</a></li>
-
             </ul>
+            <div class="text-white">
+                ユーザ：<span sec:authentication="name"></span>
+            </div>
             <form method="post" th:action="@{/logout}">
-                <button class="btn btn-link navbar-brand" type="submit">ログアウト</button>
+                <button class="btn text-white" type="submit">ログアウト</button>
             </form>
         </div>
+
     </nav>
 
     <!-- ===== ボディー  =====  -->

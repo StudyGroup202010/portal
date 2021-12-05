@@ -6,17 +6,7 @@
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-  
 
-
-  
     <title>EnvList</title>  
 </head>
 <body>
@@ -29,19 +19,19 @@
                 th:object="${selectEnvForm}">
                 <div class="row">
                     <div class="col-sm-2">
-                        環境ID<input type="text" class="form-control"
+                        環境ID<input type="search" class="form-control"
                             autofocus th:field="*{env_id}" />
                     </div>
                     <div class="col-sm-2">
-                        環境区分<input type="text" class="form-control"
+                        環境区分<input type="search" class="form-control"
                             th:field="*{env_kbn}" />
                     </div>
                     <div class="col-sm-2">
-                        環境値<input type="text" class="form-control"
+                        環境値<input type="search" class="form-control"
                             th:field="*{env_txt}" />
                     </div>
                     <div class="col-sm-2">
-                        備考<input type="text" class="form-control"
+                        備考<input type="search" class="form-control"
                             th:field="*{biko}" />
                     </div>
                     <div class="col-sm-4">

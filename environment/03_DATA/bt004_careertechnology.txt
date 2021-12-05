@@ -1,0 +1,7 @@
+insert into bt004_careertechnology( employee_id , certification_no , technology_id , insert_user , insert_date )
+VALUES('00001',1,'001','HAND',NOW())
+,('00001',1,'002','HAND',NOW())
+,('00001',1,'003','HAND',NOW())
+,('00001',1,'004','HAND',NOW())
+,('00001',1,'007','HAND',NOW())
+,('00001',1,'008','HAND',NOW())

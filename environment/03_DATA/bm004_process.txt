@@ -1,0 +1,7 @@
+insert into bm004_process( process_id , process_name , insert_user , insert_date )
+VALUES('01','工程A','HAND',NOW())
+,('02','工程B','HAND',NOW())
+,('03','工程C','HAND',NOW())
+,('04','工程D','HAND',NOW())
+,('05','工程E','HAND',NOW())
+,('06','工程F','HAND',NOW())

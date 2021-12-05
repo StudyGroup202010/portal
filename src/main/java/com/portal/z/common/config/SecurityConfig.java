@@ -70,7 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/webjars/**").permitAll() // webjarsへアクセス許可
                 .antMatchers("/css/**").permitAll() // cssへアクセス許可
-                .antMatchers("/icons/**").permitAll() // iconsへアクセス許可
                 .antMatchers("/login").permitAll() // ログインページは直リンクOK
                 .antMatchers("/pwreissue").permitAll() // パスワード再設定ページは直リンクOK
                 .antMatchers("/resetpassword").permitAll() // パスワード再発行ページは直リンクOK
@@ -82,9 +81,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // セキュリティを高めるために自分自身のサーバのスクリプトだけが実行できるように制限する
         // コロンで区切って記述する。参考：https://qiita.com/tearoom6/items/30e3aacaa432860d4b36
         // nonce-c3R1ZHlwb3J0YWwyMDIwをつけるとインラインのJavaScriptが実行できる。
-        // https://weather.tsukumijima.net からデータの取得を有効にする。
-        // https://www.jma.go.jp から画像の取得を有効にする。
-        http.headers().contentSecurityPolicy("default-src 'self' ;script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw';script-src 'nonce-c3R1ZHlwb3J0YWwyMDIw'; img-src 'self' data: https://www.jma.go.jp ;connect-src https://weather.tsukumijima.net ");
+        // 天気予報：https://weather.tsukumijima.net
+        // 天気予報：https://www.jma.go.jp
+        // 郵便番号：https://zipcloud.ibsnet.co.jp
+        // http.headers().contentSecurityPolicy("default-src 'self'");
+        http.headers().contentSecurityPolicy(
+                  "default-src 'self' ;"
+                + "script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw' https://zipcloud.ibsnet.co.jp ;"
+                + "script-src 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw' ;"
+                + "img-src 'self' data: https://www.jma.go.jp ;"
+                + "connect-src https://weather.tsukumijima.net");
 
         // ログイン処理
         http.formLogin().loginProcessingUrl("/login") // ログイン処理のパス（login.htmlの（action="/login"）と一致させること
@@ -115,7 +121,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 認証プロバイダの設定(setHideUserNotFoundExceptionsをfalseにするため)
-        auth.authenticationProvider(daoAuthenticationProvider());  
+        auth.authenticationProvider(daoAuthenticationProvider());
     }
 
     /**
@@ -128,7 +134,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     protected AuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
-        impl.setUserDetailsService(userDetailsService); 
+        impl.setUserDetailsService(userDetailsService);
         impl.setPasswordEncoder(passwordEncoder()); // ログイン時のパスワードの復号
         impl.setHideUserNotFoundExceptions(false);
         return impl;

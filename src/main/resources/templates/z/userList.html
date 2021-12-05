@@ -6,18 +6,7 @@
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-  
 
-
-  
-  
     <title>UserList</title>  
 </head>
 <body>
@@ -27,25 +16,29 @@
         </div>
         <div class="container-fluid border bg-light">
             <form method="post" th:action="@{/userList}"
-                th:object="${selectForm}">
+                th:object="${selectForm}" id="reset-area">
                 <div class="row">
                     <div class="col-sm-2">
-                        ユーザID<input type="text" class="form-control"
+                        ユーザID<input type="search" class="form-control reset-field"
                             autofocus th:field="*{user_id}" />
                     </div>
                     <div class="col-sm-2">
                         ユーザ有効期限FROM<input type="date"
-                            class="form-control"
+                            class="form-control reset-field"
                             th:field="*{user_due_date_from}" />
                     </div>
                     <div class="col-sm-2">
-                        ユーザ有効期限TO<input type="date" class="form-control"
+                        ユーザ有効期限TO<input type="date" class="form-control reset-field"
                             th:field="*{user_due_date_to}" />
                     </div>
-                    <div class="col-sm-6">
-                        <!-- 検索実行 -->
-                        <button type="submit" name="selectby"
-                            class="btn btn-primary btn-lg float-right">検索</button>
+                    <div class="col-sm-6 align-self-center float-right">
+                        <div class="float-right">
+	                        <!-- 検索実行 -->
+	                        <button type="submit" name="selectby"
+	                            class="btn btn-primary btn-lg">検索</button>
+	                        <button type="button" id = "resetBtn" name="resetBtn"
+	                            class="btn btn-primary btn-lg">クリア</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -95,7 +88,11 @@
                         <th scope="col"><p
                                 class="text-nowrap text-center">ロック状態</p></th>
                         <th scope="col"><p
-                                class="text-nowrap text-center">有効無効</p></th>
+                                class="text-nowrap text-center">社員CD</p></th>  
+                        <th scope="col"><p
+                                class="text-nowrap text-center">社員名</p></th>            
+                        <th scope="col"><p
+                                class="text-nowrap text-center">有効フラグ</p></th>
                     </tr>
                 </thead>
 
@@ -113,6 +110,8 @@
                             th:text="${user.login_miss_times}"></td>
                         <td align="center"
                             th:text="${user.lock_flg} ?    'ロック' : 'アンロック'"></td>
+                        <td align="left" th:text="${user.employee_cd}"></td>
+                        <td align="left" th:text="${user.employee_name1_last}"></td>
                         <td align="center"
                             th:text="${user.enabled_flg} ? '有効' : '無効'"></td>
                     </tr>

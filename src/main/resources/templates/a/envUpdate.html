@@ -7,21 +7,11 @@
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-
-
-
     <title>EnvUpdate</title>
 </head>
 <body>
 	<div th:fragment="envUpdate_contents">
-		<div class="col-sm-5">
+		<div class="col-xl-6">
 			<div class="page-header">
 				<h3>環境マスタ登録</h3>
 			</div>
@@ -32,13 +22,15 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- 環境IDの入力エリア -->
                     <tr>
-                        <th class="active table-info">環境ID</th>
+                        <th class="active table-info">環境ID<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_id')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_id}" autofocus /> <span
-                                    class="text-danger"
+                                    th:field="*{env_id}"
+                                    placeholder="英数字を入力してください" autofocus />
+                                <span class="text-danger"
                                     th:if="${#fields.hasErrors('env_id')}"
                                     th:errors="*{env_id}"> env_id
                                     error </span>
@@ -51,28 +43,32 @@
                         <td>
                             <div class="form-group">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_kbn}" />
+                                    th:field="*{env_kbn}"
+                                    placeholder="英数字を入力してください" />
                             </div>
                         </td>
                     </tr>
                     <!-- 環境連番 -->
                     <tr>
-                        <th class="active table-info">環境連番</th>
+                        <th class="active table-info">環境連番<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_num')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{env_num}" /> <span
+                                    th:field="*{env_num}"
+                                    placeholder="数字を入力してください" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('env_num')}"
                                     th:errors="*{env_num}">
-                                    env_txt error </span>
+                                    env_num error </span>
                             </div>
                         </td>
                     </tr>
                     <!-- 環境値 -->
                     <tr>
-                        <th class="active table-info">環境値</th>
+                        <th class="active table-info">環境値<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('env_txt')} ? 'has-error'">
@@ -99,7 +95,7 @@
 
                 <!-- 戻るボタン -->
 				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
-				<!-- ユーザー登録ボタン -->
+				<!-- 登録ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"
 					data-toggle="modal" data-target="#Modalinsert">登録</button>
 				<!-- 登録Modal -->

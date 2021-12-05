@@ -1,4 +1,4 @@
---システム管理(z) - パスワード再発行情報(zt001_pwreissueinfo)
+--ポータルサイト(z) - パスワード再発行情報(zt001_pwreissueinfo)
 create table zt001_pwreissueinfo(
      token varchar(128) not null,
      user_id varchar(50) not null,
