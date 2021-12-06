@@ -6,6 +6,7 @@ import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
 import com.portal.a.common.domain.model.Employeebelongs;
 import com.portal.a.common.domain.model.Organization;
+import com.portal.b.common.domain.model.Skill;
 import com.portal.z.common.domain.model.User;
 
 /**
@@ -95,4 +96,12 @@ public interface EmployeeService {
      * @return User
      */
     public User selectByEmployeeid(String employee_id);
+
+    /**
+     * スキル情報存在確認用メソッド.
+     * 
+     * @param employee_id employee_id
+     * @return Skill
+     */
+    public Skill selectSkillOne(String employee_id);
 }

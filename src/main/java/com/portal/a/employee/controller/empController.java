@@ -32,6 +32,7 @@ import com.portal.a.employee.domain.model.InputEmployeeForm;
 import com.portal.a.employee.domain.model.SelectEmployeeForm;
 import com.portal.a.employee.domain.model.UpdateOrder;
 import com.portal.a.employee.domain.service.EmployeeService;
+import com.portal.b.common.domain.model.Skill;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.service.RestSharedService;
@@ -570,6 +571,15 @@ public class empController {
             }
 
         } catch (DataIntegrityViolationException e) {
+
+            // スキル情報確認
+            Skill selectSkillOne = employeeService.selectSkillOne(form.getEmployee_id());
+            if (selectSkillOne != null) {
+                String message = "この社員はスキル情報";
+                String messageKey = "e.co.fw.2.023";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getEmployeeDetail(form, model, "");
+            }
 
             // ユーザマスタ登録確認
             User selectByEmployeeid = employeeService.selectByEmployeeid(form.getEmployee_id());
