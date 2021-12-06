@@ -47,14 +47,10 @@
                     <tr>
                         <th class="active table-info">最終学歴</th>
                         <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('final_education')} ? 'has-error'">
+                            <div class="form-group">
                                 <input type="text" class="form-control"
-                                    th:field="*{final_education}" autofocus/> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('final_education')}"
-                                    th:errors="*{final_education}">
-                                    final_education error </span>
+                                    th:field="*{final_education}"
+                                    autofocus />
                             </div>
                         </td>
                     </tr>
@@ -62,14 +58,9 @@
                     <tr>
                         <th class="active table-info">学科</th>
                         <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('department')} ? 'has-error'">
+                            <div class="form-group">
                                 <input type="text" class="form-control"
-                                    th:field="*{department}" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('department')}"
-                                    th:errors="*{department}">
-                                    department error </span>
+                                    th:field="*{department}" />
                             </div>
                         </td>
                     </tr>
