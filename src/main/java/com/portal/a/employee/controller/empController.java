@@ -574,7 +574,7 @@ public class empController {
 
             // スキル情報確認
             Skill selectSkillOne = employeeService.selectSkillOne(form.getEmployee_id());
-            if (selectSkillOne != null) {
+            if (selectSkillOne.getEmployee_id_skill() != null) {
                 String message = "この社員はスキル情報";
                 String messageKey = "e.co.fw.2.023";
                 model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));

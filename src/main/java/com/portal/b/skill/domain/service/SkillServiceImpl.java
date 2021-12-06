@@ -79,6 +79,10 @@ public class SkillServiceImpl implements SkillService {
         return result;
     }
 
+    public boolean deleteSkillOne(String employee_id) {
+        return skillMapper.deleteOne(employee_id);
+    }
+
     public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String organization_name,
             String biko) {
         return skillMapper.selectBy(employee_cd, employee_name1_last, organization_name, biko);

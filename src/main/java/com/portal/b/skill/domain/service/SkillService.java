@@ -43,6 +43,14 @@ public interface SkillService {
     public boolean updateSkillOne(Skill skill);
 
     /**
+     * １件削除用メソッド.
+     * 
+     * @param employee_id employee_id
+     * @return true/false
+     */
+    public boolean deleteSkillOne(String employee_id);
+
+    /**
      * スキル情報条件検索用メソッド.
      * 
      * @param employee_cd         employee_cd

@@ -343,6 +343,39 @@ public class skillController {
     }
 
     /**
+     * スキル情報詳細画面のスキル情報削除用処理.<BR>
+     * 
+     * 画面から入力したスキル情報でデータを削除する。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return getCareerList(model)
+     */
+    @PostMapping(value = "/skillDetail", params = "delete")
+    public String postSkillDetailDelete(@ModelAttribute InputSkillForm form, Model model) {
+
+        // スキル情報削除実行
+        boolean result = skillService.deleteSkillOne(form.getEmployee_id());
+
+        if (result == true) {
+            model.addAttribute("result", "削除成功");
+            log.info("削除成功");
+        } else {
+            model.addAttribute("result", "削除失敗");
+            log.error("削除失敗");
+        }
+
+        if (form.getFrom() != null && form.getFrom().isEmpty() == false) {
+            if ("list".equals(form.getFrom())) {
+                // 社員マスタ一覧画面を表示
+                return getSkillList(model);
+            }
+        }
+        // 社員個人画面を表示
+        return "redirect:/empPerson";
+    }
+
+    /**
      * スキル情報詳細画面の戻る処理.<BR>
      * 
      * スキル一覧画面に戻る。
