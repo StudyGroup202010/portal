@@ -959,7 +959,7 @@ public class skillController {
 
         if (result == true) {
 
-            // 業務経歴技術削除実行
+            // 業務経歴技術、業務経歴工程削除実行
             // こちらは空振りする場合もあるので結果の評価はしない。
             skillService.deleteCareertechnologyOne(careerform.getEmployee_id(), careerform.getCertification_no());
             skillService.deleteCareerprocessOne(careerform.getEmployee_id(), careerform.getCertification_no());
@@ -1112,9 +1112,10 @@ public class skillController {
     @PostMapping(value = "/careerDetail", params = "delete")
     public String postCareerDetaiDelete(@ModelAttribute InputCareerForm form, Model model) {
 
-        // 業務経歴技術削除実行
+        // 業務経歴技術、業務経歴工程削除実行
         // こちらは空振りする場合もあるので結果の評価はしない。
         skillService.deleteCareertechnologyOne(form.getEmployee_id(), form.getCertification_no());
+        skillService.deleteCareerprocessOne(form.getEmployee_id(), form.getCertification_no());
         // 業務経歴削除実行
         boolean result2 = skillService.deleteCareerOne(form.getEmployee_id(), form.getCertification_no());
 
