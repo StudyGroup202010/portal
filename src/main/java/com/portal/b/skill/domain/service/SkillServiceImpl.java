@@ -80,6 +80,12 @@ public class SkillServiceImpl implements SkillService {
     }
 
     public boolean deleteSkillOne(String employee_id) {
+
+        // 社員資格を削除する。
+        // 社員資格は削除結果不問のため戻り値を評価しない。
+        empcertificationMapper.deleteOne(employee_id);
+
+        // スキル情報を削除する。
         return skillMapper.deleteOne(employee_id);
     }
 
