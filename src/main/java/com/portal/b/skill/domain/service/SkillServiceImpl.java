@@ -79,6 +79,16 @@ public class SkillServiceImpl implements SkillService {
         return result;
     }
 
+    public boolean deleteSkillOne(String employee_id) {
+
+        // 社員資格を削除する。
+        // 社員資格は削除結果不問のため戻り値を評価しない。
+        empcertificationMapper.deleteOne(employee_id);
+
+        // スキル情報を削除する。
+        return skillMapper.deleteOne(employee_id);
+    }
+
     public List<Skill> selectSkillBy(String employee_cd, String employee_name1_last, String organization_name,
             String biko) {
         return skillMapper.selectBy(employee_cd, employee_name1_last, organization_name, biko);

@@ -42,7 +42,7 @@ public interface UserMapper {
      * @return UserList
      */
     public List<User> selectMany();
-    
+
     /**
      * 全件検索用メソッド
      * 
@@ -99,4 +99,12 @@ public interface UserMapper {
      * @return 成功ならtrue/失敗ならfalse
      */
     public boolean updateLoginMissTimes(String user_id);
+
+    /**
+     * 社員ID条件検索用メソッド
+     * 
+     * @param employee_id employee_id
+     * @return User
+     */
+    public User selectByEmployeeid(String employee_id);
 }

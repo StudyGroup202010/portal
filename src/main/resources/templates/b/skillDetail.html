@@ -47,14 +47,10 @@
                     <tr>
                         <th class="active table-info">最終学歴</th>
                         <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('final_education')} ? 'has-error'">
+                            <div class="form-group">
                                 <input type="text" class="form-control"
-                                    th:field="*{final_education}" autofocus/> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('final_education')}"
-                                    th:errors="*{final_education}">
-                                    final_education error </span>
+                                    th:field="*{final_education}"
+                                    autofocus />
                             </div>
                         </td>
                     </tr>
@@ -62,14 +58,9 @@
                     <tr>
                         <th class="active table-info">学科</th>
                         <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('department')} ? 'has-error'">
+                            <div class="form-group">
                                 <input type="text" class="form-control"
-                                    th:field="*{department}" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('department')}"
-                                    th:errors="*{department}">
-                                    department error </span>
+                                    th:field="*{department}" />
                             </div>
                         </td>
                     </tr>
@@ -155,6 +146,10 @@
                 <button class="btn btn-lg btn-danger float-right"
                     type="button" data-toggle="modal"
                     data-target="#Modalupdate">更新</button>
+                <!-- 削除ボタン -->
+                <button class="btn btn-lg btn-danger float-right"
+                    type="button" data-toggle="modal"
+                    data-target="#Modaldelete">削除</button>
 
                 <!-- 更新Modal -->
                 <div class="modal" data-backdrop="static"
@@ -180,6 +175,30 @@
                                     class="btn btn-lg btn-primary"
                                     data-dismiss="modal">戻る</button>
                                 <button type="submit" name="update"
+                                    class="btn btn-lg btn-danger">実行</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 削除Modal -->
+                <div class="modal" data-backdrop="static" data-keyboard="false"
+                    id="Modaldelete" tabindex="-1" role="dialog"
+                    aria-labelledby="ModalDeleteTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm"
+                        role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="ModalDeleteTitle">確認</h6>
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">削除してもよろしいでしょうか？</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lg btn-primary"
+                                    data-dismiss="modal">戻る</button>
+                                <button type="submit" name="delete"
                                     class="btn btn-lg btn-danger">実行</button>
                             </div>
                         </div>

@@ -45,6 +45,14 @@ public interface SkillMapper {
     public boolean updateOne(Skill skill);
 
     /**
+     * １件削除用メソッド
+     * 
+     * @param employee_id employee_id
+     * @return true/false
+     */
+    public boolean deleteOne(String employee_id);
+
+    /**
      * 条件検索用メソッド
      * 
      * @param employee_cd         employee_cd

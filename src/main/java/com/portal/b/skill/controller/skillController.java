@@ -343,6 +343,39 @@ public class skillController {
     }
 
     /**
+     * スキル情報詳細画面のスキル情報削除用処理.<BR>
+     * 
+     * 画面から入力したスキル情報でデータを削除する。
+     * 
+     * @param form  入力用form
+     * @param model モデル
+     * @return getCareerList(model)
+     */
+    @PostMapping(value = "/skillDetail", params = "delete")
+    public String postSkillDetailDelete(@ModelAttribute InputSkillForm form, Model model) {
+
+        // スキル情報削除実行
+        boolean result = skillService.deleteSkillOne(form.getEmployee_id());
+
+        if (result == true) {
+            model.addAttribute("result", "削除成功");
+            log.info("削除成功");
+        } else {
+            model.addAttribute("result", "削除失敗");
+            log.error("削除失敗");
+        }
+
+        if (form.getFrom() != null && form.getFrom().isEmpty() == false) {
+            if ("list".equals(form.getFrom())) {
+                // 社員マスタ一覧画面を表示
+                return getSkillList(model);
+            }
+        }
+        // 社員個人画面を表示
+        return "redirect:/empPerson";
+    }
+
+    /**
      * スキル情報詳細画面の戻る処理.<BR>
      * 
      * スキル一覧画面に戻る。
@@ -926,7 +959,7 @@ public class skillController {
 
         if (result == true) {
 
-            // 業務経歴技術削除実行
+            // 業務経歴技術、業務経歴工程削除実行
             // こちらは空振りする場合もあるので結果の評価はしない。
             skillService.deleteCareertechnologyOne(careerform.getEmployee_id(), careerform.getCertification_no());
             skillService.deleteCareerprocessOne(careerform.getEmployee_id(), careerform.getCertification_no());
@@ -1079,9 +1112,10 @@ public class skillController {
     @PostMapping(value = "/careerDetail", params = "delete")
     public String postCareerDetaiDelete(@ModelAttribute InputCareerForm form, Model model) {
 
-        // 業務経歴技術削除実行
+        // 業務経歴技術、業務経歴工程削除実行
         // こちらは空振りする場合もあるので結果の評価はしない。
         skillService.deleteCareertechnologyOne(form.getEmployee_id(), form.getCertification_no());
+        skillService.deleteCareerprocessOne(form.getEmployee_id(), form.getCertification_no());
         // 業務経歴削除実行
         boolean result2 = skillService.deleteCareerOne(form.getEmployee_id(), form.getCertification_no());
 
