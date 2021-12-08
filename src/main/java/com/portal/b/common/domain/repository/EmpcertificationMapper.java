@@ -23,7 +23,7 @@ public interface EmpcertificationMapper {
     /**
      * 条件削除用メソッド
      * 
-     * @param employee_id      employee_id
+     * @param employee_id employee_id
      * @return true/false
      */
     public boolean deleteOne(String employee_id);

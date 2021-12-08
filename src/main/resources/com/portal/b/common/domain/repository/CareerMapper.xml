@@ -178,4 +178,22 @@
         select
            nextval('career_seq') as certification_no
     </select>
+    
+    <!-- 条件検索 -->
+    <select id="selectBy3" parameterType="string" resultMap="career">
+        select
+           a.employee_id
+          ,a.certification_no
+          ,a.disp_order
+          ,a.start_yearmonth
+          ,a.end_yearmonth
+          ,a.business_content
+          ,a.biko
+        from
+          bt003_career a
+        where 
+          a.employee_id = #{employee_id}
+        order by
+          a.certification_no
+    </select>
 </mapper>

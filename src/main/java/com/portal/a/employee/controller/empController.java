@@ -32,6 +32,7 @@ import com.portal.a.employee.domain.model.InputEmployeeForm;
 import com.portal.a.employee.domain.model.SelectEmployeeForm;
 import com.portal.a.employee.domain.model.UpdateOrder;
 import com.portal.a.employee.domain.service.EmployeeService;
+import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
@@ -581,6 +582,15 @@ public class empController {
                 return getEmployeeDetail(form, model, "");
             }
 
+            // 業務経歴情報確認
+            List<Career> careerList = employeeService.selectCareerBy(form.getEmployee_id());
+            if (!careerList.isEmpty()) {
+                String message = "この社員は業務経歴情報";
+                String messageKey = "e.co.fw.2.023";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getEmployeeDetail(form, model, "");
+            }
+
             // ユーザマスタ登録確認
             User selectByEmployeeid = employeeService.selectByEmployeeid(form.getEmployee_id());
             if (selectByEmployeeid != null) {
@@ -591,7 +601,7 @@ public class empController {
             }
 
             // 参照整合性エラーが発生した時はビジネス例外として返す。
-            String message = "この社員は役職がついているか経歴";
+            String message = "この社員は役職";
             String messageKey = "e.co.fw.2.023";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getEmployeeDetail(form, model, "");
