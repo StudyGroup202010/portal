@@ -134,6 +134,12 @@
         where
           employee_id      = #{employee_id}
     </update>
+    
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from bt001_skill
+        where employee_id = #{employee_id}
+    </delete>
 
     <!-- 条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="skill">

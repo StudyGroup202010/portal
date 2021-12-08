@@ -66,4 +66,12 @@ public interface CareerMapper {
      * @return Career
      */
     public Career selectBy2();
+
+    /**
+     * 条件検索用メソッド
+     * 
+     * @param employee_id employee_id
+     * @return CareerList
+     */
+    public List<Career> selectBy3(String employee_id);
 }
