@@ -62,4 +62,18 @@ $(function() {
         $("#kana2").val("");
         $("#kana3").val("");
     });
+    
+    // クリアボタンの押下時の処理を設定(共通)
+    $("#resetBtn").on("click", function() {
+        clearResetFiled();
+    });
+    // 項目のリセット処理詳細
+    // idがreset-area内のclassにreset-fieldが指定してある要素を
+    // すべて空にします。
+    var clearResetFiled = function () {
+        $("#reset-area").each(function() {
+            $(this).find(".reset-field").val("");
+        });
+    };
+
 });
