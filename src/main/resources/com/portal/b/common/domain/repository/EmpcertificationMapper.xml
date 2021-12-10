@@ -56,6 +56,7 @@
           on b.employee_id      = #{employee_id}
          and a.certification_id = b.certification_id
         order by 
-          a.certification_name
+           a.disp_order
+          ,a.certification_name
     </select>
 </mapper>

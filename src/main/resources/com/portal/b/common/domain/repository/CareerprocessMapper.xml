@@ -59,6 +59,7 @@
          and b.certification_no = cast(#{certification_no} as integer)
          and a.process_id       = b.process_id
         order by 
-          a.process_name
+           a.disp_order
+          ,a.process_name
     </select>
 </mapper>

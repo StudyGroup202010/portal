@@ -47,7 +47,7 @@
         from
           bm002_technology a
         where 
-              a.technology_id = #{technology_id}
+           a.technology_id = #{technology_id}
     </select>
     
     <!-- 全件検索 -->
@@ -64,7 +64,8 @@
         from
           bm002_technology
         order by
-          technology_id
+           disp_order
+          ,technology_id
     </select>
 
     <!-- １件更新 -->
@@ -97,6 +98,7 @@
         where 
           technology_kbn = #{technology_kbn}
         order by
-          technology_name
+          disp_order
+         ,technology_name
     </select>
 </mapper>

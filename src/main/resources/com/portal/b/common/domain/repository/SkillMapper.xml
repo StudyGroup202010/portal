@@ -232,17 +232,17 @@
                  case b.technology_kbn 
                    when '01' then b.technology_name --技術区分（開発言語）
                    else           null
-                 end,',' order by b.technology_name) as technology_Lang
+                 end,',' order by b.disp_order,b.technology_name) as technology_Lang
               ,string_agg(
                  case b.technology_kbn 
                    when '02' then b.technology_name --技術区分（OS）
                    else           null
-                 end,',' order by b.technology_name) as technology_OS
+                 end,',' order by b.disp_order,b.technology_name) as technology_OS
               ,string_agg(
                  case b.technology_kbn 
                    when '03' then b.technology_name --技術区分（DB）
                    else           null
-                 end,',' order by b.technology_name) as technology_DB
+                 end,',' order by b.disp_order,b.technology_name) as technology_DB
             from 
               bt004_careertechnology a
               left join bm002_technology b
@@ -258,7 +258,7 @@
               a.employee_id
              ,a.certification_no
              --業務経歴工程
-             ,string_agg(b.process_name ,',' order by b.process_name ) as process_name
+             ,string_agg(b.process_name ,',' order by b.disp_order,b.process_name ) as process_name
             from 
               bt006_careerprocess a
               left join bm004_process b
@@ -272,7 +272,7 @@
           left join (
             select 
               a.employee_id
-             ,string_agg(b.certification_name ,',' order by b.certification_name ) as certification_name
+             ,string_agg(b.certification_name ,',' order by b.disp_order,b.certification_name ) as certification_name
             from 
               bt002_empcertification a
               left join bm001_certification b
