@@ -60,6 +60,7 @@
          and a.technology_id    = b.technology_id
         where a.technology_kbn  = #{technology_kbn}
         order by 
-          a.technology_name
+           a.disp_order
+          ,a.technology_name
     </select>
 </mapper>

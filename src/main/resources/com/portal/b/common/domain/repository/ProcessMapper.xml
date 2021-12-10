@@ -59,7 +59,8 @@
         from
           bm004_process
         order by
-          process_id
+          disp_order
+         ,process_id
     </select>
 
     <!-- １件更新 -->
