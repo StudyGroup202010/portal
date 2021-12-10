@@ -152,8 +152,8 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
             row.getCell(14).setCellValue(career.getTechnology_Lang());
             // DB／DC
             row.getCell(16).setCellValue(career.getTechnology_DB());
-            // 工程
-            row.getCell(18).setCellValue(career.getProcess_name());
+            // 工程名略
+            row.getCell(18).setCellValue(career.getProcess_name_short());
             // 終了年月
             row = sheet.getRow(Constants.SKILLREPORT_CAREER_START + (i * 2));
             row.setHeightInPoints(Constants.SKILLREPORT_CAREER_HEIGHT);
