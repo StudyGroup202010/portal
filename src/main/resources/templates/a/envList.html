@@ -16,44 +16,49 @@
 		</div>
         <div class="container-fluid border bg-light">
             <form method="post" th:action="@{/envList}"
-                th:object="${selectEnvForm}">
+                th:object="${selectEnvForm}" id="reset-area">
                 <div class="row">
                     <div class="col-sm-2">
-                        環境ID<input type="search" class="form-control"
+                        環境ID<input type="search" class="form-control reset-field"
                             autofocus th:field="*{env_id}" />
                     </div>
                     <div class="col-sm-2">
-                        環境区分<input type="search" class="form-control"
+                        環境区分<input type="search" class="form-control reset-field"
                             th:field="*{env_kbn}" />
                     </div>
                     <div class="col-sm-2">
-                        環境値<input type="search" class="form-control"
+                        環境値<input type="search" class="form-control reset-field"
                             th:field="*{env_txt}" />
                     </div>
                     <div class="col-sm-2">
-                        備考<input type="search" class="form-control"
+                        備考<input type="search" class="form-control reset-field"
                             th:field="*{biko}" />
                     </div>
                     <div class="col-sm-4">
-                        <!-- 検索実行 -->
-                        <button type="submit" name="selectby"
-                            class="btn btn-primary btn-lg float-right">検索</button>
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 portal.jsに処理を記載 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
-		<div class="table-responsive">
-			<div class="col">
-				<!-- 環境登録画面へのリンク -->
-				<a class="btn btn-danger" th:href="@{'/envUpdate'}"
-					sec:authorize="hasRole('ADMIN')">新規登録</a>
-			</div>
+        <div class="col">
+            <!-- 環境登録画面へのリンク -->
+            <a class="btn btn-danger float-right" th:href="@{'/envUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
 
-            <!-- ユーザー一覧の件数 -->
-            <label th:text=" '合計：' + ${envListCount} + '件' "></label>
-            <!-- 更新・削除処理の結果表示用 -->
-            <label class="text-danger" th:text="${result}">結果表示</label><br />
-
+        <!-- ユーザー一覧の件数 -->
+        <label th:text=" '合計：' + ${envListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
+        <div class="table-responsive">
             <table
 				class="table table-bordered table-hover table-striped table-sm">
 

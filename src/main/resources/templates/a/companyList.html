@@ -16,62 +16,70 @@
 		</div>
 		<div class="container-fluid border bg-light">
 			<form method="post" th:action="@{/companyList}"
-				th:object="${selectCompanyForm}">
+				th:object="${selectCompanyForm}" id="reset-area">
 				<div class="row">
 					<div class="col-sm-2">
-						会社名<input type="search" class="form-control" autofocus
+						会社名<input type="search" class="form-control reset-field" autofocus
 							th:field="*{company_name}" />
 					</div>
 					<div class="col-sm-2">
-						備考<input type="search" class="form-control" th:field="*{biko}" />
+						備考<input type="search" class="form-control reset-field" th:field="*{biko}" />
 					</div>
-					<div class="col-sm-8">
-						<!-- 検索実行 -->
-						<button type="submit" name="selectby"
-							class="btn btn-primary btn-lg float-right">検索</button>
-					</div>
-				</div>
+                    <div class="col-sm-8">
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
+                    </div>
+                </div>
 			</form>
 		</div>
-		<div class="table-responsive">
-			<div class="col">
-                <!-- CSV出力用のリンク -->
-                <a class="btn btn-primary" th:href="@{'/companyList/csv'}">CSV出力</a>
-                <!-- EXCEL出力用のリンク -->
-                <a class="btn btn-primary" th:href="@{'/companyList/excel'}">EXCEL出力</a>
-                <!-- 会社登録画面へのリンク -->
-                <a class="btn btn-danger float-right" th:href="@{'/companyUpdate'}"
-                 sec:authorize="hasRole('ADMIN')">新規登録</a>
-            </div>
-
-			<!-- 会社一覧の件数 -->
-			<label th:text=" '合計：' + ${companyListCount} + '件' "></label>
-			<!-- 更新・削除処理の結果表示用 -->
-			<label class="text-danger" th:text="${result}">結果表示</label><br />
-
-			<table
-				class="table table-bordered table-hover table-striped table-sm">
-
-				<thead>
-					<tr class="table-info">
-						<th scope="col"></th>
-						<th scope="col"><p class="text-nowrap text-center">会社CD</p></th>
-						<th scope="col"><p class="text-nowrap text-center">会社名</p></th>
-						<th scope="col"><p class="text-nowrap text-center">　　　　　備考　　　　　</p></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="company : ${companyList}">
-						<td align="center"><a class="btn btn-primary"
-							th:href="@{'/companyDetail/' + ${company.company_cd}}">詳細</a></td>
-						<td align="left" th:text="${company.company_cd}"></td>
-						<td align="left" th:text="${company.company_name}"></td>
-						<td align="left" th:text="${company.biko}"></td>
-					</tr>
-				</tbody>
-
-			</table>
-		</div>
-	</div>
+        <div class="col">
+            <!-- CSV出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/companyList/csv'}">CSV出力</a>
+            <!-- EXCEL出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/companyList/excel'}">EXCEL出力</a>
+            <!-- 会社登録画面へのリンク -->
+            <a class="btn btn-danger float-right"
+                th:href="@{'/companyUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
+        <!-- 会社一覧の件数 -->
+        <label th:text=" '合計：' + ${companyListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
+        <div class="table-responsive">
+            <table
+                class="table table-bordered table-hover table-striped table-sm">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col"></th>
+                        <th scope="col"><p
+                                class="text-nowrap text-center">会社CD</p></th>
+                        <th scope="col"><p
+                                class="text-nowrap text-center">会社名</p></th>
+                        <th scope="col"><p
+                                class="text-nowrap text-center">備考</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="company : ${companyList}">
+                        <td align="center"><a
+                            class="btn btn-primary"
+                            th:href="@{'/companyDetail/' + ${company.company_cd}}">詳細</a></td>
+                        <td align="left" th:text="${company.company_cd}"></td>
+                        <td align="left"
+                            th:text="${company.company_name}"></td>
+                        <td align="left" th:text="${company.biko}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

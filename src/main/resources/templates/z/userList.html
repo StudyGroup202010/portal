@@ -45,34 +45,33 @@
                 </div>
             </form>
         </div>
+
+        <div class="col">
+            <!-- CSV出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
+            <!-- EXCEL出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/userList/excel'}">EXCEL出力</a>
+            <!-- 帳票出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/userList/report'}">帳票出力</a>
+            <!-- ユーザー登録画面へのリンク -->
+            <a class="btn btn-danger float-right"
+                th:href="@{'/userUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+
+            <form method="post" enctype="multipart/form-data"
+                th:action="@{/userList/excelUpload}">
+                <input type="file" name="uploadfile" accept=".xlsx"
+                    required /> <input class="btn btn-danger"
+                    type="submit" name="excelUpload" value="一括登録" />
+            </form>
+
+        </div>
+
+        <!-- ユーザー一覧の件数 -->
+        <label th:text=" '合計：' + ${userListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label>
         <div class="table-responsive">
-            <div class="col">
-                <!-- CSV出力用のリンク -->
-                <a class="btn btn-primary" th:href="@{'/userList/csv'}">CSV出力</a>
-                <!-- EXCEL出力用のリンク -->
-                <a class="btn btn-primary"
-                    th:href="@{'/userList/excel'}">EXCEL出力</a>
-                <!-- 帳票出力用のリンク -->
-                <a class="btn btn-primary"
-                    th:href="@{'/userList/report'}">帳票出力</a>
-                <!-- ユーザー登録画面へのリンク -->
-                <a class="btn btn-danger float-right" th:href="@{'/userUpdate'}"
-                    sec:authorize="hasRole('ADMIN')">新規登録</a>
-
-                <form method="post" enctype="multipart/form-data"
-                    th:action="@{/userList/excelUpload}">
-                    <input type="file" name="uploadfile" accept=".xlsx"
-                        required /> <input class="btn btn-danger"
-                        type="submit" name="excelUpload" value="一括登録" />
-                </form>
-
-            </div>
-
-            <!-- ユーザー一覧の件数 -->
-            <label th:text=" '合計：' + ${userListCount} + '件' "></label>
-            <!-- 更新・削除処理の結果表示用 -->
-            <label class="text-danger" th:text="${result}">結果表示</label>
-            
             <table
                 class="table table-bordered table-hover table-striped table-sm">
 
