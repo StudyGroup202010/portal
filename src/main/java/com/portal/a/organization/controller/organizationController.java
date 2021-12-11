@@ -93,7 +93,8 @@ public class organizationController {
         model.addAttribute("contents", "a/organizationList :: organizationList_contents");
 
         // 組織マスタ情報を取得
-        List<Organization> organizationList = organizationService.selectBy(form.getOrganization_name(), form.getCompany_cd(), form.getStart_yearmonth(), form.getEnd_yearmonth(), form.getBiko());
+        List<Organization> organizationList = organizationService.selectBy(form.getOrganization_name(),
+                form.getCompany_cd(), form.getStart_yearmonth(), form.getEnd_yearmonth(), form.getBiko());
 
         // Modelに組織マスタリストを登録
         model.addAttribute("organizationList", organizationList);
@@ -119,7 +120,7 @@ public class organizationController {
 
         // コンテンツ部分に組織マスタ登録を表示するための文字列を登録
         model.addAttribute("contents", "a/organizationUpdate :: organizationUpdate_contents");
-        
+
         // プルダウンの内容を設定
         // 会社マスタ一覧を取得
         List<Company> companyList = organizationService.selectManyCompany();
@@ -140,8 +141,8 @@ public class organizationController {
      * @return 遷移先の情報(String)
      */
     @PostMapping("/organizationUpdate")
-    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputOrganizationForm form, BindingResult bindingResult,
-            Model model) {
+    public String postSignUp(@ModelAttribute @Validated(CreateOrder.class) InputOrganizationForm form,
+            BindingResult bindingResult, Model model) {
 
         // 入力チェックに引っかかった場合、組織マスタ登録画面に戻る
         if (bindingResult.hasErrors()) {
@@ -157,7 +158,7 @@ public class organizationController {
                 return getSignUp(form, model);
             }
         }
-        
+
         // 年月チェック（end_yearmonth）
         if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
@@ -177,7 +178,6 @@ public class organizationController {
                 return getSignUp(form, model);
             }
         }
-        
 
         // 組織マスタinsert用変数
         Organization organization = new Organization();
@@ -249,14 +249,13 @@ public class organizationController {
 
         // コンテンツ部分に組織マスタ詳細を表示するための文字列を登録
         model.addAttribute("contents", "a/organizationDetail :: organizationDetail_contents");
-        
+
         // プルダウンの内容を設定
         // 会社マスタ一覧を取得
         List<Company> companyList = organizationService.selectManyCompany();
 
         // Modelに会社マスタのリストを登録
         model.addAttribute("companyList", companyList);
-
 
         // 組織CDのチェック
         if (organization_cd != null && StrUtils.getStrLength(organization_cd) > 0) {
@@ -298,7 +297,7 @@ public class organizationController {
             // GETリクエスト用のメソッドを呼び出して、組織マスタ詳細画面に戻ります
             return getOrganizationDetail(form, model, "");
         }
-        
+
         // 年月チェック（start_yearmonth）
         if (form.getStart_yearmonth() != null && !form.getStart_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getStart_yearmonth()) == false) {
@@ -307,7 +306,7 @@ public class organizationController {
                 return getOrganizationDetail(form, model, "");
             }
         }
-        
+
         // 年月チェック（end_yearmonth）
         if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
             if (DateUtils.chkYearMonthFromString(form.getEnd_yearmonth()) == false) {
@@ -315,7 +314,7 @@ public class organizationController {
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "最終年月" }));
                 return getOrganizationDetail(form, model, "");
             }
-        }        
+        }
 
         // 年月チェック(開始年月 <= 最終年月）
         if (form.getEnd_yearmonth() != null && !form.getEnd_yearmonth().isEmpty()) {
@@ -327,7 +326,7 @@ public class organizationController {
                 return getOrganizationDetail(form, model, "");
             }
         }
-        
+
         // Organizationインスタンスの生成
         Organization organization = new Organization();
 
