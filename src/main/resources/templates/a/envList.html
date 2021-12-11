@@ -42,18 +42,17 @@
                 </div>
             </form>
         </div>
-		<div class="table-responsive">
-			<div class="col">
-				<!-- 環境登録画面へのリンク -->
-				<a class="btn btn-danger" th:href="@{'/envUpdate'}"
-					sec:authorize="hasRole('ADMIN')">新規登録</a>
-			</div>
+        <div class="col">
+            <!-- 環境登録画面へのリンク -->
+            <a class="btn btn-danger float-right" th:href="@{'/envUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
 
-            <!-- ユーザー一覧の件数 -->
-            <label th:text=" '合計：' + ${envListCount} + '件' "></label>
-            <!-- 更新・削除処理の結果表示用 -->
-            <label class="text-danger" th:text="${result}">結果表示</label><br />
-
+        <!-- ユーザー一覧の件数 -->
+        <label th:text=" '合計：' + ${envListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
+        <div class="table-responsive">
             <table
 				class="table table-bordered table-hover table-striped table-sm">
 

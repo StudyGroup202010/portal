@@ -47,21 +47,19 @@
                         <input type="hidden" class="form-control"
                             th:field="*{from}" />
                     </div>
+                    <div class="col">
+                        <!-- 業務経歴登録画面へのリンク -->
+                        <a class="btn btn-danger float-right"
+                            th:href="@{'/careerUpdate/'+ *{employee_id} + '/' + *{from}}">新規登録</a>
+                    </div>
+                    <!-- 業務経歴一覧の件数 -->
+                    <label th:text=" '合計：' + ${careerListCount} + '件' "></label>
+                    <!-- 更新・削除処理の結果表示用 -->
+                    <label class="text-danger" th:text="${result}">結果表示</label><br />
+                    
                     <div class="table-responsive">
-                        <div class="col">
-                            <!-- 業務経歴登録画面へのリンク -->
-                            <a class="btn btn-danger float-right"
-                                th:href="@{'/careerUpdate/'+ *{employee_id} + '/' + *{from}}">新規登録</a>
-                        </div>
-
-                        <!-- 業務経歴一覧の件数 -->
-                        <label
-                            th:text=" '合計：' + ${careerListCount} + '件' "></label>
-                        <!-- 更新・削除処理の結果表示用 -->
-                        <label class="text-danger" th:text="${result}">結果表示</label><br />
                         <table
                             class="table table-bordered table-hover table-striped table-sm">
-
                             <thead>
                                 <tr class="table-info">
                                     <th scope="col"></th>
@@ -70,15 +68,15 @@
                                     <th scope="col"><p
                                             class="text-nowrap text-center">作業期間</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">業務内容</p></th>
+                                            class="text-nowrap text-center">　　　　業務内容　　　　</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">　　機種／OS　　</p></th>
+                                            class="text-nowrap text-center">機種／OS</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">　　言語／ﾂｰﾙ　　</p></th>
+                                            class="text-nowrap text-center">言語／ﾂｰﾙ</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">　　DB／DC　　</p></th>
+                                            class="text-nowrap text-center">DB／DC</p></th>
                                     <th scope="col"><p
-                                            class="text-nowrap text-center">担当工程</p></th>
+                                            class="text-nowrap text-center">　　　　担当工程　　　　</p></th>
                                     <th scope="col"><p
                                             class="text-nowrap text-center">　　　　備考　　　　</p></th>
                                     <th scope="col"><p
@@ -112,11 +110,9 @@
                             </tbody>
                         </table>
                     </div>
-
                     <!-- 戻るボタン -->
                     <button class="btn btn-lg btn-primary" type="submit"
                         name="back">戻る</button>
-
                 </form>
             </div>
         </div>

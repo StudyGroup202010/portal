@@ -45,20 +45,20 @@
 				</div>
 			</form>
 		</div>
-		<div class="table-responsive">
-			<div class="col">
-                <!-- EXCEL出力用のリンク -->
-                <a class="btn btn-primary" th:href="@{'/organizationList/excel'}">EXCEL出力</a>
-                <!-- 組織登録画面へのリンク -->
-                <a class="btn btn-danger float-right" th:href="@{'/organizationUpdate'}"
-                 sec:authorize="hasRole('ADMIN')">新規登録</a>
-            </div>
-
-			<!-- 組織一覧の件数 -->
-			<label th:text=" '合計：' + ${organizationListCount} + '件' "></label>
-			<!-- 更新・削除処理の結果表示用 -->
-			<label class="text-danger" th:text="${result}">結果表示</label><br />
-
+        <div class="col">
+            <!-- EXCEL出力用のリンク -->
+            <a class="btn btn-primary"
+                th:href="@{'/organizationList/excel'}">EXCEL出力</a>
+            <!-- 組織登録画面へのリンク -->
+            <a class="btn btn-danger float-right"
+                th:href="@{'/organizationUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
+        <!-- 組織一覧の件数 -->
+        <label th:text=" '合計：' + ${organizationListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
+        <div class="table-responsive">
 			<table
 				class="table table-bordered table-hover table-striped table-sm">
 

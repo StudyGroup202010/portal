@@ -41,19 +41,20 @@
                         <button type="submit" name="selectby"
                             class="btn btn-primary btn-lg float-right">検索</button>
                     </div>
-                    <div class="col-sm-2">
-                        <!-- EXCEL -->
-                        <button type="submit" name="excel"
-                            class="btn btn-primary btn-lg">EXCEL出力</button>
-                    </div>
+
                 </div>
             </form>
         </div>
+        <div class="col">
+            <!-- EXCEL -->
+            <button type="submit" name="excel"
+                class="btn btn-primary">EXCEL出力</button>
+        </div>
+        <!-- スキル情報一覧の件数 -->
+        <label th:text=" '合計：' + ${skillListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
         <div class="table-responsive">
-            <!-- スキル情報一覧の件数 -->
-            <label th:text=" '合計：' + ${skillListCount} + '件' "></label>
-            <!-- 更新・削除処理の結果表示用 -->
-            <label class="text-danger" th:text="${result}">結果表示</label><br />
             <table
                 class="table table-bordered table-hover table-striped table-sm">
 
@@ -65,7 +66,7 @@
                         <th scope="col"><p class="text-nowrap text-center">社員CD</p></th>
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（姓）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
-                        <th scope="col"><p class="text-nowrap text-center">組織</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">　　組織　　</p></th>
                         <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　　　　　　　備考　　　　　　　　　　　　　　　　　　</p></th>
                         <th scope="col"><p class="text-nowrap text-center">更新日</p></th>
                     </tr>
