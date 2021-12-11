@@ -40,7 +40,7 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">
                                 <input type="date" class="form-control"
-                                    th:field="*{user_due_date}" /> <span
+                                    th:field="*{user_due_date}" autofocus/> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('user_due_date')}"
                                     th:errors="*{user_due_date}">
@@ -141,7 +141,7 @@
                 </table>
                 <!-- 戻るボタン -->
                 <button class="btn btn-lg btn-primary" type="submit"
-                    name="back" autofocus>戻る</button>
+                    name="back">戻る</button>
                 <!-- 更新ボタン -->
                 <button class="btn btn-lg btn-danger float-right"
                     type="button" data-toggle="modal"
