@@ -14,6 +14,54 @@
         <result column="biko" property="biko" />
     </resultMap>
     
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.a.common.domain.model.Organization">
+        insert into
+          am002_organization (
+           organization_cd
+          ,organization_name
+          ,company_cd
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{organization_cd}
+          ,#{organization_name}
+          ,#{company_cd}
+          ,#{start_yearmonth}
+          ,#{end_yearmonth}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Organization">
+        select
+           organization_cd
+          ,organization_name
+          ,company_cd
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am002_organization
+        where
+          organization_cd = #{organization_cd}
+    </select>
+    
     <!-- 全件検索 -->
     <select id="selectManyorganization" resultMap="organization">
          select
@@ -31,5 +79,67 @@
           am002_organization
         order by
           organization_name
+    </select>
+    
+    <!-- 全件検索 マスタ画面用 -->
+    <select id="selectMany" resultMap="organization">
+         select
+           organization_cd
+          ,organization_name
+          ,company_cd
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          am002_organization
+        order by
+          organization_cd
+    </select>
+    
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.a.common.domain.model.Organization">
+        update
+          am002_organization
+        set
+           organization_name   = #{organization_name}
+          ,company_cd          = #{company_cd}
+          ,start_yearmonth     = #{start_yearmonth}
+          ,end_yearmonth       = #{end_yearmonth}
+          ,biko                = #{biko}
+          ,update_user         = #{update_user}
+          ,update_date         = NOW()
+        where
+          organization_cd      = #{organization_cd}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from am002_organization where organization_cd = #{organization_cd}
+    </delete>
+    
+    <!-- 組織名で条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="organization">
+    <![CDATA[
+        select
+           organization_cd
+          ,organization_name
+          ,company_cd
+          ,start_yearmonth
+          ,end_yearmonth
+          ,biko
+        from
+          am002_organization
+        where organization_name               like CONCAT('%' , #{organization_name}  , '%')
+          and company_cd                      like CONCAT('%' , #{company_cd}  , '%')
+          and start_yearmonth                 like CONCAT('%' , #{start_yearmonth}  , '%')
+          and end_yearmonth                   like CONCAT('%' , #{end_yearmonth}  , '%')
+          and COALESCE(biko,'')               like CONCAT('%' , #{biko} , '%')
+        order by
+          organization_cd
+    ]]>
     </select>
 </mapper>
