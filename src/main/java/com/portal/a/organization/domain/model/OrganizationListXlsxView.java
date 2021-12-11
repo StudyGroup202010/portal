@@ -69,14 +69,14 @@ public class OrganizationListXlsxView extends AbstractXlsxView {
             row.createCell(6).setCellValue(organizationList.get(i).getInsert_user());
             // 作成日時
             String Insert_date = DateUtils
-                    .getStringFromDateTimeFormat(organizationList.get(i).getInsert_date().toLocalDateTime());
+                    .getStringFromDateTimeFormat1(organizationList.get(i).getInsert_date().toLocalDateTime());
             row.createCell(7).setCellValue(Insert_date);
             // 更新者
             row.createCell(8).setCellValue(organizationList.get(i).getUpdate_user());
             // 更新日時
             if (organizationList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
-                        .getStringFromDateTimeFormat(organizationList.get(i).getUpdate_date().toLocalDateTime());
+                        .getStringFromDateTimeFormat1(organizationList.get(i).getUpdate_date().toLocalDateTime());
                 row.createCell(9).setCellValue(Update_date);
             }
         }
