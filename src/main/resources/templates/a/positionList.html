@@ -16,45 +16,49 @@
 		</div>
 		<div class="container-fluid border bg-light">
 			<form method="post" th:action="@{/positionList}"
-				th:object="${selectPositionForm}">
+				th:object="${selectPositionForm}" id="reset-area">
 				<div class="row">
 					<div class="col-sm-2">
-						役職名<input type="search" class="form-control" autofocus
+						役職名<input type="search" class="form-control reset-field" autofocus
 							th:field="*{position_name}" />
 					</div>
                     <div class="col-sm-2">
-                        開始年月<input type="search" class="form-control"
+                        開始年月<input type="search" class="form-control reset-field"
                             th:field="*{start_yearmonth}"
                             placeholder="YYYYMM" inputmode="numeric" />
                     </div>
                     <div class="col-sm-2">
-                        最終年月<input type="search" class="form-control"
+                        最終年月<input type="search" class="form-control reset-field"
                             th:field="*{end_yearmonth}"
                             placeholder="YYYYMM" inputmode="numeric" />
                     </div>
                     <div class="col-sm-2">
-						備考<input type="search" class="form-control" th:field="*{biko}" />
+						備考<input type="search" class="form-control reset-field" th:field="*{biko}" />
 					</div>
-					<div class="col-sm-4">
-						<!-- 検索実行 -->
-						<button type="submit" name="selectby"
-							class="btn btn-primary btn-lg float-right">検索</button>
-					</div>
-				</div>
+                    <div class="col-sm-4">
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 portal.jsに処理を記載 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
+                    </div>
+                </div>
 			</form>
 		</div>
-		<div class="table-responsive">
-			<div class="col">
-				<!-- 役職登録画面へのリンク -->
-				<a class="btn btn-danger" th:href="@{'/positionUpdate'}"
-					sec:authorize="hasRole('ADMIN')">新規登録</a>
-			</div>
-
-			<!-- 役職一覧の件数 -->
-			<label th:text=" '合計：' + ${positionListCount} + '件' "></label>
-			<!-- 更新・削除処理の結果表示用 -->
-			<label class="text-danger" th:text="${result}">結果表示</label><br />
-
+        <div class="col">
+            <!-- 役職登録画面へのリンク -->
+            <a class="btn btn-danger float-right" th:href="@{'/positionUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
+        <!-- 役職一覧の件数 -->
+        <label th:text=" '合計：' + ${positionListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
+        <div class="table-responsive">
 			<table
 				class="table table-bordered table-hover table-striped table-sm">
 
