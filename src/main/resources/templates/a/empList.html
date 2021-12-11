@@ -16,28 +16,34 @@
 		</div>
         <div class="container-fluid border bg-light">
             <form method="post" th:action="@{/empList}"
-                th:object="${selectEmployeeForm}">
+                th:object="${selectEmployeeForm}" id="reset-area">
                 <div class="row">
                     <div class="col-sm-2">
-                        社員CD<input type="search" class="form-control"
+                        社員CD<input type="search" class="form-control reset-field"
                             autofocus th:field="*{employee_cd}" />
                     </div>
                     <div class="col-sm-2">
-                        社員名漢字（姓）<input type="search" class="form-control"
+                        社員名漢字（姓）<input type="search" class="form-control reset-field"
                             th:field="*{employee_name1_last}" />
                     </div>
                     <div class="col-sm-2">
-                        メールアドレス<input type="search" class="form-control"
+                        メールアドレス<input type="search" class="form-control reset-field"
                             th:field="*{mail}" />
                     </div>
                     <div class="col-sm-2">
-                        備考<input type="search" class="form-control"
+                        備考<input type="search" class="form-control reset-field"
                             th:field="*{biko}" />
                     </div>
                     <div class="col-sm-4">
-                        <!-- 検索実行 -->
-                        <button type="submit" name="selectby"
-                            class="btn btn-primary btn-lg float-right">検索</button>
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -72,7 +78,7 @@
                         <th scope="col"><p class="text-nowrap text-center">性別</p></th>
                         <th scope="col"><p class="text-nowrap text-center">入社日</p></th>
                         <th scope="col"><p class="text-nowrap text-center">退社日</p></th>
-						<th scope="col"><p class="text-nowrap text-center">備考</p></th>
+						<th scope="col"><p class="text-nowrap text-center">　　　　備考　　　　</p></th>
 					</tr>
 				</thead>
 				<tbody>

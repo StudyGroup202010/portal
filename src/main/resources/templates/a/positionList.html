@@ -16,31 +16,37 @@
 		</div>
 		<div class="container-fluid border bg-light">
 			<form method="post" th:action="@{/positionList}"
-				th:object="${selectPositionForm}">
+				th:object="${selectPositionForm}" id="reset-area">
 				<div class="row">
 					<div class="col-sm-2">
-						役職名<input type="search" class="form-control" autofocus
+						役職名<input type="search" class="form-control reset-field" autofocus
 							th:field="*{position_name}" />
 					</div>
                     <div class="col-sm-2">
-                        開始年月<input type="search" class="form-control"
+                        開始年月<input type="search" class="form-control reset-field"
                             th:field="*{start_yearmonth}"
                             placeholder="YYYYMM" inputmode="numeric" />
                     </div>
                     <div class="col-sm-2">
-                        最終年月<input type="search" class="form-control"
+                        最終年月<input type="search" class="form-control reset-field"
                             th:field="*{end_yearmonth}"
                             placeholder="YYYYMM" inputmode="numeric" />
                     </div>
                     <div class="col-sm-2">
-						備考<input type="search" class="form-control" th:field="*{biko}" />
+						備考<input type="search" class="form-control reset-field" th:field="*{biko}" />
 					</div>
-					<div class="col-sm-4">
-						<!-- 検索実行 -->
-						<button type="submit" name="selectby"
-							class="btn btn-primary btn-lg float-right">検索</button>
-					</div>
-				</div>
+                    <div class="col-sm-4">
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 portal.jsに処理を記載 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
+                    </div>
+                </div>
 			</form>
 		</div>
         <div class="col">

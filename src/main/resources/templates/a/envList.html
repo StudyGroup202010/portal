@@ -16,28 +16,34 @@
 		</div>
         <div class="container-fluid border bg-light">
             <form method="post" th:action="@{/envList}"
-                th:object="${selectEnvForm}">
+                th:object="${selectEnvForm}" id="reset-area">
                 <div class="row">
                     <div class="col-sm-2">
-                        環境ID<input type="search" class="form-control"
+                        環境ID<input type="search" class="form-control reset-field"
                             autofocus th:field="*{env_id}" />
                     </div>
                     <div class="col-sm-2">
-                        環境区分<input type="search" class="form-control"
+                        環境区分<input type="search" class="form-control reset-field"
                             th:field="*{env_kbn}" />
                     </div>
                     <div class="col-sm-2">
-                        環境値<input type="search" class="form-control"
+                        環境値<input type="search" class="form-control reset-field"
                             th:field="*{env_txt}" />
                     </div>
                     <div class="col-sm-2">
-                        備考<input type="search" class="form-control"
+                        備考<input type="search" class="form-control reset-field"
                             th:field="*{biko}" />
                     </div>
                     <div class="col-sm-4">
-                        <!-- 検索実行 -->
-                        <button type="submit" name="selectby"
-                            class="btn btn-primary btn-lg float-right">検索</button>
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 portal.jsに処理を記載 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
                     </div>
                 </div>
             </form>
