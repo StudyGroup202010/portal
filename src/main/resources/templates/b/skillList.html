@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>SkillList</title>  
+</head>
+<body>
+    <div th:fragment="skillList_contents">
+        <div class="page-header">
+            <h3>スキル管理システム</h3>
+        </div>
+        <div class="container-fluid border bg-light">
+            <form method="post" th:action="@{/skillList}"
+                th:object="${selectSkillForm}">
+                <div class="row">
+                    <div class="col-sm-2">
+                        社員CD<input type="search" class="form-control"
+                            autofocus th:field="*{employee_cd}" />
+                    </div>
+                    <div class="col-sm-2">
+                        社員名漢字（姓）<input type="search"
+                            class="form-control"
+                            th:field="*{employee_name1_last}" />
+                    </div>
+                    <div class="col-sm-2">
+                        組織<input type="search"
+                            class="form-control"
+                            th:field="*{organization_name}" />
+                    </div>
+                    <div class="col-sm-4">
+                        備考<input type="search" class="form-control"
+                            th:field="*{biko}" />
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- 検索実行 -->
+                        <button type="submit" name="selectby"
+                            class="btn btn-primary btn-lg float-right">検索</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- EXCEL -->
+                        <button type="submit" name="excel"
+                            class="btn btn-primary btn-lg">EXCEL出力</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <!-- スキル情報一覧の件数 -->
+            <label th:text=" '合計：' + ${skillListCount} + '件' "></label>
+            <!-- 更新・削除処理の結果表示用 -->
+            <label class="text-danger" th:text="${result}">結果表示</label><br />
+            <table
+                class="table table-bordered table-hover table-striped table-sm">
+
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"><p class="text-nowrap text-center">社員CD</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">社員名漢字（姓）</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">組織</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">　　　　　　　　　　　　　　　備考　　　　　　　　　　　　　　　　　　</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">更新日</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="skill : ${skillList}">
+                        <td align="center"><a
+                            class="btn btn-primary"
+                            th:href="@{'/skillDetail/' + ${skill.employee_id}} + '/list'">詳細</a>
+                        </td>
+                        <td align="center"><a
+                            class="btn btn-primary"
+                            th:href="@{'/careerList/' + ${skill.employee_id}} + '/list'">経歴</a>
+                        </td>
+                        <td align="center"><a
+                            class="btn btn-primary"
+                            th:href="@{'/skillreport/' + ${skill.employee_id}}">帳票</a>
+                        </td>
+                        <td align="left" th:text="${skill.employee_cd}"></td>
+                        <td align="left"
+                            th:text="${skill.employee_name1_last}"></td>
+                        <td align="left"
+                            th:text="${skill.employee_name1_first}"></td>
+                        <td align="left"
+                            th:text="${skill.organization_name}"></td>
+                        <td align="left" th:text="${skill.biko}"></td>
+                        <td align="center" th:text="${#dates.format(skill.update_date, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

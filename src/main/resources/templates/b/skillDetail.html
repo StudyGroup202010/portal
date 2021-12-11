@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>SkillDetail</title>
+</head>
+<body>
+    <div th:fragment="skillDetail_contents">
+        <div class="col-xl-6">
+            <div class="page-header">
+                <h3>スキル情報詳細</h3>
+            </div>
+            <!-- スキル情報登録画面の結果表示 -->
+            <label class="text-danger" th:text="${result}"></label>
+            <form method="post" th:action="@{/skillDetail}"
+                th:object="${inputSkillForm}">
+                <table class="table table-bordered table-hover table-sm">
+                    <!-- 社員CD -->
+                    <tr>
+                        <th class="active table-info">社員ＣＤ</th>
+                        <td><input type="text" class="form-control"
+                            th:field="*{employee_cd}"
+                            readonly="readonly" /></td>
+                    </tr>
+                    <!-- 社員名漢字（姓）  -->
+                    <tr>
+                        <th class="active table-info">名前</th>
+                        <td>
+                            <div class="form-inline">
+                                <!-- 社員名漢字（姓）  -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_last}"
+                                    readonly="readonly" />
+                                <!-- 社員名漢字（名）  -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_first}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 最終学歴 -->
+                    <tr>
+                        <th class="active table-info">最終学歴</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{final_education}"
+                                    autofocus />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 学科 -->
+                    <tr>
+                        <th class="active table-info">学科</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{department}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 卒業年月 -->
+                    <tr>
+                        <th class="active table-info">卒業年月</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('graduation_date')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{graduation_date}"
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('graduation_date')}"
+                                    th:errors="*{graduation_date}">
+                                    graduation_date error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 特記事項 -->
+                    <tr>
+                        <th class="table-info">特記事項</th>
+                        <td>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"
+                                    th:field="*{notices}"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 資格 -->
+                    <tr>
+                        <th class="active table-info">資格（取得日）</th>
+                        <td>
+                            <div class="form-group form-check"
+                                th:each="item : ${empcertificationList}">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="checkbox"
+                                            class="form-check-input"
+                                            th:name="certification_id"
+                                            th:value="${item.certification_id}"
+                                            th:text="${item.certification_name}"
+                                            th:checked="${item.certification_id == item.careercertification_id}" />
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type="date"
+                                            class="form-control"
+                                            th:name="acquisition_date"
+                                            th:value="${item.acquisition_date}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
+                    <tr>
+                        <th class="table-info">備考</th>
+                        <td>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"
+                                    th:field="*{biko}"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 社員ID -->
+                <input type="hidden" class="form-control"
+                    th:field="*{employee_id}" />
+
+                <!-- スキル情報社員ID -->
+                <input type="hidden" class="form-control"
+                    th:field="*{employee_id_skill}" />
+                    
+                <!-- 遷移元画面 -->
+                <input type="hidden" class="form-control"
+                    th:field="*{from}" />
+
+                <!-- 戻るボタン -->
+                <button class="btn btn-lg btn-primary" type="submit"
+                    name="back">戻る</button>
+                <!-- 更新ボタン -->
+                <button class="btn btn-lg btn-danger float-right"
+                    type="button" data-toggle="modal"
+                    data-target="#Modalupdate">更新</button>
+                <!-- 削除ボタン -->
+                <button class="btn btn-lg btn-danger float-right"
+                    type="button" data-toggle="modal"
+                    data-target="#Modaldelete">削除</button>
+
+                <!-- 更新Modal -->
+                <div class="modal" data-backdrop="static"
+                    data-keyboard="false" id="Modalupdate" tabindex="-1"
+                    role="dialog" aria-labelledby="ModalUpdateTitle"
+                    aria-hidden="true">
+                    <div
+                        class="modal-dialog modal-dialog-centered modal-sm"
+                        role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title"
+                                    id="ModalUpdateTitle">確認</h6>
+                                <button type="button" class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">更新してもよろしいでしょうか？</div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                    class="btn btn-lg btn-primary"
+                                    data-dismiss="modal">戻る</button>
+                                <button type="submit" name="update"
+                                    class="btn btn-lg btn-danger">実行</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 削除Modal -->
+                <div class="modal" data-backdrop="static" data-keyboard="false"
+                    id="Modaldelete" tabindex="-1" role="dialog"
+                    aria-labelledby="ModalDeleteTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm"
+                        role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="ModalDeleteTitle">確認</h6>
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">削除してもよろしいでしょうか？</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lg btn-primary"
+                                    data-dismiss="modal">戻る</button>
+                                <button type="submit" name="delete"
+                                    class="btn btn-lg btn-danger">実行</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

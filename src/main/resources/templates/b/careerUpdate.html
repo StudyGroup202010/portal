@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>CareerUpdate</title>
+</head>
+<body>
+    <div th:fragment="careerUpdate_contents">
+        <div class="col-xl-6">
+            <div class="page-header">
+                <h3>業務経歴登録</h3>
+            </div>
+            <!-- 業務経歴登録画面の結果表示 -->
+            <label class="text-danger" th:text="${result}"></label>
+            <form method="post" th:action="@{/careerUpdate}"
+                th:object="${inputCareerForm}">
+                <table class="table table-bordered table-hover table-sm">
+                    <!-- 社員CD -->
+                    <tr>
+                        <th class="active table-info">社員ＣＤ</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_cd}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 社員名漢字（姓）  -->
+                    <tr>
+                        <th class="active table-info">名前</th>
+                        <td>
+                            <div class="form-inline">
+                                <!-- 社員名漢字（姓）  -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_last}"
+                                    readonly="readonly" />
+                                <!-- 社員名漢字（名）  -->
+                                <input type="text" class="form-control"
+                                    th:field="*{employee_name1_first}"
+                                    readonly="readonly" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 表示順 -->
+                    <tr>
+                        <th class="active table-info">ＮＯ<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{disp_order}"
+                                    placeholder="数字を入力してください"
+                                    inputmode="numeric" autofocus /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('disp_order')}"
+                                    th:errors="*{disp_order}">
+                                    disp_order error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 開始年月 -->
+                    <tr>
+                        <th class="active table-info">開始年月<BR>
+                            <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{start_yearmonth}"
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('start_yearmonth')}"
+                                    th:errors="*{start_yearmonth}">
+                                    start_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 終了年月 -->
+                    <tr>
+                        <th class="active table-info">終了年月</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{end_yearmonth}"
+                                    placeholder="YYYYMM"
+                                    inputmode="numeric" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('end_yearmonth')}"
+                                    th:errors="*{end_yearmonth}">
+                                    end_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 業務内容 -->
+                    <tr>
+                        <th class="active table-info">業務内容</th>
+                        <td>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"
+                                    th:field="*{business_content}"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 機種／OS -->
+                    <tr>
+                        <th class="active table-info col-2">機種／OS</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:each="item : ${technologyList_OS}">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    th:name="technology_id_OS"
+                                    th:value="${item.technology_id}"
+                                    th:text="${item.technology_name}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 言語／ツール -->
+                    <tr>
+                        <th class="active table-info col-2">言語／ツール</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:each="item : ${technologyList_Lang}">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    th:name="technology_id_Lang"
+                                    th:value="${item.technology_id}"
+                                    th:text="${item.technology_name}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- DB／DC -->
+                    <tr>
+                        <th class="active table-info col-2">DB／DC</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:each="item : ${technologyList_DB}">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    th:name="technology_id_DB"
+                                    th:value="${item.technology_id}"
+                                    th:text="${item.technology_name}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 工程 -->
+                    <tr>
+                        <th class="active table-info col-2">工程</th>
+                        <td>
+                            <div class="form-group form-check-inline"
+                                th:each="item : ${processList}">
+                                <input class="form-check-input"
+                                    type="checkbox"
+                                    th:name="process_id"
+                                    th:value="${item.process_id}"
+                                    th:text="${item.process_name}" />
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
+                    <tr>
+                        <th class="active table-info">備考</th>
+                        <td>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3"
+                                    th:field="*{biko}"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- 社員ID -->
+                <input type="hidden" class="form-control"
+                    th:field="*{employee_id}" />
+                    
+                <!-- 経歴番号 -->
+                <input type="hidden" class="form-control"
+                    th:field="*{certification_no}" />
+
+                <!-- 遷移元画面 -->
+                <input type="hidden" class="form-control"
+                    th:field="*{from}" />
+
+                <!-- 戻るボタン -->
+                <button class="btn btn-lg btn-primary" type="submit"
+                    name="back">戻る</button>
+                <!-- 登録ボタン -->
+                <button class="btn btn-lg btn-danger float-right"
+                    type="button" data-toggle="modal"
+                    data-target="#Modalinsert">登録</button>
+                <!-- 登録Modal -->
+                <div class="modal" data-backdrop="static"
+                    data-keyboard="false" id="Modalinsert" tabindex="-1"
+                    role="dialog" aria-labelledby="ModalInsertTitle"
+                    aria-hidden="true">
+                    <div
+                        class="modal-dialog modal-dialog-centered modal-sm"
+                        role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title"
+                                    id="ModalInsertTitle">確認</h6>
+                                <button type="button" class="close"
+                                    data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">登録してもよろしいでしょうか？</div>
+                            <div class="modal-footer">
+                                <button type="button"
+                                    class="btn btn-lg btn-primary"
+                                    data-dismiss="modal">戻る</button>
+                                <button type="submit" name="insert"
+                                    class="btn btn-lg btn-danger">実行</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

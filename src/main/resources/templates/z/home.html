@@ -1,47 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-    <meta charset="UTF-8"></meta>   
+    <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
-
-
-
-   
     <title>Home</title>
 </head>
 <body>
     <!-- ポイント：th:fragment -->
     <div th:fragment="home_contents">
-    
         <div class="page-header">
-            <h3>ホーム画面</h3>
-            <h5>本日の天気予報</h5>
-            <img id = "forecastImage" src=""> 
+            <h3>ホーム</h3>
         </div>
-        
         <div class="page-body">
-            <h5>ここには以下のような情報を載せます</h5>
-            <h6>・会社からのお知らせ</h6>
-            <h6>・就業規則など</h6>
-            <h6>・社員教育の資料など</h6>
+            <div class="row">
+                <div class="col-sm-9">
+                    <article>
+                        <h2>会社からのお知らせ</h2>
+                        <ul>
+                            <li>勤怠の提出について</li>
+                            <li>健康診断の予約について</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2>社員教育</h2>
+                        <ul>
+                            <li>社員教育コンテンツへのリンク</li>
+                        </ul>
+
+                        <hr>
+
+                    </article>
+
+                    <article>
+                        <h2>就業規則など</h2>
+                        <ul>
+                            <li>交通費精算について</li>
+                            <li>セキュリティポリシーについて</li>
+                        </ul>
+
+                    </article>
+
+                    <article>
+                        <!-- コンテンツを増やす場合はここに追加する。 -->
+                    </article>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="container-fluid border bg-light">
+                        <label th:text="${today}"></label>
+                    </div>
+                    <div class="container-fluid border bg-light">
+                        <p>
+                            天気予報（岐阜 <label id="publicTimeFormatted"></label>）
+                        </p>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img id="forecastImage" src="">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="text-danger"
+                                        id="forecastTempMax"></div>
+                                    <div class="text-danger">℃</div>
+                                    <div class="text-primary"
+                                        id="forecastTempMin"></div>
+                                    <div class="text-primary">℃</div>
+                                </div>
+                                <div class="row">
+                                    午前
+                                    <div id="forecastChanceOfRainAM"></div>
+                                    午後
+                                    <div id="forecastChanceOfRainPM"></div>
+                                    夜間
+                                    <div id="forecastChanceOfRainNT"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            今日の天気：<label id="forecastDetail"></label>
+                        </p>
+                    </div>
+                    <!-- コンテンツを増やす場合はここに追加する。 -->
+                    <div class="card" sec:authorize="hasRole('GENERAL')">
+                        <div class="card-header text-center">スキル管理システム</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                スキル情報はこちらからメンテナンスしてください。ご意見やご要望、不具合などがありましたら、「問い合わせ」よりお知らせ下さい。
+                                <a
+                                    class="btn btn-success btn-block btn-lg"
+                                    th:href="@{'/empPerson'}"
+                                    role="button">開始する</a>
+                        </div>
+                    </div>
+                    <!-- コンテンツを増やす場合はここに追加する。 -->
+                    <a class="btn btn-success btn-block btn-lg"
+                        th:href="@{'/contact'}" role="button">問い合わせ</a>
+                </div>
+            </div>
         </div>
-        <!-- 岐阜の天気予報の表示(画像) ※下のDIVの外に出すと無効になります -->
-        <script th:inline="javascript"  nonce="c3R1ZHlwb3J0YWwyMDIw">
-            $(document).ready(function(){
-                getWeatherImageUrl();
-            });
-        </script>
+        <!-- 天気予報の表示 ※下のDIVの外に出すと無効になります -->
+        <script th:inline="javascript" nonce="c3R1ZHlwb3J0YWwyMDIw">
+									$(document).ready(function() {
+										getWeatherImageUrl();
+										getWeatherDetail();
+										getWeatherTempMax();
+										getWeatherTempMin();
+										getWeatherChanceOfRainAM();
+										getWeatherChanceOfRainPM();
+										getWeatherChanceOfRainNT();
+										getWeatherTime();
+									});
+								</script>
     </div>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.b.common.domain.repository.CareerprocessMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.b.common.domain.model.Careerprocess"
+        id="careerprocess">
+        <id column="employee_id" property="employee_id" />
+        <result column="certification_no" property="certification_no" />
+        <result column="process_id" property="process_id" />
+        <result column="process_name" property="process_name" />
+        <result column="careerprocess_id" property="careerprocess_id" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.b.common.domain.model.Careerprocess">
+        insert into
+          bt006_careerprocess (
+           employee_id
+          ,certification_no
+          ,process_id
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{employee_id}
+          ,cast(#{certification_no} as integer)
+          ,#{process_id}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,#{insert_user}
+          ,NOW()
+          )
+    </insert>
+
+    <!-- 条件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from bt006_careerprocess
+        where employee_id      = #{employee_id}
+          and certification_no = cast(#{certification_no} as integer)
+    </delete>
+    
+    <!-- 条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="careerprocess">
+        select
+           a.process_name
+          ,a.process_id
+          ,b.process_id as careerprocess_id
+        from
+          bm004_process a
+        left join bt006_careerprocess b
+          on b.employee_id      = #{employee_id}
+         and b.certification_no = cast(#{certification_no} as integer)
+         and a.process_id       = b.process_id
+        order by 
+           a.disp_order
+          ,a.process_name
+    </select>
+</mapper>

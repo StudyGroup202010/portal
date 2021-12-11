@@ -75,19 +75,19 @@ public class UserListXlsxView extends AbstractXlsxView {
             row.createCell(8).setCellValue(userList.get(i).getInsert_user());
             // 作成日時
             String Insert_date = DateUtils
-                    .getStringFromDateTimeFormat(userList.get(i).getInsert_date().toLocalDateTime());
+                    .getStringFromDateTimeFormat1(userList.get(i).getInsert_date().toLocalDateTime());
             row.createCell(9).setCellValue(Insert_date);
             // 更新者
             row.createCell(10).setCellValue(userList.get(i).getUpdate_user());
             // 更新日時
             if (userList.get(i).getUpdate_date() != null) {
                 String Update_date = DateUtils
-                        .getStringFromDateTimeFormat(userList.get(i).getUpdate_date().toLocalDateTime());
+                        .getStringFromDateTimeFormat1(userList.get(i).getUpdate_date().toLocalDateTime());
                 row.createCell(11).setCellValue(Update_date);
             }
         }
         // カラム幅を自動調整
-        for (int i = 0; i <= 11; i++) {
+        for (int i = 0; i <= userListCount; i++) {
             sheet.autoSizeColumn(i);
         }
     }

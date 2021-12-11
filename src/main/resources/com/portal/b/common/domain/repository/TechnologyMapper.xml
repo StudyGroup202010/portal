@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.b.common.domain.repository.TechnologyMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.b.common.domain.model.Technology"
+        id="technology">
+        <id column="technology_id" property="technology_id" />
+        <result column="technology_name" property="technology_name" />
+        <result column="technology_kbn" property="technology_kbn" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.b.common.domain.model.Technology">
+        insert into
+          bm002_technology (
+           technology_id
+          ,technology_name
+          ,technology_kbn
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{technology_id}
+          ,#{technology_name}
+          ,#{technology_kbn}
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,#{insert_user}
+          ,NOW()
+          )
+    </insert>
+    
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultMap="technology">
+        select
+           a.technology_id
+          ,a.technology_name
+          ,a.technology_kbn
+          ,a.biko
+        from
+          bm002_technology a
+        where 
+           a.technology_id = #{technology_id}
+    </select>
+    
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="technology">
+        select
+           technology_id
+          ,technology_name
+          ,technology_kbn
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          bm002_technology
+        order by
+           disp_order
+          ,technology_id
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.b.common.domain.model.Technology">
+        update
+          bm002_technology
+           technology_name  = #{technology_name}
+          ,technology_kbn   = #{technology_kbn}
+          ,biko             = #{biko}
+          ,update_user      = #{update_user}
+          ,update_date      = NOW()
+        where technology_id = #{technology_id}
+    </update>
+    
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from bm002_technology
+        where technology_id = #{technology_id}
+    </delete>
+    
+    <!-- 条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="technology">
+        select
+           technology_id
+          ,technology_name
+          ,technology_kbn
+          ,biko
+        from
+          bm002_technology
+        where 
+          technology_kbn = #{technology_kbn}
+        order by
+          disp_order
+         ,technology_name
+    </select>
+</mapper>

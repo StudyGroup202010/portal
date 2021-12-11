@@ -15,6 +15,13 @@ import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.a.common.domain.repository.EmployeeattributeMapper;
 import com.portal.a.common.domain.repository.EmployeebelongsMapper;
 import com.portal.a.common.domain.repository.OrganizationMapper;
+import com.portal.b.common.domain.model.Career;
+import com.portal.b.common.domain.model.Skill;
+import com.portal.b.common.domain.repository.CareerMapper;
+import com.portal.b.common.domain.repository.EmpcertificationMapper;
+import com.portal.b.common.domain.repository.SkillMapper;
+import com.portal.z.common.domain.model.User;
+import com.portal.z.common.domain.repository.UserMapper;
 
 /**
  * EmployeeServiceImpl
@@ -37,41 +44,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeattributeMapper employeeattributeMapper;
 
     @Autowired
+    SkillMapper skillMapper;
+
+    @Autowired
     OrganizationMapper organizationMapper;
 
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    EmpcertificationMapper empcertificationMapper;
+
+    @Autowired
+    CareerMapper careerMapper;
+
+    // 社員マスタ
     public List<Employee> selectMany() {
         return employeeMapper.selectMany();
     }
 
-    public List<Employeeattribute> selectManyemployeeattribute() {
-        return employeeattributeMapper.selectManyemployeeattribute();
-    }
-
-    public List<Organization> selectManyorganization() {
-        return organizationMapper.selectManyorganization();
-    }
-
     public Employee selectOne(String employee_id) {
         return employeeMapper.selectOne(employee_id);
-    }
-
-    public boolean insertOne(Employee employee, Employeebelongs employeebelongs) {
-
-        // 社員マスタ追加実行
-        boolean result_1 = employeeMapper.insertOne(employee);
-
-        // 社員マスタに登録した社員IDを取得する。
-        Employee inserted_employee = employeeExpMapper.selectOneByCd(employee.getEmployee_cd());
-        employeebelongs.setEmployee_id(inserted_employee.getEmployee_id());
-
-        // 社員所属マスタ追加実行
-        boolean result_2 = employeebelongsMapper.insertOne(employeebelongs);
-
-        if (result_1 == true && result_2 == true) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public boolean updateOne(Employee employee, Employeebelongs employeebelongs) {
@@ -113,7 +106,55 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+    public boolean insertOne(Employee employee, Employeebelongs employeebelongs) {
+
+        // 社員マスタ追加実行
+        boolean result_1 = employeeMapper.insertOne(employee);
+
+        // 社員マスタに登録した社員IDを取得する。
+        Employee inserted_employee = employeeExpMapper.selectOneByCd(employee.getEmployee_cd());
+        employeebelongs.setEmployee_id(inserted_employee.getEmployee_id());
+
+        // 社員所属マスタ追加実行
+        boolean result_2 = employeebelongsMapper.insertOne(employeebelongs);
+
+        if (result_1 == true && result_2 == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko) {
         return employeeExpMapper.selectBy(employee_cd, employee_name1_last, mail, biko);
+    }
+
+    // 社員属性マスタ
+    public List<Employeeattribute> selectManyemployeeattribute() {
+        return employeeattributeMapper.selectManyemployeeattribute();
+    }
+
+    // 組織マスタ
+    public List<Organization> selectManyorganization() {
+        return organizationMapper.selectManyorganization();
+    }
+
+    // ユーザマスタ
+    public User selectUserOne(String user_id) {
+        return userMapper.selectOne(user_id);
+    }
+
+    public User selectByEmployeeid(String employee_id) {
+        return userMapper.selectByEmployeeid(employee_id);
+    }
+
+    // スキル情報
+    public Skill selectSkillOne(String employee_id) {
+        return skillMapper.selectOne(employee_id);
+    }
+
+    // 業務経歴
+    public List<Career> selectCareerBy(String employee_id) {
+        return careerMapper.selectBy3(employee_id);
     }
 }

@@ -31,6 +31,7 @@
         <result column="employeeattribute_id" property="employeeattribute_id" />
         <result column="employeeattribute_name" property="employeeattribute_name" />
         <result column="organization_cd" property="organization_cd" />
+        <result column="organization_name" property="organization_name" />
         <result column="start_yearmonth" property="start_yearmonth" />
         <result column="biko" property="biko" />
     </resultMap>
@@ -95,8 +96,8 @@
           ,#{biko}
           ,#{insert_user}
           ,NOW()
-          ,NULL
-          ,NULL
+          ,#{insert_user}
+          ,NOW()
           )
     </insert>
 
@@ -152,6 +153,7 @@
 
     <!-- 全件検索 -->
     <select id="selectMany" resultMap="employee">
+    <![CDATA[
          select
            a.employee_id
           ,a.employee_cd
@@ -177,6 +179,8 @@
           ,a.leave_date
           ,a.employeeattribute_id
           ,b.employeeattribute_name as employeeattribute_name
+          ,c.organization_cd
+          ,e.organization_name
           ,a.biko
           ,a.insert_user
           ,a.insert_date
@@ -185,9 +189,21 @@
         from
           am005_employee a
           left join am008_employeeattribute b
-            on a.employeeattribute_id = b.employeeattribute_id
+            on b.employeeattribute_id = a.employeeattribute_id
+          left join am006_employeebelongs c
+            on  c.employee_id = a.employee_id
+            and c.start_yearmonth
+                = (select
+                     max(d.start_yearmonth)
+                   from
+                     am006_employeebelongs d
+                   where d.employee_id      = c.employee_id
+                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+          left join am002_organization e
+            on  e.organization_cd = c.organization_cd
         order by
           a.employee_cd
+    ]]>
     </select>
 
     <!-- １件更新 -->

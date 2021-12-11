@@ -1,29 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-<meta charset="UTF-8"></meta>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrapの設定 -->
-
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
-	rel="stylesheet"></link>
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-
-
-
-<title>CompanyDetail</title>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+     <title>CompanyDetail</title>
 </head>
 <body>
 	<div th:fragment="companyDetail_contents">
-		<div class="col-sm-5">
+		<div class="col-xl-6">
 
 			<div class="page-header">
 				<h3>会社マスタ詳細</h3>
@@ -43,19 +31,22 @@
 						</td>
 					</tr>
 					<!-- 会社名 -->
-					<tr>
-						<th class="table-info">会社名</th>
-						<td>
-							<div class="form-group"
-								th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
-								<input type="text" class="form-control"
-									th:field="*{company_name}" /> <span class="text-danger"
-									th:if="${#fields.hasErrors('company_name')}"
-									th:errors="*{company_name}"> company_name error </span>
-							</div>
-						</td>
-					</tr>
-					<!-- 備考 -->
+                    <tr>
+                        <th class="table-info">会社名<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{company_name}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('company_name')}"
+                                    th:errors="*{company_name}">
+                                    company_name error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
 					<tr>
 						<th class="table-info">備考</th>
 						<td>

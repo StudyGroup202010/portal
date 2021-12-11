@@ -1,28 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-<meta charset="UTF-8"></meta>
-<meta name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrapの設定 -->
-
-<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
-    rel="stylesheet"></link>
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-
-
-<title>UserUpdate</title>
+    <title>UserUpdate</title>
 </head>
 <body>
     <div th:fragment="userUpdate_contents">
-        <div class="col-sm-5">
+        <div class="col-xl-6">
 
             <div class="page-header">
                 <h3>ユーザー登録</h3>
@@ -34,13 +23,14 @@
                 <table class="table table-bordered table-hover table-sm">
                     <!-- ユーザーIDの入力エリア -->
                     <tr>
-                        <th class="active table-info">ユーザID</th>
+                        <th class="active table-info">ユーザID<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
                                 <input type="text" class="form-control"
                                     th:field="*{user_id}"
-                                    placeholder="英数字を入力してください" autofocus />
+                                    placeholder="英数記号(-か_)を入力してください" autofocus />
                                 <span class="text-danger"
                                     th:if="${#fields.hasErrors('user_id')}"
                                     th:errors="*{user_id}">
@@ -50,7 +40,8 @@
                     </tr>
                     <!-- ユーザ有効期限の入力エリア -->
                     <tr>
-                        <th class="active table-info">ユーザ有効期限</th>
+                        <th class="active table-info">ユーザ有効期限<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">

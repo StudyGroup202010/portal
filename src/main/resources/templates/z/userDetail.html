@@ -6,23 +6,12 @@
 <head>
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Bootstrapの設定 -->
-    
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-    
 
-    
-    
-   
     <title>UserDetail</title>
 </head>
 <body>
     <div th:fragment="userDetail_contents">
-        <div class="col-sm-5">
+        <div class="col-xl-6">
 
             <div class="page-header">
                 <h3>ユーザー詳細</h3>
@@ -45,7 +34,8 @@
                     </tr>
                     <!-- ユーザ有効期限 -->
                     <tr>
-                        <th class="table-info">ユーザ有効期限</th>
+                        <th class="table-info">ユーザ有効期限<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('user_due_date')} ? 'has-error'">
@@ -60,7 +50,8 @@
                     </tr>
                     <!-- パスワード有効期限 -->
                     <tr>
-                        <th class="table-info">パスワード有効期限</th>
+                        <th class="table-info">パスワード有効期限<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('pass_update')} ? 'has-error'">
@@ -75,12 +66,14 @@
                     </tr>
                     <!-- ログイン失敗回数 -->
                     <tr>
-                        <th class="table-info">ログイン失敗回数</th>
+                        <th class="table-info">ログイン失敗回数<BR>
+                        <img th:src="@{/image/required.png}"></th>
                         <td>
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('login_miss_times')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{login_miss_times}" /> <span
+                                    th:field="*{login_miss_times}"
+                                    inputmode="numeric" /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('login_miss_times')}"
                                     th:errors="*{login_miss_times}">

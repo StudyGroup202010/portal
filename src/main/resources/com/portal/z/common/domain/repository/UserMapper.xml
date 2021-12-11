@@ -52,8 +52,8 @@
           ,#{enabled_flg}
           ,#{insert_user}
           ,NOW()
-          ,NULL
-          ,NULL
+          ,#{insert_user}
+          ,NOW()
           )
     </insert>
 
@@ -188,4 +188,26 @@
         where
           user_id = #{user_id}
     </update>
+    
+    <!-- 社員IDで条件検索 -->
+    <select id="selectByEmployeeid" parameterType="string" resultMap="user">
+    <![CDATA[
+        select
+           user_id
+          ,user_due_date
+          ,password
+          ,pass_update
+          ,login_miss_times
+          ,lock_flg
+          ,employee_id
+          ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          zm001_user
+        where employee_id = #{employee_id}
+    ]]>
+    </select>
 </mapper>
