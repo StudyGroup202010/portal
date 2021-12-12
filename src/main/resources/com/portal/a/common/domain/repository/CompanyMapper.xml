@@ -86,18 +86,16 @@
     
     <!-- 会社名で条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="company">
-    <![CDATA[
         select
            company_cd
           ,company_name
           ,biko
         from
           am001_company
-        where company_name               like CONCAT('%' , #{company_name}  , '%')
-          and COALESCE(biko,'')          like CONCAT('%' , #{biko} , '%')
+        where company_name      like CONCAT('%' , #{company_name}  , '%')
+          and COALESCE(biko,'') like CONCAT('%' , #{biko} , '%')
         order by
           company_cd
-    ]]>
     </select>
     
 </mapper>
