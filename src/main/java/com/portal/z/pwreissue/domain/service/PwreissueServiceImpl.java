@@ -114,7 +114,7 @@ public class PwreissueServiceImpl implements PwreissueService {
     }
 
     public Employee selectOne_employee(String employee_id) {
-        return employeeMapper.selectOne(employee_id);
+        return employeeMapper.selectOne(employee_id, null);
     }
 
     /**

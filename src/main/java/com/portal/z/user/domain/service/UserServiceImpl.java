@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.portal.a.common.domain.model.Employee;
-import com.portal.a.common.domain.repository.EmployeeExpMapper;
+import com.portal.a.common.domain.repository.EmployeeMapper;
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.model.User;
 import com.portal.z.common.domain.repository.UserMapper;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Autowired
-    EmployeeExpMapper employeeExpMapper;
+    EmployeeMapper employeeMapper;
 
     @Autowired
     private MassageUtils massageUtils;
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<Employee> selectManyExceptRetireeEmployee() {
-        return employeeExpMapper.selectManyExceptRetiree();
+        return employeeMapper.selectMany("1");
     }
 
     public User selectOne(String user_id) {

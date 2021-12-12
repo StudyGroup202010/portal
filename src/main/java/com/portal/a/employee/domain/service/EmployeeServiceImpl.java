@@ -60,11 +60,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // 社員マスタ
     public List<Employee> selectMany() {
-        return employeeMapper.selectMany();
+        return employeeMapper.selectMany(null);
     }
 
     public Employee selectOne(String employee_id) {
-        return employeeMapper.selectOne(employee_id);
+        return employeeMapper.selectOne(employee_id, null);
     }
 
     public boolean updateOne(Employee employee, Employeebelongs employeebelongs) {
@@ -112,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         boolean result_1 = employeeMapper.insertOne(employee);
 
         // 社員マスタに登録した社員IDを取得する。
-        Employee inserted_employee = employeeExpMapper.selectOneByCd(employee.getEmployee_cd());
+        Employee inserted_employee = employeeMapper.selectOne(null, employee.getEmployee_cd());
         employeebelongs.setEmployee_id(inserted_employee.getEmployee_id());
 
         // 社員所属マスタ追加実行
