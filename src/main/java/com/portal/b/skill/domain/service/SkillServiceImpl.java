@@ -175,7 +175,7 @@ public class SkillServiceImpl implements SkillService {
 
     // 社員情報
     public Employee selectEmployeeOne(String employee_id) {
-        return employeeMapper.selectOne(employee_id);
+        return employeeMapper.selectOne(employee_id, null);
     }
 
     // 社員資格

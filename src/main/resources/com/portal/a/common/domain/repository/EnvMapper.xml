@@ -98,7 +98,6 @@
     
     <!-- 環境IDで条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="env">
-    <![CDATA[
         select
            env_id
           ,env_kbn
@@ -113,7 +112,6 @@
           and COALESCE(biko,'')    like CONCAT('%' , #{biko} , '%')
         order by
           env_id
-    ]]>
     </select>
     
 </mapper>

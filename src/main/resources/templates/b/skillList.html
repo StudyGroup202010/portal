@@ -19,8 +19,9 @@
                 th:object="${selectSkillForm}" id="reset-area">
                 <div class="row">
                     <div class="col-sm-2">
-                        社員CD<input type="search" class="form-control reset-field"
-                            autofocus th:field="*{employee_cd}" />
+                        社員CD<input type="search"
+                            class="form-control reset-field" autofocus
+                            th:field="*{employee_cd}" />
                     </div>
                     <div class="col-sm-2">
                         社員名漢字（姓）<input type="search"
@@ -33,7 +34,8 @@
                             th:field="*{organization_name}" />
                     </div>
                     <div class="col-sm-4">
-                        備考<input type="search" class="form-control reset-field"
+                        備考<input type="search"
+                            class="form-control reset-field"
                             th:field="*{biko}" />
                     </div>
                     <div class="col-sm-2">
@@ -48,12 +50,10 @@
                         </div>
                     </div>
                 </div>
+                <!-- EXCEL -->
+                <button type="submit" name="excel"
+                    class="btn btn-primary">EXCEL出力</button>
             </form>
-        </div>
-        <div class="col">
-            <!-- EXCEL -->
-            <button type="submit" name="excel"
-                class="btn btn-primary">EXCEL出力</button>
         </div>
         <!-- スキル情報一覧の件数 -->
         <label th:text=" '合計：' + ${skillListCount} + '件' "></label>

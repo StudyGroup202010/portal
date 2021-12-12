@@ -103,7 +103,6 @@
 
     <!-- １件検索 -->
     <select id="selectOne" parameterType="string" resultType="com.portal.a.common.domain.model.Employee">
-    <![CDATA[
         select
            a.employee_id
           ,a.employee_cd
@@ -145,15 +144,21 @@
                    from
                      am006_employeebelongs d
                    where d.employee_id      = b.employee_id
+                   <![CDATA[
                      and d.start_yearmonth <= to_char(now(),'YYYYMM'))
-        where
-              a.employee_id = #{employee_id}
-    ]]>
+                   ]]>
+        <where>
+          <if test="employee_id != null">
+                a.employee_id = #{employee_id}
+          </if>
+          <if test="employee_cd != null">
+            and a.employee_cd = #{employee_cd}
+          </if>
+        </where>
     </select>
 
     <!-- 全件検索 -->
-    <select id="selectMany" resultMap="employee">
-    <![CDATA[
+    <select id="selectMany" parameterType="string" resultMap="employee">
          select
            a.employee_id
           ,a.employee_cd
@@ -198,12 +203,18 @@
                    from
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
+                   <![CDATA[
                      and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                   ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
+        <where>
+          <if test="leave_flg != null">
+                a.leave_date is null
+          </if>
+        </where>
         order by
           a.employee_cd
-    ]]>
     </select>
 
     <!-- １件更新 -->

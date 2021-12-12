@@ -117,7 +117,7 @@ public class empController {
      * @return z/homeLayout
      */
     @RequestMapping(value = "/empList", params = "selectby")
-    public String getEmployeeListByEnvid(@ModelAttribute SelectEmployeeForm form, BindingResult bindingResult,
+    public String getEmployeeListBy(@ModelAttribute SelectEmployeeForm form, BindingResult bindingResult,
             Model model) {
 
         // コンテンツ部分に社員マスタ一覧を表示するための文字列を登録
