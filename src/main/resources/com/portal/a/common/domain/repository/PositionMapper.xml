@@ -98,7 +98,6 @@
     
     <!-- 役職名で条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="position">
-    <![CDATA[
         select
            position_cd
           ,position_name
@@ -113,7 +112,6 @@
           and COALESCE(biko,'')    like CONCAT('%' , #{biko} , '%')
         order by
           position_cd
-    ]]>
     </select>
     
 </mapper>
