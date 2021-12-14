@@ -31,7 +31,7 @@ public interface EmployeeMapper {
     /**
      * 全件検索用メソッド
      * 
-     * @param leave_flg 検索結果から退職者を除きたい時に"1"をセットする
+     * @param leave_flg 検索結果から退職者を表示したい時に"1"をセットする
      * @return EmployeeList
      */
     public List<Employee> selectMany(String leave_flg);

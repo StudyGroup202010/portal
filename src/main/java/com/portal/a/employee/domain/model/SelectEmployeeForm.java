@@ -11,4 +11,5 @@ public class SelectEmployeeForm {
     private String employee_name1_last; // 社員名漢字（姓）
     private String mail; // メールアドレス
     private String biko; // 備考
+    private boolean leave_flg; // 退職者を含む
 }

@@ -17,7 +17,9 @@ public interface EmployeeExpMapper {
      * @param employee_name1_last employee_name1_last
      * @param mail                mail
      * @param biko                biko
+     * @param leave_flg           leave_flg
      * @return EnvList
      */
-    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
+    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko,
+            String leave_flg);
 }

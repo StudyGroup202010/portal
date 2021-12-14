@@ -240,7 +240,7 @@ public final class Constants {
      * 
      */
     public static final int SKILLREPORT_CAREER_DEFAULT_COUNT = 5;
-    
+
     /**
      * 業務経歴書 業務経歴行の最大表示行数<BR>
      * 
@@ -248,5 +248,14 @@ public final class Constants {
      * 
      */
     public static final int SKILLREPORT_CAREER_MAX_COUNT = 49;
+
+    /**
+     * 社員マスタ 退職者検索可否フラグ<BR>
+     * 
+     * 社員マスタを検索するときに退職者を表示するときの定義<BR>
+     * 初期値は"1"
+     * 
+     */
+    public static final String LEAVE_FLG = "1";
 
 }
