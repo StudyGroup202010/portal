@@ -59,8 +59,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     CareerMapper careerMapper;
 
     // 社員マスタ
-    public List<Employee> selectMany() {
-        return employeeMapper.selectMany(null);
+    public List<Employee> selectMany(String leave_flg) {
+        return employeeMapper.selectMany(leave_flg);
     }
 
     public Employee selectOne(String employee_id) {
@@ -125,8 +125,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
-    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko) {
-        return employeeExpMapper.selectBy(employee_cd, employee_name1_last, mail, biko);
+    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko,
+            String leave_flg) {
+        return employeeExpMapper.selectBy(employee_cd, employee_name1_last, mail, biko, leave_flg);
     }
 
     // 社員属性マスタ

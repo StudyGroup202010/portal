@@ -209,7 +209,7 @@
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
         <where>
-          <if test="leave_flg != null">
+          <if test="leave_flg == null">
                 a.leave_date is null
           </if>
         </where>

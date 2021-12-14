@@ -34,7 +34,14 @@
                         備考<input type="search" class="form-control reset-field"
                             th:field="*{biko}" />
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">退職者も表示する
+                        <div class="form-check">
+                            <input type="checkbox"
+                                class="form-check-input reset-checkbox"
+                                th:field="*{leave_flg}"> 
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
                         <div class="float-right">
                             <!-- 検索条件のクリア処理 -->
                             <button type="button" id="resetBtn"
