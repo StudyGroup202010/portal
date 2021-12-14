@@ -69,6 +69,9 @@
           and a.employee_name1_last like CONCAT('%' , #{employee_name1_last} , '%')
           and a.mail                like CONCAT('%' , #{mail} , '%')
           and COALESCE(a.biko,'')   like CONCAT('%' , #{biko} , '%')
+        <if test="leave_flg == null">
+          and a.leave_date is null
+        </if>
         order by
           a.employee_cd
     </select>

@@ -68,11 +68,12 @@ $(function() {
         clearResetFiled();
     });
     // 項目のリセット処理詳細
-    // idがreset-area内のclassにreset-fieldが指定してある要素を
+    // idがreset-area内のclassにreset-field、reset-checkboxが指定してある要素を
     // すべて空にします。
     var clearResetFiled = function () {
         $("#reset-area").each(function() {
             $(this).find(".reset-field").val("");
+            $(this).find(".reset-checkbox").prop("checked", false);
         });
     };
 
