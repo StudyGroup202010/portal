@@ -419,7 +419,7 @@ public class userController {
         model.addAttribute("radioLock", initRadioLock());
 
         // プルダウンの内容を設定
-        // 社員一覧の生成（退職者を除く）
+        // 社員一覧の生成（退職者を表示する）
         List<Employee> employeeList = userService.selectManyExceptRetireeEmployee();
 
         // Modelに社員リストを登録
