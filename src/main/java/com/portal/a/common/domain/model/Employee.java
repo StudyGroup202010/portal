@@ -32,6 +32,7 @@ public class Employee {
     private String mail;// メールアドレス
     private Date joined_date;// 入社日
     private Date leave_date;// 退社日
+    private String leave;// 退社済
     private String employeeattribute_id;// 社員属性ID
     private String employeeattribute_name;// 社員属性名
     private String organization_cd;// 組織CD

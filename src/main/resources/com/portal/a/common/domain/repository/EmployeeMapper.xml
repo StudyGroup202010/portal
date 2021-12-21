@@ -28,6 +28,7 @@
         <result column="mail" property="mail" />
         <result column="joined_date" property="joined_date" />
         <result column="leave_date" property="leave_date" />
+        <result column="leave" property="leave" />
         <result column="employeeattribute_id" property="employeeattribute_id" />
         <result column="employeeattribute_name" property="employeeattribute_name" />
         <result column="organization_cd" property="organization_cd" />
@@ -182,6 +183,10 @@
           ,a.mail
           ,a.joined_date
           ,a.leave_date
+          ,case 
+             when a.leave_date is null then ''
+             else '退職済'
+           end as leave
           ,a.employeeattribute_id
           ,b.employeeattribute_name as employeeattribute_name
           ,c.organization_cd
