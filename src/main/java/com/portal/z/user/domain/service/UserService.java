@@ -26,11 +26,18 @@ public interface UserService {
     public List<User> selectMany();
 
     /**
-     * 全件取得用メソッド（退職者を表示しない）.
+     * 全件取得用メソッド（退職者を除く）
      * 
      * @return Employee
      */
     public List<Employee> selectManyExceptRetireeEmployee();
+
+    /**
+     * 全件取得用メソッド（退職者を表示する）
+     * 
+     * @return Employee
+     */
+    public List<Employee> selectManyIncludeRetireeEmployee();
 
     /**
      * １件取得用メソッド.
