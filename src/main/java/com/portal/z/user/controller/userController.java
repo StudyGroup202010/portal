@@ -420,7 +420,7 @@ public class userController {
 
         // プルダウンの内容を設定
         // 社員一覧の生成（退職者を表示する）
-        List<Employee> employeeList = userService.selectManyExceptRetireeEmployee();
+        List<Employee> employeeList = userService.selectManyIncludeRetireeEmployee();
 
         // Modelに社員リストを登録
         model.addAttribute("employeeList", employeeList);

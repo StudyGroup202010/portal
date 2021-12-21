@@ -65,6 +65,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<Employee> selectManyExceptRetireeEmployee() {
+        return employeeMapper.selectMany(null);
+    }
+
+    public List<Employee> selectManyIncludeRetireeEmployee() {
         return employeeMapper.selectMany(Constants.LEAVE_FLG);
     }
 
