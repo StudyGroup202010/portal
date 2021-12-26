@@ -69,7 +69,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public User selectOne(String user_id) {
-        return userMapper.selectOne(user_id);
+        return userMapper.selectOne(user_id, null);
+    }
+
+    public User selectOneByEmployeeid(String employee_id) {
+        return userMapper.selectOne(null, employee_id);
     }
 
     public boolean updateOne(User user) {

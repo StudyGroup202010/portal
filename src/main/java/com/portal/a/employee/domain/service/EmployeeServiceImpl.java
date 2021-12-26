@@ -150,7 +150,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // ユーザマスタ
     public User selectUserOne(String user_id) {
-        return userMapper.selectOne(user_id);
+        return userMapper.selectOne(user_id, null);
     }
 
     public User selectByEmployeeid(String employee_id) {
