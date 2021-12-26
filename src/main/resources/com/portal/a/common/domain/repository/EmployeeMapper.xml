@@ -155,6 +155,9 @@
           <if test="employee_cd != null">
             and a.employee_cd = #{employee_cd}
           </if>
+          <if test="mail != null">
+            and a.mail = #{mail}
+          </if>
         </where>
     </select>
 

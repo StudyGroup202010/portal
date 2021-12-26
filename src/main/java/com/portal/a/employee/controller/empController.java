@@ -319,8 +319,27 @@ public class empController {
             }
 
         } catch (DuplicateKeyException e) {
+
+            // 社員CD確認
+            Employee employeeOne = employeeService.selectOneByEmployeecd(form.getEmployee_cd());
+            if (employeeOne != null) {
+                String message = "社員CD" + employee.getEmployee_cd();
+                String messageKey = "e.co.fw.2.003";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getSignUp(form, model);
+            }
+
+            // メール確認
+            Employee employeeOneMail = employeeService.selectOneByMail(form.getMail());
+            if (employeeOneMail != null) {
+                String message = "メールアドレス" + employee.getMail();
+                String messageKey = "e.co.fw.2.003";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getSignUp(form, model);
+            }
+
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            String message = "社員CD " + employee.getEmployee_cd() + "が既に登録されているか、メールアドレス " + employee.getMail();
+            String message = "入力した社員情報";
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getSignUp(form, model);
@@ -550,8 +569,29 @@ public class empController {
             }
 
         } catch (DuplicateKeyException e) {
+
+            // 社員CD確認
+            Employee employeeOne = employeeService.selectOneByEmployeecd(form.getEmployee_cd());
+            if ((employeeOne != null) && (!employeeOne.getEmployee_id().equals(form.getEmployee_id()))) {
+                // 他の社員IDが同じ社員CDを持っている
+                String message = "社員CD" + employee.getEmployee_cd();
+                String messageKey = "e.co.fw.2.003";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getEmployeeDetail(form, model, "");
+            }
+
+            // メール確認
+            Employee employeeOneMail = employeeService.selectOneByMail(form.getMail());
+            if ((employeeOneMail != null) && (!employeeOneMail.getEmployee_id().equals(form.getEmployee_id()))) {
+                // 他の社員IDが同じメールを持っている
+                String message = "メールアドレス" + employee.getMail();
+                String messageKey = "e.co.fw.2.003";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getEmployeeDetail(form, model, "");
+            }
+
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            String message = "社員CD " + employee.getEmployee_cd() + "が既に登録されているか、メールアドレス " + employee.getMail();
+            String message = "入力した社員情報";
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getEmployeeDetail(form, model, "");
