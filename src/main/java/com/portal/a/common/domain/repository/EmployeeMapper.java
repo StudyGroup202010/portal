@@ -24,9 +24,10 @@ public interface EmployeeMapper {
      * 
      * @param employee_id employee_idで検索したいときに値をセット
      * @param employee_cd employee_cdで検索したいときに値をセット
+     * @param mail        mailで検索したいときに値をセット
      * @return Employee
      */
-    public Employee selectOne(String employee_id, String employee_cd);
+    public Employee selectOne(String employee_id, String employee_cd, String mail);
 
     /**
      * 全件検索用メソッド

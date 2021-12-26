@@ -31,10 +31,11 @@ public interface UserMapper {
     /**
      * １件検索用メソッド
      * 
-     * @param user_id user_id
+     * @param user_id     user_id
+     * @param employee_id employee_id
      * @return User
      */
-    public User selectOne(String user_id);
+    public User selectOne(String user_id, String employee_id);
 
     /**
      * 全件検索用メソッド

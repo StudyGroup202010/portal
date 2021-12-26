@@ -64,7 +64,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee selectOne(String employee_id) {
-        return employeeMapper.selectOne(employee_id, null);
+        return employeeMapper.selectOne(employee_id, null, null);
+    }
+
+    public Employee selectOneByEmployeecd(String employee_cd) {
+        return employeeMapper.selectOne(null, employee_cd, null);
+    }
+
+    public Employee selectOneByMail(String mail) {
+        return employeeMapper.selectOne(null, null, mail);
     }
 
     public boolean updateOne(Employee employee, Employeebelongs employeebelongs) {
@@ -112,7 +120,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         boolean result_1 = employeeMapper.insertOne(employee);
 
         // 社員マスタに登録した社員IDを取得する。
-        Employee inserted_employee = employeeMapper.selectOne(null, employee.getEmployee_cd());
+        Employee inserted_employee = employeeMapper.selectOne(null, employee.getEmployee_cd(), null);
         employeebelongs.setEmployee_id(inserted_employee.getEmployee_id());
 
         // 社員所属マスタ追加実行
@@ -142,7 +150,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     // ユーザマスタ
     public User selectUserOne(String user_id) {
-        return userMapper.selectOne(user_id);
+        return userMapper.selectOne(user_id, null);
     }
 
     public User selectByEmployeeid(String employee_id) {

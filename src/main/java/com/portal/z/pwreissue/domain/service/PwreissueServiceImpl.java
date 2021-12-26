@@ -110,11 +110,11 @@ public class PwreissueServiceImpl implements PwreissueService {
     }
 
     public User selectOne_user(String user_id) {
-        return userMapper.selectOne(user_id);
+        return userMapper.selectOne(user_id, null);
     }
 
     public Employee selectOne_employee(String employee_id) {
-        return employeeMapper.selectOne(employee_id, null);
+        return employeeMapper.selectOne(employee_id, null, null);
     }
 
     /**
@@ -143,17 +143,11 @@ public class PwreissueServiceImpl implements PwreissueService {
         String passwordResetUrl = uriBuilder.build().encode().toUriString();
 
         // メール本文を作成
-        String text = "※本メールアドレスは配信専用のアドレスです。お問い合わせ等で本メールアドレスにご返信いただきましても回答できませんのでご了承ください。\n\n"
-                + mail_to + "　様\n"
-                + "お世話になっております。システム担当者です。\n\n"
-                + "ご依頼いただきましたパスワード再設定画面のURLは下記の通りです。\n"
-                + "リンクをクリックして、パスワード再設定画面からパスワードの再設定をお願いします。\n\n"
-                + "【注意】URLの有効期間は約" + Constants.EXPIRYDATE_NXT
-                + "分間です。有効期間を過ぎた場合は無効になりますので再手続きをお願いします。\n\n"
-                + "---------------------------\n"
-                + "パスワード再設定画面のURL:\n "
-                + passwordResetUrl + "\n\n"
-                + "---------------------------\n\n"
+        String text = "※本メールアドレスは配信専用のアドレスです。お問い合わせ等で本メールアドレスにご返信いただきましても回答できませんのでご了承ください。\n\n" + mail_to + "　様\n"
+                + "お世話になっております。システム担当者です。\n\n" + "ご依頼いただきましたパスワード再設定画面のURLは下記の通りです。\n"
+                + "リンクをクリックして、パスワード再設定画面からパスワードの再設定をお願いします。\n\n" + "【注意】URLの有効期間は約" + Constants.EXPIRYDATE_NXT
+                + "分間です。有効期間を過ぎた場合は無効になりますので再手続きをお願いします。\n\n" + "---------------------------\n" + "パスワード再設定画面のURL:\n "
+                + passwordResetUrl + "\n\n" + "---------------------------\n\n"
                 + "※本メールにお心当たりのない場合は、破棄していただきますようお願い申し上げます。";
 
         // 送信元メールアドレスを取得
