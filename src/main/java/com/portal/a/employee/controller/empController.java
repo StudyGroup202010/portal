@@ -452,13 +452,22 @@ public class empController {
             }
         }
 
-        // 退社日チェック(入社日 <= 退社日）
+        // 退社日チェック
         if (form.getLeave_date() != null) {
+            // 入社日 <= 退社日
             if (DateUtils.compareDateTime(form.getJoined_date().atStartOfDay(),
                     form.getLeave_date().atStartOfDay()) == 1) {
                 // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
                 model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.022",
                         new String[] { "入社日：" + form.getJoined_date(), "退社日：" + form.getLeave_date() }));
+                return getEmployeeDetail(form, model, "");
+            }
+
+            // ユーザマスタに登録されている場合は、先にユーザマスタを削除すること
+            User selectByEmployeeid = employeeService.selectByEmployeeid(form.getEmployee_id());
+            if (selectByEmployeeid != null) {
+                String message = "この社員はユーザ情報が登録されているので退職日を登録できません。先にユーザ情報を削除するなどのメンテナンスをして下さい。";
+                model.addAttribute("result", message);
                 return getEmployeeDetail(form, model, "");
             }
         }
