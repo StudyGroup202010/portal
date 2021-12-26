@@ -26,12 +26,28 @@ public interface EmployeeService {
     public List<Employee> selectMany(String leave_flg);
 
     /**
-     * １件取得用メソッド（社員マスタ）.
+     * １件取得（社員ID）用メソッド（社員マスタ）.
      * 
      * @param employee_id employee_id
      * @return employee
      */
     public Employee selectOne(String employee_id);
+
+    /**
+     * １件取得（社員CD）用メソッド（社員マスタ）.
+     * 
+     * @param employee_cd employee_cd
+     * @return employee
+     */
+    public Employee selectOneByEmployeecd(String employee_cd);
+
+    /**
+     * １件取得（メール）用メソッド（社員マスタ）.
+     * 
+     * @param mail mail
+     * @return employee
+     */
+    public Employee selectOneByMail(String mail);
 
     /**
      * １件更新用メソッド（社員マスタ）.

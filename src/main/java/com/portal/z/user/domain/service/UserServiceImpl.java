@@ -68,12 +68,12 @@ public class UserServiceImpl implements UserService {
         return employeeMapper.selectMany(null);
     }
 
-    public List<Employee> selectManyIncludeRetireeEmployee() {
-        return employeeMapper.selectMany(Constants.LEAVE_FLG);
+    public User selectOne(String user_id) {
+        return userMapper.selectOne(user_id, null);
     }
 
-    public User selectOne(String user_id) {
-        return userMapper.selectOne(user_id);
+    public User selectOneByEmployeeid(String employee_id) {
+        return userMapper.selectOne(null, employee_id);
     }
 
     public boolean updateOne(User user) {

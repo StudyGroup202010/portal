@@ -33,19 +33,20 @@ public interface UserService {
     public List<Employee> selectManyExceptRetireeEmployee();
 
     /**
-     * 全件取得用メソッド（退職者を表示する）
+     * １件取得（ユーザID）用メソッド.
      * 
-     * @return Employee
-     */
-    public List<Employee> selectManyIncludeRetireeEmployee();
-
-    /**
-     * １件取得用メソッド.
-     * 
-     * @param user_id user
+     * @param user_id user_id
      * @return User
      */
     public User selectOne(String user_id);
+
+    /**
+     * １件取得（社員ID）用メソッド.
+     * 
+     * @param employee_id employee_id
+     * @return User
+     */
+    public User selectOneByEmployeeid(String employee_id);
 
     /**
      * １件更新用メソッド.

@@ -73,9 +73,15 @@
           ,update_user
           ,update_date
         from
-          zm001_user u
-        where
-          user_id = #{user_id}
+          zm001_user
+        <where>
+          <if test="user_id != null">
+                user_id = #{user_id}
+          </if>
+          <if test="employee_id != null">
+            and employee_id = #{employee_id}
+          </if>
+        </where>
     </select>
 
     <!-- 全件検索 -->

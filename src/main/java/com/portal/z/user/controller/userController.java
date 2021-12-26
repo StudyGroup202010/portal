@@ -365,7 +365,25 @@ public class userController {
 
         } catch (DuplicateKeyException e) {
             // 一意制約エラーが発生した時はビジネス例外として返す。
-            String message = "ユーザID " + user.getUser_id() + "が既に登録されているか、社員";
+            // ユーザID確認
+            User userOne = userService.selectOne(form.getUser_id());
+            if (userOne != null) {
+                String message = "ユーザID " + form.getUser_id();
+                String messageKey = "e.co.fw.2.003";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getSignUp(form, model);
+            }
+
+            // 社員ID確認
+            User userOneByEmployeeid = userService.selectOneByEmployeeid(form.getEmployee_id());
+            if (userOneByEmployeeid != null) {
+                String message = "社員";
+                String messageKey = "e.co.fw.2.003";
+                model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
+                return getSignUp(form, model);
+            }
+
+            String message = "入力したユーザ情報";
             String messageKey = "e.co.fw.2.003";
             model.addAttribute("result", massageUtils.getMsg(messageKey, new String[] { message }));
             return getSignUp(form, model);
@@ -419,8 +437,8 @@ public class userController {
         model.addAttribute("radioLock", initRadioLock());
 
         // プルダウンの内容を設定
-        // 社員一覧の生成（退職者を表示する）
-        List<Employee> employeeList = userService.selectManyIncludeRetireeEmployee();
+        // 社員一覧の生成（退職者を除く）
+        List<Employee> employeeList = userService.selectManyExceptRetireeEmployee();
 
         // Modelに社員リストを登録
         model.addAttribute("employeeList", employeeList);
