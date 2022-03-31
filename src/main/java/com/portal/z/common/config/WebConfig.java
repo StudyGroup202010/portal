@@ -8,8 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.portal.z.common.domain.util.Constants;
 
 /**
  * Webの設定<BR>
@@ -68,5 +71,21 @@ public class WebConfig implements WebMvcConfigurer {
         localValidatorFactoryBean.setValidationMessageSource(messageSource());
 
         return localValidatorFactoryBean;
+    }
+
+    /**
+     * CORS設定<BR>
+     * RestApi用にCORSを有効にします。
+     *
+     */
+    @Configuration
+    public static class WebMvcConfig implements WebMvcConfigurer {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/api/**")
+                    //TODO 全オリジンを有効にしているので、号口環境が決定したら再設定すること
+                    .allowedOrigins(Constants.CORS_ALLOWED_ORIGINS_1,"*")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE");
+        }
     }
 }

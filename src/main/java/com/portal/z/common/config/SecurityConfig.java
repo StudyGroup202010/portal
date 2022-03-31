@@ -73,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll() // ログインページは直リンクOK
                 .antMatchers("/pwreissue").permitAll() // パスワード再設定ページは直リンクOK
                 .antMatchers("/resetpassword").permitAll() // パスワード再発行ページは直リンクOK
+                .antMatchers("/api/**").permitAll() // RestAPIは直リンクOK
                 .antMatchers("/admin").hasAuthority("ROLE_ADMIN") // 指定ロール名に許可(ロールマスタのロール名）
                 .antMatchers("/error/session").permitAll() // セッションエラー
                 .anyRequest().authenticated(); // それ以外は直リンク禁止
