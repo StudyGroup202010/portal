@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.b.common.domain.repository.IndustryMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.b.common.domain.model.Industry"
+        id="industry">
+        <id column="industry_id" property="industry_id" />
+        <result column="industry_name" property="industry_name" />
+        <result column="disp_order" property="disp_order" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.b.common.domain.model.Industry">
+        insert into
+          bm003_industry (
+           industry_id
+          ,industry_name
+          ,disp_order
+          ,biko
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{industry_id}
+          ,#{industry_name}
+          ,cast(#{disp_order} as integer)
+          ,#{biko}
+          ,#{insert_user}
+          ,NOW()
+          ,#{insert_user}
+          ,NOW()
+          )
+    </insert>
+    
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultMap="industry">
+        select
+           a.industry_id
+          ,a.industry_name
+          ,a.disp_order
+          ,a.biko
+        from
+          bm003_industry a
+        where 
+              a.industry_id      = #{industry_id}
+    </select>
+    
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="industry">
+        select
+           industry_id
+          ,industry_name
+          ,disp_order
+          ,biko
+        from
+          bm003_industry
+        order by
+          industry_id
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.b.common.domain.model.Industry">
+        update
+          bm003_industry
+        set
+           industry_name    = #{industry_name}
+          ,disp_order       = cast(#{disp_order} as integer)
+          ,biko             = #{biko}
+          ,update_user      = #{update_user}
+          ,update_date      = NOW()
+        where industry_id   = #{industry_id}
+    </update>
+    
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from bm003_industry
+        where industry_id   = #{industry_id}
+    </delete>
+</mapper>
