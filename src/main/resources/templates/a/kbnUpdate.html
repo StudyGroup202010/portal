@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>KbnUpdate</title>
+</head>
+<body>
+	<div th:fragment="kbnUpdate_contents">
+		<div class="col-xl-6">
+			<div class="page-header">
+				<h3>汎用区分マスタ登録</h3>
+			</div>
+			<!-- 汎用区分マスタ登録画面の表示 -->
+			<label class="text-danger" th:text="${result}"></label>
+			<form method="post" th:action="@{/kbnUpdate}"
+				th:object="${kbnForm}">
+				<table class="table table-bordered table-hover table-sm">
+					<!-- 区分IDの入力エリア -->
+                    <tr>
+                        <th class="active table-info">区分ID<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('kbn_id')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{kbn_id}" autofocus />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('kbn_id')}"
+                                    th:errors="*{kbn_id}">
+                                    kbn_id error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 区分値 -->
+					<tr>
+						<th class="table-info">区分値<BR>
+                        <img th:src="@{/image/required.png}"></th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control" th:field="*{kbn_txt}" />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('kbn_txt')}" th:errors="*{kbn_txt}" >
+                                    kbn_txt error </span>
+							</div>
+						</td>
+					</tr>
+
+                    <!-- 区分名 -->
+                    <tr>
+                        <th class="active table-info">区分名<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('kbn_name')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{kbn_name}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('kbn_name')}"
+                                    th:errors="*{kbn_name}">
+                                    kbn_name error </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- 備考 -->
+                    <tr>
+                        <th class="active table-info">備考</th>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control"
+                                    th:field="*{biko}" />
+                            </div>
+                        </td>
+                    </tr>
+
+					<!-- 有効フラグ -->
+					<tr>
+						<th class="table-info">有効フラグ</th>
+						<td>
+							<div class="form-group">
+								<div th:each="item : ${radioEnabled}">
+									<input type="radio"
+										name="enabled_flg"
+										th:text="${item.key}"
+										th:value="${item.value}"
+										th:field="*{enabled_flg}">
+								</div>
+								<span class="text-danger"
+									th:if="${#fields.hasErrors('enabled_flg')}"
+									th:errors="*{enabled_flg}">
+									enabled_flg error </span>
+							</div>
+						</td>
+					</tr>
+					
+					<!-- 表示順 -->
+					<tr>
+						<th class="table-info">ＮＯ(表示順)</th>
+						<td>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
+								<input type="text" class="form-control"
+									th:field="*{disp_order}" />
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('disp_order')}"
+										th:errors="*{disp_order}">
+									</span>
+							</div>
+						</td>
+					</tr>
+
+                </table>
+
+				<!-- 戻るボタン -->
+				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
+				<!-- 登録ボタン -->
+				<button class="btn btn-lg btn-danger float-right" type="button"
+					data-toggle="modal" data-target="#Modalinsert">登録</button>
+				<!-- 登録Modal -->
+				<div class="modal" data-backdrop="static" data-keyboard="false"
+					id="Modalinsert" tabindex="-1" role="dialog"
+					aria-labelledby="ModalInsertTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-sm"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6 class="modal-title" id="ModalInsertTitle">確認</h6>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">登録してもよろしいでしょうか？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-lg btn-primary"
+									data-dismiss="modal">戻る</button>
+								<button type="submit" name="insert"
+									class="btn btn-lg btn-danger">実行</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

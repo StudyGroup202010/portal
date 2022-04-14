@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.a.common.domain.repository.KbnMapper">
+    <!-- マッピング定義 -->
+    <resultMap type="com.portal.a.common.domain.model.Kbn" id="kbn">
+        <id column="kbn_id" property="kbn_id" />
+        <id column="kbn_txt" property="kbn_txt" />
+        <id column="kbn_name" property="kbn_name" />
+        <id column="biko" property="biko" />
+        <id column="enabled_flg" property="enabled_flg" />
+        <id column="disp_order" property="disp_order" />
+        <result column="kbn_id" property="kbn_id" />
+        <result column="kbn_txt" property="kbn_txt" />
+        <result column="kbn_name" property="kbn_name" />
+        <result column="biko" property="biko" />
+        <result column="enabled_flg" property="enabled_flg" />
+        <result column="disp_order" property="disp_order" />
+    </resultMap>
+
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.a.common.domain.model.Kbn">
+        insert into
+          am998_kbn( 
+           kbn_id
+          ,kbn_txt
+          ,kbn_name
+          ,biko
+          ,enabled_flg
+        <!-- 未入力の場合はデフォルト値を設定する TODO AOYAGI 仕様の確認 -->
+        <if test="disp_order != null">
+          ,disp_order
+        </if>     
+          ) 
+        values ( 
+           #{kbn_id}
+          ,#{kbn_txt}
+          ,#{kbn_name}
+          ,#{biko}
+          ,#{enabled_flg}
+          <!-- 未入力の場合はデフォルト値を設定する TODO AOYAGI 仕様の確認 -->
+          <if test="disp_order != null">
+          ,#{disp_order}
+          </if>     
+
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="com.portal.a.common.domain.model.Kbn"
+        resultType="com.portal.a.common.domain.model.Kbn">
+        select
+           kbn_id
+          ,kbn_txt
+          ,kbn_name
+          ,biko
+          ,enabled_flg
+          ,disp_order
+        from
+          am998_kbn
+        where
+          kbn_id = #{kbn_id}
+          and kbn_txt = #{kbn_txt}
+        order by
+          kbn_id
+          ,disp_order
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="kbn">
+        select
+           kbn_id
+          ,kbn_txt
+          ,kbn_name
+          ,biko
+          ,enabled_flg
+          ,disp_order
+        from
+          am998_kbn
+        order by
+          kbn_id
+          ,disp_order
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.a.common.domain.model.Kbn">
+        update
+          am998_kbn
+        set
+           kbn_name      = #{kbn_name}
+          ,biko          = #{biko}
+          ,enabled_flg   = #{enabled_flg}
+        <!-- 未入力の場合は更新しない TODO AOYAGI 仕様の確認 -->
+        <if test="disp_order != null">
+          ,disp_order    = #{disp_order}
+        </if>      
+        where
+          kbn_id = #{kbn_id}
+          and kbn_txt = #{kbn_txt}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="com.portal.a.common.domain.model.Kbn">
+        delete
+        from
+          am998_kbn
+        where
+          kbn_id = #{kbn_id}
+          and kbn_txt = #{kbn_txt}
+    </delete>
+
+    <!-- 条件検索(区分ID,区分値、区分名、備考) -->
+    <select id="selectBy" parameterType="com.portal.a.common.domain.model.Kbn" resultMap="kbn">
+
+        select
+           kbn_id
+          ,kbn_txt
+          ,kbn_name
+          ,biko
+          ,enabled_flg
+          ,disp_order
+        from
+          am998_kbn
+
+        <where>
+        <!-- where要素の中なので、SQLとしてwhereは不要 -->
+        <if test="kbn_id != null">
+            kbn_id                         like CONCAT('%' , #{kbn_id} , '%')
+        </if>         
+        <if test="kbn_txt != null">
+            and kbn_txt                    like CONCAT('%' , #{kbn_txt} , '%')
+        </if>         
+        <if test="kbn_name != null">
+            and kbn_name                   like CONCAT('%' , #{kbn_name} , '%')
+        </if>         
+        <if test="biko != null">
+            and COALESCE(biko,'')          like CONCAT('%' , #{biko} , '%')
+        </if>         
+        </where>
+
+        order by
+           kbn_id
+          ,disp_order
+
+    </select>
+
+</mapper>
