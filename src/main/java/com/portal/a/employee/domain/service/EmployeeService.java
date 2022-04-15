@@ -20,9 +20,10 @@ public interface EmployeeService {
     /**
      * 全件取得用メソッド（社員マスタ）.
      * 
+     * @param leave_flg 検索結果から退職者を表示したい時に"1"をセットする
      * @return EmployeeList
      */
-    public List<Employee> selectMany();
+    public List<Employee> selectMany(String leave_flg);
 
     /**
      * １件取得用メソッド（社員マスタ）.
@@ -65,9 +66,11 @@ public interface EmployeeService {
      * @param employee_name1_last employee_name1_last
      * @param mail                mail
      * @param biko                biko
+     * @param leave_flg           leave_flg
      * @return EmployeeList
      */
-    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
+    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko,
+            String leave_flg);
 
     // 社員属性マスタ
     /**

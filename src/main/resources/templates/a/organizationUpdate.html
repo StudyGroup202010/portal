@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>OrganizationUpdate</title>  
+</head>
+<body>
+	<div th:fragment="organizationUpdate_contents">
+		<div class="col-xl-6">
+			<div class="page-header">
+				<h3>組織マスタ登録</h3>
+			</div>
+			<!-- 組織マスタ登録画面の結果表示 -->
+			<label class="text-danger" th:text="${result}"></label>
+			<form method="post" th:action="@{/organizationUpdate}"
+				th:object="${inputOrganizationForm}">
+				<table class="table table-bordered table-hover table-sm">
+					<!-- 組織CDの入力エリア -->
+                    <tr>
+                        <th class="active table-info">組織CD<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('organization_cd')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{organization_cd}" autofocus />
+                                <span class="text-danger"
+                                    th:if="${#fields.hasErrors('organization_cd')}"
+                                    th:errors="*{organization_cd}">
+                                    organization_cd error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 組織名 -->
+                    <tr>
+                        <th class="active table-info">組織名<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('organization_name')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{organization_name}" /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('organization_name')}"
+                                    th:errors="*{organization_name}">
+                                    organization_name error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 会社CD -->
+                    <tr>
+                        <th class="active table-info">会社CD</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('company_cd')} ? 'has-error'">
+                                <select class="form-control"
+                                    th:field="*{company_cd}">
+                                    <option
+                                        th:each="companyList : ${companyList}"
+                                        th:value="${companyList.company_cd}"
+                                        th:text="${companyList.company_cd}+'   '+${companyList.company_name}"
+                                        th:selected="${companyList.company_cd}"></option>
+                                </select> <span class="text-danger"
+                                    th:if="${#fields.hasErrors('company_cd')}"
+                                    th:errors="*{company_cd}">
+                                    company_cd error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 開始年月 -->
+                    <tr>
+                        <th class="active table-info">開始年月<BR>
+                        <img th:src="@{/image/required.png}"></th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('start_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{start_yearmonth}"
+                                    placeholder="YYYYMM" 
+                                    inputmode="numeric"
+                                     /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('start_yearmonth')}"
+                                    th:errors="*{start_yearmonth}">
+                                    start_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 最終年月 -->
+                    <tr>
+                        <th class="active table-info">最終年月</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('end_yearmonth')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{end_yearmonth}"
+                                    placeholder="YYYYMM" 
+                                    inputmode="numeric"
+                                     /> <span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('end_yearmonth')}"
+                                    th:errors="*{end_yearmonth}">
+                                    end_yearmonth error </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- 備考 -->
+                    <tr>
+                        <th class="active table-info">備考</th>
+                        <td>
+                            <div class="form-group"
+                                th:classappend="${#fields.hasErrors('biko')} ? 'has-error'">
+                                <input type="text" class="form-control"
+                                    th:field="*{biko}" />　<span
+                                    class="text-danger"
+                                    th:if="${#fields.hasErrors('biko')}"
+                                    th:errors="*{biko}">
+                                    biko　error </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+				<!-- 戻るボタン -->
+				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
+				<!-- 登録ボタン -->
+				<button class="btn btn-lg btn-danger float-right" type="button"
+					data-toggle="modal" data-target="#Modalinsert">登録</button>
+				<!-- 登録Modal -->
+				<div class="modal" data-backdrop="static" data-keyboard="false"
+					id="Modalinsert" tabindex="-1" role="dialog"
+					aria-labelledby="ModalInsertTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-sm"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6 class="modal-title" id="ModalInsertTitle">確認</h6>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">登録してもよろしいでしょうか？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-lg btn-primary"
+									data-dismiss="modal">戻る</button>
+								<button type="submit" name="insert"
+									class="btn btn-lg btn-danger">実行</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -16,49 +16,61 @@
 		</div>
         <div class="container-fluid border bg-light">
             <form method="post" th:action="@{/empList}"
-                th:object="${selectEmployeeForm}">
+                th:object="${selectEmployeeForm}" id="reset-area">
                 <div class="row">
                     <div class="col-sm-2">
-                        社員CD<input type="search" class="form-control"
+                        社員CD<input type="search" class="form-control reset-field"
                             autofocus th:field="*{employee_cd}" />
                     </div>
                     <div class="col-sm-2">
-                        社員名漢字（姓）<input type="search" class="form-control"
+                        社員名漢字（姓）<input type="search" class="form-control reset-field"
                             th:field="*{employee_name1_last}" />
                     </div>
                     <div class="col-sm-2">
-                        メールアドレス<input type="search" class="form-control"
+                        メールアドレス<input type="search" class="form-control reset-field"
                             th:field="*{mail}" />
                     </div>
                     <div class="col-sm-2">
-                        備考<input type="search" class="form-control"
+                        備考<input type="search" class="form-control reset-field"
                             th:field="*{biko}" />
                     </div>
-                    <div class="col-sm-4">
-                        <!-- 検索実行 -->
-                        <button type="submit" name="selectby"
-                            class="btn btn-primary btn-lg float-right">検索</button>
+                    <div class="col-sm-2">退職者も表示する
+                        <div class="form-check">
+                            <input type="checkbox"
+                                class="form-check-input reset-checkbox"
+                                th:field="*{leave_flg}"> <label
+                                class="form-check-label"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
-		<div class="table-responsive">
-            <div class="col">
-                <!-- CSV出力用のリンク -->
-                <a class="btn btn-primary" th:href="@{'/empList/csv'}">CSV出力</a>
-                <!-- EXCEL出力用のリンク -->
-                <a class="btn btn-primary" th:href="@{'/empList/excel'}">EXCEL出力</a>
-                <!-- 社員登録画面へのリンク -->
-                <a class="btn btn-danger float-right"
-                    th:href="@{'/empUpdate'}"
-                    sec:authorize="hasRole('ADMIN')">新規登録</a>
-            </div>
-
-            <!-- 社員一覧の件数 -->
+        <div class="col">
+            <!-- CSV出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/empList/csv'}">CSV出力</a>
+            <!-- EXCEL出力用のリンク -->
+            <a class="btn btn-primary" th:href="@{'/empList/excel'}">EXCEL出力</a>
+            <!-- 社員登録画面へのリンク -->
+            <a class="btn btn-danger float-right"
+                th:href="@{'/empUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
+        <!-- 社員一覧の件数 -->
             <label th:text=" '合計：' + ${empListCount} + '件' "></label>
             <!-- 更新・削除処理の結果表示用 -->
             <label class="text-danger" th:text="${result}">結果表示</label><br />
-
+        <div class="table-responsive">
             <table
 				class="table table-bordered table-hover table-striped table-sm">
 
@@ -66,15 +78,15 @@
 					<tr class="table-info">
 						<th scope="col"></th>
 						<th scope="col"><p class="text-nowrap text-center">社員CD</p></th>
-						<th scope="col"><p class="text-nowrap text-center">社員名漢字（姓）</p></th>
-						<th scope="col"><p class="text-nowrap text-center">社員名漢字（名）</p></th>
+						<th scope="col"><p class="text-nowrap text-center">社員名（姓）</p></th>
+						<th scope="col"><p class="text-nowrap text-center">社員名（名）</p></th>
                         <th scope="col"><p class="text-nowrap text-center">組織</p></th>
-                        <th scope="col"><p class="text-nowrap text-center">社員属性名</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">社員属性</p></th>
                         <th scope="col"><p class="text-nowrap text-center">メールアドレス</p></th>
                         <th scope="col"><p class="text-nowrap text-center">性別</p></th>
                         <th scope="col"><p class="text-nowrap text-center">入社日</p></th>
                         <th scope="col"><p class="text-nowrap text-center">退社日</p></th>
-						<th scope="col"><p class="text-nowrap text-center">　　　　　　　備考　　　　　　　</p></th>
+						<th scope="col"><p class="text-nowrap text-center">　　　　備考　　　　</p></th>
 					</tr>
 				</thead>
 				<tbody>

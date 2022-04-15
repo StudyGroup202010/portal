@@ -22,17 +22,19 @@ public interface EmployeeMapper {
     /**
      * １件検索用メソッド(employee_id)
      * 
-     * @param employee_id employee_id
+     * @param employee_id employee_idで検索したいときに値をセット
+     * @param employee_cd employee_cdで検索したいときに値をセット
      * @return Employee
      */
-    public Employee selectOne(String employee_id);
+    public Employee selectOne(String employee_id, String employee_cd);
 
     /**
      * 全件検索用メソッド
      * 
+     * @param leave_flg 検索結果から退職者を表示したい時に"1"をセットする
      * @return EmployeeList
      */
-    public List<Employee> selectMany();
+    public List<Employee> selectMany(String leave_flg);
 
     /**
      * １件更新用メソッド

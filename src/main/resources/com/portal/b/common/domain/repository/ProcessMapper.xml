@@ -43,7 +43,7 @@
         from
           bm004_process a
         where 
-              a.process_id = #{process_id}
+           a.process_id = #{process_id}
     </select>
     
     <!-- 全件検索 -->

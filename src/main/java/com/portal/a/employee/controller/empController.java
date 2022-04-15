@@ -93,8 +93,8 @@ public class empController {
         // コンテンツ部分に社員マスタ一覧を表示するための文字列を登録
         model.addAttribute("contents", "a/empList :: empList_contents");
 
-        // 社員マスタ一覧の生成
-        List<Employee> empList = employeeService.selectMany();
+        // 社員マスタ一覧の生成（退職者を表示しない）
+        List<Employee> empList = employeeService.selectMany(null);
 
         // Modelにユーザーリストを登録
         model.addAttribute("empList", empList);
@@ -117,15 +117,20 @@ public class empController {
      * @return z/homeLayout
      */
     @RequestMapping(value = "/empList", params = "selectby")
-    public String getEmployeeListByEnvid(@ModelAttribute SelectEmployeeForm form, BindingResult bindingResult,
-            Model model) {
+    public String getEmployeeListBy(@ModelAttribute SelectEmployeeForm form, BindingResult bindingResult, Model model) {
 
         // コンテンツ部分に社員マスタ一覧を表示するための文字列を登録
         model.addAttribute("contents", "a/empList :: empList_contents");
 
+        // 退職者を表示する場合
+        String leave_flg = null;
+        if (form.isLeave_flg() == true) {
+            leave_flg = Constants.LEAVE_FLG;
+        }
+
         // 社員マスタ情報を取得
         List<Employee> empList = employeeService.selectBy(form.getEmployee_cd(), form.getEmployee_name1_last(),
-                form.getMail(), form.getBiko());
+                form.getMail(), form.getBiko(), leave_flg);
 
         // Modelに社員マスタリストを登録
         model.addAttribute("empList", empList);
@@ -149,7 +154,7 @@ public class empController {
     public EmployeeListCsvView getEmployeeListCsv(EmployeeListCsvView model) {
 
         // 社員マスタ一覧の生成
-        List<Employee> employeeList = employeeService.selectMany();
+        List<Employee> employeeList = employeeService.selectMany(Constants.LEAVE_FLG);
 
         // Modelにユーザーリストを登録
         model.addStaticAttribute("employeeList", employeeList);
@@ -169,7 +174,7 @@ public class empController {
     public EmployeeListXlsxView excel(EmployeeListXlsxView model) {
 
         // 社員マスタ一覧の生成
-        List<Employee> employeeList = employeeService.selectMany();
+        List<Employee> employeeList = employeeService.selectMany(Constants.LEAVE_FLG);
 
         // Modelに社員マスタリストを登録
         model.addStaticAttribute("employeeList", employeeList);

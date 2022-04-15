@@ -39,7 +39,6 @@
 
     <!-- １件検索 -->
     <select id="selectOneById" parameterType="string" resultType="com.portal.a.common.domain.model.Employeebelongs">
-    <![CDATA[
         select
            a.employee_id
           ,a.start_yearmonth
@@ -58,8 +57,9 @@
              where
                b.employee_id = #{employee_id}
              and
+             <![CDATA[
                b.start_yearmonth <= to_char(now(),'YYYYMM'))
-    ]]>
+             ]]>
     </select>
 
     <!-- １件更新 -->

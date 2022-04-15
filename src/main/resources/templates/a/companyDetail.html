@@ -38,7 +38,7 @@
                             <div class="form-group"
                                 th:classappend="${#fields.hasErrors('company_name')} ? 'has-error'">
                                 <input type="text" class="form-control"
-                                    th:field="*{company_name}" /> <span
+                                    th:field="*{company_name}" autofocus /> <span
                                     class="text-danger"
                                     th:if="${#fields.hasErrors('company_name')}"
                                     th:errors="*{company_name}">
@@ -58,8 +58,7 @@
 				</table>
 
 				<!-- 戻るボタン -->
-				<button class="btn btn-lg btn-primary" type="submit" name="back"
-					autofocus>戻る</button>
+				<button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
 				<!-- 更新ボタン -->
 				<button class="btn btn-lg btn-danger float-right" type="button"
 					data-toggle="modal" data-target="#Modalupdate"

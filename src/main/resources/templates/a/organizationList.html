@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>OrganizationList</title>  
+</head>
+<body>
+	<div th:fragment="organizationList_contents">
+		<div class="page-header">
+			<h3>組織マスタ一覧</h3>
+		</div>
+		<div class="container-fluid border bg-light">
+			<form method="post" th:action="@{/organizationList}"
+				th:object="${selectOrganizationForm}" id="reset-area">
+				<div class="row">
+					<div class="col-sm-2">
+						組織名<input type="search" class="form-control reset-field" autofocus
+							th:field="*{organization_name}" />
+					</div>
+                    <div class="col-sm-2">
+                        会社CD<input type="search" class="form-control reset-field" 
+                            th:field="*{company_cd}" />
+                    </div>
+                    <div class="col-sm-2">
+                        開始年月<input type="search" class="form-control reset-field" 
+                            th:field="*{start_yearmonth}" />
+                    </div>
+                    <div class="col-sm-2">
+                        最終年月<input type="search" class="form-control reset-field" 
+                            th:field="*{end_yearmonth}" />
+                    </div>
+     				<div class="col-sm-2">
+						備考<input type="search" class="form-control reset-field" th:field="*{biko}" />
+					</div>
+					<div class="col-sm-2">
+                        <div class="float-right">
+                            <!-- 検索条件のクリア処理 portal.jsに処理を記載 -->
+                            <button type="button" id="resetBtn"
+                                name="resetBtn"
+                                class="btn btn-primary btn-lg">クリア</button>
+                            <!-- 検索実行 -->
+                            <button type="submit" name="selectby"
+                                class="btn btn-primary btn-lg">検索</button>
+                        </div>
+                    </div>
+				</div>
+			</form>
+		</div>
+        <div class="col">
+            <!-- EXCEL出力用のリンク -->
+            <a class="btn btn-primary"
+                th:href="@{'/organizationList/excel'}">EXCEL出力</a>
+            <!-- 組織登録画面へのリンク -->
+            <a class="btn btn-danger float-right"
+                th:href="@{'/organizationUpdate'}"
+                sec:authorize="hasRole('ADMIN')">新規登録</a>
+        </div>
+        <!-- 組織一覧の件数 -->
+        <label th:text=" '合計：' + ${organizationListCount} + '件' "></label>
+        <!-- 更新・削除処理の結果表示用 -->
+        <label class="text-danger" th:text="${result}">結果表示</label><br />
+        <div class="table-responsive">
+			<table
+				class="table table-bordered table-hover table-striped table-sm">
+
+				<thead>
+					<tr class="table-info">
+						<th scope="col"></th>
+						<th scope="col"><p class="text-nowrap text-center">組織CD</p></th>
+						<th scope="col"><p class="text-nowrap text-center">組織名</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">会社CD</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">開始年月</p></th>
+                        <th scope="col"><p class="text-nowrap text-center">最終年月</p></th>
+						<th scope="col"><p class="text-nowrap text-center">　　　　　備考　　　　　</p></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="organization : ${organizationList}">
+						<td align="center"><a class="btn btn-primary"
+							th:href="@{'/organizationDetail/' + ${organization.organization_cd}}">詳細</a></td>
+						<td align="left" th:text="${organization.organization_cd}"></td>
+						<td align="left" th:text="${organization.organization_name}"></td>
+                        <td align="left" th:text="${organization.company_cd}"></td>
+                        <td align="left" th:text="${organization.start_yearmonth}"></td>
+                        <td align="left" th:text="${organization.end_yearmonth}"></td>
+						<td align="left" th:text="${organization.biko}"></td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+</body>
+</html>

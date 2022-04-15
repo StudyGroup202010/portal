@@ -84,7 +84,6 @@
     
     <!-- 全件検索 -->
     <select id="selectMany" resultMap="skill">
-    <![CDATA[
         select
            a.employee_id
           ,a.employee_cd
@@ -111,12 +110,13 @@
                    from
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
+                   <![CDATA[
                      and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                   ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
         order by
           a.employee_cd
-    ]]>
     </select>
 
     <!-- １件更新 -->
@@ -143,7 +143,6 @@
 
     <!-- 条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="skill">
-    <![CDATA[
         select
            a.employee_id
           ,a.employee_cd
@@ -169,7 +168,9 @@
                    from
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
+                   <![CDATA[
                      and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                   ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
         where a.employee_cd         like CONCAT('%' , #{employee_cd}  , '%')
@@ -178,11 +179,9 @@
           and COALESCE(b.biko,'')   like CONCAT('%' , #{biko} , '%')
         order by
           a.employee_cd
-    ]]>
     </select>
     <!-- 条件検索EXCEL -->
     <select id="selectByExcel" parameterType="string" resultMap="skill">
-    <![CDATA[
         select
            a.employee_id
           ,a.employee_cd
@@ -219,7 +218,9 @@
                    from
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
+                   <![CDATA[
                      and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                   ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
           left join bt003_career f
@@ -290,6 +291,5 @@
          ,f.disp_order
          ,f.start_yearmonth
          ,f.end_yearmonth
-    ]]>
     </select>
 </mapper>

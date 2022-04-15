@@ -153,7 +153,6 @@
     
     <!-- ユーザIDとユーザ有効期限で条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="user">
-    <![CDATA[
         select
            user_id
           ,user_due_date
@@ -170,11 +169,12 @@
         from
           zm001_user
         where user_id like CONCAT('%' , #{user_id} , '%')
+        <![CDATA[
         and TO_CHAR(user_due_date,'YYYYMMDD') >= #{user_due_date_from}
         and TO_CHAR(user_due_date,'YYYYMMDD') <= #{user_due_date_to}
+        ]]>
         order by
           user_id
-    ]]>
     </select>
     
     <!-- ログイン失敗回数を0に更新 -->
@@ -191,7 +191,6 @@
     
     <!-- 社員IDで条件検索 -->
     <select id="selectByEmployeeid" parameterType="string" resultMap="user">
-    <![CDATA[
         select
            user_id
           ,user_due_date
@@ -208,6 +207,5 @@
         from
           zm001_user
         where employee_id = #{employee_id}
-    ]]>
     </select>
 </mapper>

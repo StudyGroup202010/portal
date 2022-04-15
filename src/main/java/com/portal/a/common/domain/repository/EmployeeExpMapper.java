@@ -10,22 +10,6 @@ import com.portal.a.common.domain.model.Employee;
  */
 @Mapper
 public interface EmployeeExpMapper {
-    
-    /**
-     * 全件検索用メソッド（退職者を除く）
-     * 
-     * @return EmployeeList
-     */
-    public List<Employee> selectManyExceptRetiree();
-
-    /**
-     * １件検索用メソッド(employee_cd)
-     * 
-     * @param employee_cd employee_cd
-     * @return Employee
-     */
-    public Employee selectOneByCd(String employee_cd);
-
     /**
      * 条件検索用メソッド
      * 
@@ -33,7 +17,9 @@ public interface EmployeeExpMapper {
      * @param employee_name1_last employee_name1_last
      * @param mail                mail
      * @param biko                biko
+     * @param leave_flg           leave_flg
      * @return EnvList
      */
-    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko);
+    public List<Employee> selectBy(String employee_cd, String employee_name1_last, String mail, String biko,
+            String leave_flg);
 }
