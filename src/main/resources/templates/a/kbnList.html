@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>kbnList</title>
+</head>
+<body>
+	<div th:fragment="kbnList_contents">
+		<div class="page-header">
+			<h3>区分マスタ一覧</h3>
+		</div>
+		<div class="container-fluid border bg-light">
+			<form method="post" th:action="@{/kbnList}"
+				th:object="${kbnForm}">
+				<!-- th:object="${selectKbnForm}"> -->
+				<div class="row">
+					<div class="col-sm-2">
+						区分ID<input type="search" class="form-control" autofocus
+							th:field="*{kbn_id}" />
+					</div>
+					<div class="col-sm-2">
+						区分値<input type="search" class="form-control" th:field="*{kbn_txt}" />
+					</div>
+					<div class="col-sm-2">
+						区分名<input type="search" class="form-control" th:field="*{kbn_name}" />
+					</div>
+					<div class="col-sm-2">
+						備考<input type="search" class="form-control" th:field="*{biko}" />
+					</div>
+					<div class="col-sm-4">
+						<!-- 検索実行 -->
+						<button type="submit" name="selectby"
+							class="btn btn-primary btn-lg float-right">検索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="table-responsive">
+			<div class="col">
+                <!-- CSV出力用のリンク -->
+                <a class="btn btn-primary" th:href="@{'/kbnList/csv'}">CSV出力</a>
+                <!-- EXCEL出力用のリンク -->
+                <a class="btn btn-primary" th:href="@{'/kbnList/excel'}">EXCEL出力</a>
+                <!-- 区分マスタ登録画面へのリンク -->
+                <a class="btn btn-danger float-right" th:href="@{'/kbnUpdate'}"
+                 sec:authorize="hasRole('ADMIN')">新規登録</a>
+            </div>
+
+			<!-- 区分一覧の件数 -->
+			<label th:text=" '合計：' + ${kbnListCount} + '件' "></label>
+			<!-- 更新・削除処理の結果表示用 -->
+			<label class="text-danger" th:text="${result}">結果表示</label><br />
+
+			<table
+				class="table table-bordered table-hover table-striped table-sm">
+
+				<thead>
+					<tr class="table-info">
+						<th scope="col"></th>
+						<th scope="col"><p class="text-nowrap text-center">区分ID</p></th>
+						<th scope="col"><p class="text-nowrap text-center">区分値</p></th>
+						<th scope="col"><p class="text-nowrap text-center">区分名</p></th>
+						<th scope="col"><p class="text-nowrap text-center">備考</p></th>
+						<th scope="col"><p class="text-nowrap text-center">有効フラグ</p></th>
+						<th scope="col"><p class="text-nowrap text-center">表示順</p></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="kbn : ${kbnList}">
+						<td align="center"><a class="btn btn-primary"
+							th:href="@{'/kbnDetail/' + ${kbn.kbn_id}+'_'+ ${kbn.kbn_txt}}">詳細</a></td>
+						<td align="left" th:text="${kbn.kbn_id}"></td>
+						<td align="left" th:text="${kbn.kbn_txt}"></td>
+						<td align="left" th:text="${kbn.kbn_name}"></td>
+						<td align="left" th:text="${kbn.biko}"></td>
+						<td align="left" th:text="${kbn.enabled_flg} ? '有効' : '無効' "></td>
+						<td align="left" th:text="${kbn.disp_order}"></td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+</body>
+</html>

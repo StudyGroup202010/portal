@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>kbnDetail</title>
+</head>
+<body>
+	<div th:fragment="kbnDetail_contents">
+		<div class="col-xl-6">
+
+			<div class="page-header">
+				<h3>区分マスタ詳細</h3>
+			</div>
+
+			<form method="post" th:action="@{/kbnDetail}"
+				th:object="${kbnForm}">
+				<table class="table table-bordered table-hover table-sm">
+					<!-- 区分ID-->
+					<tr>
+						<th class="table-info">区分ID</th>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control" th:field="*{kbn_id}"
+									readonly="readonly" />
+							</div>
+						</td>
+					</tr>
+					<!-- 区分値 -->
+					<tr>
+						<th class="table-info">区分値<BR>
+						<td>
+							<div class="form-group">
+								<input type="text" class="form-control" th:field="*{kbn_txt}"
+									readonly="readonly" />
+							</div>
+						</td>
+					</tr>
+					<!-- 区分名 -->
+					<tr>
+						<th class="table-info">区分名<BR>
+						<img th:src="@{/image/required.png}"></th>
+						<td>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('kbn_name')} ? 'has-error'">
+								<input type="text" class="form-control"
+									th:field="*{kbn_name}" />
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('kbn_name')}"
+										th:errors="*{kbn_name}">
+									</span>
+							</div>
+						</td>
+					</tr>
+					<!-- 備考 -->
+					<tr>
+						<th class="table-info">備考</th>
+						<td>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('biko')} ? 'has-error'">
+								<input type="text" class="form-control"
+									th:field="*{biko}" />
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('biko')}"
+										th:errors="*{biko}">
+									</span>
+							</div>
+						</td>
+					</tr>
+
+					<!-- 有効フラグ -->
+					<tr>
+						<th class="table-info">有効フラグ</th>
+						<td>
+							<div class="form-group">
+								<div th:each="item : ${radioEnabled}">
+									<input type="radio"
+										name="enabled_flg"
+										th:text="${item.key}"
+										th:value="${item.value}"
+										th:field="*{enabled_flg}">
+								</div>
+								<span class="text-danger"
+									th:if="${#fields.hasErrors('enabled_flg')}"
+									th:errors="*{enabled_flg}">
+									enabled_flg error </span>
+							</div>
+						</td>
+					</tr>
+					
+					<!-- 表示順 -->
+					<tr>
+						<th class="table-info">ＮＯ(表示順)</th>
+						<td>
+							<div class="form-group"
+								th:classappend="${#fields.hasErrors('disp_order')} ? 'has-error'">
+								<input type="text" class="form-control"
+									th:field="*{disp_order}" />
+									<span class="text-danger"
+										th:if="${#fields.hasErrors('disp_order')}"
+										th:errors="*{disp_order}">
+									</span>
+							</div>
+						</td>
+					</tr>
+
+				</table>
+									
+				<!-- 戻るボタン -->
+				<button class="btn btn-lg btn-primary" type="submit" name="back"
+					autofocus>戻る</button>
+				<!-- 更新ボタン -->
+				<button class="btn btn-lg btn-danger float-right" type="button"
+					data-toggle="modal" data-target="#Modalupdate"
+					sec:authorize="hasRole('ADMIN')">更新</button>
+				<!-- 削除ボタン -->
+				<button class="btn btn-lg btn-danger float-right" type="button"
+					data-toggle="modal" data-target="#Modaldelete"
+					sec:authorize="hasRole('ADMIN')">削除</button>
+				<!-- 更新Modal -->
+				<div class="modal" data-backdrop="static" data-keyboard="false"
+					id="Modalupdate" tabindex="-1" role="dialog"
+					aria-labelledby="ModalUpdateTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-sm"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6 class="modal-title" id="ModalUpdateTitle">確認</h6>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">更新してもよろしいでしょうか？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-lg btn-primary"
+									data-dismiss="modal">戻る</button>
+								<button type="submit" name="update"
+									class="btn btn-lg btn-danger">実行</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 削除Modal -->
+				<div class="modal" data-backdrop="static" data-keyboard="false"
+					id="Modaldelete" tabindex="-1" role="dialog"
+					aria-labelledby="ModalDeleteTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-sm"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h6 class="modal-title" id="ModalDeleteTitle">確認</h6>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">削除してもよろしいでしょうか？</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-lg btn-primary"
+									data-dismiss="modal">戻る</button>
+								<button type="submit" name="delete"
+									class="btn btn-lg btn-danger">実行</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
