@@ -1,22 +1,19 @@
 package com.portal.z.common.domain.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * com.portal.z.common.domain.util.DateUtils のテストクラス
  */
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/portal",
         "DATASOURCE_PASSWORD=admin", "DATASOURCE_USERNAME=postgres" })
 class DateUtilsTest {

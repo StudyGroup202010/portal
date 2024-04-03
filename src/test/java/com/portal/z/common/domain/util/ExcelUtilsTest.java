@@ -1,7 +1,7 @@
 package com.portal.z.common.domain.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,17 +13,14 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * com.portal.z.common.domain.util.ExcelUtils のテストクラス
  */
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/portal",
         "DATASOURCE_PASSWORD=admin", "DATASOURCE_USERNAME=postgres" })
 class ExcelUtilsTest {
@@ -261,7 +258,7 @@ class ExcelUtilsTest {
         Sheet sheet = workbook.getSheet("DATE");
         Row row = sheet.getRow(5);
 
-        assertThat(excelUtils.getColumnDate(row, 0)).isEqualTo(null);
+        assertThat(excelUtils.getColumnDate(row, 0)).isNull();
     }
 
     @Test
@@ -272,7 +269,7 @@ class ExcelUtilsTest {
         Sheet sheet = workbook.getSheet("DATE");
         Row row = sheet.getRow(2);
 
-        assertThat(excelUtils.getColumnDate(row, 1)).isEqualTo(null);
+        assertThat(excelUtils.getColumnDate(row, 1)).isNull();
     }
 
     @Test
@@ -283,7 +280,7 @@ class ExcelUtilsTest {
         Sheet sheet = workbook.getSheet("DATE");
         Row row = sheet.getRow(5);
 
-        assertThat(excelUtils.getColumnDate(row, 1)).isEqualTo(null);
+        assertThat(excelUtils.getColumnDate(row, 1)).isNull();
     }
 
     @Test
