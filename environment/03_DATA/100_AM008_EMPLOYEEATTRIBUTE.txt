@@ -1,3 +1,0 @@
-INSERT INTO am008_employeeattribute ( employeeattribute_id , employeeattribute_name , biko ,INSERT_USER,INSERT_DATE,UPDATE_USER,UPDATE_DATE)
-VALUES('01','正社員',null,'HAND',NOW(),NULL,NULL)
-,('02','契約社員',null,'HAND',NOW(),NULL,NULL)
