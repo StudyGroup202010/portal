@@ -1,0 +1,3 @@
+INSERT INTO am001_company(company_cd ,company_name,INSERT_USER,INSERT_DATE)
+VALUES('COM01','会社A','HAND',NOW())
+,('COM02','会社B','HAND',NOW())

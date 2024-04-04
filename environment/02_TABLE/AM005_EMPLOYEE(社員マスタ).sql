@@ -21,7 +21,7 @@ create table am005_employee(
      nearest_station_name varchar(50),
      mail varchar(50) not null,
      joined_date date not null,
-     leave_date date default '2099/12/31',
+     leave_date date,
      employeeattribute_id varchar(2) not null,
      biko varchar(100),
      insert_user varchar(50) not null,

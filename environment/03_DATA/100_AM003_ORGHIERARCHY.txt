@@ -1,0 +1,4 @@
+INSERT INTO am003_orghierarchy (organization_cd ,start_yearmonth ,upperorganization_cd ,INSERT_USER,INSERT_DATE)
+VALUES('ORG01','200001','ORG01','HAND',NOW())
+,('ORG02','200001','ORG01','HAND',NOW())
+,('ORG03','200001','ORG01','HAND',NOW())
