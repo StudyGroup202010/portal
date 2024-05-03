@@ -1,9 +1,9 @@
---ƒ|[ƒ^ƒ‹ƒTƒCƒg(z) - ƒ†[ƒUƒ}ƒXƒ^(zm001_user)
+--ãƒãƒ¼ã‚¿ãƒ«ã‚µã‚¤ãƒˆ(z) - ãƒ¦ãƒ¼ã‚¶ãƒã‚¹ã‚¿(zm001_user)
 create table zm001_user(
      user_id varchar(50) not null,
-     user_due_date date default '2099/12/31' not null,
+     user_due_date date default '2099-12-31' not null,
      password varchar(100) not null,
-     pass_update date default '2099/12/31' not null,
+     pass_update date default '2099-12-31' not null,
      login_miss_times smallint default 0 not null,
      lock_flg boolean default false not null,
      employee_id varchar(5),
@@ -16,19 +16,19 @@ constraint zm001_user_pk primary key (user_id),
 constraint zm001_user_sk1 unique (employee_id)
 );
 
-comment on table zm001_user is 'ƒ†[ƒUƒ}ƒXƒ^';
-comment on column zm001_user.user_id is 'ƒ†[ƒUid';
-comment on column zm001_user.user_due_date is 'ƒ†[ƒU—LŒøŠúŒÀ';
-comment on column zm001_user.password is 'ƒpƒXƒ[ƒh';
-comment on column zm001_user.pass_update is 'ƒpƒXƒ[ƒh—LŒøŠúŒÀ';
-comment on column zm001_user.login_miss_times is 'ƒƒOƒCƒ“¸”s‰ñ”';
-comment on column zm001_user.lock_flg is 'ƒƒbƒNó‘Ô';
-comment on column zm001_user.employee_id is 'Ğˆõid';
-comment on column zm001_user.enabled_flg is '—LŒøƒtƒ‰ƒO';
-comment on column zm001_user.insert_user is 'ì¬Ò';
-comment on column zm001_user.insert_date is 'ì¬“ú';
-comment on column zm001_user.update_user is 'XVÒ';
-comment on column zm001_user.update_date is 'XV“ú';
+comment on table zm001_user is 'ãƒ¦ãƒ¼ã‚¶ãƒã‚¹ã‚¿';
+comment on column zm001_user.user_id is 'ãƒ¦ãƒ¼ã‚¶id';
+comment on column zm001_user.user_due_date is 'ãƒ¦ãƒ¼ã‚¶æœ‰åŠ¹æœŸé™';
+comment on column zm001_user.password is 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰';
+comment on column zm001_user.pass_update is 'ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰æœ‰åŠ¹æœŸé™';
+comment on column zm001_user.login_miss_times is 'ãƒ­ã‚°ã‚¤ãƒ³å¤±æ•—å›æ•°';
+comment on column zm001_user.lock_flg is 'ãƒ­ãƒƒã‚¯çŠ¶æ…‹';
+comment on column zm001_user.employee_id is 'ç¤¾å“¡id';
+comment on column zm001_user.enabled_flg is 'æœ‰åŠ¹ãƒ•ãƒ©ã‚°';
+comment on column zm001_user.insert_user is 'ä½œæˆè€…';
+comment on column zm001_user.insert_date is 'ä½œæˆæ—¥æ™‚';
+comment on column zm001_user.update_user is 'æ›´æ–°è€…';
+comment on column zm001_user.update_date is 'æ›´æ–°æ—¥æ™‚';
 
 alter table zm001_user add constraint zm001_user_fk1
       foreign key (employee_id)
