@@ -1,4 +1,4 @@
---共通マスタ(a) - 組織マスタ(am002_organization)
+-- 共通マスタ(a) - 組織マスタ(am002_organization)
 create table am002_organization(
      organization_cd varchar(5) not null,
      organization_name varchar(50) not null,
@@ -13,21 +13,21 @@ create table am002_organization(
 constraint am002_organization_pk primary key (organization_cd)
 );
 
-comment on table am002_organization is '組織マスタ';
-comment on column am002_organization.organization_cd is '組織cd';
-comment on column am002_organization.organization_name is '組織名';
-comment on column am002_organization.company_cd is '会社cd';
-comment on column am002_organization.start_yearmonth is '開始年月';
-comment on column am002_organization.end_yearmonth is '最終年月';
-comment on column am002_organization.biko is '備考';
-comment on column am002_organization.insert_user is '作成者';
-comment on column am002_organization.insert_date is '作成日時';
-comment on column am002_organization.update_user is '更新者';
-comment on column am002_organization.update_date is '更新日時';
+-- comment on table am002_organization is '組織マスタ';
+-- comment on column am002_organization.organization_cd is '組織cd';
+-- comment on column am002_organization.organization_name is '組織名';
+-- comment on column am002_organization.company_cd is '会社cd';
+-- comment on column am002_organization.start_yearmonth is '開始年月';
+-- comment on column am002_organization.end_yearmonth is '最終年月';
+-- comment on column am002_organization.biko is '備考';
+-- comment on column am002_organization.insert_user is '作成者';
+-- comment on column am002_organization.insert_date is '作成日時';
+-- comment on column am002_organization.update_user is '更新者';
+-- comment on column am002_organization.update_date is '更新日時';
 
 
 
---foreign key constraints
+-- foreign key constraints
 alter table am002_organization add constraint am002_organization_fk1
       foreign key (company_cd)
       references am001_company (company_cd);

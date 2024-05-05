@@ -1,4 +1,4 @@
---共通マスタ(a) - 社員マスタ(am005_employee)
+-- 共通マスタ(a) - 社員マスタ(am005_employee)
 create table am005_employee(
      employee_id varchar(5) not null,
      employee_cd varchar(15) not null,
@@ -33,35 +33,35 @@ constraint am005_employee_sk1 unique (mail),
 constraint am005_employee_sk2 unique (employee_cd)
 );
 
-comment on table am005_employee is '社員マスタ';
-comment on column am005_employee.employee_id is '社員id';
-comment on column am005_employee.employee_cd is '社員cd';
-comment on column am005_employee.employee_name1_last is '社員名漢字（姓）';
-comment on column am005_employee.employee_name1_first is '社員名漢字（名）';
-comment on column am005_employee.employee_name2_last is '社員名カナ（姓）';
-comment on column am005_employee.employee_name2_first is '社員名カナ（名）';
-comment on column am005_employee.gender_kbn is '性別区分';
-comment on column am005_employee.postcode is '郵便番号';
-comment on column am005_employee.prefcode is '都道府県名cd';
-comment on column am005_employee.pref_name1 is '都道府県名１';
-comment on column am005_employee.pref_name2 is '都道府県名２';
-comment on column am005_employee.citycode is '市区町村名cd';
-comment on column am005_employee.city_name1 is '市区町村名１';
-comment on column am005_employee.city_name2 is '市区町村名２';
-comment on column am005_employee.streetaddress1 is '住所１';
-comment on column am005_employee.streetaddress2 is '住所２';
-comment on column am005_employee.birthday is '生年月日';
-comment on column am005_employee.nearest_station_code is '最寄駅コード';
-comment on column am005_employee.nearest_station_name is '最寄駅名';
-comment on column am005_employee.mail is 'メールアドレス';
-comment on column am005_employee.joined_date is '入社日';
-comment on column am005_employee.leave_date is '退社日';
-comment on column am005_employee.employeeattribute_id is '社員属性id';
-comment on column am005_employee.biko is '備考';
-comment on column am005_employee.insert_user is '作成者';
-comment on column am005_employee.insert_date is '作成日時';
-comment on column am005_employee.update_user is '更新者';
-comment on column am005_employee.update_date is '更新日時';
+-- comment on table am005_employee is '社員マスタ';
+-- comment on column am005_employee.employee_id is '社員id';
+-- comment on column am005_employee.employee_cd is '社員cd';
+-- comment on column am005_employee.employee_name1_last is '社員名漢字（姓）';
+-- comment on column am005_employee.employee_name1_first is '社員名漢字（名）';
+-- comment on column am005_employee.employee_name2_last is '社員名カナ（姓）';
+-- comment on column am005_employee.employee_name2_first is '社員名カナ（名）';
+-- comment on column am005_employee.gender_kbn is '性別区分';
+-- comment on column am005_employee.postcode is '郵便番号';
+-- comment on column am005_employee.prefcode is '都道府県名cd';
+-- comment on column am005_employee.pref_name1 is '都道府県名１';
+-- comment on column am005_employee.pref_name2 is '都道府県名２';
+-- comment on column am005_employee.citycode is '市区町村名cd';
+-- comment on column am005_employee.city_name1 is '市区町村名１';
+-- comment on column am005_employee.city_name2 is '市区町村名２';
+-- comment on column am005_employee.streetaddress1 is '住所１';
+-- comment on column am005_employee.streetaddress2 is '住所２';
+-- comment on column am005_employee.birthday is '生年月日';
+-- comment on column am005_employee.nearest_station_code is '最寄駅コード';
+-- comment on column am005_employee.nearest_station_name is '最寄駅名';
+-- comment on column am005_employee.mail is 'メールアドレス';
+-- comment on column am005_employee.joined_date is '入社日';
+-- comment on column am005_employee.leave_date is '退社日';
+-- comment on column am005_employee.employeeattribute_id is '社員属性id';
+-- comment on column am005_employee.biko is '備考';
+-- comment on column am005_employee.insert_user is '作成者';
+-- comment on column am005_employee.insert_date is '作成日時';
+-- comment on column am005_employee.update_user is '更新者';
+-- comment on column am005_employee.update_date is '更新日時';
 
 alter table am005_employee add constraint am005_employee_fk1
       foreign key (employeeattribute_id)
