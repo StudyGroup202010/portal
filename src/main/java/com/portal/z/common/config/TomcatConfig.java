@@ -1,4 +1,4 @@
-package com.portal.z.old;
+package com.portal.z.common.config;
 
 import java.util.Optional;
 
