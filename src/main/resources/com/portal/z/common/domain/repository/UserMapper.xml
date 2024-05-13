@@ -176,8 +176,8 @@
           zm001_user
         where user_id like CONCAT('%' , #{user_id} , '%')
         <![CDATA[
-        and TO_CHAR(user_due_date,'YYYYMMDD') >= #{user_due_date_from}
-        and TO_CHAR(user_due_date,'YYYYMMDD') <= #{user_due_date_to}
+        and DATE_FORMAT(user_due_date,'%Y%m%d') >= #{user_due_date_from}
+        and DATE_FORMAT(user_due_date,'%Y%m%d') <= #{user_due_date_to}
         ]]>
         order by
           user_id

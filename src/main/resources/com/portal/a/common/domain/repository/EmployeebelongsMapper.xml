@@ -58,7 +58,7 @@
                b.employee_id = #{employee_id}
              and
              <![CDATA[
-               b.start_yearmonth <= to_char(now(),'YYYYMM'))
+               b.start_yearmonth <= DATE_FORMAT(now(),'%Y%m')) 
              ]]>
     </select>
 

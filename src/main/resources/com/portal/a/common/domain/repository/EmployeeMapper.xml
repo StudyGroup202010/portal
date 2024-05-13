@@ -28,7 +28,7 @@
         <result column="mail" property="mail" />
         <result column="joined_date" property="joined_date" />
         <result column="leave_date" property="leave_date" />
-        <result column="leave" property="leave" />
+        <result column="leave_flg" property="leave_flg" />
         <result column="employeeattribute_id" property="employeeattribute_id" />
         <result column="employeeattribute_name" property="employeeattribute_name" />
         <result column="organization_cd" property="organization_cd" />
@@ -146,7 +146,7 @@
                      am006_employeebelongs d
                    where d.employee_id      = b.employee_id
                    <![CDATA[
-                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                     and d.start_yearmonth <= DATE_FORMAT(now(),'%Y%m'))
                    ]]>
         <where>
           <if test="employee_id != null">
@@ -189,7 +189,7 @@
           ,case 
              when a.leave_date is null then ''
              else '退職済'
-           end as leave
+           end as leave_flg
           ,a.employeeattribute_id
           ,b.employeeattribute_name as employeeattribute_name
           ,c.organization_cd
@@ -212,7 +212,7 @@
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
                    <![CDATA[
-                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                     and d.start_yearmonth <= DATE_FORMAT(now(),'%Y%m')) 
                    ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd

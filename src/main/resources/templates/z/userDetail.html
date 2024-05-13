@@ -110,7 +110,7 @@
                                     <option
                                         th:each="employeeList : ${employeeList}"
                                         th:value="${employeeList.employee_id}"
-                                        th:text="${employeeList.leave}+'   '+${employeeList.employee_cd}+'   '+${employeeList.employee_name1_last}"
+                                        th:text="${employeeList.leave_flg}+'   '+${employeeList.employee_cd}+'   '+${employeeList.employee_name1_last}"
                                         th:selected="${employeeList.employee_id}"></option>
                                 </select> <span class="text-danger"
                                     th:if="${#fields.hasErrors('employee_id')}"

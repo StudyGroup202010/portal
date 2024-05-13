@@ -111,7 +111,7 @@
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
                    <![CDATA[
-                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                     and d.start_yearmonth <= DATE_FORMAT(now(),'%Y%m'))
                    ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
@@ -169,7 +169,7 @@
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
                    <![CDATA[
-                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                     and d.start_yearmonth <= DATE_FORMAT(now(),'%Y%m'))
                    ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
@@ -219,7 +219,7 @@
                      am006_employeebelongs d
                    where d.employee_id      = c.employee_id
                    <![CDATA[
-                     and d.start_yearmonth <= to_char(now(),'YYYYMM'))
+                     and d.start_yearmonth <= DATE_FORMAT(now(),'%Y%m'))
                    ]]>
           left join am002_organization e
             on  e.organization_cd = c.organization_cd
