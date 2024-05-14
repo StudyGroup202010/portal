@@ -29,7 +29,7 @@
           )
         values (
            #{employee_id}
-          ,cast(#{certification_no} as integer)
+          ,cast(#{certification_no} as DECIMAL)
           ,#{process_id}
           ,#{biko}
           ,#{insert_user}
@@ -43,7 +43,7 @@
     <delete id="deleteOne" parameterType="string">
         delete from bt006_careerprocess
         where employee_id      = #{employee_id}
-          and certification_no = cast(#{certification_no} as integer)
+          and certification_no = cast(#{certification_no} as DECIMAL)
     </delete>
     
     <!-- 条件検索 -->
@@ -56,7 +56,7 @@
           bm004_process a
         left join bt006_careerprocess b
           on b.employee_id      = #{employee_id}
-         and b.certification_no = cast(#{certification_no} as integer)
+         and b.certification_no = cast(#{certification_no} as DECIMAL)
          and a.process_id       = b.process_id
         order by 
            a.disp_order

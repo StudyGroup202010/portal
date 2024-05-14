@@ -28,7 +28,7 @@
         values (
            #{industry_id}
           ,#{industry_name}
-          ,cast(#{disp_order} as integer)
+          ,cast(#{disp_order} as DECIMAL)
           ,#{biko}
           ,#{insert_user}
           ,NOW()
@@ -69,7 +69,7 @@
           bm003_industry
         set
            industry_name    = #{industry_name}
-          ,disp_order       = cast(#{disp_order} as integer)
+          ,disp_order       = cast(#{disp_order} as DECIMAL)
           ,biko             = #{biko}
           ,update_user      = #{update_user}
           ,update_date      = NOW()

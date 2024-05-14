@@ -42,8 +42,8 @@
           )
         values (
            #{employee_id}
-          ,cast(#{certification_no} as integer)
-          ,cast(#{disp_order} as integer)
+          ,cast(#{certification_no} as DECIMAL)
+          ,cast(#{disp_order} as DECIMAL)
           ,#{start_yearmonth}
           ,#{end_yearmonth}
           ,#{business_content}
@@ -69,7 +69,7 @@
           bt003_career a
         where 
               a.employee_id      = #{employee_id}
-          and a.certification_no = cast(#{certification_no} as integer)
+          and a.certification_no = cast(#{certification_no} as DECIMAL)
     </select>
 
     <!-- １件更新 -->
@@ -77,7 +77,7 @@
         update
           bt003_career
         set
-           disp_order       = cast(#{disp_order} as integer)
+           disp_order       = cast(#{disp_order} as DECIMAL)
           ,start_yearmonth  = #{start_yearmonth}
           ,end_yearmonth    = #{end_yearmonth}
           ,business_content = #{business_content}
@@ -85,14 +85,14 @@
           ,update_user      = #{update_user}
           ,update_date      = NOW()
         where employee_id      = #{employee_id}
-          and certification_no = cast(#{certification_no} as integer)
+          and certification_no = cast(#{certification_no} as DECIMAL)
     </update>
     
     <!-- １件削除 -->
     <delete id="deleteOne" parameterType="string">
         delete from bt003_career
         where employee_id      = #{employee_id}
-          and certification_no = cast(#{certification_no} as integer)
+          and certification_no = cast(#{certification_no} as DECIMAL)
     </delete>
     
     <!-- 条件検索 -->
@@ -109,11 +109,11 @@
           ,b.business_content
           ,b.biko
           ,b.update_date
-          ,c.technology_Lang    --技術区分（開発言語）
-          ,c.technology_OS      --技術区分（OS）
-          ,c.technology_DB      --技術区分（DB）
-          ,d.process_name       --工程名
-          ,d.process_name_short --工程名略
+          ,c.technology_Lang    
+          ,c.technology_OS      
+          ,c.technology_DB      
+          ,d.process_name       
+          ,d.process_name_short 
         from
           am005_employee a
           inner join bt003_career b
@@ -122,21 +122,21 @@
             select 
                a.employee_id 
               ,a.certification_no 
-              ,string_agg(
+              ,GROUP_CONCAT(
                  case b.technology_kbn 
-                   when '01' then b.technology_name --技術区分（開発言語）
+                   when '01' then b.technology_name 
                    else           null
-                 end,',' order by b.disp_order,b.technology_name) as technology_Lang
-              ,string_agg(
+                 end order by b.disp_order,b.technology_name) as technology_Lang
+              ,GROUP_CONCAT(
                  case b.technology_kbn 
-                   when '02' then b.technology_name --技術区分（OS）
+                   when '02' then b.technology_name 
                    else           null
-                 end,',' order by b.disp_order,b.technology_name) as technology_OS
-              ,string_agg(
+                 end order by b.disp_order,b.technology_name) as technology_OS
+              ,GROUP_CONCAT(
                  case b.technology_kbn 
-                   when '03' then b.technology_name --技術区分（DB）
+                   when '03' then b.technology_name 
                    else           null
-                 end,',' order by b.disp_order,b.technology_name) as technology_DB
+                 end order by b.disp_order,b.technology_name) as technology_DB
             from 
               bt004_careertechnology a
               left join bm002_technology b
@@ -152,9 +152,8 @@
             select 
               a.employee_id
              ,a.certification_no
-             --工程
-             ,string_agg(b.process_name ,',' order by b.disp_order,b.process_name) as process_name
-             ,string_agg(b.process_name_short ,',' order by b.disp_order,b.process_name_short) as process_name_short
+             ,GROUP_CONCAT(b.process_name order by b.disp_order,b.process_name) as process_name
+             ,GROUP_CONCAT(b.process_name_short order by b.disp_order,b.process_name_short) as process_name_short
             from 
               bt006_careerprocess a
               left join bm004_process b

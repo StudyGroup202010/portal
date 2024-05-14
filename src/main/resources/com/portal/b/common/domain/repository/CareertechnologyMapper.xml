@@ -43,7 +43,7 @@
     <delete id="deleteOne" parameterType="string">
         delete from bt004_careertechnology
         where employee_id      = #{employee_id}
-          and certification_no = cast(#{certification_no} as integer)
+          and certification_no = cast(#{certification_no} as DECIMAL)
     </delete>
     
     <!-- 条件検索 -->
@@ -56,7 +56,7 @@
           bm002_technology a
         left join bt004_careertechnology b
           on b.employee_id      = #{employee_id}
-         and b.certification_no = cast(#{certification_no} as integer)
+         and b.certification_no = cast(#{certification_no} as DECIMAL)
          and a.technology_id    = b.technology_id
         where a.technology_kbn  = #{technology_kbn}
         order by 
