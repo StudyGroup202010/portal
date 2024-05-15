@@ -194,7 +194,7 @@
           ,b.department
           ,b.graduation_date
           ,b.notices
-          ,j.certification_name --社員資格
+          ,j.certification_name
           ,b.biko
           ,f.certification_no
           ,f.disp_order
