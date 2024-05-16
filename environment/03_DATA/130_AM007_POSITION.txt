@@ -1,4 +1,4 @@
 INSERT INTO am007_position ( position_cd , position_name , start_yearmonth ,INSERT_USER,INSERT_DATE)
-VALUES('POS01','役職A','200001','HAND',NOW())
-,('POS02','役職B','200001','HAND',NOW())
-,('POS03','役職C','200001','HAND',NOW())
+VALUES('POS01','一般','200001','HAND',NOW())
+,('POS02','サブリーダ','200001','HAND',NOW())
+,('POS03','リーダ','200001','HAND',NOW())

@@ -1,4 +1,5 @@
 insert into bm003_industry( industry_id , industry_name , insert_user , insert_date)
-values('001','産業A','HAND',NOW())
-,('002','産業B','HAND',NOW())
+values('001','製造業','HAND',NOW())
+,('002','建設業','HAND',NOW())
+,('003','卸売業小売業','HAND',NOW())
 
