@@ -71,7 +71,7 @@
           ,update_date
           )
         values (
-           nextval('employee_id_seq')
+           0
           ,#{employee_cd}
           ,#{employee_name1_last}
           ,#{employee_name1_first}
