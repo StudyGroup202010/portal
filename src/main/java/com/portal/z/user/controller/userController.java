@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,6 +67,9 @@ public class userController {
 
     @Autowired
     private MassageUtils massageUtils;
+    
+    @Value ("${excel.template:N/A}")
+    private String excel_template;
 
     /**
      * ラジオボタンの初期化メソッド.
@@ -259,7 +263,7 @@ public class userController {
         model.addStaticAttribute("userListCount", count);
 
         // エクセルテンプレートファイルを指定
-        model.addStaticAttribute("template", "userList.xlsx");
+        model.addStaticAttribute("template",excel_template + "userList.xlsx");
 
         return model;
     }

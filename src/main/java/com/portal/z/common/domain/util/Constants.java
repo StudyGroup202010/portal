@@ -160,12 +160,6 @@ public final class Constants {
     };
 
     /**
-     * エクセルテンプレートの場所<BR>
-     * ・初期値は"src/main/resources/templates/excel/"
-     */
-    public static final String EXCEL_TEMPLATE = "src/main/resources/templates/excel/";
-
-    /**
      * View用メッセージ<BR>
      * ・エクセルテンプレートが存在しないとき。<BR>
      * ・初期値は"エクセルテンプレートが開けませんでした。"

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,9 @@ public class skillController {
 
     @Autowired
     private MassageUtils massageUtils;
+    
+    @Value ("${excel.template:N/A}")
+    private String excel_template;
 
     /**
      * スキル一覧画面のGET用メソッド.
@@ -178,7 +182,7 @@ public class skillController {
         model.addStaticAttribute("careerList", careerList);
 
         // エクセルテンプレートファイルを指定
-        model.addStaticAttribute("template", "skillreport.xlsx");
+        model.addStaticAttribute("template", excel_template + "skillreport.xlsx");
 
         return model;
     }

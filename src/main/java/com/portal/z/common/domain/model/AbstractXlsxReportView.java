@@ -31,8 +31,7 @@ import com.portal.z.common.exception.ApplicationException;
  * 登録しない場合は、白紙のworkbook（XSSFWorkbook()）が返されます。<BR>
  * <BR>
  * 【補足】<BR>
- * ・テンプレートファイルの置き場所はEXCEL_TEMPLATEで設定したフォルダです。<BR>
- * ・指定したテンプレートファイルが無い場合は、ApplicationExceptionをthrowします。
+ * ・指定したテンプレートファイルが無い場合は、ApplicationExceptionをthrowします。<BR>
  *
  */
 public abstract class AbstractXlsxReportView extends AbstractXlsxView {
@@ -46,7 +45,7 @@ public abstract class AbstractXlsxReportView extends AbstractXlsxView {
         }
 
         // 作成するエクセルファイルの名称を定義
-        File excelTemplateFile = new File(Constants.EXCEL_TEMPLATE + model.get("template"));
+        File excelTemplateFile = new File((String) model.get("template"));
 
         try (InputStream is = new ByteArrayInputStream(Files.readAllBytes(Paths.get(excelTemplateFile.toString())))) {
             // エクセルテンプレートを使ってエクセルブックを作る。
