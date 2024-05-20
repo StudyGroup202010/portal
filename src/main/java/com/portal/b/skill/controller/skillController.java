@@ -617,12 +617,14 @@ public class skillController {
             }
         }
 
+        // 経歴番号取得
+        String next_certification_no = skillService.selectSequenceOne().getId();
+        
         // 業務経歴insert用変数
         Career career = new Career();
 
         career.setEmployee_id(form.getEmployee_id()); // 社員ID
-        String next_certification_no = skillService.selectCareerBy2().getCertification_no();// 経歴番号
-        career.setCertification_no(next_certification_no);
+        career.setCertification_no(next_certification_no);// 経歴番号
         career.setDisp_order(form.getDisp_order()); // 表示順
         career.setStart_yearmonth(form.getStart_yearmonth()); // 開始年月
         career.setEnd_yearmonth(form.getEnd_yearmonth()); // 終了年月

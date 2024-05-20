@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.portal.a.common.domain.model.Employee;
+import com.portal.a.common.domain.model.Sequence;
 import com.portal.a.common.domain.repository.EmployeeMapper;
+import com.portal.a.common.domain.service.SequenceSharedService;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careerprocess;
 import com.portal.b.common.domain.model.Careertechnology;
@@ -53,6 +55,9 @@ public class SkillServiceImpl implements SkillService {
 
     @Autowired
     EmpcertificationMapper empcertificationMapper;
+    
+    @Autowired
+    private SequenceSharedService sequenceSharedService;
 
     // スキル情報
     public List<Skill> selectSkillMany() {
@@ -132,8 +137,9 @@ public class SkillServiceImpl implements SkillService {
         return careerMapper.selectBy1(employee_id, business_content, biko);
     }
 
-    public Career selectCareerBy2() {
-        return careerMapper.selectBy2();
+    // 経歴番号取得
+    public Sequence selectSequenceOne() {
+    	return sequenceSharedService.selectOne();
     }
 
     // 技術マスタ

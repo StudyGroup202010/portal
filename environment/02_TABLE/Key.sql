@@ -1,73 +1,73 @@
-#Foreign Key Constraints
-ALTER TABLE AM002_ORGANIZATION ADD CONSTRAINT AM002_ORGANIZATION_FK1
-      FOREIGN KEY (COMPANY_CD)
-      REFERENCES AM001_COMPANY (COMPANY_CD);
-ALTER TABLE AM003_ORGHIERARCHY ADD CONSTRAINT AM003_ORGHIERARCHY_FK1
-      FOREIGN KEY (ORGANIZATION_CD)
-      REFERENCES AM002_ORGANIZATION (ORGANIZATION_CD);
-ALTER TABLE AM003_ORGHIERARCHY ADD CONSTRAINT AM003_ORGHIERARCHY_FK2
-      FOREIGN KEY (UPPERORGANIZATION_CD)
-      REFERENCES AM002_ORGANIZATION (ORGANIZATION_CD);
-ALTER TABLE AM004_ORGPOSITION ADD CONSTRAINT AM004_ORGPOSITION_FK1
-      FOREIGN KEY (ORGANIZATION_CD)
-      REFERENCES AM002_ORGANIZATION (ORGANIZATION_CD);
-ALTER TABLE AM004_ORGPOSITION ADD CONSTRAINT AM004_ORGPOSITION_FK2
-      FOREIGN KEY (EMPLOYEE_ID)
-      REFERENCES AM005_EMPLOYEE (EMPLOYEE_ID);
-ALTER TABLE AM004_ORGPOSITION ADD CONSTRAINT AM004_ORGPOSITION_FK3
-      FOREIGN KEY (POSITION_CD)
-      REFERENCES AM007_POSITION (POSITION_CD);
-ALTER TABLE AM005_EMPLOYEE ADD CONSTRAINT AM005_EMPLOYEE_FK1
-      FOREIGN KEY (EMPLOYEEATTRIBUTE_ID)
-      REFERENCES AM008_EMPLOYEEATTRIBUTE (EMPLOYEEATTRIBUTE_ID);
-ALTER TABLE AM006_EMPLOYEEBELONGS ADD CONSTRAINT AM006_EMPLOYEEBELONGS_FK1
-      FOREIGN KEY (ORGANIZATION_CD)
-      REFERENCES AM002_ORGANIZATION (ORGANIZATION_CD);
-ALTER TABLE AM006_EMPLOYEEBELONGS ADD CONSTRAINT AM006_EMPLOYEEBELONGS_FK2
-      FOREIGN KEY (EMPLOYEE_ID)
-      REFERENCES AM005_EMPLOYEE (EMPLOYEE_ID);
-ALTER TABLE BT001_SKILL ADD CONSTRAINT BT001_SKILL_FK1
-      FOREIGN KEY (EMPLOYEE_ID)
-      REFERENCES AM005_EMPLOYEE (EMPLOYEE_ID);
-ALTER TABLE BT002_EMPCERTIFICATION ADD CONSTRAINT BT002_EMPCERTIFICATION_FK1
-      FOREIGN KEY (CERTIFICATION_ID)
-      REFERENCES BM001_CERTIFICATION (CERTIFICATION_ID);
-ALTER TABLE BT002_EMPCERTIFICATION ADD CONSTRAINT BT002_EMPCERTIFICATION_FK2
-      FOREIGN KEY (EMPLOYEE_ID)
-      REFERENCES AM005_EMPLOYEE (EMPLOYEE_ID);
-ALTER TABLE BT003_CAREER ADD CONSTRAINT BT003_CAREER_FK1
-      FOREIGN KEY (EMPLOYEE_ID)
-      REFERENCES AM005_EMPLOYEE (EMPLOYEE_ID);
-ALTER TABLE BT004_CAREERTECHNOLOGY ADD CONSTRAINT BT004_CAREERTECHNOLOGY_FK1
-      FOREIGN KEY (EMPLOYEE_ID, CERTIFICATION_NO)
-      REFERENCES BT003_CAREER (EMPLOYEE_ID, CERTIFICATION_NO);
-ALTER TABLE BT004_CAREERTECHNOLOGY ADD CONSTRAINT BT004_CAREERTECHNOLOGY_FK2
-      FOREIGN KEY (TECHNOLOGY_ID)
-      REFERENCES BM002_TECHNOLOGY (TECHNOLOGY_ID);
-ALTER TABLE BT005_CAREERINDUSTRY ADD CONSTRAINT BT005_CAREERINDUSTRY_FK1
-      FOREIGN KEY (INDUSTRY_ID)
-      REFERENCES BM003_INDUSTRY (INDUSTRY_ID);
-ALTER TABLE BT005_CAREERINDUSTRY ADD CONSTRAINT BT005_CAREERINDUSTRY_FK2
-      FOREIGN KEY (EMPLOYEE_ID, CERTIFICATION_NO)
-      REFERENCES BT003_CAREER (EMPLOYEE_ID, CERTIFICATION_NO);
-ALTER TABLE BT006_CAREERPROCESS ADD CONSTRAINT BT006_CAREERPROCESS_FK1
-      FOREIGN KEY (PROCESS_ID)
-      REFERENCES BM004_PROCESS (PROCESS_ID);
-ALTER TABLE BT006_CAREERPROCESS ADD CONSTRAINT BT006_CAREERPROCESS_FK2
-      FOREIGN KEY (EMPLOYEE_ID, CERTIFICATION_NO)
-      REFERENCES BT003_CAREER (EMPLOYEE_ID, CERTIFICATION_NO);
-ALTER TABLE ZM001_USER ADD CONSTRAINT ZM001_USER_FK1
-      FOREIGN KEY (EMPLOYEE_ID)
-      REFERENCES AM005_EMPLOYEE (EMPLOYEE_ID);
-ALTER TABLE ZM002_ROLE ADD CONSTRAINT ZM002_ROLE_FK1
-      FOREIGN KEY (ROLE_NAME)
-      REFERENCES ZM500_ROLE_NAME_LIST (ROLE_NAME);
-ALTER TABLE ZM003_USERROLE ADD CONSTRAINT ZM003_USERROLE_FK1
-      FOREIGN KEY (ROLE_ID)
-      REFERENCES ZM002_ROLE (ROLE_ID);
-ALTER TABLE ZM003_USERROLE ADD CONSTRAINT ZM003_USERROLE_FK2
-      FOREIGN KEY (USER_ID)
-      REFERENCES ZM001_USER (USER_ID);
-ALTER TABLE ZT001_PWREISSUEINFO ADD CONSTRAINT ZT001_PWREISSUEINFO_FK1
-      FOREIGN KEY (USER_ID)
-      REFERENCES ZM001_USER (USER_ID);
+#foreign key constraints
+alter table am002_organization add constraint am002_organization_fk1
+      foreign key (company_cd)
+      references am001_company (company_cd);
+alter table am003_orghierarchy add constraint am003_orghierarchy_fk1
+      foreign key (organization_cd)
+      references am002_organization (organization_cd);
+alter table am003_orghierarchy add constraint am003_orghierarchy_fk2
+      foreign key (upperorganization_cd)
+      references am002_organization (organization_cd);
+alter table am004_orgposition add constraint am004_orgposition_fk1
+      foreign key (organization_cd)
+      references am002_organization (organization_cd);
+alter table am004_orgposition add constraint am004_orgposition_fk2
+      foreign key (employee_id)
+      references am005_employee (employee_id);
+alter table am004_orgposition add constraint am004_orgposition_fk3
+      foreign key (position_cd)
+      references am007_position (position_cd);
+alter table am005_employee add constraint am005_employee_fk1
+      foreign key (employeeattribute_id)
+      references am008_employeeattribute (employeeattribute_id);
+alter table am006_employeebelongs add constraint am006_employeebelongs_fk1
+      foreign key (organization_cd)
+      references am002_organization (organization_cd);
+alter table am006_employeebelongs add constraint am006_employeebelongs_fk2
+      foreign key (employee_id)
+      references am005_employee (employee_id);
+alter table bt001_skill add constraint bt001_skill_fk1
+      foreign key (employee_id)
+      references am005_employee (employee_id);
+alter table bt002_empcertification add constraint bt002_empcertification_fk1
+      foreign key (certification_id)
+      references bm001_certification (certification_id);
+alter table bt002_empcertification add constraint bt002_empcertification_fk2
+      foreign key (employee_id)
+      references am005_employee (employee_id);
+alter table bt003_career add constraint bt003_career_fk1
+      foreign key (employee_id)
+      references am005_employee (employee_id);
+alter table bt004_careertechnology add constraint bt004_careertechnology_fk1
+      foreign key (employee_id, certification_no)
+      references bt003_career (employee_id, certification_no);
+alter table bt004_careertechnology add constraint bt004_careertechnology_fk2
+      foreign key (technology_id)
+      references bm002_technology (technology_id);
+alter table bt005_careerindustry add constraint bt005_careerindustry_fk1
+      foreign key (industry_id)
+      references bm003_industry (industry_id);
+alter table bt005_careerindustry add constraint bt005_careerindustry_fk2
+      foreign key (employee_id, certification_no)
+      references bt003_career (employee_id, certification_no);
+alter table bt006_careerprocess add constraint bt006_careerprocess_fk1
+      foreign key (process_id)
+      references bm004_process (process_id);
+alter table bt006_careerprocess add constraint bt006_careerprocess_fk2
+      foreign key (employee_id, certification_no)
+      references bt003_career (employee_id, certification_no);
+alter table zm001_user add constraint zm001_user_fk1
+      foreign key (employee_id)
+      references am005_employee (employee_id);
+alter table zm002_role add constraint zm002_role_fk1
+      foreign key (role_name)
+      references zm500_role_name_list (role_name);
+alter table zm003_userrole add constraint zm003_userrole_fk1
+      foreign key (role_id)
+      references zm002_role (role_id);
+alter table zm003_userrole add constraint zm003_userrole_fk2
+      foreign key (user_id)
+      references zm001_user (user_id);
+alter table zt001_pwreissueinfo add constraint zt001_pwreissueinfo_fk1
+      foreign key (user_id)
+      references zm001_user (user_id);

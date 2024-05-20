@@ -127,6 +127,12 @@ constraint am008_employeeattribute_pk primary key (employeeattribute_id),
 constraint am008_employeeattribute_sk1 unique (employeeattribute_name)
 );
 
+#共通マスタ(a) - シーケンス(am997_sequence)
+create table am997_sequence(
+     id integer not null comment 'シーケンス',
+constraint am997_sequence_pk primary key (id)
+);
+
 #共通マスタ(a) - 汎用区分マスタ(am998_kbn)
 create table am998_kbn(
      kbn_id varchar(50) not null comment '区分id',

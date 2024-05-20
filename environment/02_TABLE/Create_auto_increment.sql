@@ -1,11 +1,5 @@
 #共通マスタ(a) - 社員マスタ(am005_employee)
-ALTER TABLE am005_employee CHANGE employee_id employee_id integer not null AUTO_INCREMENT comment '社員id';
+alter table am005_employee change employee_id employee_id integer not null auto_increment comment '社員id';
 
-
-#スキル管理(b) - 業務経歴(bt003_career)
-create table certification_no_seq (
-    certification_no integer NOT NULL AUTO_INCREMENT PRIMARY KEY
-) engine = InnoDB;
-
-
-
+#共通マスタ(a) - シーケンス(am997_sequence)
+alter table am997_sequence change id id integer not null auto_increment comment 'シーケンス';

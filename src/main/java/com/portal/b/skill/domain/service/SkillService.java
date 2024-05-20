@@ -3,6 +3,7 @@ package com.portal.b.skill.domain.service;
 import java.util.List;
 
 import com.portal.a.common.domain.model.Employee;
+import com.portal.a.common.domain.model.Sequence;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careerprocess;
 import com.portal.b.common.domain.model.Careertechnology;
@@ -122,10 +123,10 @@ public interface SkillService {
     /**
      * 経歴番号取得用メソッド.
      * 
-     * @return Career
+     * @return Sequence
      */
-    public Career selectCareerBy2();
-
+    public Sequence selectSequenceOne();
+    
     // 技術マスタ
     /**
      * 技術マスタ条件検索用メソッド.

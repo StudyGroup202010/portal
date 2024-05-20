@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.a.common.domain.repository.SequenceMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.a.common.domain.model.Sequence"
+		id="sequence">
+		<id column="id" property="id" />
+	</resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertSequenceOne" parameterType="com.portal.a.common.domain.model.Sequence">
+        insert into
+          am997_sequence (
+           id
+          )
+        values (
+           0
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectSequenceOne" parameterType="string" resultType="com.portal.a.common.domain.model.Sequence">
+        select
+           LAST_INSERT_ID() as id
+    </select>
+
+    <!-- １件削除 -->
+    <delete id="deleteSequenceOne" parameterType="string">
+        delete from am997_sequence
+        <![CDATA[
+        where id < #{id}
+        ]]>
+    </delete>
+</mapper>
