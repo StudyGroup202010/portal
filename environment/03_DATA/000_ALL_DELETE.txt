@@ -1,3 +1,4 @@
+SET sql_safe_updates = 0;
 DELETE FROM bt006_careerprocess;
 DELETE FROM bt005_careerindustry;
 DELETE FROM bt004_careertechnology;
@@ -22,4 +23,5 @@ DELETE FROM ZM002_ROLE;
 DELETE FROM ZM500_ROLE_NAME_LIST;
 DELETE FROM AM999_ENV;
 DELETE FROM AM998_KBN;
+SET sql_safe_updates = 1;
 

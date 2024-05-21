@@ -1,8 +1,21 @@
 INSERT INTO am005_employee (
-employee_id ,employee_cd ,employee_name1_last ,employee_name1_first 
-, gender_kbn  , mail , joined_date ,  employeeattribute_id , insert_user ,  insert_date )
-VALUES('00001','SYAIN001','鈴木','太郎','M','001@mail','2001-01-01','01','HAND',NOW())
-,('00002','SYAIN002','加藤','次郎','M','002@mail','2001-02-01','01','HAND',NOW())
-,('00003','SYAIN003','佐藤','花子','W','003@mail','2001-03-01','01','HAND',NOW())
-,('00004','SYAIN004','伊藤','太郎','M','004@mail','2001-04-01','01','HAND',NOW())
-,('00005','SYAIN005','中島','梅子','W','005@mail','2001-05-01','01','HAND',NOW())
+employee_id 
+,employee_cd 
+,employee_name1_last 
+,employee_name1_first 
+,employee_name2_last
+,employee_name2_first
+,gender_kbn  
+,postcode 
+,prefcode
+,citycode
+,nearest_station_code
+,mail 
+,joined_date 
+, employeeattribute_id 
+,insert_user 
+,insert_date )
+VALUES
+ ('00001','SYAIN001','鈴木','太郎','スズキ','タロウ','M','','','','','001@mail','2001-01-01','01','HAND',NOW())
+,('00002','SYAIN002','加藤','次郎','カトウ','ジロウ','M','','','','','002@mail','2002-01-01','01','HAND',NOW())
+,('00003','SYAIN003','佐藤','花子','スズキ','タロウ','M','','','','','003@mail','2003-01-01','01','HAND',NOW())

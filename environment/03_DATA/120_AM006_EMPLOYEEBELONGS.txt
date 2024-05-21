@@ -2,5 +2,4 @@ INSERT INTO am006_employeebelongs ( employee_id , start_yearmonth  , organizatio
 VALUES('00001','200101','ORG02','HAND',NOW())
 ,('00002','200201','ORG02','HAND',NOW())
 ,('00003','200302','ORG03','HAND',NOW())
-,('00004','200302','ORG02','HAND',NOW())
-,('00005','200303','ORG02','HAND',NOW())
+
