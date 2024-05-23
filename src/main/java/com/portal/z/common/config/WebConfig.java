@@ -44,7 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
      * @return メッセージプロパティ
      */
     @Bean
-    public MessageSource messageSource() {
+    MessageSource messageSource() {
 
         ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
 
@@ -65,7 +65,7 @@ public class WebConfig implements WebMvcConfigurer {
      * @return localValidatorFactoryBean
      */
     @Bean
-    public LocalValidatorFactoryBean localValidatorFactoryBean() {
+    LocalValidatorFactoryBean localValidatorFactoryBean() {
 
         LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
         localValidatorFactoryBean.setValidationMessageSource(messageSource());
