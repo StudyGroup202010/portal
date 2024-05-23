@@ -13,7 +13,6 @@ public interface SequenceMapper {
     /**
      * 登録用メソッド
      * 
-     * @param sequence sequence
      * @return true/false
      */
     public boolean insertSequenceOne();

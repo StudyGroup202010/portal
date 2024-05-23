@@ -9,6 +9,12 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+
+/**
+ * Tomcat用の設定<BR>
+ *
+ */
 @Configuration
 public class TomcatConfig {
 

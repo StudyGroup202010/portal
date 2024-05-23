@@ -3,19 +3,16 @@ package com.portal.z.common.domain.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * com.portal.z.common.domain.service.SqlShareService のテストクラス
  */
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
-@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/portal",
-        "DATASOURCE_PASSWORD=admin", "DATASOURCE_USERNAME=postgres" })
+@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:mysql://localhost:3306/portal",
+"DATASOURCE_PASSWORD=Portaladmin", "DATASOURCE_USERNAME=root" })
 class SqlShareServiceTest {
 
     @Autowired

@@ -14,8 +14,7 @@ import org.springframework.test.context.TestPropertySource;
  * com.portal.z.common.domain.util.DateUtils のテストクラス
  */
 @SpringBootTest
-@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/portal",
-        "DATASOURCE_PASSWORD=admin", "DATASOURCE_USERNAME=postgres" })
+@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:mysql://localhost:3306/portal","DATASOURCE_PASSWORD=Portaladmin", "DATASOURCE_USERNAME=root" })
 class DateUtilsTest {
 
     /*

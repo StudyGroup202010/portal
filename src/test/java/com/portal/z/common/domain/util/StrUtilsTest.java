@@ -3,18 +3,14 @@ package com.portal.z.common.domain.util;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * com.portal.z.common.domain.util.StrUtils のテストクラス
  */
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
-@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:postgresql://localhost:5432/portal",
-        "DATASOURCE_PASSWORD=admin", "DATASOURCE_USERNAME=postgres" })
+@TestPropertySource(properties = { "DATASOURCE_URL= jdbc:mysql://localhost:3306/portal","DATASOURCE_PASSWORD=Portaladmin", "DATASOURCE_USERNAME=root" })
 class StrUtilsTest {
     /*
      * 注意： 環境変数を変更している場合、@TestPropertySourceの設定を変更してください。 【標準の設定】 DATASOURCE_URL
