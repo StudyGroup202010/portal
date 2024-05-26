@@ -86,7 +86,7 @@
                         </p>
                     </div>
                     <!-- コンテンツを増やす場合はここに追加する。 -->
-                    <div class="card" sec:authorize="hasRole('GENERAL')">
+                    <div class="card" sec:authorize="hasAnyRole('MANAGER','GENERAL')">
                         <div class="card-header text-center">スキル管理システム</div>
                         <div class="card-body">
                             <p class="card-text">
