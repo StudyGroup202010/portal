@@ -126,7 +126,7 @@ public interface SkillService {
      * @return Sequence
      */
     public Sequence selectSequenceOne();
-    
+
     // 技術マスタ
     /**
      * 技術マスタ条件検索用メソッド.

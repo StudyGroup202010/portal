@@ -19,7 +19,7 @@ public final class Constants {
      * ・初期値は"http://localhost:8080/"。
      */
     public static final String APPLICATION_URL = "http://localhost:8080/";
-    
+
     /**
      * CORSで許可を与えるオリジン<BR>
      * ・初期値は"http://localhost:4200"。

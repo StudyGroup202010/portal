@@ -60,8 +60,9 @@ public interface OrganizationService {
      * @param biko              biko
      * @return OrganizationList
      */
-    public List<Organization> selectBy(String organization_name, String company_cd, String start_yearmonth, String end_yearmonth, String biko);
-    
+    public List<Organization> selectBy(String organization_name, String company_cd, String start_yearmonth,
+            String end_yearmonth, String biko);
+
     /**
      * 全件取得用メソッド（会社マスタ）.
      * 

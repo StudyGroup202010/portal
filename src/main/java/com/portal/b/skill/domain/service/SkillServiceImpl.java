@@ -55,7 +55,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Autowired
     EmpcertificationMapper empcertificationMapper;
-    
+
     @Autowired
     private SequenceSharedService sequenceSharedService;
 
@@ -139,7 +139,7 @@ public class SkillServiceImpl implements SkillService {
 
     // 経歴番号取得
     public Sequence selectSequenceOne() {
-    	return sequenceSharedService.selectOne();
+        return sequenceSharedService.selectOne();
     }
 
     // 技術マスタ

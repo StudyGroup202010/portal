@@ -52,7 +52,7 @@ public interface PositionService {
     /**
      * 条件検索用メソッド.
      * 
-     * @param position_name	  position_name
+     * @param position_name   position_name
      * @param start_yearmonth start_yearmonth
      * @param end_yearmonth   end_yearmonth
      * @param biko            biko

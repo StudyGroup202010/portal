@@ -21,7 +21,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired
     OrganizationMapper organizationMapper;
-    
+
     @Autowired
     CompanyMapper companyMapper;
 
@@ -45,9 +45,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationMapper.deleteOne(organization_cd);
     }
 
-    public List<Organization> selectBy(String organization_name, String company_cd, String start_yearmonth, String end_yearmonth, String biko) {
+    public List<Organization> selectBy(String organization_name, String company_cd, String start_yearmonth,
+            String end_yearmonth, String biko) {
         return organizationMapper.selectBy(organization_name, company_cd, start_yearmonth, end_yearmonth, biko);
     }
+
     public List<Company> selectManyCompany() {
         return companyMapper.selectMany();
     }

@@ -22,7 +22,7 @@ public interface EmployeebelongsMapper {
     /**
      * １件検索用メソッド(employee_id)
      * 
-     * @param employee_id     employee_id
+     * @param employee_id employee_id
      * @return Employeebelongs
      */
     public Employeebelongs selectOneById(String employee_id);

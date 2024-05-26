@@ -67,8 +67,8 @@ public class userController {
 
     @Autowired
     private MassageUtils massageUtils;
-    
-    @Value ("${excel.template:N/A}")
+
+    @Value("${excel.template:N/A}")
     private String excel_template;
 
     /**
@@ -263,7 +263,7 @@ public class userController {
         model.addStaticAttribute("userListCount", count);
 
         // エクセルテンプレートファイルを指定
-        model.addStaticAttribute("template",excel_template + "userList.xlsx");
+        model.addStaticAttribute("template", excel_template + "userList.xlsx");
 
         return model;
     }

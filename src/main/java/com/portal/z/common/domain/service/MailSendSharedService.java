@@ -27,7 +27,6 @@ public interface MailSendSharedService {
      * @param text     メール本文
      * @throws MessagingException 送信エラー
      */
-    public void mailsendregister(String sendFrom, String sendTo, String Subject, String text)
-            throws MessagingException;
+    public void mailsendregister(String sendFrom, String sendTo, String Subject, String text) throws MessagingException;
 
 }

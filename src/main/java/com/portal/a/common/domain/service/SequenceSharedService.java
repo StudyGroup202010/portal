@@ -7,7 +7,7 @@ import com.portal.a.common.domain.model.Sequence;
  *
  */
 public interface SequenceSharedService {
-	
+
     /**
      * １件取得用メソッド.
      * 

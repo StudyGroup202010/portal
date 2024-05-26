@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -88,11 +86,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 天気予報：https://www.jma.go.jp
         // 郵便番号：https://zipcloud.ibsnet.co.jp
         // http.headers().contentSecurityPolicy("default-src 'self'");
-        http.headers().contentSecurityPolicy(
-                  "default-src 'self' ;"
+        http.headers().contentSecurityPolicy("default-src 'self' ;"
                 + "script-src-elem 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw' https://zipcloud.ibsnet.co.jp ;"
-                + "script-src 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw' ;"
-                + "img-src 'self' data: https://www.jma.go.jp ;"
+                + "script-src 'self' 'nonce-c3R1ZHlwb3J0YWwyMDIw' ;" + "img-src 'self' data: https://www.jma.go.jp ;"
                 + "connect-src https://weather.tsukumijima.net");
 
         // ログイン処理

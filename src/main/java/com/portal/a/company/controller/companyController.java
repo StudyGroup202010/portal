@@ -311,7 +311,7 @@ public class companyController {
         // 会社マスタ一覧画面を表示
         return getCompanyList(model);
     }
-    
+
     /**
      * 会社マスタ一覧のCSV出力用処理.<br>
      * 
@@ -331,7 +331,7 @@ public class companyController {
 
         return model;
     }
-    
+
     /**
      * 会社マスタ一覧のExcel出力用処理.<br>
      * 
@@ -355,7 +355,5 @@ public class companyController {
 
         return model;
     }
-    
-    
-    
+
 }

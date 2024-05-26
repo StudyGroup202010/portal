@@ -12,7 +12,7 @@ import com.portal.z.common.domain.model.Pwreissueinfo;
 @Transactional
 @Service
 public interface ResetpasswordService {
-    
+
     /**
      * パスワード再発行情報を検索する。
      * 

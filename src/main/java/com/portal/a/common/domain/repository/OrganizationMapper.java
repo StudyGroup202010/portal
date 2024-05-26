@@ -69,6 +69,7 @@ public interface OrganizationMapper {
      * @param biko              biko
      * @return OrganizationList
      */
-    public List<Organization> selectBy(String organization_name, String company_cd, String start_yearmonth, String end_yearmonth, String biko);
+    public List<Organization> selectBy(String organization_name, String company_cd, String start_yearmonth,
+            String end_yearmonth, String biko);
 
 }

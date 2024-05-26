@@ -47,7 +47,7 @@ public class ConfirmValidatorImpl implements ConstraintValidator<Confirm, Object
         BeanWrapper beanWrapper = new BeanWrapperImpl(value);
         Object fieldValue = beanWrapper.getPropertyValue(field); // フォームオブジェクトからfield値を取得
         Object confirmFieldValue = beanWrapper.getPropertyValue(confirmField); // フォームオブジェクトからconfirmField値を取得
-        
+
         boolean matched = ObjectUtils.nullSafeEquals(fieldValue, confirmFieldValue); // 値を比較
         if (matched) {
             return true; // 値がマッチしたとき

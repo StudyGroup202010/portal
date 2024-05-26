@@ -9,8 +9,6 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
-
 /**
  * Tomcat用の設定<BR>
  *
@@ -20,11 +18,10 @@ public class TomcatConfig {
 
     @Bean
     WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainer() {
-        return server ->
-            Optional.ofNullable(server)
-                    .ifPresent(s -> s.addAdditionalTomcatConnectors(redirectConnector()));
+        return server -> Optional.ofNullable(server)
+                .ifPresent(s -> s.addAdditionalTomcatConnectors(redirectConnector()));
     }
- 
+
     private Connector redirectConnector() {
         Connector connector = new Connector("AJP/1.3");
         connector.setScheme("http");

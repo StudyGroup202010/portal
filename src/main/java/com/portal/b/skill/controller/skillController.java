@@ -53,8 +53,8 @@ public class skillController {
 
     @Autowired
     private MassageUtils massageUtils;
-    
-    @Value ("${excel.template:N/A}")
+
+    @Value("${excel.template:N/A}")
     private String excel_template;
 
     /**
@@ -619,7 +619,7 @@ public class skillController {
 
         // 経歴番号取得
         String next_certification_no = skillService.selectSequenceOne().getId();
-        
+
         // 業務経歴insert用変数
         Career career = new Career();
 

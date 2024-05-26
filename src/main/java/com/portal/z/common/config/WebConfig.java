@@ -83,8 +83,8 @@ public class WebConfig implements WebMvcConfigurer {
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/api/**")
-                    //TODO 全オリジンを有効にしているので、号口環境が決定したら再設定すること
-                    .allowedOrigins(Constants.CORS_ALLOWED_ORIGINS_1,"*")
+                    // TODO 全オリジンを有効にしているので、号口環境が決定したら再設定すること
+                    .allowedOrigins(Constants.CORS_ALLOWED_ORIGINS_1, "*")
                     .allowedMethods("GET", "POST", "PUT", "DELETE");
         }
     }

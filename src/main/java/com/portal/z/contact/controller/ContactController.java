@@ -28,7 +28,7 @@ public class ContactController {
 
     @Autowired
     ContactService contactService;
-    
+
     @Autowired
     private MassageUtils massageUtils;
 
@@ -47,7 +47,7 @@ public class ContactController {
         // ログインユーザー情報の取得
         AppUserDetails user_auth = (AppUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        form.setContact_name(user_auth.getUsername());  // ユーザID
+        form.setContact_name(user_auth.getUsername()); // ユーザID
         model.addAttribute("contactForm", form);
 
         // コンテンツ部分に問い合わせ画面を表示するための文字列を登録
