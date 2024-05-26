@@ -1,3 +1,6 @@
 INSERT INTO zm002_role(ROLE_ID,ROLE_NAME,BIKO,INSERT_USER,INSERT_DATE)
 VALUES('admin','ROLE_ADMIN','システム管理者','HAND',NOW())
-,('general','ROLE_GENERAL','一般ユーザ','HAND',NOW())
+,('general','ROLE_GENERAL','技術部（一般）','HAND',NOW())
+,('sales','ROLE_SALES','営業部','HAND',NOW())
+,('manager','ROLE_MANAGER','技術部（管理）','HAND',NOW())
+,('affairs','ROLE_AFFAIRS','総務部','HAND',NOW())

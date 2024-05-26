@@ -44,7 +44,7 @@
                     
                 <li class="nav-item dropdown active"><a
                     class="nav-link dropdown-toggle"
-                    sec:authorize="hasRole('ADMIN')" href="#"
+                    sec:authorize="hasAnyRole('ADMIN','SALES','MANAGER','AFFAIRS')" href="#"
                     id="navbarDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">スキル管理システム</a>
@@ -72,7 +72,7 @@
 
                 <li class="nav-item dropdown active"><a
                     class="nav-link dropdown-toggle"
-                    sec:authorize="hasRole('ADMIN')" href="#"
+                    sec:authorize="hasAnyRole('ADMIN','AFFAIRS')" href="#"
                     id="navbarDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">共通マスタ</a>

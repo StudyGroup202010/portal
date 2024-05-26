@@ -1,3 +1,7 @@
 INSERT INTO zm003_userrole(USER_ID,ROLE_ID)
 VALUES('administrator','admin')
 ,('administrator','general')
+,('eigyo','sales')
+,('soumu','affairs')
+,('gijutu','general')
+,('gijutu_m','manager')

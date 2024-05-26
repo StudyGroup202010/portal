@@ -80,10 +80,12 @@
                     <tr th:each="skill : ${skillList}">
                         <td align="center"><a
                             class="btn btn-primary"
+							sec:authorize="hasAnyRole('ADMIN','MANAGER')" href="#"
                             th:href="@{'/skillDetail/' + ${skill.employee_id}} + '/list'">詳細</a>
                         </td>
                         <td align="center"><a
                             class="btn btn-primary"
+							sec:authorize="hasAnyRole('ADMIN','MANAGER')" href="#"
                             th:href="@{'/careerList/' + ${skill.employee_id}} + '/list'">経歴</a>
                         </td>
                         <td align="center"><a
