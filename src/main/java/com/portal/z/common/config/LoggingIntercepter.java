@@ -8,14 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
  * ユーザＩＤをログに出力する
  *
  */
 @Component("LoggingIntercepter")
-public class LoggingIntercepter extends HandlerInterceptorAdapter {
+public class LoggingIntercepter implements HandlerInterceptor {
 
     /** USER_IDのキー名 */
     private static final String USER_ID = "USER_ID";
