@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/webjars/**").permitAll() // webjarsへアクセス許可
+        http.authorizeHttpRequests().antMatchers("/webjars/**").permitAll() // webjarsへアクセス許可
                 .antMatchers("/css/**").permitAll() // cssへアクセス許可
                 .antMatchers("/login").permitAll() // ログインページは直リンクOK
                 .antMatchers("/pwreissue").permitAll() // パスワード再設定ページは直リンクOK
