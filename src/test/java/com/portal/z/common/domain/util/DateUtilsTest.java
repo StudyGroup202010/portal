@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -73,6 +75,20 @@ class DateUtilsTest {
     final void dateUtils_getStringFromDateFormat2_通常日付入力チェック() {
         assertThat(DateUtils.getStringFromDateFormat2(LocalDate.of(1970, 01, 01))).isEqualTo("1970年01月01日（木）");
     }
+    
+    //
+    // getStringFromDateFormat3
+    //
+    @Test
+    final void dateUtils_getStringFromDateFormat3_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateFormat3(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getStringFromDateFormat3_通常日付入力チェック() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        assertThat(DateUtils.getStringFromDateFormat3(LocalDate.parse("2019-12-25", formatter))).isEqualTo("201912");
+    }
 
     //
     // getStringFromDateTime
@@ -133,11 +149,11 @@ class DateUtilsTest {
     final void dateUtils_getDateFromString_異常日付入力チェック1() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
         try {
-            DateUtils.getDateFromString("700101");
+            DateUtils.getDateFromString("a00101");
             fail();
         } catch (final Exception e) {
             assertThat(e.toString())
-                    .isEqualTo("java.time.format.DateTimeParseException: Text '700101' could not be parsed at index 6");
+                    .isEqualTo("java.time.format.DateTimeParseException: Text 'a00101' could not be parsed at index 0");
         }
     }
 
@@ -164,13 +180,25 @@ class DateUtilsTest {
                     "java.time.format.DateTimeParseException: Text '202112011' could not be parsed at index 0");
         }
     }
+    
+    @Test
+    final void dateUtils_getDateFromString_異常日付入力チェック4() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromString("2021120");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString()).isEqualTo(
+                    "java.time.format.DateTimeParseException: Text '2021120' could not be parsed at index 6");
+        }
+    }
 
     //
     // getDateFromStringmonth
     //
     @Test
     final void dateUtils_getDateFromStringmonth_null入力チェック() {
-        assertThat(DateUtils.getDateFromString(null)).isNull();
+        assertThat(DateUtils.getDateFromStringmonth(null)).isNull();
     }
 
     @Test
@@ -182,11 +210,11 @@ class DateUtilsTest {
     final void dateUtils_getDateFromStringmonth_異常日付入力チェック1() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
         try {
-            DateUtils.getDateFromString("20211");
+            DateUtils.getDateFromStringmonth("a0211");
             fail();
         } catch (final Exception e) {
             assertThat(e.toString())
-                    .isEqualTo("java.time.format.DateTimeParseException: Text '20211' could not be parsed at index 4");
+                    .isEqualTo("java.time.format.DateTimeParseException: Text 'a021101' could not be parsed at index 0");
         }
     }
 
@@ -194,11 +222,11 @@ class DateUtilsTest {
     final void dateUtils_getDateFromStringmonth_異常日付入力チェック2() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
         try {
-            DateUtils.getDateFromString("20213");
+            DateUtils.getDateFromStringmonth("202130");
             fail();
         } catch (final Exception e) {
             assertThat(e.toString())
-                    .isEqualTo("java.time.format.DateTimeParseException: Text '20213' could not be parsed at index 4");
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '20213001' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 30");
         }
     }
 
@@ -206,11 +234,23 @@ class DateUtilsTest {
     final void dateUtils_getDateFromStringmonth_異常日付入力チェック3() {
         // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
         try {
-            DateUtils.getDateFromString("202121");
+            DateUtils.getDateFromStringmonth("2021121");
             fail();
         } catch (final Exception e) {
             assertThat(e.toString())
-                    .isEqualTo("java.time.format.DateTimeParseException: Text '202121' could not be parsed at index 6");
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '202112101' could not be parsed at index 0");
+        }
+    }
+    
+    @Test
+    final void dateUtils_getDateFromStringmonth_異常日付入力チェック4() {
+        // 変換できない文字が入力されたらDateTimeParseExceptionを投げる。
+        try {
+            DateUtils.getDateFromStringmonth("20211");
+            fail();
+        } catch (final Exception e) {
+            assertThat(e.toString())
+                    .isEqualTo("java.time.format.DateTimeParseException: Text '2021101' could not be parsed at index 6");
         }
     }
 
