@@ -2,14 +2,8 @@ package com.portal.b.skill.domain.model;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.portal.b.common.domain.model.Career;
-
 import lombok.Data;
 
 /**
@@ -24,8 +18,6 @@ public class InputSkillForm {
     private String employee_id_skill;// スキル情報社員ID
     private String final_education;// 最終学歴
     private String department;// 学科
-    @Size(max = 6, groups = { ValidUpdate1.class }, message = "{length_check_1}")
-    @Pattern(regexp = "[0-9]*", groups = { ValidUpdate1.class }, message = "{numerical_check}") // 数字であること
     private String graduation_date;// 卒業年月
     private String notices; // 特記事項
     private String[] certification_id;// 資格ID

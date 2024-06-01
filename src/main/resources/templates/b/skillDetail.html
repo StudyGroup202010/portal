@@ -68,16 +68,9 @@
                     <tr>
                         <th class="active table-info">卒業年月</th>
                         <td>
-                            <div class="form-group"
-                                th:classappend="${#fields.hasErrors('graduation_date')} ? 'has-error'">
-                                <input type="text" class="form-control"
-                                    th:field="*{graduation_date}"
-                                    placeholder="YYYYMM"
-                                    inputmode="numeric" /> <span
-                                    class="text-danger"
-                                    th:if="${#fields.hasErrors('graduation_date')}"
-                                    th:errors="*{graduation_date}">
-                                    graduation_date error </span>
+                            <div class="form-group">
+                                <input type="month" class="form-control"
+                                    th:field="*{graduation_date}" />
                             </div>
                         </td>
                     </tr>

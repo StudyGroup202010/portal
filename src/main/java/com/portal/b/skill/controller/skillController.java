@@ -37,6 +37,7 @@ import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.util.Constants;
 import com.portal.z.common.domain.util.DateUtils;
 import com.portal.z.common.domain.util.MassageUtils;
+import com.portal.z.common.domain.util.StrUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -223,7 +224,10 @@ public class skillController {
             Skillform.setEmployee_name1_first(skill.getEmployee_name1_first()); // 社員名漢字（名）
             Skillform.setFinal_education(skill.getFinal_education()); // 最終学歴
             Skillform.setDepartment(skill.getDepartment());// 学科
-            Skillform.setGraduation_date(skill.getGraduation_date());// 卒業年月
+            // 卒業年月 カレンダーに初期表示するためには"YYYY-MM"の書式に変換する必要がある
+            Skillform.setGraduation_date(StrUtils.getSubstring(
+                    DateUtils.getStringFromDateFormat3(DateUtils.getDateFromStringmonth(skill.getGraduation_date())), 0,
+                    7));
             Skillform.setNotices(skill.getNotices());// 特記事項
             Skillform.setBiko(skill.getBiko()); // 備考
 
@@ -260,22 +264,14 @@ public class skillController {
             return getSkillDetail(skillform, model, skillform.getEmployee_id(), skillform.getFrom());
         }
 
-        // 卒業年月チェック
-        if (skillform.getGraduation_date() != null && !skillform.getGraduation_date().isEmpty()) {
-            if (DateUtils.chkYearMonthFromString(skillform.getGraduation_date()) == false) {
-                // GETリクエスト用のメソッドを呼び出して、社員マスタ登録画面に戻ります
-                model.addAttribute("result", massageUtils.getMsg("e.co.fw.1.024", new String[] { "卒業年月" }));
-                return getSkillDetail(skillform, model, skillform.getEmployee_id(), skillform.getFrom());
-            }
-        }
-
         // Skillインスタンスの生成
         Skill skill = new Skill();
 
         skill.setEmployee_id(skillform.getEmployee_id()); // 社員ID
         skill.setFinal_education(skillform.getFinal_education()); // 最終学歴
         skill.setDepartment(skillform.getDepartment()); // 学科
-        skill.setGraduation_date(skillform.getGraduation_date()); // 卒業年月
+        // 卒業年月 カレンダーから取得する年月は"YYYY-MM"なので"-"を除く
+        skill.setGraduation_date(skillform.getGraduation_date().replace("-", ""));
         skill.setNotices(skillform.getNotices()); // 特記事項
         skill.setBiko(skillform.getBiko()); // 備考
 

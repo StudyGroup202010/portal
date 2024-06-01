@@ -77,6 +77,19 @@ class DateUtilsTest {
     }
     
     //
+    // getStringFromDateFormat3
+    //
+    @Test
+    final void dateUtils_getStringFromDateFormat3_null入力チェック() {
+        assertThat(DateUtils.getStringFromDateFormat3(null)).isEqualTo(null);
+    }
+
+    @Test
+    final void dateUtils_getStringFromDateFormat3_通常日付入力チェック() {
+        assertThat(DateUtils.getStringFromDateFormat3(LocalDate.of(1970, 01, 01))).isEqualTo("1970-01-01");
+    }
+    
+    //
     // getStringFromDateTime
     //
     @Test
