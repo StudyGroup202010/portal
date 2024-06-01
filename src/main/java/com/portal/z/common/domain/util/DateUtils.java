@@ -111,26 +111,6 @@ public final class DateUtils {
     }
     
     /**
-     * 日付（年月YYYY-MM）⇒文字列(YYYYMM)変換処理<BR>
-     * 
-     * 入力したdate（様式はYYYY-MM）に該当する文字列を取得します。（様式はYYYYMM） <BR>
-     * dateがブランクの場合、nullを返します。<BR>
-     * 文字列変換にはjava.time.fomat.DateTimeFormatterを使っています。<BR>
-     * 
-     * @param date 変換元の日付
-     * @return String型に変換したdate（YYYYMM）
-     */
-    public static String getStringFromDateFormat3(LocalDate date) {
-        if (date == null) {
-            return null;
-        }
-        // 変換する文字列のフォーマットを決めます。
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuuMM").withLocale(Locale.JAPANESE)
-                .withResolverStyle(ResolverStyle.STRICT);
-        return formatter.format(date);
-    }
-
-    /**
      * 日付（年月日時分秒）⇒文字列(YYYYMMDD HHmmss)変換処理<BR>
      * 
      * 入力したdatetimeに該当する文字列を取得します。（様式はYYYYMMDD HHmmss） <BR>

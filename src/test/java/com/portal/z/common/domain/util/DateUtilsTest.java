@@ -77,20 +77,6 @@ class DateUtilsTest {
     }
     
     //
-    // getStringFromDateFormat3
-    //
-    @Test
-    final void dateUtils_getStringFromDateFormat3_null入力チェック() {
-        assertThat(DateUtils.getStringFromDateFormat3(null)).isEqualTo(null);
-    }
-
-    @Test
-    final void dateUtils_getStringFromDateFormat3_通常日付入力チェック() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        assertThat(DateUtils.getStringFromDateFormat3(LocalDate.parse("2019-12-25", formatter))).isEqualTo("201912");
-    }
-
-    //
     // getStringFromDateTime
     //
     @Test
