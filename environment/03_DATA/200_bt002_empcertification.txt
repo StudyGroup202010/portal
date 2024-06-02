@@ -1,4 +1,4 @@
-insert into bt002_empcertification( employee_id , certification_id , insert_user , insert_date )
-VALUES('00001','001','HAND',NOW())
-,('00001','002','HAND',NOW())
+insert into bt002_empcertification( employee_id , certification_id , acquisition_date , insert_user , insert_date )
+VALUES('00001','001','2023-10-01','HAND',NOW())
+,('00001','002','2023-10-01','HAND',NOW())
 
