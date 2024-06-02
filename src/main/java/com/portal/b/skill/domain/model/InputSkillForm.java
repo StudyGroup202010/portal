@@ -1,9 +1,6 @@
 package com.portal.b.skill.domain.model;
 
 import java.time.LocalDate;
-import java.util.List;
-import org.springframework.format.annotation.DateTimeFormat;
-import com.portal.b.common.domain.model.Career;
 import lombok.Data;
 
 /**
@@ -21,9 +18,7 @@ public class InputSkillForm {
     private String graduation_date;// 卒業年月
     private String notices; // 特記事項
     private String[] certification_id;// 資格ID
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate[] acquisition_date;// 資格取得日
     private String biko; // 備考
-    private List<Career> careerlist;
     private String from; // 遷移元画面
 }
