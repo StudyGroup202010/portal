@@ -88,25 +88,34 @@
                     <tr>
                         <th class="active table-info">資格（取得日）</th>
                         <td>
-                            <div class="form-group form-check"
-                                th:each="item : ${empcertificationList}">
-                                <div class="form-row">
-                                    <div class="col">
-                                        <input type="checkbox"
-                                            class="form-check-input"
-                                            th:name="certification_id"
-                                            th:value="${item.certification_id}"
-                                            th:text="${item.certification_name}"
-                                            th:checked="${item.certification_id == item.careercertification_id}" />
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input type="date"
-                                            class="form-control"
-                                            th:name="acquisition_date"
-                                            th:value="${item.acquisition_date}" />
-                                    </div>
-                                </div>
-                            </div>
+							<table>
+								<tr>
+									<th>資格</th>
+									<th>取得日</th>
+									<th></th>
+								</tr>
+								<tr th:each="item : ${empcertificationList}">
+									<td>
+									<select class="form-control"
+									  th:name="certification_id">
+									  <option
+										th:each="certificationList : ${certificationList}"
+										th:text="${certificationList.certification_name}"
+										th:value="${certificationList.certification_id}"
+										th:selected="${certificationList.certification_id == item.certification_id}">
+									  </option>
+									</td>
+									<td>
+									<input type="date" class="form-control"
+									  th:name="acquisition_date"
+									  th:value="${item.acquisition_date}" />
+									</td>
+									<td>
+									<button class="btn btn-sm btn-danger" type="submit" name="delete-row">削除</button>
+									</td>
+								</tr>
+							</table>
+							<button class="btn btn-sm btn-danger" type="submit" name="add">追加</button>
                         </td>
                     </tr>
                     <!-- 備考 -->

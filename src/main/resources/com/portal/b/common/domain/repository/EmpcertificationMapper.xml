@@ -48,7 +48,6 @@
         select
            a.certification_name
           ,a.certification_id
-          ,b.certification_id as careercertification_id
           ,b.acquisition_date
         from
           bm001_certification a

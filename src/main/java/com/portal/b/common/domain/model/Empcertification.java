@@ -14,7 +14,6 @@ public class Empcertification {
     private String certification_id; // 資格ID
     private Date acquisition_date; // 取得日
     private String certification_name;// 資格名
-    private String careercertification_id; // チェック用資格ID
     private String biko; // 備考
     private String insert_user; // 作成者
     private Timestamp insert_date; // 作成日時

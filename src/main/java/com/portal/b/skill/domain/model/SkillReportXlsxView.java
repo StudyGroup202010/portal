@@ -115,8 +115,8 @@ public class SkillReportXlsxView extends AbstractXlsxReportView {
         for (int i = 0; i < empcertificationList.size(); i++) {
             // セットする社員資格情報
             Empcertification certification = empcertificationList.get(i);
-            if (certification.getCareercertification_id() != null
-                    && !certification.getCareercertification_id().isEmpty()) {
+            if (certification.getCertification_id() != null
+                    && !certification.getCertification_id().isEmpty()) {
                 empcertification = empcertification.concat(commma + certification.getCertification_name());
                 commma = "、";
             }
