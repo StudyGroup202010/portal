@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.portal.b.common.domain.repository.CertificationMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.b.common.domain.model.Certification"
+        id="certification">
+        <id column="certification_id" property="certification_id" />
+        <result column="certification_name" property="certification_name" />
+        <result column="organizer_name" property="organizer_name" />
+        <result column="disp_order" property="disp_order" />
+        <result column="biko" property="biko" />
+    </resultMap>
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="certification">
+        select
+           certification_id
+          ,certification_name
+          ,organizer_name
+          ,disp_order
+          ,biko
+        from
+          bm001_certification
+        order by
+           disp_order
+          ,certification_name
+    </select>
+</mapper>
