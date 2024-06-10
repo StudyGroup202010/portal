@@ -394,7 +394,6 @@ public class skillController {
             }
         }
         // 社員個人画面を表示
-        // return getEmployeePerson(Skillform, model);
         return "redirect:/empPerson";
     }
 

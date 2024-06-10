@@ -18,7 +18,7 @@ public class InputSkillForm {
     private String graduation_date;// 卒業年月
     private String notices; // 特記事項
     private String[] certification_id;// 資格ID
-    private LocalDate[] acquisition_date;// 資格取得日
+    private String[] acquisition_date;// 資格取得日
     private String biko; // 備考
     private String from; // 遷移元画面
 }
