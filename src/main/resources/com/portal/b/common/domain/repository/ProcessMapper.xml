@@ -60,7 +60,7 @@
           bm004_process
         order by
           disp_order
-         ,process_id
+         ,process_name
     </select>
 
     <!-- １件更新 -->

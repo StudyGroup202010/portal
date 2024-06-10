@@ -60,7 +60,8 @@
         from
           bm003_industry
         order by
-          industry_id
+           disp_order
+          ,industry_name
     </select>
 
     <!-- １件更新 -->

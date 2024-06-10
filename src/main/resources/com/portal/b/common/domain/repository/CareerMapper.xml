@@ -196,6 +196,7 @@
         where 
           a.employee_id = #{employee_id}
         order by
-          a.certification_no
+           a.disp_order
+          ,a.certification_no
     </select>
 </mapper>

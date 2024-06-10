@@ -65,7 +65,7 @@
           bm002_technology
         order by
            disp_order
-          ,technology_id
+          ,technology_name
     </select>
 
     <!-- １件更新 -->
