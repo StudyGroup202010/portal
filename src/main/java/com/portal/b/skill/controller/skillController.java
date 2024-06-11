@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Employee;
+import com.portal.b.certification.domain.service.CertificationService;
 import com.portal.b.common.domain.model.Career;
 import com.portal.b.common.domain.model.Careerprocess;
 import com.portal.b.common.domain.model.Careertechnology;
+import com.portal.b.common.domain.model.Certification;
 import com.portal.b.common.domain.model.Empcertification;
 import com.portal.b.common.domain.model.Skill;
 import com.portal.b.common.domain.model.Technology;
@@ -54,6 +56,9 @@ public class skillController {
 
     @Autowired
     private MassageUtils massageUtils;
+
+    @Autowired
+    private CertificationService certifictionService;
 
     @Value("${excel.template:N/A}")
     private String excel_template;
@@ -236,9 +241,20 @@ public class skillController {
 
             // 社員資格情報を取得
             List<Empcertification> empcertificationList = skillService.selectEmpcertificationBy(employee_id);
+            for (int i = empcertificationList.size(); i < 10; i++) { // 社員資格は最大１０件まで表示
+                empcertificationList.add(i, new Empcertification());
+            }
 
             // Modelに登録
             model.addAttribute("empcertificationList", empcertificationList);
+
+            // プルダウンの内容を設定
+            // 資格一覧の生成）
+            List<Certification> certificationList = certifictionService.selectMany();
+            certificationList.add(0, new Certification()); // 未選択状態用にブランク行を追加
+
+            // Modelに資格リストを登録
+            model.addAttribute("certificationList", certificationList);
         }
 
         return "z/homeLayout";
@@ -303,7 +319,8 @@ public class skillController {
                 for (int i = 0; i < getCertification_id.length; i++) {
                     empcertification.setEmployee_id(skillform.getEmployee_id());// 社員ID
                     empcertification.setCertification_id(getCertification_id[i]); // 資格ID
-                    if (skillform.getAcquisition_date()[i] != null) {
+                    if (skillform.getAcquisition_date()[i] != null
+                            && skillform.getAcquisition_date()[i].isEmpty() == false) {
                         empcertification.setAcquisition_date(Date.valueOf(skillform.getAcquisition_date()[i])); // 資格取得日
                     } else {
                         empcertification.setAcquisition_date(null);
@@ -312,14 +329,19 @@ public class skillController {
                     empcertification.setInsert_user(user_auth.getUsername()); // 作成者
 
                     // insert文を繰り替えしている。本来はまとめておいて一括してinsertしたい
-                    boolean result1 = skillService.insertEmpcertificationOne(empcertification);
+                    // 資格を入力した明細のみを登録対象とする。
+                    if (empcertification.getCertification_id() != null
+                            && skillform.getCertification_id()[i].isEmpty() == false) {
 
-                    if (result1 == true) {
-                        model.addAttribute("result", "更新成功");
-                        log.info("更新成功");
-                    } else {
-                        model.addAttribute("result", "更新失敗");
-                        log.error("更新失敗");
+                        boolean result1 = skillService.insertEmpcertificationOne(empcertification);
+
+                        if (result1 == true) {
+                            model.addAttribute("result", "更新成功");
+                            log.info("更新成功");
+                        } else {
+                            model.addAttribute("result", "更新失敗");
+                            log.error("更新失敗");
+                        }
                     }
                 }
             } else {

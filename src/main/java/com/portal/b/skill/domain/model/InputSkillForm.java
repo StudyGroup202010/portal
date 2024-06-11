@@ -1,6 +1,5 @@
 package com.portal.b.skill.domain.model;
 
-import java.time.LocalDate;
 import lombok.Data;
 
 /**

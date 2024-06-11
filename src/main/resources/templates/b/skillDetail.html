@@ -88,16 +88,18 @@
                     <tr>
                         <th class="active table-info">資格（取得日）</th>
                         <td>
-							<table>
-								<tr>
-									<th>資格</th>
-									<th>取得日</th>
-									<th></th>
-								</tr>
-								<tr th:each="item : ${empcertificationList}">
+							<table class="table table-borderless table-hover table-striped table-sm">
+								<thead>
+							  	  <tr>
+									<th scope="col"><p class="text-center">資格</p></th>
+									<th	scope="col"><p class="text-center">取得日</p></th>
+								  </tr>
+								</thead>
+								<tbody>
+								  <tr th:each="item : ${empcertificationList}">
 									<td>
 									<select class="form-control"
-									  th:name="certification_id">
+									  th:name="certification_id"/>
 									  <option
 										th:each="certificationList : ${certificationList}"
 										th:text="${certificationList.certification_name}"
@@ -110,12 +112,9 @@
 									  th:name="acquisition_date"
 									  th:value="${item.acquisition_date}" />
 									</td>
-									<td>
-									<button class="btn btn-sm btn-danger" type="submit" name="delete-row">削除</button>
-									</td>
-								</tr>
+								  </tr>
+								</tbody>
 							</table>
-							<button class="btn btn-sm btn-danger" type="submit" name="add">追加</button>
                         </td>
                     </tr>
                     <!-- 備考 -->

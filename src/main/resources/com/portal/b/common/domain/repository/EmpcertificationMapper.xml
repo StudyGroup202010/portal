@@ -45,17 +45,17 @@
     
     <!-- 条件検索 -->
     <select id="selectBy" parameterType="string" resultMap="empcertification">
-        select
-           a.certification_name
-          ,a.certification_id
-          ,b.acquisition_date
+        select 
+           a.certification_id
+          ,b.certification_name
+          ,a.acquisition_date
         from
-          bm001_certification a
-        left join bt002_empcertification b
-          on b.employee_id      = #{employee_id}
-         and a.certification_id = b.certification_id
-        order by 
-           a.disp_order
-          ,a.certification_name
+          bt002_empcertification a
+        left join bm001_certification b
+          on a.certification_id = b.certification_id
+        where a.employee_id     = #{employee_id}
+        order by
+           b.disp_order
+          ,b.certification_name
     </select>
 </mapper>
