@@ -1,10 +1,10 @@
-INSERT INTO zm001_user(USER_ID,PASSWORD,INSERT_USER,INSERT_DATE)
+INSERT INTO zm001_user(USER_ID,PASSWORD,employee_id,INSERT_USER,INSERT_DATE)
 VALUES
 ('administrator','$2a$10$.RGrhKqozZij3nVEucTi4.x4UPPso.J.ncTvrITck.ePoyHdmmYwK','HAND',NOW())
 ,('eigyo','$2a$10$HY03Ndu3Tf2xVukIkR0c1O2ekZumsHBpqDZDJ6EtqgS.kdHjmZZCG','HAND',NOW())
-,('gijutu','$2a$10$ZpSq1py8eDkq4ur.65Nn8u8zHijzCEr1XiDDG9eNaD6NPT2o1H916','HAND',NOW())
-,('soumu','$2a$10$B8oS0n6L.ZicMbqXp2flnO3kXL0.gvX00SfBde5mlWdrOTOlrOoUu','HAND',NOW())
-,('gijutu_m','$2a$10$hlQt7ofUHOA0N/nNdtIVI.CRKYA8dYLEa8DPNHSGQ.C16R8L/tGMi','HAND',NOW())
+,('gijutu','$2a$10$ZpSq1py8eDkq4ur.65Nn8u8zHijzCEr1XiDDG9eNaD6NPT2o1H916','2','HAND',NOW())
+,('soumu','$2a$10$B8oS0n6L.ZicMbqXp2flnO3kXL0.gvX00SfBde5mlWdrOTOlrOoUu','4','HAND',NOW())
+,('gijutu_m','$2a$10$hlQt7ofUHOA0N/nNdtIVI.CRKYA8dYLEa8DPNHSGQ.C16R8L/tGMi','3','HAND',NOW())
 
 
 
