@@ -9,6 +9,10 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import io.awspring.cloud.jdbc.config.annotation.RdsInstanceConfigurer;
+import io.awspring.cloud.jdbc.datasource.DataSourceFactory;
+import io.awspring.cloud.jdbc.datasource.TomcatJdbcDataSourceFactory;
+
 /**
  * Tomcat用の設定<BR>
  *
@@ -36,4 +40,21 @@ public class TomcatConfig {
 
         return connector;
     }
+    
+    @Bean
+    RdsInstanceConfigurer instanceConfigurer() {
+        return new RdsInstanceConfigurer() {
+            @Override
+            public DataSourceFactory getDataSourceFactory() {
+                TomcatJdbcDataSourceFactory dataSourceFactory = new TomcatJdbcDataSourceFactory();
+                //https://tomcat.apache.org/tomcat-9.0-doc/jdbc-pool.html#Configuring_JDBC_interceptors
+                dataSourceFactory.setTestOnBorrow(true);
+                dataSourceFactory.setTestWhileIdle(true);
+                dataSourceFactory.setValidationQuery("SELECT 1");
+                dataSourceFactory.setTimeBetweenEvictionRunsMillis(60000);
+                return dataSourceFactory;
+            }
+        };
+    }
+    
 }
