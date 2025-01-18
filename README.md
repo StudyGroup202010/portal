@@ -14,7 +14,7 @@ References
 * 設計書はこちら　⇒　https://github.com/StudyGroup202010/portal_docs/tree/main/Docs
 * デプロイ先はこちら　⇒　https://portalemd.herokuapp.com/ （休止中）
 * 開発環境について　⇒　https://github.com/StudyGroup202010/portal/wiki/環境について
-* 開発のコツなど　⇒　<http://terasolunaorg.github.io/guideline/5.6.1.RELEASE/ja/>  
+* 開発のコツなど　⇒　http://terasolunaorg.github.io/guideline/5.6.1.RELEASE/ja/
 * 書籍はこちら　⇒　【後悔しないための入門書】Spring解体新書（https://amzn.to/3jDEaQy)  
 
 Contributing
