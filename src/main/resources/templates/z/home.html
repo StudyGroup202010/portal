@@ -19,29 +19,17 @@
             <div class="row">
                 <div class="col-sm-9">
                     <article>
-                        <h2>会社からのお知らせ</h2>
+                        <h2>スキル管理システム</h2>
                         <ul>
-                            <li>勤怠の提出について</li>
-                            <li>健康診断の予約について</li>
+                            <li>スキル管理システムはこちらから使えます。</li>
+                                <a
+                                    class="btn btn-success btn-block btn-lg"
+                                    th:href="@{'/empPerson'}"
+                                    role="button">自分のスキル情報を見る</a>
+                                    
                         </ul>
 
                         <hr>
-
-                        <h2>社員教育</h2>
-                        <ul>
-                            <li>社員教育コンテンツへのリンク</li>
-                        </ul>
-
-                        <hr>
-
-                    </article>
-
-                    <article>
-                        <h2>就業規則など</h2>
-                        <ul>
-                            <li>交通費精算について</li>
-                            <li>セキュリティポリシーについて</li>
-                        </ul>
 
                     </article>
 
@@ -87,19 +75,16 @@
                     </div>
                     <!-- コンテンツを増やす場合はここに追加する。 -->
                     <div class="card" sec:authorize="hasAnyRole('MANAGER','GENERAL')">
-                        <div class="card-header text-center">スキル管理システム</div>
+                        <div class="card-header text-center">お問い合わせ</div>
                         <div class="card-body">
                             <p class="card-text">
-                                スキル情報はこちらからメンテナンスしてください。ご意見やご要望、不具合などがありましたら、「問い合わせ」よりお知らせ下さい。
+                                ご意見やご要望、不具合などがありましたら、こちらからお知らせ下さい。
                                 <a
                                     class="btn btn-success btn-block btn-lg"
-                                    th:href="@{'/empPerson'}"
-                                    role="button">開始する</a>
+                                    th:href="@{'/contact'}"
+                                    role="button">問い合わせる</a>
                         </div>
                     </div>
-                    <!-- コンテンツを増やす場合はここに追加する。 -->
-                    <a class="btn btn-success btn-block btn-lg"
-                        th:href="@{'/contact'}" role="button">問い合わせ</a>
                 </div>
             </div>
         </div>

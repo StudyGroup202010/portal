@@ -41,34 +41,6 @@
                 <li class="nav-item active"><a class="nav-link"
                     th:href="@{'/home'}">ホーム<span class="sr-only">(current)</span></a>
                 </li>
-                    
-                <li class="nav-item dropdown active"><a
-                    class="nav-link dropdown-toggle"
-                    sec:authorize="hasAnyRole('ADMIN','SALES','MANAGER','AFFAIRS')" href="#"
-                    id="navbarDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">スキル管理システム</a>
-
-                    <div class="dropdown-menu"
-                        aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"
-                            th:href="@{'/skillList'}">スキル一覧</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" th:href="@{'/home'}">要素</a>
-                    </div></li>
-
-                <li class="nav-item dropdown active"><a
-                    class="nav-link dropdown-toggle"
-                    sec:authorize="hasRole('ADMIN')" href="#"
-                    id="navbarDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">ポータル</a>
-
-                    <div class="dropdown-menu"
-                        aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item"
-                            th:href="@{'/userList'}">ユーザマスタ</a>
-                    </div></li>
 
                 <li class="nav-item dropdown active"><a
                     class="nav-link dropdown-toggle"
@@ -89,7 +61,25 @@
                             th:href="@{'/empList'}">社員マスタ</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" th:href="@{'/envList'}">環境マスタ</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{'/userList'}">ユーザマスタ</a>
                     </div></li>
+                    
+                <li class="nav-item dropdown active"><a
+                    class="nav-link dropdown-toggle"
+                    sec:authorize="hasAnyRole('ADMIN','SALES','MANAGER','AFFAIRS')" href="#"
+                    id="navbarDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">スキル管理システム</a>
+                    
+                    <div class="dropdown-menu"
+                        aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"
+                            th:href="@{'/skillList'}">スキル一覧</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{'/home'}">要素</a>
+                    </div></li>
+                                        
             </ul>
             <div class="text-white">
                 ユーザ：<span sec:authentication="name"></span>
