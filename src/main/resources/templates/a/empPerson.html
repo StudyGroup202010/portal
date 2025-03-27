@@ -26,7 +26,7 @@
                     th:href="@{'/skillDetail/' + *{employee_id}} + '/person'">スキル</a>
                 <!-- 業務経歴ボタン -->
                 <a class="btn btn-lg btn-primary"
-                    th:href="@{'/careerList/' + *{employee_id}} + '/person'">経歴</a>
+                    th:href="@{'/careerList/' + *{employee_id}} + '/person'">業務経歴</a>
                 <!-- 帳票ボタン -->
                 <a class="btn btn-lg btn-primary float-right"
                     th:href="@{'/skillreport/' + *{employee_id}}">経歴書出力</a>
@@ -131,6 +131,8 @@
                             readonly="readonly" /></td>
                     </tr>
                 </table>
+                <!-- 戻るボタン -->
+                <button class="btn btn-lg btn-primary" type="submit" name="back">戻る</button>
                 <!-- 社員ID -->
                 <input type="hidden" class="form-control"
                     th:field="*{employee_id}" />
