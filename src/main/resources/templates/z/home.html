@@ -19,24 +19,16 @@
             <div class="row">
                 <div class="col-sm-9">
                     <article>
-                        <h2>スキル管理システム</h2>
+                        <h4>スキル管理システム</h4>
                         <ul>
-                            <li>スキル管理システムはこちらから使えます。</li>
-                                <a
+                            スキル管理システムはこちらから使用できます。
+                                <a  
                                     class="btn btn-success btn-block btn-lg"
+                                    sec:authorize="!hasAnyRole('ADMIN')"
                                     th:href="@{'/empPerson'}"
                                     role="button">自分のスキル情報を見る</a>
-                                    
                         </ul>
-
-                        <hr>
-
                     </article>
-
-                    <article>
-                        <!-- コンテンツを増やす場合はここに追加する。 -->
-                    </article>
-
                 </div>
                 <div class="col-sm-3">
                     <div class="container-fluid border bg-light">
@@ -74,7 +66,7 @@
                         </p>
                     </div>
                     <!-- コンテンツを増やす場合はここに追加する。 -->
-                    <div class="card" sec:authorize="hasAnyRole('MANAGER','GENERAL')">
+                    <div class="card" sec:authorize="!hasAnyRole('ADMIN')">
                         <div class="card-header text-center">お問い合わせ</div>
                         <div class="card-body">
                             <p class="card-text">
