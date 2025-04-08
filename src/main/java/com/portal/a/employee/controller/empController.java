@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Employee;
 import com.portal.a.common.domain.model.Employeeattribute;
@@ -116,7 +115,7 @@ public class empController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/empList", params = "selectby")
+    @PostMapping(value = "/empList", params = "selectby")
     public String getEmployeeListBy(@ModelAttribute SelectEmployeeForm form, BindingResult bindingResult, Model model) {
 
         // コンテンツ部分に社員マスタ一覧を表示するための文字列を登録
@@ -170,7 +169,7 @@ public class empController {
      * @param model モデル
      * @return model
      */
-    @RequestMapping("/empList/excel")
+    @PostMapping("/empList/excel")
     public EmployeeListXlsxView excel(EmployeeListXlsxView model) {
 
         // 社員マスタ一覧の生成

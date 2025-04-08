@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Position;
 import com.portal.a.position.domain.model.CreateOrder;
@@ -83,7 +82,7 @@ public class positionController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/positionList", params = "selectby")
+    @PostMapping(value = "/positionList", params = "selectby")
     public String getPositionListByCompanyid(@ModelAttribute SelectPositionForm form, BindingResult bindingResult,
             Model model) {
 

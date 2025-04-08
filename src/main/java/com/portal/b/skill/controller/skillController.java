@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Employee;
 import com.portal.b.certification.domain.service.CertificationService;
@@ -102,7 +101,7 @@ public class skillController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/skillList", params = "selectby")
+    @PostMapping(value = "/skillList", params = "selectby")
     public String getSkillListByEmployeecd(@ModelAttribute SelectSkillForm form, BindingResult bindingResult,
             Model model) {
 
@@ -134,7 +133,7 @@ public class skillController {
      * @param model         SkillListXlsxView
      * @return model
      */
-    @RequestMapping(value = "/skillList", params = "excel")
+    @PostMapping(value = "/skillList", params = "excel")
     public SkillListXlsxView excel(@ModelAttribute SelectSkillForm form, BindingResult bindingResult,
             SkillListXlsxView model) {
 
@@ -163,7 +162,7 @@ public class skillController {
      * @param employee_id   employee_id
      * @return model
      */
-    @RequestMapping("/skillreport/{id}")
+    @PostMapping("/skillreport/{id}")
     public SkillReportXlsxView report(@ModelAttribute SelectSkillForm form, BindingResult bindingResult,
             SkillReportXlsxView model, @PathVariable("id") String employee_id) {
 
@@ -476,7 +475,7 @@ public class skillController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/careerList", params = "selectby")
+    @PostMapping(value = "/careerList", params = "selectby")
     public String getCareerListByEmployeecd(@ModelAttribute SelectCareerForm Careerform, BindingResult bindingResult,
             Model model) {
 

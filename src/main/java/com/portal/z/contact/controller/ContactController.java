@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.util.MassageUtils;
@@ -65,7 +65,7 @@ public class ContactController {
      * @return 問い合わせ画面
      * @throws MessagingException メール送信エラー
      */
-    @RequestMapping(value = "/contact", params = "sendmail")
+    @PostMapping(value = "/contact", params = "sendmail")
     public String sendmail(@ModelAttribute @Validated ContactForm form, BindingResult bindingResult, Model model)
             throws MessagingException {
 

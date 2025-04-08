@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Company;
 import com.portal.a.company.domain.model.CompanyListCsvView;
@@ -82,7 +81,7 @@ public class companyController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/companyList", params = "selectby")
+    @PostMapping(value = "/companyList", params = "selectby")
     public String getCompanyListByCompanyid(@ModelAttribute SelectCompanyForm form, BindingResult bindingResult,
             Model model) {
 
@@ -340,7 +339,7 @@ public class companyController {
      * @param model モデル
      * @return model
      */
-    @RequestMapping("/companyList/excel")
+    @PostMapping("/companyList/excel")
     public CompanyListXlsxView excel(CompanyListXlsxView model) {
 
         // 会社マスタ一覧の生成

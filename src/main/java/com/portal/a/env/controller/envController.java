@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.z.common.domain.model.AppUserDetails;
 import com.portal.z.common.domain.util.MassageUtils;
@@ -80,7 +79,7 @@ public class envController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/envList", params = "selectby")
+    @PostMapping(value = "/envList", params = "selectby")
     public String getEnvListByEnvid(@ModelAttribute SelectEnvForm form, BindingResult bindingResult, Model model) {
 
         // コンテンツ部分に環境マスタ一覧を表示するための文字列を登録

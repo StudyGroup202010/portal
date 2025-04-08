@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.a.common.domain.model.Company;
 import com.portal.a.common.domain.model.Organization;
@@ -85,7 +84,7 @@ public class organizationController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/organizationList", params = "selectby")
+    @PostMapping(value = "/organizationList", params = "selectby")
     public String getOrganizationListByOrganizationid(@ModelAttribute SelectOrganizationForm form,
             BindingResult bindingResult, Model model) {
 
@@ -406,7 +405,7 @@ public class organizationController {
      * @param model モデル
      * @return model
      */
-    @RequestMapping("/organizationList/excel")
+    @PostMapping("/organizationList/excel")
     public OrganizationListXlsxView excel(OrganizationListXlsxView model) {
 
         // 組織マスタ一覧の生成

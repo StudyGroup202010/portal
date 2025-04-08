@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -137,7 +136,7 @@ public class userController {
      * @param model         モデル
      * @return z/homeLayout
      */
-    @RequestMapping(value = "/userList", params = "selectby")
+    @PostMapping(value = "/userList", params = "selectby")
     public String getUserListByUserid(@ModelAttribute SelectForm form, BindingResult bindingResult, Model model) {
 
         // コンテンツ部分にユーザー一覧を表示するための文字列を登録
@@ -187,7 +186,7 @@ public class userController {
      * @param model モデル
      * @return model
      */
-    @RequestMapping("/userList/excel")
+    @PostMapping("/userList/excel")
     public UserListXlsxView excel(UserListXlsxView model) {
 
         // ユーザー一覧の生成
@@ -214,7 +213,7 @@ public class userController {
      * @throws EncryptedDocumentException EncryptedDocumentException
      * @throws IOException                アップロードしたいエクセルファイルの読み込みエラー
      */
-    @RequestMapping(value = "/userList/excelUpload", params = "excelUpload")
+    @PostMapping(value = "/userList/excelUpload", params = "excelUpload")
     public String uploadfile(@RequestParam("uploadfile") MultipartFile file, Model model)
             throws EncryptedDocumentException, IOException {
 
@@ -249,7 +248,7 @@ public class userController {
      * @param model モデル
      * @return model
      */
-    @RequestMapping("/userList/report")
+    @PostMapping("/userList/report")
     public UserReportXlsxView report(UserReportXlsxView model) {
 
         // ユーザー一覧の生成
