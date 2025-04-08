@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper
+	namespace="com.portal.z.common.domain.repository.UserroleMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.Userrole"
+		id="userrole">
+		<id column="user_id" property="user_id" />
+		<result column="role_id" property="role_id" />
+	</resultMap>
+    
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.z.common.domain.model.Userrole">
+        insert into
+          zm003_userrole (
+           user_id
+          ,role_id
+          )
+        values (
+           #{user_id}
+          ,#{role_id}
+        )
+    </insert>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from zm003_userrole where user_id = #{user_id}
+    </delete>
+</mapper>

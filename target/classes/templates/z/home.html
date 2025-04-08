@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head>
+    <meta charset="UTF-8"></meta>   
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrapの設定 -->
+    
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"></link>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+
+
+
+   
+    <title>Home</title>
+</head>
+<body>
+    <!-- ポイント：th:fragment -->
+    <div th:fragment="home_contents">
+    
+        <div class="page-header">
+            <h3>ホーム画面</h3>
+            <h5>本日の天気予報</h5>
+            <img id = "forecastImage" src=""> 
+        </div>
+        
+        <div class="page-body">
+            <h5>ここには以下のような情報を載せます</h5>
+            <h6>・会社からのお知らせ</h6>
+            <h6>・就業規則など</h6>
+            <h6>・社員教育の資料など</h6>
+        </div>
+        <!-- 岐阜の天気予報の表示(画像) ※下のDIVの外に出すと無効になります -->
+        <script th:inline="javascript"  nonce="c3R1ZHlwb3J0YWwyMDIw">
+            $(document).ready(function(){
+                getWeatherImageUrl();
+            });
+        </script>
+    </div>
+</body>
+</html>

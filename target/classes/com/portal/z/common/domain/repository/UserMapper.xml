@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.portal.z.common.domain.repository.UserMapper">
+	<!-- マッピング定義 -->
+	<resultMap type="com.portal.z.common.domain.model.User"
+		id="user">
+		<id column="user_id" property="user_id" />
+		<result column="user_due_date" property="user_due_date" />
+		<result column="password" property="password" />
+		<result column="pass_update" property="pass_update" />
+		<result column="login_miss_times" property="login_miss_times" />
+		<result column="lock_flg" property="lock_flg" />
+		<result column="employee_id" property="employee_id" />
+		<result column="employee_cd" property="employee_cd" />
+		<result column="employee_name1_last" property="employee_name1_last" />
+		<result column="enabled_flg" property="enabled_flg" />
+	</resultMap>
+
+	<!-- カウント -->
+	<select id="count" resultType="_int">
+		select count(*) from zm001_user
+	</select>
+
+    <!-- １件insert -->
+    <insert id="insertOne" parameterType="com.portal.z.common.domain.model.User">
+        insert into
+          zm001_user (
+           user_id
+          ,user_due_date
+          ,password
+          ,pass_update
+          <!-- login_miss_times　は　初期値を使う -->
+          ,lock_flg
+          ,employee_id
+          ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+          )
+        values (
+           #{user_id}
+          ,#{user_due_date}
+          ,#{password}
+          ,#{pass_update}
+          <!-- login_miss_times　は　初期値を使う -->
+          ,#{lock_flg}
+          ,#{employee_id}
+          ,#{enabled_flg}
+          ,#{insert_user}
+          ,NOW()
+          ,NULL
+          ,NULL
+          )
+    </insert>
+
+    <!-- １件検索 -->
+    <select id="selectOne" parameterType="string" resultType="com.portal.z.common.domain.model.User">
+        select
+           user_id
+          ,user_due_date
+          ,password
+          ,pass_update
+          ,login_miss_times
+          ,lock_flg
+          ,employee_id
+          ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          zm001_user u
+        where
+          user_id = #{user_id}
+    </select>
+
+    <!-- 全件検索 -->
+    <select id="selectMany" resultMap="user">
+        select
+           u.user_id
+          ,u.user_due_date
+          ,u.password
+          ,u.pass_update
+          ,u.login_miss_times
+          ,u.lock_flg
+          ,u.employee_id
+          ,e.employee_cd
+          ,e.employee_name1_last
+          ,u.enabled_flg
+          ,u.insert_user
+          ,u.insert_date
+          ,u.update_user
+          ,u.update_date
+        from
+          zm001_user u
+        left join am005_employee e
+          on e.employee_id = u.employee_id
+        order by
+          u.user_id
+    </select>
+
+    <!-- １件更新 -->
+    <update id="updateOne" parameterType="com.portal.z.common.domain.model.User">
+        update
+          zm001_user
+        set
+           user_due_date    = #{user_due_date}
+          ,pass_update      = #{pass_update}
+          ,login_miss_times = #{login_miss_times}
+          ,lock_flg         = #{lock_flg}
+          ,employee_id      = #{employee_id}
+          ,enabled_flg      = #{enabled_flg}
+          ,update_user      = #{update_user}
+          ,update_date      = NOW()
+        where
+          user_id           = #{user_id}
+    </update>
+
+    <!-- １件削除 -->
+    <delete id="deleteOne" parameterType="string">
+        delete from zm001_user where user_id = #{user_id}
+    </delete>
+    
+    <!-- ログイン失敗回数とロック状態を更新 -->
+    <update id="updateLockflg" parameterType="com.portal.z.common.domain.model.User">
+        update
+          zm001_user
+        set
+           login_miss_times = #{login_miss_times}
+          ,lock_flg         = #{lock_flg}
+          ,update_user      = #{update_user}
+          ,update_date      = NOW()
+        where
+          user_id           = #{user_id}
+    </update>
+    
+    <!-- パスワード及びパスワード有効期限を更新 -->
+    <update id="updatePassupdate" parameterType="com.portal.z.common.domain.model.User">
+        update
+          zm001_user
+        set
+           password    = #{password}
+          ,pass_update = #{pass_update}
+          ,update_user = #{update_user}
+          ,update_date = NOW()
+        where
+          user_id      = #{user_id}
+    </update>
+    
+    <!-- ユーザIDとユーザ有効期限で条件検索 -->
+    <select id="selectBy" parameterType="string" resultMap="user">
+    <![CDATA[
+        select
+           user_id
+          ,user_due_date
+          ,password
+          ,pass_update
+          ,login_miss_times
+          ,lock_flg
+          ,employee_id
+          ,enabled_flg
+          ,insert_user
+          ,insert_date
+          ,update_user
+          ,update_date
+        from
+          zm001_user
+        where user_id like CONCAT(#{user_id} , '%')
+        and TO_CHAR(user_due_date,'YYYYMMDD') >= #{user_due_date_from}
+        and TO_CHAR(user_due_date,'YYYYMMDD') <= #{user_due_date_to}
+        order by
+          user_id
+    ]]>
+    </select>
+    
+    <!-- ログイン失敗回数を0に更新 -->
+    <update id="updateLoginMissTimes" parameterType="string">
+        update
+          zm001_user
+        set
+           login_miss_times = 0
+          ,update_user = #{user_id}
+          ,update_date = NOW()
+        where
+          user_id = #{user_id}
+    </update>
+</mapper>
