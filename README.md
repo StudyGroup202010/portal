@@ -7,7 +7,7 @@
 Note
 -------
 - 社内勉強会用に使います。
-- 主な内容は[WIKI](https://github.com/StudyGroup202010/portal/wiki ) に移動しました。
+- 主な説明内容は[WIKI](https://github.com/StudyGroup202010/portal/wiki ) に移動しました。
 
 References
 -------
